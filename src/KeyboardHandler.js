@@ -22,7 +22,6 @@ KeyboardHandler.prototype = {
         thisKeyboard.Right.onHoldCallback = player.moveRight;        
         thisKeyboard.Up.onHoldCallback = player.jump;
 
-
         thisKeyboard.game.input.keyboard.onUpCallback = player.idle;        
         
 
