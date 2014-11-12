@@ -1,8 +1,8 @@
 KeyboardHandler = function(game) {
 
-	thisKeyboard = this;
+	tKeyboard = this;
 
-	thisKeyboard.game = game;		
+	tKeyboard.game = game;		
 };
 
 KeyboardHandler.prototype = {
@@ -12,27 +12,27 @@ KeyboardHandler.prototype = {
 
 		//TODO Pasar a Keyboard.cfg
 		//Key Map		
-		thisKeyboard.Up    = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.W);
-        thisKeyboard.Left  = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.A);
-        thisKeyboard.Down  = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.S);
-        thisKeyboard.Right = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.D);
+		tKeyboard.Up    = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.W);
+        tKeyboard.Left  = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.A);
+        tKeyboard.Down  = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.S);
+        tKeyboard.Right = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
-        thisKeyboard.ArrowUp = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        thisKeyboard.ArrowLeft = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        thisKeyboard.ArrowDown = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-        thisKeyboard.ArrowRight = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        tKeyboard.ArrowUp = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        tKeyboard.ArrowLeft = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        tKeyboard.ArrowDown = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        tKeyboard.ArrowRight = tKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
 
 
         //Key Function
-       	thisKeyboard.Left.onHoldCallback = player.moveLeft;
-        thisKeyboard.Right.onHoldCallback = player.moveRight;    
-        thisKeyboard.Up.onHoldCallback = player.jump;
+       	tKeyboard.Left.onHoldCallback = player.moveLeft;
+        tKeyboard.Right.onHoldCallback = player.moveRight;    
+        tKeyboard.Up.onHoldCallback = player.jump;
         //Cambiar por onDownCallback (no funciona)
-        thisKeyboard.ArrowRight.onHoldCallback = player.shoot;        
+        tKeyboard.ArrowRight.onHoldCallback = player.shoot;        
 
 
-        thisKeyboard.game.input.keyboard.onUpCallback = player.stopMove;        
+        tKeyboard.game.input.keyboard.onUpCallback = player.stopMove;        
         
 
 	}

@@ -1,19 +1,19 @@
 
 HUD = function(game) {
-	thisHUD = this;
-	thisHUD.game = game;
-	thisHUD.score = 0;
-	thisHUD.scoreText = null;
+	tHUD = this;
+	tHUD.game = game;
+	tHUD.score = 0;
+	tHUD.scoreText = null;
 };
 
 HUD.prototype = {
 
 	create: function() {
-		thisHUD.scoreText = thisHUD.game.add.text(16, 16, 'score: '+thisHUD.score, { fontSize: '32px', fill: '#000' });
+		tHUD.scoreText = tHUD.game.add.text(16, 16, 'score: '+tHUD.score, { fontSize: '32px', fill: '#000' });
 	},
 
 	drawScore: function () {
-		thisHUD.scoreText.text = 'score: '+thisHUD.score;
+		tHUD.scoreText.text = 'score: '+tHUD.score;
 	}
 
 };
