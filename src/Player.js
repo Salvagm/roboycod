@@ -38,7 +38,7 @@ Player.prototype = {
 	    thisPlayer.sprite.body.collideWorldBounds = true;
 		thisPlayer.sprite.body.setSize(58,60);
 
-	    thisPlayer.sprite.animations.add('idle', [2, 3], 2, true);
+	    thisPlayer.sprite.animations.add('idle', [2, 2, 2, 2, 3, 2, 2, 2, 2], 4, true);
 	    thisPlayer.sprite.animations.add('run', [5, 6, 7], 8, true);
 	    thisPlayer.sprite.animations.add('jump', [8], 5, false);
 	    thisPlayer.sprite.animations.add('shoot', [11], 3, false);
@@ -67,15 +67,14 @@ Player.prototype = {
 	    hud.drawScore();
 	},
 
-	idle: function(){	
-		if(thisPlayer.sprite.body.onFloor())						
-			thisPlayer.sprite.body.velocity.x = 0;	
+	stopMove: function(){									
+		thisPlayer.sprite.body.velocity.x = 0;	
 	},
 
-	moveLeft: function () { 
+	moveLeft: function () { 		
 		thisPlayer.moveTo(-1); 
 	},
-	moveRight: function () { 
+	moveRight: function () { 		
 		thisPlayer.moveTo(1);
 	},
 
@@ -90,9 +89,11 @@ Player.prototype = {
 	jump: function(){
 		if(thisPlayer.sprite.body.onFloor())
 			thisPlayer.sprite.body.velocity.y = thisPlayer.JUMP_SPEED;		
+		thisPlayer.sprite.body.velocity.x=0;
 	},
 	shoot: function(){
-		thisPlayer.sprite.body.velocity.x = 0;				
+		thisPlayer.sprite.body.velocity.x = 0;	
+		bullet.shoot();			
 	},
 
 	update: function() {			    

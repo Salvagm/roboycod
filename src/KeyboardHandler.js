@@ -25,11 +25,14 @@ KeyboardHandler.prototype = {
 
 
         //Key Function
-       	thisKeyboard.Left.onHoldCallback = player.moveLeft;        
-        thisKeyboard.Right.onHoldCallback = player.moveRight;        
+       	thisKeyboard.Left.onHoldCallback = player.moveLeft;
+        thisKeyboard.Right.onHoldCallback = player.moveRight;    
         thisKeyboard.Up.onHoldCallback = player.jump;
+        //Cambiar por onDownCallback (no funciona)
+        thisKeyboard.ArrowRight.onHoldCallback = player.shoot;        
 
-        thisKeyboard.game.input.keyboard.onUpCallback = player.idle;        
+
+        thisKeyboard.game.input.keyboard.onUpCallback = player.stopMove;        
         
 
 	}

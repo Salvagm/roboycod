@@ -60,13 +60,7 @@ Bullet.prototype = {
 	    bullet.body.velocity.y = 0;
 	},
 	update: function(){
-		// thisBullet.sprite.x = player.sprite.x;
-		// thisBullet.sprite.y = player.sprite.y;
-		// thisBullet.sprite.animations.play('idle');
 
-		  // Shoot a bullet
-	    if (thisKeyboard.ArrowRight.isDown) {
-	        thisBullet.shoot();	        
-	    }
+
 	}
 };
