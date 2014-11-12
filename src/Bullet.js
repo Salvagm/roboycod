@@ -65,7 +65,7 @@ Bullet.prototype = {
 		// thisBullet.sprite.animations.play('idle');
 
 		  // Shoot a bullet
-	    if (thisBullet.game.input.activePointer.isDown) {
+	    if (thisKeyboard.ArrowRight.isDown) {
 	        thisBullet.shoot();	        
 	    }
 	}

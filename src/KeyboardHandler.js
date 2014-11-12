@@ -17,6 +17,13 @@ KeyboardHandler.prototype = {
         thisKeyboard.Down  = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.S);
         thisKeyboard.Right = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
+        thisKeyboard.ArrowUp = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        thisKeyboard.ArrowLeft = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        thisKeyboard.ArrowDown = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        thisKeyboard.ArrowRight = thisKeyboard.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+
+
         //Key Function
        	thisKeyboard.Left.onHoldCallback = player.moveLeft;        
         thisKeyboard.Right.onHoldCallback = player.moveRight;        
