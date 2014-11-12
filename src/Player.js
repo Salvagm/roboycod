@@ -102,11 +102,11 @@ Player.prototype = {
     	
     	//Anim FSM
     	if(tPlayer.endShot){
-    		if(tPlayer.sprite.body.velocity.x != 0)
-    			tPlayer.animState = 1;
-    		else if(tPlayer.sprite.body.velocity.y != 0)
+    		if(tPlayer.sprite.body.velocity.y != 0)
     			tPlayer.animState = 2;
-    		else if(thisKeyboard.ArrowRight.isDown)
+    		else if(tPlayer.sprite.body.velocity.x != 0)
+    			tPlayer.animState = 1;
+    		else if(tKeyboard.ArrowRight.isDown)
     			tPlayer.animState = 3;
     		else 
     			tPlayer.animState = 0;
