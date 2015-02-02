@@ -7,6 +7,11 @@ module roboycod
 {
     export class EnemyMet extends EnemyBase
     {
+        LIVES   : number = 5;
 
+        constructor()
+        {
+            super();
+        }
     }
 }

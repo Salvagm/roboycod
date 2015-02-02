@@ -14,7 +14,8 @@ var roboycod;
     var EnemyMet = (function (_super) {
         __extends(EnemyMet, _super);
         function EnemyMet() {
-            _super.apply(this, arguments);
+            _super.call(this);
+            this.LIVES = 5;
         }
         return EnemyMet;
     })(roboycod.EnemyBase);

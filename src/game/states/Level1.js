@@ -1,13 +1,14 @@
+/**
+ * Created by javi on 2/02/15.
+ */
+///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../player/Player.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-/**
- * Created by javi on 2/02/15.
- */
-///<reference path="../../../build/phaser.d.ts"/>
 var roboycod;
 (function (roboycod) {
     var Level1 = (function (_super) {
@@ -23,6 +24,7 @@ var roboycod;
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
             console.log("CARGADO LEVEL1");
+            this.player = new roboycod.Player(this.game, 1024, 512);
         };
         return Level1;
     })(Phaser.State);
