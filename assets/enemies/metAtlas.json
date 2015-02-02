@@ -1,0 +1,39 @@
+{"frames": {
+
+"met01.png":
+{
+	"frame": {"x":2,"y":49,"w":40,"h":43},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":2,"w":40,"h":43},
+	"sourceSize": {"w":48,"h":45},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"met02.png":
+{
+	"frame": {"x":51,"y":2,"w":48,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":45},
+	"sourceSize": {"w":48,"h":45},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"met03.png":
+{
+	"frame": {"x":2,"y":2,"w":47,"h":45},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":47,"h":45},
+	"sourceSize": {"w":48,"h":45},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "metAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f6cf1510a8c0859b4ea10c42e1fef55c:26ba356cb0fb1571e9502e856b580435:0b1ad3a0e3b8acf4aabd84408e81a0df$"
+}
+}

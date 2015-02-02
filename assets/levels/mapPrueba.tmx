@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="448" height="256"/>
+ </tileset>
+ <layer name="ground" width="60" height="20">
+  <properties>
+   <property name="collides" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0UsKgDAMANEsGy+g1nv0/kezC8UQ0gqKCDoPZmH8VIgIAAAAAOCqsvUHY01N07u/c1uR/v7mWjYtwXtP7t6fE9WT5NhVMtfRPEpdZ8/07g/u/L3W3M+0MVPznUyfbgWMxBLE
+  </data>
+ </layer>
+</map>
