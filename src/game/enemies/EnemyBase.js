@@ -17,5 +17,6 @@ var roboycod;
         }
         return EnemyBase;
     })(Phaser.Sprite);
+    roboycod.EnemyBase = EnemyBase;
 })(roboycod || (roboycod = {}));
 //# sourceMappingURL=EnemyBase.js.map
