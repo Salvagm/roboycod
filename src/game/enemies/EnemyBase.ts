@@ -4,7 +4,12 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 module roboycod{
 
-    class  EnemyBase extends Phaser.Sprite{
+    export class  EnemyBase extends Phaser.Sprite{
+
+        MAX_SPEED : number;
+        GRAVITY : number;
+        LIVES : number;
+
 
         //constructor()
         //{

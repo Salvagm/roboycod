@@ -5,18 +5,19 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 /**
- * Created by javi on 2/02/15.
+ * Created by salva-pc on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="EnemyBase.ts"/>
 var roboycod;
 (function (roboycod) {
-    var EnemyBase = (function (_super) {
-        __extends(EnemyBase, _super);
-        function EnemyBase() {
+    var EnemyMet = (function (_super) {
+        __extends(EnemyMet, _super);
+        function EnemyMet() {
             _super.apply(this, arguments);
         }
-        return EnemyBase;
-    })(Phaser.Sprite);
-    roboycod.EnemyBase = EnemyBase;
+        return EnemyMet;
+    })(roboycod.EnemyBase);
+    roboycod.EnemyMet = EnemyMet;
 })(roboycod || (roboycod = {}));
-//# sourceMappingURL=EnemyBase.js.map
+//# sourceMappingURL=EnemyMet.js.map
