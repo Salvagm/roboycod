@@ -2,6 +2,11 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="Boot.ts"/>
+///<reference path="Preloader.ts"/>
+///<reference path="MainMenu.ts"/>
+///<reference path="Level1.ts"/>
+
 
 module roboycod
 {
