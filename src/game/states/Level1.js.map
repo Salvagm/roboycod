@@ -1,1 +1,1 @@
-{"version":3,"file":"Level1.js","sourceRoot":"","sources":["Level1.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,iDAAiD"}
+{"version":3,"file":"Level1.js","sourceRoot":"","sources":["Level1.ts"],"names":["roboycod","roboycod.Level1","roboycod.Level1.constructor"],"mappings":";;;;;;AAIA,AAJA;;GAEG;AACH,iDAAiD;AACjD,IAAO,QAAQ,CASd;AATD,WAAO,QAAQ,EAAA,CAAC;IAEZA,IAAaA,MAAMA;QAASC,UAAfA,MAAMA,UAAqBA;QAAxCA,SAAaA,MAAMA;YAASC,8BAAYA;QAKxCA,CAACA;QAADD,aAACA;IAADA,CAACA,AALDD,EAA4BA,MAAMA,CAACA,KAAKA,EAKvCA;IALYA,eAAMA,GAANA,MAKZA,CAAAA;AAELA,CAACA,EATM,QAAQ,KAAR,QAAQ,QASd"}

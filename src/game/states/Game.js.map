@@ -1,1 +1,1 @@
-{"version":3,"file":"Game.js","sourceRoot":"","sources":["Game.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,iDAAiD"}
+{"version":3,"file":"Game.js","sourceRoot":"","sources":["Game.ts"],"names":["roboycod","roboycod.Game","roboycod.Game.constructor"],"mappings":"AAAA;;GAEG;AACH,iDAAiD;;;;;;;AAEjD,IAAO,QAAQ,CAWd;AAXD,WAAO,QAAQ,EACf,CAAC;IACGA,IAAaA,IAAIA;QAASC,UAAbA,IAAIA,UAAoBA;QAArCA,SAAaA,IAAIA;YAASC,8BAAWA;QAOrCA,CAACA;QAADD,WAACA;IAADA,CAACA,AAPDD,EAA0BA,MAAMA,CAACA,IAAIA,EAOpCA;IAPYA,aAAIA,GAAJA,IAOZA,CAAAA;AAELA,CAACA,EAXM,QAAQ,KAAR,QAAQ,QAWd"}
