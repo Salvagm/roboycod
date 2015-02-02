@@ -6,15 +6,14 @@ module roboycod{
 
     export class  EnemyBase extends Phaser.Sprite{
 
-        MAX_SPEED : number;
-        GRAVITY : number;
-        LIVES : number;
+        constructor(game : Phaser.Game, sheetWidth : number, sheetheight : number, enemyKey : string)
+        {
+            super(game,sheetWidth,sheetheight,enemyKey,0);
+            this.game.physics.enable(this);
+            this.physicsEnabled = true;
+            this.body.collideWorldBounds = true;
 
-
-        //constructor()
-        //{
-        //    super()
-        //}
+        }
 
     }
 

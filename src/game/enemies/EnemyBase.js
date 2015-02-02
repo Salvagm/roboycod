@@ -12,8 +12,11 @@ var roboycod;
 (function (roboycod) {
     var EnemyBase = (function (_super) {
         __extends(EnemyBase, _super);
-        function EnemyBase() {
-            _super.apply(this, arguments);
+        function EnemyBase(game, sheetWidth, sheetheight, enemyKey) {
+            _super.call(this, game, sheetWidth, sheetheight, enemyKey, 0);
+            this.game.physics.enable(this);
+            this.physicsEnabled = true;
+            this.body.collideWorldBounds = true;
         }
         return EnemyBase;
     })(Phaser.Sprite);

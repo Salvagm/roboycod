@@ -13,9 +13,14 @@ var roboycod;
 (function (roboycod) {
     var EnemyMet = (function (_super) {
         __extends(EnemyMet, _super);
-        function EnemyMet() {
-            _super.call(this);
+        function EnemyMet(game) {
+            _super.call(this, game, 128, 128, 'Met');
             this.LIVES = 5;
+            this.GRAVITY = 1800;
+            this.body.health = this.LIVES;
+            this.body.bounce.y = 0;
+            this.body.gravity.y = this.GRAVITY;
+            this.body.setSize(40, 40, 5, 5);
         }
         return EnemyMet;
     })(roboycod.EnemyBase);
