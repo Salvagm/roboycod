@@ -4,7 +4,7 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
 
-module roboycod{
+module roboycod {
 
     export class Level1 extends Phaser.State{
 

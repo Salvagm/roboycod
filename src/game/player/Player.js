@@ -8,6 +8,7 @@ var __extends = this.__extends || function (d, b) {
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../utils/KeyboardHandler.ts"/>
 var roboycod;
 (function (roboycod) {
     var Player = (function (_super) {
@@ -38,9 +39,55 @@ var roboycod;
             this.animations.add('shoot', [11], 3, false);
             this.animations.add('jumpShoot', [15], 3, false);
             this.animations.add('runShoot', [12, 13, 14], 8, false);
-            this.animations.play('idle');
             game.add.existing(this);
         }
+        Player.prototype.create = function () {
+            this.animations.play('idle');
+            //callback end shoot
+            this.animations.getAnimation('shoot').onStart.add(function () {
+                this.endShot = false;
+            });
+            this.animations.getAnimation('shoot').onComplete.add(function () {
+                this.endShot = true;
+            });
+            this.animations.getAnimation('jumpShoot').onStart.add(function () {
+                this.endShot = false;
+            });
+            this.animations.getAnimation('jumpShoot').onComplete.add(function () {
+                this.endShot = true;
+            });
+            this.animations.getAnimation('runShoot').onStart.add(function () {
+                this.endShot = false;
+            });
+            this.animations.getAnimation('runShoot').onComplete.add(function () {
+                this.endShot = true;
+            });
+        };
+        Player.prototype.stopMove = function () {
+            this.body.velocity.x = 0;
+        };
+        Player.prototype.moveTo = function (direction) {
+            if (this.direction != direction) {
+                this.anchor.setTo(.5, .0);
+                this.scale.x *= -1;
+                this.direction = direction;
+            }
+            if (-this.MAX_SPEED < this.body.velocity.x && this.body.velocity.x < this.MAX_SPEED)
+                this.body.velocity.x += direction * this.ACCELERATION;
+        };
+        Player.prototype.moveLeft = function () {
+            this.moveTo(-1);
+        };
+        Player.prototype.moveRight = function () {
+            this.moveTo(1);
+        };
+        Player.prototype.jump = function () {
+            if (this.body.onFloor())
+                this.body.velocity.y = this.JUMP_SPEED;
+        };
+        Player.prototype.shoot = function () {
+            //gun.shoot();
+        };
         return Player;
     })(Phaser.Sprite);
     roboycod.Player = Player;
