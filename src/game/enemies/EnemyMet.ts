@@ -9,9 +9,9 @@ module roboycod
     {
         LIVES   : number = 5;
 
-        constructor()
-        {
-            super();
-        }
+        //constructor()
+        //{
+        //    super();
+        //}
     }
 }

@@ -7,7 +7,7 @@ module roboycod{
     export class Preloader extends Phaser.State {
 
         //  Barra de carga
-        preloadBar: Phaser.Sprite;
+        preloadBar  : Phaser.Sprite;
 
         preload(){
 

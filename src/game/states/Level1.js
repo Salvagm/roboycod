@@ -26,6 +26,9 @@ var roboycod;
             console.log("CARGADO LEVEL1");
             this.player = new roboycod.Player(this.game, 1024, 512);
         };
+        Level1.prototype.update = function () {
+            this.game.physics.arcade.collide(this.player, this.groundLayer);
+        };
         return Level1;
     })(Phaser.State);
     roboycod.Level1 = Level1;

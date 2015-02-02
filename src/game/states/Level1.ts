@@ -26,6 +26,9 @@ module roboycod{
 
             this.player = new Player(this.game,1024,512);
         }
+        update(){
+            this.game.physics.arcade.collide(this.player, this.groundLayer);
+        }
     }
 
 }

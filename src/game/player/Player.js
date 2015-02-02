@@ -12,8 +12,8 @@ var roboycod;
 (function (roboycod) {
     var Player = (function (_super) {
         __extends(Player, _super);
-        function Player(game, x, y) {
-            _super.call(this, game, x, y, 'robot', 0);
+        function Player(game, sheetWidth, sheetHeight) {
+            _super.call(this, game, sheetWidth, sheetHeight, 'robot', 0);
             this.direction = 1;
             this.animState = 'idle';
             this.endShot = true;

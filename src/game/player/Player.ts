@@ -17,9 +17,9 @@ module roboycod{
         ACCELERATION: number = 100;
         DRAG        : number = 50;
 
-        constructor(game: Phaser.Game, x: number, y: number) {
+        constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number) {
 
-            super(game, x, y, 'robot', 0);
+            super(game, sheetWidth, sheetHeight, 'robot', 0);
 
             this.game.physics.enable(this);
 
