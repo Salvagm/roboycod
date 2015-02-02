@@ -22,3 +22,9 @@ module roboycod
     }
 
 }
+
+window.onload = () => {
+
+    var game = new roboycod.Game(800, 600);
+
+};

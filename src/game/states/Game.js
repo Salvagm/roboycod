@@ -24,4 +24,7 @@ var roboycod;
     })(Phaser.Game);
     roboycod.Game = Game;
 })(roboycod || (roboycod = {}));
+window.onload = function () {
+    var game = new roboycod.Game(800, 600);
+};
 //# sourceMappingURL=Game.js.map

@@ -15,6 +15,15 @@ var roboycod;
         function Level1() {
             _super.apply(this, arguments);
         }
+        Level1.prototype.create = function () {
+            this.ground = this.add.tilemap('level');
+            this.ground.addTilesetImage('tiles');
+            this.ground.setCollision([8, 9, 10, 22, 23, 24]);
+            // El nombre es el valor "name:" del .json
+            this.groundLayer = this.ground.createLayer('ground');
+            this.groundLayer.resizeWorld();
+            console.log("CARGADO LEVEL1");
+        };
         return Level1;
     })(Phaser.State);
     roboycod.Level1 = Level1;
