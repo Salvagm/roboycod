@@ -1,1 +1,1 @@
-{"version":3,"file":"Player.js","sourceRoot":"","sources":["Player.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,iDAAiD"}
+{"version":3,"file":"Player.js","sourceRoot":"","sources":["Player.ts"],"names":["roboycod","roboycod.Player","roboycod.Player.constructor"],"mappings":";;;;;;AAIA,AAJA;;GAEG;AACH,iDAAiD;AACjD,IAAO,QAAQ,CAKd;AALD,WAAO,QAAQ,EAAA,CAAC;IAEZA,IAAaA,MAAMA;QAASC,UAAfA,MAAMA,UAAsBA;QAAzCA,SAAaA,MAAMA;YAASC,8BAAaA;QACzCA,CAACA;QAADD,aAACA;IAADA,CAACA,AADDD,EAA4BA,MAAMA,CAACA,MAAMA,EACxCA;IADYA,eAAMA,GAANA,MACZA,CAAAA;AAELA,CAACA,EALM,QAAQ,KAAR,QAAQ,QAKd"}
