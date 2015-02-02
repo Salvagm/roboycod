@@ -7,7 +7,7 @@ module roboycod{
     export class Preloader extends Phaser.State {
 
         //  Barra de carga
-        preloadBar: Phaser.Sprite;
+        preloadBar  : Phaser.Sprite;
 
         preload(){
 
@@ -17,7 +17,7 @@ module roboycod{
 
             //  Cargamos assets
             this.load.atlasJSONHash(
-                'robot1',
+                'robot',
                 'assets/player/mega1Atlas.png',
                 'assets/player/mega1Atlas.json'
             );
