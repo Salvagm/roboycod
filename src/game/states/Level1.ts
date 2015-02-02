@@ -31,9 +31,11 @@ module roboycod{
 
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
-            //this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
+            this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
 
         }
+
+
     }
 
 }

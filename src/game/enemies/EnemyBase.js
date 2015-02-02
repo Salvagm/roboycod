@@ -14,13 +14,13 @@ var roboycod;
         __extends(EnemyBase, _super);
         function EnemyBase(game, sheetWidth, sheetheight, enemyKey) {
             _super.call(this, game, sheetWidth, sheetheight, enemyKey, 0);
-            //this.game.physics.enable(this);
-            //this.physicsEnabled = true;
-            //this.body.collideWorldBounds = true;
-            //this.body.bounce.y = 0;
-            //this.body.gravity.y= 1800;
-            //this.x = 10;
-            //this.y = this.game.height;
+            this.game.physics.enable(this);
+            this.body.bounce.y = 0;
+            this.body.gravity.y = 1800;
+            this.body.collideWorldBounds = true;
+            this.x = 300;
+            this.y = this.game.height / 2;
+            game.add.existing(this);
         }
         return EnemyBase;
     })(Phaser.Sprite);

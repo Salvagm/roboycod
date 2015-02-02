@@ -30,7 +30,7 @@ var roboycod;
         };
         Level1.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
-            //this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
+            this.game.physics.arcade.collide(this.enemyTemp, this.groundLayer);
         };
         return Level1;
     })(Phaser.State);
