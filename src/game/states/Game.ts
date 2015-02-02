@@ -7,10 +7,17 @@ module roboycod
 {
     export class Game extends Phaser.Game
     {
-        //constructor(width,height){
-        //
-        //    super(width,height,Phaser.AUTO,)
-        //}
+        constructor(width,height){
+
+            super(width,height,Phaser.AUTO,'content');
+
+            this.state.add('Boot',Boot,false);
+            this.state.add('Preloader',Preloader,false);
+            this.state.add('MainMenu',MainMenu,false);
+            this.state.add('Level1',Level1,false);
+
+            this.state.start('Boot');
+        }
 
     }
 

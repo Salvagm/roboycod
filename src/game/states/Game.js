@@ -12,8 +12,13 @@ var roboycod;
 (function (roboycod) {
     var Game = (function (_super) {
         __extends(Game, _super);
-        function Game() {
-            _super.apply(this, arguments);
+        function Game(width, height) {
+            _super.call(this, width, height, Phaser.AUTO, 'content');
+            this.state.add('Boot', Boot, false);
+            this.state.add('Preloader', Preloader, false);
+            this.state.add('MainMenu', MainMenu, false);
+            this.state.add('Level1', Level1, false);
+            this.state.start('Boot');
         }
         return Game;
     })(Phaser.Game);
