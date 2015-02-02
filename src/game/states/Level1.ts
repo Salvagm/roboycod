@@ -3,7 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
-
+///<reference path="../enemies/EnemyMet.ts"/>
 module roboycod{
 
     export class Level1 extends Phaser.State{
@@ -11,8 +11,8 @@ module roboycod{
         ground      : Phaser.Tilemap;
         groundLayer : Phaser.TilemapLayer;
         player      : roboycod.Player;
-        Enemies     : Phaser.Group;
-
+        enemies     : Phaser.Group;
+        enemyTemp   : roboycod.EnemyBase;
         create(){
 
             this.ground = this.add.tilemap('level');
@@ -22,12 +22,17 @@ module roboycod{
             // El nombre es el valor "name:" del .json
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
-            console.log("CARGADO LEVEL1");
+
 
             this.player = new Player(this.game,1024,512);
+            this.enemyTemp = new EnemyBase(this.game,128,128,'megaMet');
+            console.log(this.enemyTemp);
         }
+
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
+            //this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
+
         }
     }
 

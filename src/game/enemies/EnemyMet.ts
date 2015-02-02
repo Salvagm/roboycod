@@ -3,8 +3,9 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="EnemyBase.ts"/>
-module roboycod
-{
+
+module roboycod {
+
     export class EnemyMet extends EnemyBase
     {
         LIVES   : number = 5;
@@ -12,11 +13,19 @@ module roboycod
 
         constructor(game : Phaser.Game)
         {
-            super(game,128,128,'Met');
-            this.body.health = this.LIVES;
-            this.body.bounce.y = 0;
-            this.body.gravity.y = this.GRAVITY;
-            this.body.setSize(40,40,5,5);
+            super(game,128,128,'megaMet');
+
+            //this.body.health = this.LIVES;
+            //this.body.bounce.y = 0;
+            //this.body.gravity.y = this.GRAVITY;
+            //this.body.setSize(40,40,5,5);
+            //this.x = 10;
+            //this.y = this.game.height/2;
         }
+
+        //update()
+        //{
+        //
+        //}
     }
 }

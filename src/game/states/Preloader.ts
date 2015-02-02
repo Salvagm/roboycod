@@ -21,6 +21,12 @@ module roboycod{
                 'assets/player/mega1Atlas.png',
                 'assets/player/mega1Atlas.json'
             );
+            this.load.atlasJSONHash(
+                'megaMet',
+                'assets/enemies/metAtlas.png',
+                'assets/enemies/metAtlas.json'
+            );
+
             this.game.load.image('sky', 'assets/sky.png');
             this.game.load.image('ground', 'assets/platform.png');
             this.game.load.image('star', 'assets/star.png');
