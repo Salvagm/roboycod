@@ -20,7 +20,7 @@ var roboycod;
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
             //  Cargamos assets
-            this.load.atlasJSONHash('robot1', 'assets/player/mega1Atlas.png', 'assets/player/mega1Atlas.json');
+            this.load.atlasJSONHash('robot', 'assets/player/mega1Atlas.png', 'assets/player/mega1Atlas.json');
             this.game.load.image('sky', 'assets/sky.png');
             this.game.load.image('ground', 'assets/platform.png');
             this.game.load.image('star', 'assets/star.png');

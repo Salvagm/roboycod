@@ -17,7 +17,7 @@ module roboycod{
 
             //  Cargamos assets
             this.load.atlasJSONHash(
-                'robot1',
+                'robot',
                 'assets/player/mega1Atlas.png',
                 'assets/player/mega1Atlas.json'
             );
