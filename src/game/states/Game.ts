@@ -9,7 +9,7 @@ module roboycod
     {
         constructor(width,height){
 
-            super(width,height,Phaser.AUTO,'content',null);
+            super(width,height,Phaser.AUTO,'content');
 
             this.state.add('Boot',Boot,false);
             this.state.add('Preloader',Preloader,false);
