@@ -10,7 +10,7 @@ module roboycod
 
         preload()
         {
-            this.load.image('preloadBar','../../../assets/loader.png');
+            this.load.image('preloadBar','assets/loader.png');
         }
 
         create()

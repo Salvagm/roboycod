@@ -16,7 +16,7 @@ var roboycod;
             _super.apply(this, arguments);
         }
         Boot.prototype.preload = function () {
-            this.load.image('preloadBar', '../../../assets/loader.png');
+            this.load.image('preloadBar', 'assets/loader.png');
         };
         Boot.prototype.create = function () {
             //No incluimos multitouch

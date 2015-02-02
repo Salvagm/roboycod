@@ -20,15 +20,15 @@ var roboycod;
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
             //  Cargamos assets
-            this.load.atlasJSONHash('robot1', '../../../assets/player/mega1Atlas.png', '../../../assets/player/mega1Atlas.json');
-            this.game.load.image('sky', '../../../assets/sky.png');
-            this.game.load.image('ground', '../../../assets/platform.png');
-            this.game.load.image('star', '../../../assets/star.png');
+            this.load.atlasJSONHash('robot1', 'assets/player/mega1Atlas.png', 'assets/player/mega1Atlas.json');
+            this.game.load.image('sky', 'assets/sky.png');
+            this.game.load.image('ground', 'assets/platform.png');
+            this.game.load.image('star', 'assets/star.png');
             //  Cargamos ahora el mapa en json del nivel
             //TODO Cambiar titulos por level1, level2... map1, map2
-            this.game.load.tilemap('level', '../../../assets/levels/mapPrueba.json', null, Phaser.Tilemap.TILED_JSON);
+            this.game.load.tilemap('level', 'assets/levels/mapPrueba.json', null, Phaser.Tilemap.TILED_JSON);
             //  Cargamos tiles
-            this.game.load.image('tiles', '../../../assets/levels/tiles.png');
+            this.game.load.image('tiles', 'assets/levels/tiles.png');
         };
         Preloader.prototype.create = function () {
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
