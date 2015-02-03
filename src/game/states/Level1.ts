@@ -23,10 +23,12 @@ module roboycod{
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
 
+            // Inicializamos el grupo de enemigos del nivel
+            this.enemies = this.game.add.group();
 
             this.player = new Player(this.game,1024,512);
-            this.enemyTemp = new EnemyBase(this.game,128,128,'megaMet');
-            console.log(this.enemyTemp);
+            this.enemyTemp = new EnemyMet(this.game);
+
         }
 
         update(){

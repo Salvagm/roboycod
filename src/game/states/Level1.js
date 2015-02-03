@@ -24,9 +24,10 @@ var roboycod;
             // El nombre es el valor "name:" del .json
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
+            // Inicializamos el grupo de enemigos del nivel
+            this.enemies = this.game.add.group();
             this.player = new roboycod.Player(this.game, 1024, 512);
-            this.enemyTemp = new roboycod.EnemyBase(this.game, 128, 128, 'megaMet');
-            console.log(this.enemyTemp);
+            this.enemyTemp = new roboycod.EnemyMet(this.game);
         };
         Level1.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
