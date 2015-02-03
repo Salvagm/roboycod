@@ -36,8 +36,5 @@ module roboycod{
             this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
 
         }
-
-
     }
-
 }

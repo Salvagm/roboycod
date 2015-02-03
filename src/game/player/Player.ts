@@ -2,6 +2,7 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../utils/KeyboardHandler.ts"/>
 module roboycod{
 
     export class Player extends Phaser.Sprite {
@@ -19,7 +20,7 @@ module roboycod{
 
         constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number) {
 
-            super(game, sheetWidth, sheetHeight, 'robot', 0);
+            super(game, sheetWidth, sheetHeight, 'robot', 2);
 
             this.game.physics.enable(this);
 
@@ -41,11 +42,93 @@ module roboycod{
             this.animations.add('jumpShoot', [15], 3, false);
             this.animations.add('runShoot', [12, 13, 14], 8, false);
 
-            this.animations.play('idle');
+            this.create();
 
             game.add.existing(this);
 
         }
+        create() {
+
+            this.animations.play('idle');
+
+            //callback end shoot
+            this.animations.getAnimation('shoot').onStart.add(function(){
+                this.endShot = false;
+            });
+            this.animations.getAnimation('shoot').onComplete.add(function(){
+                this.endShot = true;
+            });
+            this.animations.getAnimation('jumpShoot').onStart.add(function(){
+                this.endShot = false;
+            });
+            this.animations.getAnimation('jumpShoot').onComplete.add(function(){
+                this.endShot = true;
+            });
+            this.animations.getAnimation('runShoot').onStart.add(function(){
+                this.endShot = false;
+            });
+            this.animations.getAnimation('runShoot').onComplete.add(function(){
+                this.endShot = true;
+            });
+
+        }
+
+        stopMove() : void {
+            this.body.velocity.x = 0;
+        }
+        moveTo(direction : number) : void{
+            if(this.direction!=direction){
+                this.anchor.setTo(.5,.0);
+                this.scale.x *= -1;
+                this.direction = direction;
+            }
+            if(-this.MAX_SPEED < this.body.velocity.x && this.body.velocity.x < this.MAX_SPEED)
+                this.body.velocity.x += direction * this.ACCELERATION;
+        }
+        moveLeft() : void {
+            this.moveTo(-1);
+        }
+        moveRight() :void {
+            this.moveTo(1);
+        }
+        jump() {
+            if(this.body.onFloor())
+                this.body.velocity.y = this.JUMP_SPEED;
+        }
+        shoot() {
+            //gun.shoot();
+        }
+
+        //update() {
+        //
+        //    //Anim FSM
+        //    if(this.endShot){
+        //        if(this.body.velocity.y != 0){
+        //            this.animState = 'jump';
+        //            if(tKeyboard.ArrowRight.isDown)
+        //                this.animState = 'jumpShoot';
+        //        }
+        //        else if(this.body.velocity.x != 0){
+        //            this.animState = 'run';
+        //            if(tKeyboard.ArrowRight.isDown)
+        //                this.animState = 'runShoot';
+        //        }
+        //        else if(tKeyboard.ArrowRight.isDown)
+        //            this.animState = 'shoot';
+        //        else
+        //            this.animState = 'idle';
+        //    }
+        //    else{
+        //        if(this.body.onFloor() && this.body.velocity.x != 0)
+        //            this.animState = 'runShoot';
+        //        else if(!this.body.onFloor())
+        //            this.animState = 'jumpShoot';
+        //        else
+        //            this.animState = 'shoot';
+        //    }
+        //
+        //    this.animations.play(this.animState);
+        //}
 
     }
 
