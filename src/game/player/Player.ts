@@ -20,7 +20,7 @@ module roboycod{
 
         constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number) {
 
-            super(game, sheetWidth, sheetHeight, 'robot', 0);
+            super(game, sheetWidth, sheetHeight, 'robot', 2);
 
             this.game.physics.enable(this);
 
@@ -41,6 +41,8 @@ module roboycod{
             this.animations.add('shoot', [11], 3, false);
             this.animations.add('jumpShoot', [15], 3, false);
             this.animations.add('runShoot', [12, 13, 14], 8, false);
+
+            this.create();
 
             game.add.existing(this);
 

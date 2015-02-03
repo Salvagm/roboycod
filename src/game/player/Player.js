@@ -14,7 +14,7 @@ var roboycod;
     var Player = (function (_super) {
         __extends(Player, _super);
         function Player(game, sheetWidth, sheetHeight) {
-            _super.call(this, game, sheetWidth, sheetHeight, 'robot', 0);
+            _super.call(this, game, sheetWidth, sheetHeight, 'robot', 2);
             this.direction = 1;
             this.animState = 'idle';
             this.endShot = true;
@@ -39,6 +39,7 @@ var roboycod;
             this.animations.add('shoot', [11], 3, false);
             this.animations.add('jumpShoot', [15], 3, false);
             this.animations.add('runShoot', [12, 13, 14], 8, false);
+            this.create();
             game.add.existing(this);
         }
         Player.prototype.create = function () {
