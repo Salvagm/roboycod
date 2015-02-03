@@ -8,8 +8,8 @@ module roboycod {
 
     export class EnemyMet extends EnemyBase
     {
-        LIVES   : number = 5;
-        GRAVITY : number = 2000;
+        private LIVES   : number = 5;
+        private GRAVITY : number = 2000;
 
         constructor(game : Phaser.Game)
         {

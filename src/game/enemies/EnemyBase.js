@@ -8,6 +8,7 @@ var __extends = this.__extends || function (d, b) {
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../player/GunBase.ts"/>
 var roboycod;
 (function (roboycod) {
     var EnemyBase = (function (_super) {
@@ -18,6 +19,10 @@ var roboycod;
             this.body.collideWorldBounds = true;
             game.add.existing(this);
         }
+        EnemyBase.prototype.receiveDamange = function (enemy, shoot) {
+            enemy.damage(shoot.health);
+            shoot.kill();
+        };
         return EnemyBase;
     })(Phaser.Sprite);
     roboycod.EnemyBase = EnemyBase;

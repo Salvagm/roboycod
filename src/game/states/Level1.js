@@ -28,6 +28,7 @@ var roboycod;
             this.enemies = this.game.add.group();
             this.player = new roboycod.Player(this.game, 1024, 512);
             this.enemyTemp = new roboycod.EnemyMet(this.game);
+            console.log(this.game.cache.getJSON('level1')[1]);
         };
         Level1.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);

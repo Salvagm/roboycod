@@ -22,6 +22,8 @@ var roboycod;
             //  Cargamos assets
             this.load.atlasJSONHash('robot', 'assets/player/mega1Atlas.png', 'assets/player/mega1Atlas.json');
             this.load.atlasJSONHash('megaMet', 'assets/enemies/metAtlas.png', 'assets/enemies/metAtlas.json');
+            //Cargados los JSON de los niveles en cache
+            this.game.load.json('level1', 'assets/levels/mapPrueba.json');
             this.game.load.image('sky', 'assets/sky.png');
             this.game.load.image('ground', 'assets/platform.png');
             this.game.load.image('star', 'assets/star.png');

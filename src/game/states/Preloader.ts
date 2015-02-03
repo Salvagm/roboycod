@@ -26,6 +26,9 @@ module roboycod{
                 'assets/enemies/metAtlas.png',
                 'assets/enemies/metAtlas.json'
             );
+            //Cargados los JSON de los niveles en cache
+            this.game.load.json('level1','assets/levels/mapPrueba.json');
+
 
             this.game.load.image('sky', 'assets/sky.png');
             this.game.load.image('ground', 'assets/platform.png');
@@ -36,11 +39,12 @@ module roboycod{
             this.game.load.tilemap(
                 'level',
                 'assets/levels/mapPrueba.json',
-                null,
+                 null,
                 Phaser.Tilemap.TILED_JSON);
 
             //  Cargamos tiles
             this.game.load.image('tiles','assets/levels/tiles.png');
+
         }
 
         create() {

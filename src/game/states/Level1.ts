@@ -29,6 +29,9 @@ module roboycod{
             this.player = new Player(this.game,1024,512);
             this.enemyTemp = new EnemyMet(this.game);
 
+
+            console.log(this.game.cache.getJSON('level1')[1]);
+
         }
 
         update(){
