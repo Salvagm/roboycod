@@ -10,6 +10,7 @@ module Roboycod {
     {
         private LIVES   : number = 5;
         private GRAVITY : number = 2000;
+        private DRAG    : number = 3000;
 
         constructor(game : Phaser.Game)
         {
@@ -18,6 +19,7 @@ module Roboycod {
             this.body.health = this.LIVES;
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
+            this.body.drag.setTo(this.DRAG,0);
             this.body.setSize(40,40,5,5);
             this.x = 300;
             this.y = this.game.height/2;

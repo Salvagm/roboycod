@@ -19,6 +19,14 @@ var Roboycod;
             _super.apply(this, arguments);
         }
         Level.prototype.create = function () {
+            //CARGAMOS EL NIVEL
+            //TODO modificar---> realmente debemos pasarle por parametros el nombre del nivel y no ponerselo a pelo
+            var tempJSON = this.game.cache.getJSON('level1');
+            //almacenamos info del mapa
+            this.loadMap(tempJSON.layers[0]);
+            //almacenamos info de los enemigos
+            this.loadEnemies(tempJSON.layers[1]);
+            //loadEnemies(tempJSON.layers[1]);
             this.ground = this.add.tilemap('level');
             this.ground.addTilesetImage('tiles');
             this.ground.setCollision([8, 9, 10, 22, 23, 24]);
@@ -32,7 +40,13 @@ var Roboycod;
             // Inicializamos el grupo de enemigos del nivel
             this.enemies = this.game.add.group();
             this.enemyTemp = new Roboycod.EnemyMet(this.game);
-            //console.log(this.game.cache.getJSON('level')[1]);
+            //console.log(datos.parse("Enemigos"));
+        };
+        Level.prototype.loadMap = function (mapaData) {
+            console.log(mapaData);
+        };
+        Level.prototype.loadEnemies = function (enemyData) {
+            console.log(enemyData);
         };
         Level.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);

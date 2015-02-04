@@ -31,7 +31,7 @@ module Roboycod{
             this.body.drag.setTo(this.DRAG, 0);
 
             this.body.collideWorldBounds = true;
-            this.body.setSize(55,60);
+            this.body.setSize(55,59);
 
             this.setPosition(0, this.game.height/2);
 
@@ -49,7 +49,7 @@ module Roboycod{
             this.create();
 
             game.add.existing(this);
-
+            this.game.camera.follow(this);
         }
 
         public setPosition(x : number, y : number){
@@ -138,6 +138,7 @@ module Roboycod{
             }
 
             this.animations.play(this.animState);
+            //this.game.debug.body(this);
         }
 
     }

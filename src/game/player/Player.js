@@ -30,7 +30,7 @@ var Roboycod;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
-            this.body.setSize(55, 60);
+            this.body.setSize(55, 59);
             this.setPosition(0, this.game.height / 2);
             this.anchor.setTo(0.5, 0);
             this.kh = kh;
@@ -42,6 +42,7 @@ var Roboycod;
             this.animations.add('runShoot', [12, 13, 14], 8, false);
             this.create();
             game.add.existing(this);
+            this.game.camera.follow(this);
         }
         Player.prototype.setPosition = function (x, y) {
             this.x = x;
@@ -121,6 +122,7 @@ var Roboycod;
                     this.animState = 'shoot';
             }
             this.animations.play(this.animState);
+            //this.game.debug.body(this);
         };
         return Player;
     })(Phaser.Sprite);

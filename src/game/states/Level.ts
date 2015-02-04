@@ -18,7 +18,19 @@ module Roboycod{
         enemies     : Phaser.Group;
         enemyTemp   : EnemyBase;
 
+
         create(){
+
+            //CARGAMOS EL NIVEL
+            //TODO modificar---> realmente debemos pasarle por parametros el nombre del nivel y no ponerselo a pelo
+            var tempJSON = this .game.cache.getJSON('level1');
+
+            //almacenamos info del mapa
+            this.loadMap(tempJSON.layers[0]);
+            //almacenamos info de los enemigos
+            this.loadEnemies(tempJSON.layers[1]);
+            //loadEnemies(tempJSON.layers[1]);
+
 
             this.ground = this.add.tilemap('level');
             this.ground.addTilesetImage('tiles');
@@ -38,9 +50,21 @@ module Roboycod{
             this.enemyTemp = new EnemyMet(this.game);
 
 
-            //console.log(this.game.cache.getJSON('level')[1]);
+            //console.log(datos.parse("Enemigos"));
 
         }
+
+
+        private loadMap(mapaData : JSON) : void
+        {
+            console.log(mapaData);
+        }
+
+        private loadEnemies(enemyData : JSON) : void
+        {
+            console.log(enemyData);
+        }
+
 
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
