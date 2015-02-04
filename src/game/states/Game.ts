@@ -5,10 +5,10 @@
 ///<reference path="Boot.ts"/>
 ///<reference path="Preloader.ts"/>
 ///<reference path="MainMenu.ts"/>
-///<reference path="Level1.ts"/>
+///<reference path="Level.ts"/>
 
 
-module roboycod
+module Roboycod
 {
     export class Game extends Phaser.Game
     {
@@ -19,7 +19,7 @@ module roboycod
             this.state.add('Boot',Boot,false);
             this.state.add('Preloader',Preloader,false);
             this.state.add('MainMenu',MainMenu,false);
-            this.state.add('Level1',Level1,false);
+            this.state.add('Level',Level,false);
 
             this.state.start('Boot');
         }
@@ -30,6 +30,6 @@ module roboycod
 
 window.onload = () => {
 
-    var game = new roboycod.Game(800, 600);
+    var game = new Roboycod.Game(800, 600);
 
 };

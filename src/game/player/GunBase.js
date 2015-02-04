@@ -8,8 +8,8 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var GunBase = (function (_super) {
         __extends(GunBase, _super);
         function GunBase() {
@@ -17,6 +17,6 @@ var roboycod;
         }
         return GunBase;
     })(Phaser.Group);
-    roboycod.GunBase = GunBase;
-})(roboycod || (roboycod = {}));
+    Roboycod.GunBase = GunBase;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=GunBase.js.map

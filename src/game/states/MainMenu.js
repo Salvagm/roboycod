@@ -8,8 +8,8 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var MainMenu = (function (_super) {
         __extends(MainMenu, _super);
         function MainMenu() {
@@ -19,10 +19,10 @@ var roboycod;
             this.startGame();
         };
         MainMenu.prototype.startGame = function () {
-            this.game.state.start('Level1', true, false);
+            this.game.state.start('Level', true, false);
         };
         return MainMenu;
     })(Phaser.State);
-    roboycod.MainMenu = MainMenu;
-})(roboycod || (roboycod = {}));
+    Roboycod.MainMenu = MainMenu;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=MainMenu.js.map

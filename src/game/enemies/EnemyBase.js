@@ -9,8 +9,8 @@ var __extends = this.__extends || function (d, b) {
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/GunBase.ts"/>
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var EnemyBase = (function (_super) {
         __extends(EnemyBase, _super);
         function EnemyBase(game, sheetWidth, sheetheight, enemyKey) {
@@ -25,6 +25,6 @@ var roboycod;
         };
         return EnemyBase;
     })(Phaser.Sprite);
-    roboycod.EnemyBase = EnemyBase;
-})(roboycod || (roboycod = {}));
+    Roboycod.EnemyBase = EnemyBase;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=EnemyBase.js.map

@@ -8,8 +8,8 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var Preloader = (function (_super) {
         __extends(Preloader, _super);
         function Preloader() {
@@ -42,6 +42,6 @@ var roboycod;
         };
         return Preloader;
     })(Phaser.State);
-    roboycod.Preloader = Preloader;
-})(roboycod || (roboycod = {}));
+    Roboycod.Preloader = Preloader;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=Preloader.js.map

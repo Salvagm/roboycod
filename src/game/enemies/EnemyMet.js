@@ -9,8 +9,8 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var EnemyMet = (function (_super) {
         __extends(EnemyMet, _super);
         function EnemyMet(game) {
@@ -25,7 +25,7 @@ var roboycod;
             this.y = this.game.height / 2;
         }
         return EnemyMet;
-    })(roboycod.EnemyBase);
-    roboycod.EnemyMet = EnemyMet;
-})(roboycod || (roboycod = {}));
+    })(Roboycod.EnemyBase);
+    Roboycod.EnemyMet = EnemyMet;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=EnemyMet.js.map

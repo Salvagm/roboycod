@@ -2,8 +2,9 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+    ///<reference path="../player/Player.ts"/>
 
-module roboycod {
+module Roboycod {
 
     export class KeyboardHandler extends Phaser.Keyboard{
 
@@ -17,7 +18,9 @@ module roboycod {
         arrowDown   : Phaser.Key;
         arrowRight  : Phaser.Key;
 
-        create() {
+        constructor(game: Phaser.Game) {
+
+            super(game);
 
             this.up = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
             this.left = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
@@ -29,16 +32,20 @@ module roboycod {
             this.arrowDown = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
+        }
+        public setupLevel(player : Roboycod.Player){
 
-            //Key Function
-            //this.left.onHoldCallback = roboycod.Player.moveLeft;
-            //this.right.onHoldCallback = Player.moveRight;
-            //this.up.onHoldCallback = Player.jump;
-            ////Cambiar por onDownCallback (no funciona)
-            //this.arrowRight.onHoldCallback = Player.shoot;
-            //
-            //
-            //this.game.input.keyboard.onUpCallback = Player.stopMove;
+            this.left.onHoldCallback = player.moveLeft;
+            this.left.onHoldContext = player;
+            this.right.onHoldCallback = player.moveRight;
+            this.right.onHoldContext = player;
+            this.up.onHoldCallback = player.jump;
+            this.up.onHoldContext = player;
+            this.arrowRight.onHoldCallback = player.shoot;
+            this.arrowRight.onHoldContext = player;
+
+            this.addCallbacks(player, null, player.stopMove, null);
+
         }
 
     }

@@ -9,11 +9,11 @@ var __extends = this.__extends || function (d, b) {
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var Player = (function (_super) {
         __extends(Player, _super);
-        function Player(game, sheetWidth, sheetHeight) {
+        function Player(game, sheetWidth, sheetHeight, kh) {
             _super.call(this, game, sheetWidth, sheetHeight, 'robot', 2);
             this.direction = 1;
             this.animState = 'idle';
@@ -23,16 +23,17 @@ var roboycod;
             this.GRAVITY = 1800;
             this.JUMP_SPEED = -800;
             this.ACCELERATION = 100;
-            this.DRAG = 50;
+            this.DRAG = 4000;
             this.game.physics.enable(this);
             // Player physics properties
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
+            this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
             this.body.setSize(55, 60);
-            this.x = 0;
-            this.y = this.game.height / 2;
+            this.setPosition(0, this.game.height / 2);
             this.anchor.setTo(0.5, 0);
+            this.kh = kh;
             this.animations.add('idle', [2, 2, 2, 2, 3, 2, 2, 2, 2], 4, true);
             this.animations.add('run', [7, 5, 6], 8, true);
             this.animations.add('jump', [8], 5, false);
@@ -42,6 +43,10 @@ var roboycod;
             this.create();
             game.add.existing(this);
         }
+        Player.prototype.setPosition = function (x, y) {
+            this.x = x;
+            this.y = y;
+        };
         Player.prototype.create = function () {
             this.animations.play('idle');
             //callback end shoot
@@ -89,8 +94,36 @@ var roboycod;
         Player.prototype.shoot = function () {
             //gun.shoot();
         };
+        Player.prototype.update = function () {
+            //Anim FSM
+            if (this.endShot) {
+                if (this.body.velocity.y != 0) {
+                    this.animState = 'jump';
+                    if (this.kh.arrowRight.isDown)
+                        this.animState = 'jumpShoot';
+                }
+                else if (this.body.velocity.x != 0) {
+                    this.animState = 'run';
+                    if (this.kh.arrowRight.isDown)
+                        this.animState = 'runShoot';
+                }
+                else if (this.kh.arrowRight.isDown)
+                    this.animState = 'shoot';
+                else
+                    this.animState = 'idle';
+            }
+            else {
+                if (this.body.onFloor() && this.body.velocity.x != 0)
+                    this.animState = 'runShoot';
+                else if (!this.body.onFloor())
+                    this.animState = 'jumpShoot';
+                else
+                    this.animState = 'shoot';
+            }
+            this.animations.play(this.animState);
+        };
         return Player;
     })(Phaser.Sprite);
-    roboycod.Player = Player;
-})(roboycod || (roboycod = {}));
+    Roboycod.Player = Player;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=Player.js.map

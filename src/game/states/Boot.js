@@ -8,8 +8,8 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var roboycod;
-(function (roboycod) {
+var Roboycod;
+(function (Roboycod) {
     var Boot = (function (_super) {
         __extends(Boot, _super);
         function Boot() {
@@ -30,6 +30,6 @@ var roboycod;
         };
         return Boot;
     })(Phaser.State);
-    roboycod.Boot = Boot;
-})(roboycod || (roboycod = {}));
+    Roboycod.Boot = Boot;
+})(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=Boot.js.map

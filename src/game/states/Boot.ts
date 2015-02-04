@@ -3,7 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 
-module roboycod
+module Roboycod
 {
     export class Boot extends Phaser.State
     {

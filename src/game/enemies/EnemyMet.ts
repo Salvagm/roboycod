@@ -4,7 +4,7 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="EnemyBase.ts"/>
 
-module roboycod {
+module Roboycod {
 
     export class EnemyMet extends EnemyBase
     {

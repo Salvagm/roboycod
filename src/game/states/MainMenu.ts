@@ -3,7 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 
-module roboycod {
+module Roboycod {
 
     export class MainMenu extends Phaser.State {
 
@@ -15,7 +15,7 @@ module roboycod {
 
         startGame() {
 
-            this.game.state.start('Level1', true, false);
+            this.game.state.start('Level', true, false);
 
         }
 

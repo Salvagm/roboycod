@@ -3,22 +3,23 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
-module roboycod{
+module Roboycod{
 
     export class Player extends Phaser.Sprite {
 
         direction   : number = 1;
         animState   : string = 'idle';
         endShot     : boolean = true;
+        kh          : KeyboardHandler;
 
         //	Define movement constants
         MAX_SPEED   : number = 250;
         GRAVITY     : number = 1800;
         JUMP_SPEED  : number = -800;
         ACCELERATION: number = 100;
-        DRAG        : number = 50;
+        DRAG        : number = 4000;
 
-        constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number) {
+        constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number, kh : KeyboardHandler) {
 
             super(game, sheetWidth, sheetHeight, 'robot', 2);
 
@@ -27,13 +28,16 @@ module roboycod{
             // Player physics properties
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
+            this.body.drag.setTo(this.DRAG, 0);
 
             this.body.collideWorldBounds = true;
             this.body.setSize(55,60);
-            this.x = 0;
-            this.y = this.game.height/2;
+
+            this.setPosition(0, this.game.height/2);
 
             this.anchor.setTo(0.5, 0);
+
+            this.kh = kh;
 
             this.animations.add('idle', [2, 2, 2, 2, 3, 2, 2, 2, 2], 4, true);
             this.animations.add('run', [7, 5, 6], 8, true);
@@ -47,6 +51,12 @@ module roboycod{
             game.add.existing(this);
 
         }
+
+        public setPosition(x : number, y : number){
+            this.x = x;
+            this.y = y;
+        }
+
         create() {
 
             this.animations.play('idle');
@@ -88,47 +98,47 @@ module roboycod{
         moveLeft() : void {
             this.moveTo(-1);
         }
-        moveRight() :void {
+        moveRight() : void {
             this.moveTo(1);
         }
-        jump() {
+        jump() : void {
             if(this.body.onFloor())
                 this.body.velocity.y = this.JUMP_SPEED;
         }
-        shoot() {
+        shoot() : void {
             //gun.shoot();
         }
 
-        //update() {
-        //
-        //    //Anim FSM
-        //    if(this.endShot){
-        //        if(this.body.velocity.y != 0){
-        //            this.animState = 'jump';
-        //            if(tKeyboard.ArrowRight.isDown)
-        //                this.animState = 'jumpShoot';
-        //        }
-        //        else if(this.body.velocity.x != 0){
-        //            this.animState = 'run';
-        //            if(tKeyboard.ArrowRight.isDown)
-        //                this.animState = 'runShoot';
-        //        }
-        //        else if(tKeyboard.ArrowRight.isDown)
-        //            this.animState = 'shoot';
-        //        else
-        //            this.animState = 'idle';
-        //    }
-        //    else{
-        //        if(this.body.onFloor() && this.body.velocity.x != 0)
-        //            this.animState = 'runShoot';
-        //        else if(!this.body.onFloor())
-        //            this.animState = 'jumpShoot';
-        //        else
-        //            this.animState = 'shoot';
-        //    }
-        //
-        //    this.animations.play(this.animState);
-        //}
+        update() {
+
+            //Anim FSM
+            if(this.endShot){
+                if(this.body.velocity.y != 0){
+                    this.animState = 'jump';
+                    if(this.kh.arrowRight.isDown)
+                        this.animState = 'jumpShoot';
+                }
+                else if(this.body.velocity.x != 0){
+                    this.animState = 'run';
+                    if(this.kh.arrowRight.isDown)
+                        this.animState = 'runShoot';
+                }
+                else if(this.kh.arrowRight.isDown)
+                    this.animState = 'shoot';
+                else
+                    this.animState = 'idle';
+            }
+            else{
+                if(this.body.onFloor() && this.body.velocity.x != 0)
+                    this.animState = 'runShoot';
+                else if(!this.body.onFloor())
+                    this.animState = 'jumpShoot';
+                else
+                    this.animState = 'shoot';
+            }
+
+            this.animations.play(this.animState);
+        }
 
     }
 

@@ -3,7 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/GunBase.ts"/>
-module roboycod{
+module Roboycod{
 
     export class  EnemyBase extends Phaser.Sprite{
 
@@ -16,7 +16,7 @@ module roboycod{
         }
 
 
-        receiveDamange(enemy : roboycod.EnemyBase, shoot : Phaser.Sprite)
+        receiveDamange(enemy : EnemyBase, shoot : Phaser.Sprite)
         {
             enemy.damage(shoot.health);
             shoot.kill();
