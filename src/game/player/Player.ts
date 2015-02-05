@@ -11,6 +11,7 @@ module Roboycod{
         animState   : string = 'idle';
         endShot     : boolean = true;
         kh          : KeyboardHandler;
+        gun         : GunBase;
 
         //	Define movement constants
         MAX_SPEED   : number = 250;
@@ -50,6 +51,10 @@ module Roboycod{
 
             game.add.existing(this);
             this.game.camera.follow(this);
+        }
+
+        public setGun(gun : GunBase){
+            this.gun = gun;
         }
 
         public setPosition(x : number, y : number){
@@ -106,7 +111,7 @@ module Roboycod{
                 this.body.velocity.y = this.JUMP_SPEED;
         }
         shoot() : void {
-            //gun.shoot();
+            this.gun.shoot(this);
         }
 
         update() {

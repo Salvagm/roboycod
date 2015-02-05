@@ -13,8 +13,9 @@ module Roboycod{
 
         ground      : Phaser.Tilemap;
         groundLayer : Phaser.TilemapLayer;
-        player      : Player;
         kh          : KeyboardHandler;
+        player      : Player;
+        gun         : GunBase;
         enemies     : Phaser.Group;
         enemyTemp   : EnemyBase;
 
@@ -35,12 +36,15 @@ module Roboycod{
             this.ground = this.add.tilemap('level');
             this.ground.addTilesetImage('tiles');
             this.ground.setCollision([8, 9, 10, 22, 23, 24]);
+
             // El nombre es el valor "name:" del .json
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
 
             this.kh = new KeyboardHandler(this.game);
             this.player = new Player(this.game, 1024, 512, this.kh);
+            this.gun = new GunBase(this.game);
+            this.player.setGun(this.gun);
 
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);

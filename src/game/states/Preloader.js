@@ -26,7 +26,7 @@ var Roboycod;
             this.game.load.json('level1', 'assets/levels/mapPrueba.json');
             this.game.load.image('sky', 'assets/sky.png');
             this.game.load.image('ground', 'assets/platform.png');
-            this.game.load.image('star', 'assets/star.png');
+            this.game.load.image('bullet', 'assets/player/bullet.png');
             //  Cargamos ahora el mapa en json del nivel
             //TODO Cambiar titulos por level1, level2... map1, map2
             this.game.load.tilemap('level', 'assets/levels/mapPrueba.json', null, Phaser.Tilemap.TILED_JSON);

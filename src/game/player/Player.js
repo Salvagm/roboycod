@@ -44,6 +44,9 @@ var Roboycod;
             game.add.existing(this);
             this.game.camera.follow(this);
         }
+        Player.prototype.setGun = function (gun) {
+            this.gun = gun;
+        };
         Player.prototype.setPosition = function (x, y) {
             this.x = x;
             this.y = y;
@@ -93,7 +96,7 @@ var Roboycod;
                 this.body.velocity.y = this.JUMP_SPEED;
         };
         Player.prototype.shoot = function () {
-            //gun.shoot();
+            this.gun.shoot(this);
         };
         Player.prototype.update = function () {
             //Anim FSM

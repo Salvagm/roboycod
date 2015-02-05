@@ -35,6 +35,8 @@ var Roboycod;
             this.groundLayer.resizeWorld();
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.player = new Roboycod.Player(this.game, 1024, 512, this.kh);
+            this.gun = new Roboycod.GunBase(this.game);
+            this.player.setGun(this.gun);
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);
             // Inicializamos el grupo de enemigos del nivel

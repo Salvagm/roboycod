@@ -32,7 +32,7 @@ module Roboycod{
 
             this.game.load.image('sky', 'assets/sky.png');
             this.game.load.image('ground', 'assets/platform.png');
-            this.game.load.image('star', 'assets/star.png');
+            this.game.load.image('bullet', 'assets/player/bullet.png');
 
             //  Cargamos ahora el mapa en json del nivel
             //TODO Cambiar titulos por level1, level2... map1, map2
