@@ -16,7 +16,7 @@ module Roboycod{
         }
 
 
-        receiveDamange(enemy : EnemyBase, shoot : Phaser.Sprite)
+        static receiveDamange(enemy : EnemyBase, shoot : Phaser.Sprite)
         {
             enemy.damage(shoot.health);
             shoot.kill();

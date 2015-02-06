@@ -27,6 +27,7 @@ var Roboycod;
             //almacenamos info de los enemigos
             this.loadEnemies(tempJSON.layers[1]);
             //loadEnemies(tempJSON.layers[1]);
+            this.game.stage.backgroundColor = 0x4488cc;
             this.ground = this.add.tilemap('level');
             this.ground.addTilesetImage('tiles');
             this.ground.setCollision([8, 9, 10, 22, 23, 24]);
@@ -42,6 +43,8 @@ var Roboycod;
             // Inicializamos el grupo de enemigos del nivel
             this.enemies = this.game.add.group();
             this.enemyTemp = new Roboycod.EnemyMet(this.game);
+            this.enemies.add(this.enemyTemp);
+            console.log(this.enemyTemp);
             //console.log(datos.parse("Enemigos"));
         };
         Level.prototype.loadMap = function (mapaData) {
@@ -53,6 +56,7 @@ var Roboycod;
         Level.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemyTemp, this.groundLayer);
+            this.game.physics.arcade.overlap(this.enemies, this.player.gun, Roboycod.EnemyBase.receiveDamange, null, this.enemyTemp);
         };
         return Level;
     })(Phaser.State);

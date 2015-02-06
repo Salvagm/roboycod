@@ -33,6 +33,7 @@ module Roboycod{
             //loadEnemies(tempJSON.layers[1]);
 
 
+            this.game.stage.backgroundColor = 0x4488cc;
             this.ground = this.add.tilemap('level');
             this.ground.addTilesetImage('tiles');
             this.ground.setCollision([8, 9, 10, 22, 23, 24]);
@@ -52,8 +53,8 @@ module Roboycod{
             // Inicializamos el grupo de enemigos del nivel
             this.enemies = this.game.add.group();
             this.enemyTemp = new EnemyMet(this.game);
-
-
+            this.enemies.add(this.enemyTemp);
+            console.log(this.enemyTemp);
             //console.log(datos.parse("Enemigos"));
 
         }
@@ -73,7 +74,7 @@ module Roboycod{
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
-
+            this.game.physics.arcade.overlap(this.enemies,this.player.gun,EnemyBase.receiveDamange,null,this.enemyTemp);
         }
     }
 }
