@@ -21,9 +21,6 @@ var Roboycod;
             this.game.physics.enable(this, Phaser.Physics.ARCADE);
             this.lastGunShotAt = 0;
         }
-        GunBase.prototype.bulletKill = function (bullet) {
-            bullet.kill();
-        };
         GunBase.prototype.shoot = function (player) {
             if (this.game.time.now - this.lastGunShotAt < this.SHOT_DELAY)
                 return;

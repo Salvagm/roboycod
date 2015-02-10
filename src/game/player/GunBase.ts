@@ -23,9 +23,6 @@ module Roboycod
             this.lastGunShotAt = 0;
 
         }
-        bulletKill(bullet : Phaser.Sprite) : void {
-            bullet.kill();
-        }
         shoot(player : Player) : void {
 
             if (this.game.time.now - this.lastGunShotAt < this.SHOT_DELAY)
