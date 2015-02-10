@@ -19,7 +19,7 @@ var Roboycod;
             this.body.collideWorldBounds = true;
             game.add.existing(this);
         }
-        EnemyBase.prototype.receiveDamange = function (enemy, shoot) {
+        EnemyBase.receiveDamange = function (enemy, shoot) {
             enemy.damage(shoot.health);
             shoot.kill();
         };
