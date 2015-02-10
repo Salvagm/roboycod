@@ -60,9 +60,9 @@ module Roboycod{
         }
 
 
-        private loadMap(mapaData : JSON) : void
+        private loadMap(mapData : JSON) : void
         {
-            console.log(mapaData);
+            console.log(mapData);
         }
 
         private loadEnemies(enemyData : JSON) : void

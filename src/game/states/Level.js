@@ -47,8 +47,8 @@ var Roboycod;
             console.log(this.enemyTemp);
             //console.log(datos.parse("Enemigos"));
         };
-        Level.prototype.loadMap = function (mapaData) {
-            console.log(mapaData);
+        Level.prototype.loadMap = function (mapData) {
+            console.log(mapData);
         };
         Level.prototype.loadEnemies = function (enemyData) {
             console.log(enemyData);
