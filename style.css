@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+}
+
+#container2 {
+    clear: left;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    background: none repeat scroll 0% 0% #FFA7A7;
+}
+#container1 {
+    float: left;
+
+    width: 100%;
+    position: relative;
+    right: 50%;
+    background: none repeat scroll 0% 0% #FFF689;
+}
+#content {
+    float: left;
+    width: 46%;
+    position: relative;
+    left: 52%;
+    overflow: hidden;
+}
+#editor {
+
+    float: left;
+
+    /*requiere minimo 300px de height para visualizarse*/
+    height: 300px;
+    width: 46%;
+    position: relative;
+    left: 56%;
+    overflow: hidden;
+}
