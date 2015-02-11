@@ -46,6 +46,12 @@ var Roboycod;
             this.enemies.add(this.enemyTemp);
             console.log(this.enemyTemp);
             //console.log(datos.parse("Enemigos"));
+            this.input.mouse.mouseOutCallback = function () {
+                this.input.keyboard.stop();
+            };
+            this.input.mouse.mouseOverCallback = function () {
+                this.input.keyboard.start();
+            };
         };
         Level.prototype.loadMap = function (mapData) {
             console.log(mapData);
