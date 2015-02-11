@@ -57,7 +57,20 @@ module Roboycod{
             console.log(this.enemyTemp);
             //console.log(datos.parse("Enemigos"));
 
+
+            this.input.mouse.mouseOutCallback = function()
+            {
+                this.input.keyboard.stop();
+            };
+            this.input.mouse.mouseOverCallback = function()
+            {
+                this.input.keyboard.start();
+
+            }
+
+
         }
+
 
 
         private loadMap(mapData : JSON) : void

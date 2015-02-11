@@ -16,12 +16,14 @@ module Roboycod
 
             super(width,height,Phaser.AUTO,'content');
 
+
             this.state.add('Boot',Boot,false);
             this.state.add('Preloader',Preloader,false);
             this.state.add('MainMenu',MainMenu,false);
             this.state.add('Level',Level,false);
 
             this.state.start('Boot');
+
         }
 
     }
