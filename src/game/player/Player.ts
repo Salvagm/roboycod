@@ -7,18 +7,18 @@ module Roboycod{
 
     export class Player extends Phaser.Sprite {
 
-        direction   : number = 1;
-        animState   : string = 'idle';
-        endShot     : boolean = true;
-        kh          : KeyboardHandler;
+        private animState   : string = 'idle';
+        private endShot     : boolean = true;
+        private kh          : KeyboardHandler;
         gun         : GunBase;
+        direction   : number = 1;
 
         //	Define movement constants
-        MAX_SPEED   : number = 250;
-        GRAVITY     : number = 1800;
-        JUMP_SPEED  : number = -800;
-        ACCELERATION: number = 100;
-        DRAG        : number = 4000;
+        private MAX_SPEED   : number = 250;
+        private GRAVITY     : number = 1800;
+        private JUMP_SPEED  : number = -800;
+        private ACCELERATION: number = 100;
+        private DRAG        : number = 4000;
 
         constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number, kh : KeyboardHandler) {
 

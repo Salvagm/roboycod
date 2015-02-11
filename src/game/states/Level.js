@@ -22,9 +22,9 @@ var Roboycod;
             //CARGAMOS EL NIVEL
             //TODO modificar---> realmente debemos pasarle por parametros el nombre del nivel y no ponerselo a pelo
             var tempJSON = this.game.cache.getJSON('level1');
-            //almacenamos info del mapa
+            //cargamos info del mapa
             this.loadMap(tempJSON.layers[0]);
-            //almacenamos info de los enemigos
+            //cargamos info de los enemigos
             this.loadEnemies(tempJSON.layers[1]);
             //loadEnemies(tempJSON.layers[1]);
             this.game.stage.backgroundColor = 0x4488cc;
@@ -56,7 +56,11 @@ var Roboycod;
         Level.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemyTemp, this.groundLayer);
-            this.game.physics.arcade.overlap(this.enemies, this.player.gun, Roboycod.EnemyBase.receiveDamange, null, this.enemyTemp);
+            this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.receiveDamange, null, this.enemyTemp);
+        };
+        Level.prototype.receiveDamange = function (entity, shoot) {
+            entity.damage(shoot.health);
+            shoot.kill();
         };
         return Level;
     })(Phaser.State);

@@ -11,12 +11,12 @@ module Roboycod{
 
     export class Level extends Phaser.State{
 
-        ground      : Phaser.Tilemap;
-        groundLayer : Phaser.TilemapLayer;
-        kh          : KeyboardHandler;
-        player      : Player;
+        private ground      : Phaser.Tilemap;
+        private groundLayer : Phaser.TilemapLayer;
+        private player      : Player;
+        private enemies     : Phaser.Group;
+        private kh          : KeyboardHandler;
         gun         : GunBase;
-        enemies     : Phaser.Group;
         enemyTemp   : EnemyBase;
 
 
@@ -26,9 +26,9 @@ module Roboycod{
             //TODO modificar---> realmente debemos pasarle por parametros el nombre del nivel y no ponerselo a pelo
             var tempJSON = this .game.cache.getJSON('level1');
 
-            //almacenamos info del mapa
+            //cargamos info del mapa
             this.loadMap(tempJSON.layers[0]);
-            //almacenamos info de los enemigos
+            //cargamos info de los enemigos
             this.loadEnemies(tempJSON.layers[1]);
             //loadEnemies(tempJSON.layers[1]);
 
@@ -74,7 +74,14 @@ module Roboycod{
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
-            this.game.physics.arcade.overlap(this.enemies,this.player.gun,EnemyBase.receiveDamange,null,this.enemyTemp);
+            this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.receiveDamange,null,this.enemyTemp);
+        }
+
+
+        receiveDamange(entity : Phaser.Sprite, shoot : Phaser.Sprite)
+        {
+            entity.damage(shoot.health);
+            shoot.kill();
         }
     }
 }

@@ -19,10 +19,6 @@ var Roboycod;
             this.body.collideWorldBounds = true;
             game.add.existing(this);
         }
-        EnemyBase.receiveDamange = function (enemy, shoot) {
-            enemy.damage(shoot.health);
-            shoot.kill();
-        };
         return EnemyBase;
     })(Phaser.Sprite);
     Roboycod.EnemyBase = EnemyBase;

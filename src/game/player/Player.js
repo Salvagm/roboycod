@@ -15,9 +15,9 @@ var Roboycod;
         __extends(Player, _super);
         function Player(game, sheetWidth, sheetHeight, kh) {
             _super.call(this, game, sheetWidth, sheetHeight, 'robot', 2);
-            this.direction = 1;
             this.animState = 'idle';
             this.endShot = true;
+            this.direction = 1;
             //	Define movement constants
             this.MAX_SPEED = 250;
             this.GRAVITY = 1800;
