@@ -125,7 +125,7 @@ var Roboycod;
                     this.animState = 'shoot';
             }
             this.animations.play(this.animState);
-            //this.game.debug.body(this);
+            this.game.debug.body(this);
         };
         return Player;
     })(Phaser.Sprite);

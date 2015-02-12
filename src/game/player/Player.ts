@@ -53,11 +53,11 @@ module Roboycod{
             this.game.camera.follow(this);
         }
 
-        public setGun(gun : GunBase){
+        public setGun(gun : GunBase) : void{
             this.gun = gun;
         }
 
-        public setPosition(x : number, y : number){
+        public setPosition(x : number, y : number) : void{
             this.x = x;
             this.y = y;
         }
@@ -143,7 +143,7 @@ module Roboycod{
             }
 
             this.animations.play(this.animState);
-            //this.game.debug.body(this);
+            this.game.debug.body(this);
         }
 
     }

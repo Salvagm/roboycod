@@ -51,10 +51,10 @@ module Roboycod{
             this.kh.setupLevel(this.player);
 
             // Inicializamos el grupo de enemigos del nivel
-            this.enemies = this.game.add.group();
-            this.enemyTemp = new EnemyMet(this.game);
-            this.enemies.add(this.enemyTemp);
-            console.log(this.enemyTemp);
+            //this.enemies = this.game.add.group();
+            //this.enemyTemp = new EnemyMet(this.game);
+            //this.enemies.add(this.enemyTemp);
+            //console.log(this.enemyTemp);
             //console.log(datos.parse("Enemigos"));
 
 
@@ -71,6 +71,11 @@ module Roboycod{
 
         }
 
+        private shootEnemy(enemy : Phaser.Sprite, shoot : Phaser.Sprite) : void
+        {
+            enemy.damage(shoot.health);
+            shoot.kill();
+        }
 
 
         private loadMap(mapData : JSON) : void
@@ -78,23 +83,25 @@ module Roboycod{
             console.log(mapData);
         }
 
-        private loadEnemies(enemyData : JSON) : void
+        private loadEnemies(enemyData) : void
         {
-            console.log(enemyData);
+            this.enemies = this.game.add.group();
+            for(var i = 0; i< enemyData.objects.length ; ++i)
+                this.enemies.add(new EnemyMet(this.game,enemyData.objects[i].x,enemyData.objects[i].y));
+
         }
-
-
+        private removeShoot(bullet : Phaser.Sprite, ground )
+        {
+            bullet.kill();
+        }
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
-            this.game.physics.arcade.collide(this.enemyTemp,this.groundLayer);
-            this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.receiveDamange,null,this.enemyTemp);
+            this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
+            this.game.physics.arcade.collide(this.enemies,this.groundLayer);
+            this.game.physics.arcade.collide(this.enemies,this.player);
+            this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);
         }
 
 
-        receiveDamange(entity : Phaser.Sprite, shoot : Phaser.Sprite)
-        {
-            entity.damage(shoot.health);
-            shoot.kill();
-        }
     }
 }
