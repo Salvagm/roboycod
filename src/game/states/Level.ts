@@ -63,7 +63,7 @@ module Roboycod{
 
         private loadMap(mapData : JSON) : void
         {
-            console.log(mapData);
+            //console.log(mapData);
         }
 
         private loadEnemies(enemyData) : void
@@ -73,21 +73,29 @@ module Roboycod{
                 this.enemies.add(new EnemyMet(this.game,enemyData.objects[i].x,enemyData.objects[i].y));
 
         }
-        private removeShoot(bullet : Phaser.Sprite, ground )
+        private removeShoot(bullet : Phaser.Sprite, ground : Phaser.Tile) : void
         {
-            console.log(ground);
             bullet.kill();
         }
-        //private hitPlayer(player : Phaser.Sprite , enemy : Phaser.Sprite)
-        //{
-        //    var point : Phaser.Point = player.position.subtract(enemy.position.x,enemy.position.y);
-        //    var distance : number = player.position.distance(enemy.position);
-        //    player.body.acceleration.x -= distance* 0.2;
-        //}
+
+        private hitPlayer(player : Phaser.Sprite , enemy : Phaser.Sprite) : void
+        {
+
+            var direction : Phaser.Point;
+            direction = Phaser.Point.subtract(player.position,enemy.position);
+
+            Phaser.Point.normalize(direction,direction);
+            // Mover valores a player o enemigo
+            player.body.velocity.x = player.body.velocity.y = 0;
+            player.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
+            player.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        }
         update(){
+
+
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemies,this.groundLayer);
-            this.game.physics.arcade.collide(this.enemies,this.player);
+            this.game.physics.arcade.collide(this.enemies,this.player,this.hitPlayer);
             this.game.physics.arcade.collide(this.enemies,this.enemies);
             this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
             this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);

@@ -19,7 +19,9 @@ module Roboycod {
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG,0);
-            this.body.setSize(40,40,5,5);
+            this.body.setSize(40,40,0,0);
+
+            this.anchor.setTo(0.5,0.5);
             this.x = x;
             this.y = y;
             this.health = this.LIVES;
@@ -31,6 +33,7 @@ module Roboycod {
 
         //update()
         //{
+        //
         //    this.game.debug.body(this);
         //}
     }
