@@ -8,14 +8,14 @@ module Roboycod {
 
     export class KeyboardHandler extends Phaser.Keyboard{
 
-        up      : Phaser.Key;
-        left    : Phaser.Key;
-        down    : Phaser.Key;
-        right   : Phaser.Key;
+        private up      : Phaser.Key;
+        private left    : Phaser.Key;
+        private down    : Phaser.Key;
+        private right   : Phaser.Key;
 
-        arrowUp     : Phaser.Key;
-        arrowLeft   : Phaser.Key;
-        arrowDown   : Phaser.Key;
+        private arrowUp     : Phaser.Key;
+        private arrowLeft   : Phaser.Key;
+        private arrowDown   : Phaser.Key;
         arrowRight  : Phaser.Key;
 
         constructor(game: Phaser.Game) {
@@ -33,7 +33,7 @@ module Roboycod {
             this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
         }
-        public setupLevel(player : Roboycod.Player){
+        public setupLevel(player : Roboycod.Player) : void{
 
             this.left.onHoldCallback = player.moveLeft;
             this.left.onHoldContext = player;

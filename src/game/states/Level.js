@@ -22,9 +22,9 @@ var Roboycod;
             //CARGAMOS EL NIVEL
             //TODO modificar---> realmente debemos pasarle por parametros el nombre del nivel y no ponerselo a pelo
             var tempJSON = this.game.cache.getJSON('level1');
-            //almacenamos info del mapa
+            //cargamos info del mapa
             this.loadMap(tempJSON.layers[0]);
-            //almacenamos info de los enemigos
+            //cargamos info de los enemigos
             this.loadEnemies(tempJSON.layers[1]);
             //loadEnemies(tempJSON.layers[1]);
             this.game.stage.backgroundColor = 0x4488cc;
@@ -34,18 +34,11 @@ var Roboycod;
             // El nombre es el valor "name:" del .json
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
+            //this.groundLayer.debug = true;
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.player = new Roboycod.Player(this.game, 1024, 512, this.kh);
-            this.gun = new Roboycod.GunBase(this.game);
-            this.player.setGun(this.gun);
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);
-            // Inicializamos el grupo de enemigos del nivel
-            this.enemies = this.game.add.group();
-            this.enemyTemp = new Roboycod.EnemyMet(this.game);
-            this.enemies.add(this.enemyTemp);
-            console.log(this.enemyTemp);
-            //console.log(datos.parse("Enemigos"));
             this.input.mouse.mouseOutCallback = function () {
                 this.input.keyboard.stop();
             };
@@ -53,16 +46,37 @@ var Roboycod;
                 this.input.keyboard.start();
             };
         };
+        Level.prototype.shootEnemy = function (enemy, shoot) {
+            enemy.damage(shoot.health);
+            shoot.kill();
+        };
         Level.prototype.loadMap = function (mapData) {
-            console.log(mapData);
+            //console.log(mapData);
         };
         Level.prototype.loadEnemies = function (enemyData) {
-            console.log(enemyData);
+            this.enemies = this.game.add.group();
+            for (var i = 0; i < enemyData.objects.length; ++i)
+                this.enemies.add(new Roboycod.EnemyMet(this.game, enemyData.objects[i].x, enemyData.objects[i].y));
+        };
+        Level.prototype.removeShoot = function (bullet, ground) {
+            bullet.kill();
+        };
+        Level.prototype.hitPlayer = function (player, enemy) {
+            var direction;
+            direction = Phaser.Point.subtract(player.position, enemy.position);
+            Phaser.Point.normalize(direction, direction);
+            // Mover valores a player o enemigo
+            player.body.velocity.x = player.body.velocity.y = 0;
+            player.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
+            player.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
         };
         Level.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
-            this.game.physics.arcade.collide(this.enemyTemp, this.groundLayer);
-            this.game.physics.arcade.overlap(this.enemies, this.player.gun, Roboycod.EnemyBase.receiveDamange, null, this.enemyTemp);
+            this.game.physics.arcade.collide(this.enemies, this.groundLayer);
+            this.game.physics.arcade.collide(this.enemies, this.player, this.hitPlayer);
+            this.game.physics.arcade.collide(this.enemies, this.enemies);
+            this.game.physics.arcade.collide(this.player.gun, this.groundLayer, this.removeShoot);
+            this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
         };
         return Level;
     })(Phaser.State);

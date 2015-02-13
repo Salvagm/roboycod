@@ -7,18 +7,18 @@ module Roboycod{
 
     export class Player extends Phaser.Sprite {
 
-        direction   : number = 1;
-        animState   : string = 'idle';
-        endShot     : boolean = true;
-        kh          : KeyboardHandler;
+        private animState   : string = 'idle';
+        private endShot     : boolean = true;
+        private kh          : KeyboardHandler;
         gun         : GunBase;
+        direction   : number = 1;
 
         //	Define movement constants
-        MAX_SPEED   : number = 250;
-        GRAVITY     : number = 1800;
-        JUMP_SPEED  : number = -800;
-        ACCELERATION: number = 100;
-        DRAG        : number = 4000;
+        private MAX_SPEED   : number = 250;
+        private GRAVITY     : number = 1800;
+        private JUMP_SPEED  : number = -800;
+        private ACCELERATION: number = 100;
+        private DRAG        : number = 4000;
 
         constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number, kh : KeyboardHandler) {
 
@@ -39,6 +39,8 @@ module Roboycod{
             //this.body.center.setTo(50/2, 80/2);
 
             this.kh = kh;
+            this.gun = new GunBase(this.game);
+
 
             this.animations.add('idle', [13, 14, 15, 14], 4, true);
             this.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8 , 9], 8, true);
@@ -53,11 +55,7 @@ module Roboycod{
             this.game.camera.follow(this);
         }
 
-        public setGun(gun : GunBase){
-            this.gun = gun;
-        }
-
-        public setPosition(x : number, y : number){
+        public setPosition(x : number, y : number) : void{
             this.x = x;
             this.y = y;
         }

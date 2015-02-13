@@ -15,9 +15,9 @@ var Roboycod;
         __extends(Player, _super);
         function Player(game, sheetWidth, sheetHeight, kh) {
             _super.call(this, game, sheetWidth, sheetHeight, 'robot', 2);
-            this.direction = 1;
             this.animState = 'idle';
             this.endShot = true;
+            this.direction = 1;
             //	Define movement constants
             this.MAX_SPEED = 250;
             this.GRAVITY = 1800;
@@ -36,6 +36,7 @@ var Roboycod;
             //TODO Salva skizing
             //this.body.center.setTo(50/2, 80/2);
             this.kh = kh;
+            this.gun = new Roboycod.GunBase(this.game);
             this.animations.add('idle', [13, 14, 15, 14], 4, true);
             this.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
             this.animations.add('jump', [10], 5, false);
@@ -46,9 +47,6 @@ var Roboycod;
             game.add.existing(this);
             this.game.camera.follow(this);
         }
-        Player.prototype.setGun = function (gun) {
-            this.gun = gun;
-        };
         Player.prototype.setPosition = function (x, y) {
             this.x = x;
             this.y = y;

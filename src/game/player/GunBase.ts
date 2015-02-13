@@ -7,12 +7,12 @@ module Roboycod
 {
     export class GunBase extends Phaser.Group {
 
-        lastGunShotAt       : number;
-        tempBullet          : Phaser.Sprite;
+        private lastGunShotAt       : number;
+        private tempBullet          : Phaser.Sprite;
 
-        SHOT_DELAY          : number = 300;
-        BULLET_SPEED        : number = 600;
-        NUMBER_OF_BULLETS   : number = 3;
+        private SHOT_DELAY          : number = 300;
+        private BULLET_SPEED        : number = 600;
+        private NUMBER_OF_BULLETS   : number = 3;
 
         constructor(game : Phaser.Game){
             super(game);

@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.6.0</string>
         <key>fileName</key>
-        <string>/home/javi/roboycod/assets/player/player1.tps</string>
+        <string>/home/javi/roboycod/temporal resorces/player1.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -188,23 +188,23 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 02 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 03 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 04 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 05 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 06 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 07 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 08 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 09 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 10 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 11 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 26 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 27 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 28 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 34 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 111 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 113 (80ms) (replace).png</filename>
-            <filename>../../../Escritorio/litleAstro2/Cuadro 113 (80ms) (replace)2.png</filename>
+            <filename>litleAstro2/Cuadro 02 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 03 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 04 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 05 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 06 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 07 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 08 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 09 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 10 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 11 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 26 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 27 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 28 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 34 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 111 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 113 (80ms) (replace).png</filename>
+            <filename>litleAstro2/Cuadro 113 (80ms) (replace)2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
