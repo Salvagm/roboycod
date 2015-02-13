@@ -34,6 +34,7 @@ var Roboycod;
             this.setPosition(0, this.game.height / 2);
             this.anchor.setTo(0.5, 0);
             this.kh = kh;
+            this.gun = new Roboycod.GunBase(this.game);
             this.animations.add('idle', [2, 2, 2, 2, 3, 2, 2, 2, 2], 4, true);
             this.animations.add('run', [7, 5, 6], 8, true);
             this.animations.add('jump', [8], 5, false);
@@ -44,9 +45,6 @@ var Roboycod;
             game.add.existing(this);
             this.game.camera.follow(this);
         }
-        Player.prototype.setGun = function (gun) {
-            this.gun = gun;
-        };
         Player.prototype.setPosition = function (x, y) {
             this.x = x;
             this.y = y;
@@ -125,7 +123,7 @@ var Roboycod;
                     this.animState = 'shoot';
             }
             this.animations.play(this.animState);
-            this.game.debug.body(this);
+            //this.game.debug.body(this);
         };
         return Player;
     })(Phaser.Sprite);

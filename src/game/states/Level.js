@@ -34,18 +34,11 @@ var Roboycod;
             // El nombre es el valor "name:" del .json
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
+            //this.groundLayer.debug = true;
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.player = new Roboycod.Player(this.game, 1024, 512, this.kh);
-            this.gun = new Roboycod.GunBase(this.game);
-            this.player.setGun(this.gun);
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);
-            // Inicializamos el grupo de enemigos del nivel
-            //this.enemies = this.game.add.group();
-            //this.enemyTemp = new EnemyMet(this.game);
-            //this.enemies.add(this.enemyTemp);
-            //console.log(this.enemyTemp);
-            //console.log(datos.parse("Enemigos"));
             this.input.mouse.mouseOutCallback = function () {
                 this.input.keyboard.stop();
             };
@@ -66,13 +59,21 @@ var Roboycod;
                 this.enemies.add(new Roboycod.EnemyMet(this.game, enemyData.objects[i].x, enemyData.objects[i].y));
         };
         Level.prototype.removeShoot = function (bullet, ground) {
+            console.log(ground);
             bullet.kill();
         };
+        //private hitPlayer(player : Phaser.Sprite , enemy : Phaser.Sprite)
+        //{
+        //    var point : Phaser.Point = player.position.subtract(enemy.position.x,enemy.position.y);
+        //    var distance : number = player.position.distance(enemy.position);
+        //    player.body.acceleration.x -= distance* 0.2;
+        //}
         Level.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
-            this.game.physics.arcade.collide(this.player.gun, this.groundLayer, this.removeShoot);
             this.game.physics.arcade.collide(this.enemies, this.groundLayer);
             this.game.physics.arcade.collide(this.enemies, this.player);
+            this.game.physics.arcade.collide(this.enemies, this.enemies);
+            this.game.physics.arcade.collide(this.player.gun, this.groundLayer, this.removeShoot);
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
         };
         return Level;

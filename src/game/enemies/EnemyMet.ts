@@ -23,6 +23,7 @@ module Roboycod {
             this.x = x;
             this.y = y;
             this.health = this.LIVES;
+
         }
 
 
@@ -30,7 +31,7 @@ module Roboycod {
 
         //update()
         //{
-        //
+        //    this.game.debug.body(this);
         //}
     }
 }

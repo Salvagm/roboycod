@@ -16,8 +16,6 @@ module Roboycod{
         private player      : Player;
         private enemies     : Phaser.Group;
         private kh          : KeyboardHandler;
-        gun         : GunBase;
-        enemyTemp   : EnemyBase;
 
 
         create(){
@@ -41,32 +39,17 @@ module Roboycod{
             // El nombre es el valor "name:" del .json
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
+            //this.groundLayer.debug = true;
 
             this.kh = new KeyboardHandler(this.game);
             this.player = new Player(this.game, 1024, 512, this.kh);
-            this.gun = new GunBase(this.game);
-            this.player.setGun(this.gun);
 
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);
 
-            // Inicializamos el grupo de enemigos del nivel
-            //this.enemies = this.game.add.group();
-            //this.enemyTemp = new EnemyMet(this.game);
-            //this.enemies.add(this.enemyTemp);
-            //console.log(this.enemyTemp);
-            //console.log(datos.parse("Enemigos"));
 
-
-            this.input.mouse.mouseOutCallback = function()
-            {
-                this.input.keyboard.stop();
-            };
-            this.input.mouse.mouseOverCallback = function()
-            {
-                this.input.keyboard.start();
-
-            }
+            this.input.mouse.mouseOutCallback = function() { this.input.keyboard.stop(); };
+            this.input.mouse.mouseOverCallback = function() { this.input.keyboard.start(); };
 
 
         }
@@ -92,14 +75,23 @@ module Roboycod{
         }
         private removeShoot(bullet : Phaser.Sprite, ground )
         {
+            console.log(ground);
             bullet.kill();
         }
+        //private hitPlayer(player : Phaser.Sprite , enemy : Phaser.Sprite)
+        //{
+        //    var point : Phaser.Point = player.position.subtract(enemy.position.x,enemy.position.y);
+        //    var distance : number = player.position.distance(enemy.position);
+        //    player.body.acceleration.x -= distance* 0.2;
+        //}
         update(){
             this.game.physics.arcade.collide(this.player, this.groundLayer);
-            this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
             this.game.physics.arcade.collide(this.enemies,this.groundLayer);
             this.game.physics.arcade.collide(this.enemies,this.player);
+            this.game.physics.arcade.collide(this.enemies,this.enemies);
+            this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
             this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);
+
         }
 
 

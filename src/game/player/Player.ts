@@ -39,6 +39,8 @@ module Roboycod{
             this.anchor.setTo(0.5, 0);
 
             this.kh = kh;
+            this.gun = new GunBase(this.game);
+
 
             this.animations.add('idle', [2, 2, 2, 2, 3, 2, 2, 2, 2], 4, true);
             this.animations.add('run', [7, 5, 6], 8, true);
@@ -51,10 +53,6 @@ module Roboycod{
 
             game.add.existing(this);
             this.game.camera.follow(this);
-        }
-
-        public setGun(gun : GunBase) : void{
-            this.gun = gun;
         }
 
         public setPosition(x : number, y : number) : void{
@@ -143,7 +141,7 @@ module Roboycod{
             }
 
             this.animations.play(this.animState);
-            this.game.debug.body(this);
+            //this.game.debug.body(this);
         }
 
     }
