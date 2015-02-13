@@ -25,21 +25,23 @@ var Roboycod;
             this.ACCELERATION = 100;
             this.DRAG = 4000;
             this.game.physics.enable(this);
+            this.setPosition(0, this.game.height / 2);
             // Player physics properties
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
-            this.body.setSize(55, 59);
-            this.setPosition(0, this.game.height / 2);
+            this.body.setSize(50, 80, 0, 20);
             this.anchor.setTo(0.5, 0);
+            //TODO Salva skizing
+            //this.body.center.setTo(50/2, 80/2);
             this.kh = kh;
-            this.animations.add('idle', [2, 2, 2, 2, 3, 2, 2, 2, 2], 4, true);
-            this.animations.add('run', [7, 5, 6], 8, true);
-            this.animations.add('jump', [8], 5, false);
-            this.animations.add('shoot', [11], 3, false);
-            this.animations.add('jumpShoot', [15], 3, false);
-            this.animations.add('runShoot', [12, 13, 14], 8, false);
+            this.animations.add('idle', [13, 14, 15, 14], 4, true);
+            this.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
+            this.animations.add('jump', [10], 5, false);
+            this.animations.add('shoot', [16, 14], 9, false);
+            this.animations.add('jumpShoot', [10], 3, false);
+            this.animations.add('getHurt', [11, 12], 8, false);
             this.create();
             game.add.existing(this);
             this.game.camera.follow(this);
@@ -66,19 +68,12 @@ var Roboycod;
             this.animations.getAnimation('jumpShoot').onComplete.add(function () {
                 this.endShot = true;
             });
-            this.animations.getAnimation('runShoot').onStart.add(function () {
-                this.endShot = false;
-            });
-            this.animations.getAnimation('runShoot').onComplete.add(function () {
-                this.endShot = true;
-            });
         };
         Player.prototype.stopMove = function () {
             this.body.velocity.x = 0;
         };
         Player.prototype.moveTo = function (direction) {
             if (this.direction != direction) {
-                this.anchor.setTo(.5, .0);
                 this.scale.x *= -1;
                 this.direction = direction;
             }
@@ -99,6 +94,7 @@ var Roboycod;
             this.gun.shoot(this);
         };
         Player.prototype.update = function () {
+            //this.game.debug.body(this);
             //Anim FSM
             if (this.endShot) {
                 if (this.body.velocity.y != 0) {
@@ -108,8 +104,6 @@ var Roboycod;
                 }
                 else if (this.body.velocity.x != 0) {
                     this.animState = 'run';
-                    if (this.kh.arrowRight.isDown)
-                        this.animState = 'runShoot';
                 }
                 else if (this.kh.arrowRight.isDown)
                     this.animState = 'shoot';
@@ -117,15 +111,12 @@ var Roboycod;
                     this.animState = 'idle';
             }
             else {
-                if (this.body.onFloor() && this.body.velocity.x != 0)
-                    this.animState = 'runShoot';
-                else if (!this.body.onFloor())
+                if (!this.body.onFloor())
                     this.animState = 'jumpShoot';
                 else
                     this.animState = 'shoot';
             }
             this.animations.play(this.animState);
-            //this.game.debug.body(this);
         };
         return Player;
     })(Phaser.Sprite);

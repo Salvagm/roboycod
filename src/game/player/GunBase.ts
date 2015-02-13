@@ -47,8 +47,14 @@ module Roboycod
             this.tempBullet.checkWorldBounds = true;
             this.tempBullet.outOfBoundsKill = true;
 
-            // Set the bullet position to the gun position.
-            this.tempBullet.reset(player.x + (35 * player.direction), player.y + 20);
+            // Set the bullet position to the gun position.a
+
+            if(player.body.velocity.y != 0) {
+                this.tempBullet.reset(player.x + (35 * player.direction), player.y + 40);
+            }
+            else{
+                this.tempBullet.reset(player.x + (35 * player.direction), player.y + 60);
+            }
 
             // Shoot it
             this.tempBullet.scale.x = player.scale.x;

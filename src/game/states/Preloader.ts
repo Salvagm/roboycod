@@ -18,8 +18,8 @@ module Roboycod{
             //  Cargamos assets
             this.load.atlasJSONHash(
                 'robot',
-                'assets/player/mega1Atlas.png',
-                'assets/player/mega1Atlas.json'
+                'assets/player/player1.png',
+                'assets/player/player1.json'
             );
             this.load.atlasJSONHash(
                 'megaMet',
@@ -29,10 +29,7 @@ module Roboycod{
             //Cargados los JSON de los niveles en cache
             this.game.load.json('level1','assets/levels/mapPrueba.json');
 
-
-            this.game.load.image('sky', 'assets/sky.png');
-            this.game.load.image('ground', 'assets/platform.png');
-            this.game.load.image('bullet', 'assets/player/bullet.png');
+            this.game.load.image('bullet', 'assets/player/bullet1.png');
 
             //  Cargamos ahora el mapa en json del nivel
             //TODO Cambiar titulos por level1, level2... map1, map2
