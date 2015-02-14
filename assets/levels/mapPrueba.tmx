@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="32" tileheight="32" nextobjectid="11">
- <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles0" tilewidth="32" tileheight="32">
+  <image source="tiles0.png" width="640" height="640"/>
+ </tileset>
+ <tileset firstgid="401" name="tiles" tilewidth="32" tileheight="32">
   <image source="tiles.png" width="448" height="256"/>
  </tileset>
  <layer name="ground" width="60" height="20">
   <properties>
-   <property name="collides" value="true"/>
+   <property name="collider" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt0UsKgDAMANEsGy+g1nv0/kezC8UQ0gqKCDoPZmH8VIgIAAAAAOCqsvUHY01N07u/c1uR/v7mWjYtwXtP7t6fE9WT5NhVMtfRPEpdZ8/07g/u/L3W3M+0MVPznUyfbgWMxBLE
+   eJztklEOgyAMhuvbDuFOsZOoGdmEbM8+ut3Qkw0SSEjXKog8jPEnX6qlVb/EGQDmSqUwSs8/ubpU37JTfctO9S07OXwfmmfiLldTk8P3pXkn7nI1JgvR+5X/uW0Azk3czgLfzjl8L5Hf5eeUsBuSHL6TZW9yOhvXLoAesTXbobl+x3MGgtjZAc2YOlqE5u5xtT3c988duE/NH80NVW4Gn4+2CqIKwotzpPpH+2E4L+reXSuE9FBeVURPEvv4XK7Mrb2bgvuG0HPDByE2uYk=
+  </data>
+ </layer>
+ <layer name="final" width="60" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzwENADAIwDCM3b+t62C0yQRsBnregS69+u3nt53fdn7b+W139RfY6QOnwrNu
+  </data>
+ </layer>
+ <layer name="fondo" width="60" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztjcsKg0AQBP3APPyEJHpZz2ry+RnBBQkY7IK+yDQ0u4ep6qbJZM6fi/meMi7Pw3xPGZdHdZBNwrg8qoNsEsblUR1kkzAuj+ogm4RxeVQH2SSMy6M6yCZhXB7VQTYJ4/KoDrJJGJdHddT7a/QGN/bYe7QVPCSqo94/oy+4scd20V7wqCnRcX2PZrkfolN0Xv9HmG0qWzbbi+cd/fxxVk/5eTOZzLnyBX4THoY=
   </data>
  </layer>
  <objectgroup name="Enemigos">

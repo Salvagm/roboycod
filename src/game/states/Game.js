@@ -29,6 +29,6 @@ var Roboycod;
     Roboycod.Game = Game;
 })(Roboycod || (Roboycod = {}));
 window.onload = function () {
-    var game = new Roboycod.Game(800, 600);
+    var game = new Roboycod.Game(650, 600);
 };
 //# sourceMappingURL=Game.js.map
