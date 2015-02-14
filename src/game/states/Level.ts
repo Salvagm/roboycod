@@ -42,7 +42,7 @@ module Roboycod{
             //this.groundLayer.debug = true;
 
             this.kh = new KeyboardHandler(this.game);
-            this.player = new Player(this.game, 1024, 512, this.kh);
+            this.player = new Player(this.game, 977, 89, this.kh);
 
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);
