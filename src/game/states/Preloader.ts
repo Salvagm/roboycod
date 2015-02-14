@@ -38,10 +38,14 @@ module Roboycod{
                 'assets/levels/mapPrueba.json',
                  null,
                 Phaser.Tilemap.TILED_JSON);
-
+            this.game.load.tilemap(
+                'level0',
+                'assets/levels/mapPrueba0.json',
+                null,
+                Phaser.Tilemap.TILED_JSON);
             //  Cargamos tiles
             this.game.load.image('tiles','assets/levels/tiles.png');
-
+            this.game.load.image('tiles0','assets/levels/tiles0.png');
         }
 
         create() {

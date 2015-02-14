@@ -24,17 +24,23 @@ var Roboycod;
             var tempJSON = this.game.cache.getJSON('level1');
             //cargamos info del mapa
             this.loadMap(tempJSON.layers[0]);
-            //cargamos info de los enemigos
-            this.loadEnemies(tempJSON.layers[1]);
-            //loadEnemies(tempJSON.layers[1]);
-            this.game.stage.backgroundColor = 0x4488cc;
-            this.ground = this.add.tilemap('level');
-            this.ground.addTilesetImage('tiles');
-            this.ground.setCollision([8, 9, 10, 22, 23, 24]);
+            //TODO Aclaracion : El orden en que construimos el mundo importa, es decir, tenemos que tener
+            //TODO en cuenta que a medida que creamos las layer del ground estas toman un indice de profundidad
+            //TODO en el juego y por tanto si hacemo los enemigos antes que las layer del mundo éstos no se veran
+            //TODO Mover a funcion para cargar el mapa
+            //this.game.stage.backgroundColor = 0x4488cc;
+            this.ground = this.add.tilemap('level0');
+            this.ground.addTilesetImage('tiles0');
+            this.ground.setCollision([81, 82, 83, 84, 94, 95, 113, 114, 115]); //,94,95,113,114,115
+            //this.ground.setCollision([8, 9, 10, 22, 23, 24]);
             // El nombre es el valor "name:" del .json
+            this.ground.createLayer('final');
+            this.ground.createLayer('fondo');
             this.groundLayer = this.ground.createLayer('ground');
             this.groundLayer.resizeWorld();
             //this.groundLayer.debug = true;
+            //cargamos info de los enemigos
+            this.loadEnemies(tempJSON.layers[1]);
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.player = new Roboycod.Player(this.game, 1024, 512, this.kh);
             //  Asociamos un setup de teclas segun le nivel
@@ -73,7 +79,7 @@ var Roboycod;
         Level.prototype.update = function () {
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemies, this.groundLayer);
-            this.game.physics.arcade.collide(this.enemies, this.player, this.hitPlayer);
+            this.game.physics.arcade.overlap(this.enemies, this.player, this.hitPlayer);
             this.game.physics.arcade.collide(this.enemies, this.enemies);
             this.game.physics.arcade.collide(this.player.gun, this.groundLayer, this.removeShoot);
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);

@@ -28,8 +28,10 @@ var Roboycod;
             //  Cargamos ahora el mapa en json del nivel
             //TODO Cambiar titulos por level1, level2... map1, map2
             this.game.load.tilemap('level', 'assets/levels/mapPrueba.json', null, Phaser.Tilemap.TILED_JSON);
+            this.game.load.tilemap('level0', 'assets/levels/mapPrueba0.json', null, Phaser.Tilemap.TILED_JSON);
             //  Cargamos tiles
             this.game.load.image('tiles', 'assets/levels/tiles.png');
+            this.game.load.image('tiles0', 'assets/levels/tiles0.png');
         };
         Preloader.prototype.create = function () {
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
