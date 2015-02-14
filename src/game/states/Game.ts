@@ -32,6 +32,6 @@ module Roboycod
 
 window.onload = () => {
 
-    var game = new Roboycod.Game(800, 600);
+    var game = new Roboycod.Game(650, 600);
 
 };

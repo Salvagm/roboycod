@@ -3,3 +3,7 @@
 .idea/*
 build/*
 
+src/game/enmies/*.map
+src/game/player/*.map
+src/game/states/*.map
+src/game/utils/*.map
