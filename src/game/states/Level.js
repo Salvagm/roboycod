@@ -42,7 +42,7 @@ var Roboycod;
             //cargamos info de los enemigos
             this.loadEnemies(tempJSON.layers[1]);
             this.kh = new Roboycod.KeyboardHandler(this.game);
-            this.player = new Roboycod.Player(this.game, 1024, 512, this.kh);
+            this.player = new Roboycod.Player(this.game, 977, 89, this.kh);
             //  Asociamos un setup de teclas segun le nivel
             this.kh.setupLevel(this.player);
             this.input.mouse.mouseOutCallback = function () {

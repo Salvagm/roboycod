@@ -88,7 +88,7 @@
             <key>width</key>
             <int>256</int>
             <key>height</key>
-            <int>2048</int>
+            <int>256</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -188,24 +188,22 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>enemies/e01.png</filename>
-            <filename>enemies/e02.png</filename>
-            <filename>enemies/e03.png</filename>
-            <filename>enemies/e04.png</filename>
-            <filename>enemies/e05.png</filename>
-            <filename>enemies/e06.png</filename>
-            <filename>enemies/e07.png</filename>
-            <filename>enemies/e08.png</filename>
-            <filename>enemies/e09.png</filename>
-            <filename>enemies/e10.png</filename>
-            <filename>enemies/e11.png</filename>
-            <filename>enemies/e12.png</filename>
-            <filename>enemies/e13.png</filename>
-            <filename>enemies/e14.png</filename>
-            <filename>enemies/e15.png</filename>
-            <filename>enemies/e16.png</filename>
-            <filename>enemies/e17.png</filename>
-            <filename>enemies/e18.png</filename>
+            <filename>enemies/01.png</filename>
+            <filename>enemies/02.png</filename>
+            <filename>enemies/03.png</filename>
+            <filename>enemies/04.png</filename>
+            <filename>enemies/05.png</filename>
+            <filename>enemies/06.png</filename>
+            <filename>enemies/07.png</filename>
+            <filename>enemies/08.png</filename>
+            <filename>enemies/09.png</filename>
+            <filename>enemies/10.png</filename>
+            <filename>enemies/11.png</filename>
+            <filename>enemies/12.png</filename>
+            <filename>enemies/13.png</filename>
+            <filename>enemies/14.png</filename>
+            <filename>enemies/15.png</filename>
+            <filename>enemies/16.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

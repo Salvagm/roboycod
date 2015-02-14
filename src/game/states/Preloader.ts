@@ -22,9 +22,9 @@ module Roboycod{
                 'assets/player/player1.json'
             );
             this.load.atlasJSONHash(
-                'megaMet',
-                'assets/enemies/metAtlas.png',
-                'assets/enemies/metAtlas.json'
+                'enemies01',
+                'assets/enemies/enemies01.png',
+                'assets/enemies/enemies01.json'
             );
             //Cargados los JSON de los niveles en cache
             this.game.load.json('level1','assets/levels/mapPrueba.json');
