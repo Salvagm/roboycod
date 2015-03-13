@@ -32,6 +32,8 @@
 
     <script src="src/lib/skulpt/skulpt.min.js" type="text/javascript"></script>
     <script src="src/lib/skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+    <script src="src/lib/skulpt/processCode.js" type="text/javascript"></script>
+
 
 </head>
 <body>
@@ -43,10 +45,12 @@
     return x;
 }</div>
 
-            <div id = "test">
-                <button class="myButton" id="save-btn">Save</button>
-                <button class="myButton" id="load-btn">Load</button>
-            </div>
+        <div id = "test">
+            <button class="myButton" id="save-btn">Save</button>
+            <button class="myButton" id="load-btn">Load</button>
+            <button class="myButton" id="runCode">Run</button>
+            <p id="output">Texto</p>
+        </div>
 
         </div>
     </div>
