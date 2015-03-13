@@ -29,4 +29,20 @@ $( document ).ready(function(){
     //        snippetManager.register(m.snippets, m.scope);
     //    }
     //});
+
+
+    $("#save-btn").on('click', function () {
+        if(editor.getSession().getValue() != ""){
+            localStorage.setItem('key', JSON.stringify(editor.getSession().getValue()));
+            editor.setValue("", -1);
+        }
+    });
+
+    $("#load-btn").on('click', function () {
+        if(localStorage.getItem('key')){
+            editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
+            localStorage.removeItem('key');
+        }
+
+    });
 });

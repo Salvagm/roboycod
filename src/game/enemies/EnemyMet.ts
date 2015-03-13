@@ -35,9 +35,6 @@ module Roboycod {
             this.animations.play('idle');
         }
 
-
-
-
         //update()
         //{
         //
