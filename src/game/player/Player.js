@@ -92,7 +92,7 @@ var Roboycod;
             this.gun.shoot(this);
         };
         Player.prototype.update = function () {
-            //this.game.debug.body(this);
+            //this.game.debug.bodyInfo(this,20,20);
             //Anim FSM
             if (this.endShot) {
                 if (this.body.velocity.y != 0) {

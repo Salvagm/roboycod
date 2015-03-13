@@ -35,6 +35,7 @@ module Roboycod{
             this.body.setSize(50, 80, 0, 20);
             this.anchor.setTo(0.5, 0);
 
+
             //TODO Salva skizing
             //this.body.center.setTo(50/2, 80/2);
 
@@ -107,7 +108,8 @@ module Roboycod{
 
         update() {
 
-            //this.game.debug.body(this);
+            //this.game.debug.bodyInfo(this,20,20);
+
             //Anim FSM
             if(this.endShot){
                 if(this.body.velocity.y != 0){
