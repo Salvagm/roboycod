@@ -2,8 +2,10 @@ $( document ).ready(function(){
     var editor = ace.edit("editor");
     
     editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setMode("ace/mode/python");
     document.getElementById('editor').style.fontSize='18px';
+
+    //editor.setShowInvisibles(true);
 
     ace.require("ace/ext/language_tools");
     editor.setOptions({
