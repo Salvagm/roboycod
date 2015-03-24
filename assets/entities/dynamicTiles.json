@@ -571,10 +571,10 @@
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "dynamicTiles.png",
+	"image": "dynamicTiles1.png",
 	"format": "RGBA8888",
 	"size": {"w":1586,"h":200},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e5e06efe5f9bfdc0945455d2ef4ae067:5a9b4cd45bdc490e3ed7983e4b1f72d2:14489eece4e7892a2afa4e5ad8cbdc8f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:26eab401df9cb481734a800892aa5e30:e8c806871021d32b7ca49cbaa2abc74e:e164b8a4b9c333c8b2443c5375ac9b3c$"
 }
 }

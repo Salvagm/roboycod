@@ -19,19 +19,17 @@ var Roboycod;
             //  Usamos la preloadBar mientras cargamos el resto
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
-            //  Cargamos assets
-            this.load.atlasJSONHash('tsEntities', 'assets/entities/dynamicTiles.png', 'assets/entities/dynamicTiles.json');
-            this.game.load.image('bullet', 'assets/player/bullet1.png');
             /**
-             * NIVELES
+             * Entidades, Objetos dinamicos, etc
              */
-            //Cargados los JSON de los niveles en cache
-            this.game.load.json('jsonStage00', 'assets/stages/stage00.json');
-            //  Cargamos tileMaps
-            //TODO Cambiar titulos por level1, level2... map1, map2
-            this.game.load.tilemap('tmStage00', 'assets/stages/stage00.json', null, Phaser.Tilemap.TILED_JSON);
-            //  Cargamos tileSets
+            this.load.atlasJSONHash('tsDynamics', 'assets/entities/dynamicTiles.png', 'assets/entities/dynamicTiles.json');
+            this.game.load.image('bullet', 'assets/entities/bullet.png');
+            /**
+             * FASES / NIVELES / STAGES
+             */
             this.game.load.image('tsStages', 'assets/stages/mapTiles.png');
+            this.game.load.json('jsonStage00', 'assets/stages/stage00.json');
+            this.game.load.tilemap('tmStage00', 'assets/stages/stage00.json', null, Phaser.Tilemap.TILED_JSON);
         };
         Preloader.prototype.create = function () {
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);

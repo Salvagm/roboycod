@@ -14,7 +14,7 @@ var Roboycod;
     var EnemyMet = (function (_super) {
         __extends(EnemyMet, _super);
         function EnemyMet(game, x, y) {
-            _super.call(this, game, x, y, 'tsEntities');
+            _super.call(this, game, x, y, 'tsDynamics');
             this.LIVES = 3;
             this.GRAVITY = 2000;
             this.DRAG = 3000;

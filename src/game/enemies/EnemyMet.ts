@@ -14,7 +14,7 @@ module Roboycod {
 
         constructor(game : Phaser.Game, x : number, y : number)
         {
-            super(game, x, y,'tsEntities');
+            super(game, x, y,'tsDynamics');
 
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;

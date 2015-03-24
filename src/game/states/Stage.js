@@ -23,10 +23,8 @@ var Roboycod;
         };
         Stage.prototype.create = function () {
             this.kh = new Roboycod.KeyboardHandler(this.game);
-            // http://www.gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
-            //CARGAMOS EL NIVEL
-            //JSON, TileMap, TilesetImage, CollisionTiles
             this.loadStage();
+            //this.groundLayer.debug = true;
             //  Asociamos un setup de teclas segun el nivel
             this.kh.setupLevel(this.player);
             //TODO MEJORAR
@@ -36,9 +34,6 @@ var Roboycod;
             this.input.mouse.mouseOverCallback = function () {
                 this.input.keyboard.start();
             };
-            //this.debugButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            //this.debugMode = false;
-            //this.debugButton.onDown.add(this.Debug, this);
         };
         /**
          * Segun el numero que tenga asignado el Stage, cargara unos datos u otros
@@ -54,11 +49,7 @@ var Roboycod;
             this.groundLayer = this.map.createLayer('ground');
             //id+1
             this.map.setCollisionBetween(1, 99, true, 'ground');
-            //var collisionTiles : number[] = [635, 636, 637, 664, 665, 666, 693, 695];
-            //this.map.setCollision(collisionTiles, true,this.groundLayer);
-            console.log("creo colisiones y voy a reescalar el mundo");
             this.groundLayer.resizeWorld();
-            this.groundLayer.debug = true;
             //Cargamos player
             this.player = new Roboycod.Player(this.game, tempJSON.layers[4].objects[0].x, tempJSON.layers[4].objects[0].y, this.kh);
             //Cargamos enemigos
@@ -85,13 +76,8 @@ var Roboycod;
             player.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
             player.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
         };
-        Stage.prototype.Debug = function () {
-            this.debugMode = !this.debugMode;
-            this.groundLayer.debug = this.debugMode;
-            //this.game.debug.body(this.player);
-        };
         Stage.prototype.update = function () {
-            this.game.debug.body(this.player);
+            //this.game.debug.body(this.player);
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.enemies, this.groundLayer);
             this.game.physics.arcade.overlap(this.enemies, this.player, this.hitPlayer);

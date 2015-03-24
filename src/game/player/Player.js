@@ -14,7 +14,7 @@ var Roboycod;
     var Player = (function (_super) {
         __extends(Player, _super);
         function Player(game, x, y, kh) {
-            _super.call(this, game, x, y, 'tsEntities', 2);
+            _super.call(this, game, x, y, 'tsDynamics', 2);
             this.animState = 'idle';
             this.endShot = true;
             this.direction = 1;
@@ -30,16 +30,18 @@ var Roboycod;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
-            //this.body.setSize(50, 80, 0, 20);
             this.anchor.setTo(0.5, 0.5);
             this.kh = kh;
             this.gun = new Roboycod.GunBase(this.game);
-            this.animations.add('idle', [13, 14, 15, 14], 4, true);
-            this.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
-            this.animations.add('jump', [10], 5, false);
-            this.animations.add('shoot', [16, 14], 9, false);
+            this.animations.add('idle', [0, 1, 2], 4, true);
+            this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
+            this.animations.add('jump', [3], 1, false);
+            this.animations.add('fall', [5], 1, false);
+            this.animations.add('shoot', [21], 9, false);
             this.animations.add('jumpShoot', [10], 3, false);
-            this.animations.add('getHurt', [11, 12], 8, false);
+            this.animations.add('getHurt', [24], 8, false);
+            this.animations.add('die', [17], 8, false);
+            this.animations.add('off', [19, 20], 8, false);
             this.create();
             game.add.existing(this);
             this.game.camera.follow(this);
@@ -93,9 +95,13 @@ var Roboycod;
             //Anim FSM
             if (this.endShot) {
                 if (this.body.velocity.y != 0) {
-                    this.animState = 'jump';
+                    if (this.yLastPos > this.body.y)
+                        this.animState = 'jump';
+                    else if (this.yLastPos < this.body.y)
+                        this.animState = 'fall';
                     if (this.kh.arrowRight.isDown)
                         this.animState = 'jumpShoot';
+                    this.yLastPos = this.body.y;
                 }
                 else if (this.body.velocity.x != 0) {
                     this.animState = 'run';

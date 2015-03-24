@@ -50,10 +50,10 @@ module Roboycod
             // Set the bullet position to the gun position.a
 
             if(player.body.velocity.y != 0) {
-                this.tempBullet.reset(player.x + (35 * player.direction), player.y + 40);
+                this.tempBullet.reset(player.x + (35 * player.direction), player.y);
             }
             else{
-                this.tempBullet.reset(player.x + (35 * player.direction), player.y + 60);
+                this.tempBullet.reset(player.x + (35 * player.direction), player.y);
             }
 
             // Shoot it

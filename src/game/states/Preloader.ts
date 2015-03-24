@@ -4,9 +4,9 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 
 module Roboycod{
+
     export class Preloader extends Phaser.State {
 
-        //  Barra de carga
         preloadBar  : Phaser.Sprite;
 
         preload(){
@@ -15,33 +15,29 @@ module Roboycod{
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
 
-            //  Cargamos assets
+            /**
+             * Entidades, Objetos dinamicos, etc
+             */
             this.load.atlasJSONHash(
-                'tsEntities',
+                'tsDynamics',
                 'assets/entities/dynamicTiles.png',
                 'assets/entities/dynamicTiles.json'
             );
 
-            this.game.load.image('bullet', 'assets/player/bullet1.png');
+            this.game.load.image('bullet', 'assets/entities/bullet.png');
 
             /**
-             * NIVELES
+             * FASES / NIVELES / STAGES
              */
+            this.game.load.image('tsStages','assets/stages/mapTiles.png');
 
-            //Cargados los JSON de los niveles en cache
             this.game.load.json('jsonStage00','assets/stages/stage00.json');
-
-            //  Cargamos tileMaps
-            //TODO Cambiar titulos por level1, level2... map1, map2
-
             this.game.load.tilemap(
                 'tmStage00',
                 'assets/stages/stage00.json',
                 null,
-                Phaser.Tilemap.TILED_JSON);
-
-            //  Cargamos tileSets
-            this.game.load.image('tsStages','assets/stages/mapTiles.png');
+                Phaser.Tilemap.TILED_JSON
+            );
         }
 
         create() {
