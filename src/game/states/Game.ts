@@ -5,7 +5,7 @@
 ///<reference path="Boot.ts"/>
 ///<reference path="Preloader.ts"/>
 ///<reference path="MainMenu.ts"/>
-///<reference path="Level.ts"/>
+///<reference path="Stage.ts"/>
 
 
 module Roboycod
@@ -20,7 +20,7 @@ module Roboycod
             this.state.add('Boot',Boot,false);
             this.state.add('Preloader',Preloader,false);
             this.state.add('MainMenu',MainMenu,false);
-            this.state.add('Level',Level,false);
+            this.state.add('Stage',Stage,false);
 
             this.state.start('Boot');
 

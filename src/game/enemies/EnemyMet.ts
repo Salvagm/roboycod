@@ -14,7 +14,7 @@ module Roboycod {
 
         constructor(game : Phaser.Game, x : number, y : number)
         {
-            super(game,163,216,'enemies01');
+            super(game, x, y,'tsEntities');
 
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
@@ -35,10 +35,10 @@ module Roboycod {
             this.animations.play('idle');
         }
 
-        //update()
-        //{
-        //
-        //    this.game.debug.body(this);
-        //}
+        update()
+        {
+
+            this.game.debug.body(this);
+        }
     }
 }

@@ -5,7 +5,7 @@
 ///<reference path="Boot.ts"/>
 ///<reference path="Preloader.ts"/>
 ///<reference path="MainMenu.ts"/>
-///<reference path="Level.ts"/>
+///<reference path="Stage.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -21,7 +21,7 @@ var Roboycod;
             this.state.add('Boot', Roboycod.Boot, false);
             this.state.add('Preloader', Roboycod.Preloader, false);
             this.state.add('MainMenu', Roboycod.MainMenu, false);
-            this.state.add('Level', Roboycod.Level, false);
+            this.state.add('Stage', Roboycod.Stage, false);
             this.state.start('Boot');
         }
         return Game;

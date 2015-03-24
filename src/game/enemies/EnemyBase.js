@@ -13,8 +13,8 @@ var Roboycod;
 (function (Roboycod) {
     var EnemyBase = (function (_super) {
         __extends(EnemyBase, _super);
-        function EnemyBase(game, sheetWidth, sheetheight, enemyKey) {
-            _super.call(this, game, sheetWidth, sheetheight, enemyKey, 0);
+        function EnemyBase(game, x, y, enemyKey) {
+            _super.call(this, game, x, y, enemyKey, 0);
             this.game.physics.enable(this);
             this.body.collideWorldBounds = true;
             game.add.existing(this);

@@ -20,24 +20,19 @@ module Roboycod{
         private ACCELERATION: number = 100;
         private DRAG        : number = 4000;
 
-        constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number, kh : KeyboardHandler) {
+        constructor(game: Phaser.Game, x: number, y: number, kh : KeyboardHandler) {
 
-            super(game, sheetWidth, sheetHeight, 'robot', 2);
+            super(game, x, y, 'tsEntities', 2);
 
             this.game.physics.enable(this);
-            this.setPosition(0, this.game.height/2);
 
             // Player physics properties
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
-            this.body.setSize(50, 80, 0, 20);
-            this.anchor.setTo(0.5, 0);
-
-
-            //TODO Salva skizing
-            //this.body.center.setTo(50/2, 80/2);
+            //this.body.setSize(50, 80, 0, 20);
+            this.anchor.setTo(0.5, 0.5);
 
             this.kh = kh;
             this.gun = new GunBase(this.game);

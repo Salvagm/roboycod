@@ -15,7 +15,7 @@ module Roboycod {
 
         startGame() {
 
-            this.game.state.start('Level', true, false);
+            this.game.state.start('Stage', true, false, '00');
 
         }
 

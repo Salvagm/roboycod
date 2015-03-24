@@ -38,7 +38,7 @@ module Roboycod
             //    this.scale.pageAlignHorizontally = true;
             //
             //}
-
+            this.scale.setScreenSize(true);
 
             this.game.state.start('Preloader',true,false);
 

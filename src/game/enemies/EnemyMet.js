@@ -14,7 +14,7 @@ var Roboycod;
     var EnemyMet = (function (_super) {
         __extends(EnemyMet, _super);
         function EnemyMet(game, x, y) {
-            _super.call(this, game, 163, 216, 'enemies01');
+            _super.call(this, game, x, y, 'tsEntities');
             this.LIVES = 3;
             this.GRAVITY = 2000;
             this.DRAG = 3000;
@@ -31,6 +31,9 @@ var Roboycod;
         }
         EnemyMet.prototype.create = function () {
             this.animations.play('idle');
+        };
+        EnemyMet.prototype.update = function () {
+            this.game.debug.body(this);
         };
         return EnemyMet;
     })(Roboycod.EnemyBase);
