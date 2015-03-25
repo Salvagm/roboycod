@@ -2,7 +2,7 @@
  * Created by salva-pc on 23/03/15.
  */
 
-///<reference path="../CdvToken.ts" />
+///<reference path="../src/CdvToken.ts" />
 
 module compiler{
 

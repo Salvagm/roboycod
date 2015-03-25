@@ -1,7 +1,7 @@
 /**
  * Created by salva-pc on 23/03/15.
  */
-///<reference path ="../CdvLexAnalyzer.ts" />
+///<reference path ="../src/CdvLexAnalyzer.ts" />
 
 module compiler
 {
