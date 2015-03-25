@@ -3,8 +3,8 @@
  */
 
 ///<reference path ="CdvToken.ts" />
-///<reference path ="CdvgraphStates.ts" />
-    
+///<reference path ="CdvGraphStates.ts" />
+
 module compiler
 {
     // TODO MIRAR WEB WORKERS
@@ -35,7 +35,6 @@ module compiler
         // Array asociativo que pasa del caracter leido a un estado del grafo
         private static char2State        : {[char : string] : number;} = {};
 
-        private callFunc    : {[state : number] : number;} [];
         /**
          * Constructor de la clase analizador Lexico
          * En caso de que se llame lanzara error
@@ -74,8 +73,6 @@ module compiler
             CdvLexAnalyzer.char2State['&'] = CdvGraphStates.TRANSAND;
             CdvLexAnalyzer.char2State['|'] = CdvGraphStates.TRANSOR;
 
-
-
             CdvLexAnalyzer._instance = this;
         }
 
@@ -94,7 +91,6 @@ module compiler
 
         /**
          * Recoge la instancia actual del analizador, si existe de antes devuelve esa instancia
-         * @param codigo codigo que queremos analizar
          * @returns {CdvLexAnalyzer} devuelve el objeto de tipo LexAnalyzer, solo lo crea una vez
          */
         public static getInstance() : CdvLexAnalyzer

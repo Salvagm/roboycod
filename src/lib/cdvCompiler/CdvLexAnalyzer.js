@@ -2,7 +2,7 @@
  * Created by salva-pc on 23/03/15.
  */
 ///<reference path ="CdvToken.ts" />
-///<reference path ="CdvgraphStates.ts" />
+///<reference path ="CdvGraphStates.ts" />
 var compiler;
 (function (compiler) {
     // TODO MIRAR WEB WORKERS
@@ -58,7 +58,6 @@ var compiler;
         };
         /**
          * Recoge la instancia actual del analizador, si existe de antes devuelve esa instancia
-         * @param codigo codigo que queremos analizar
          * @returns {CdvLexAnalyzer} devuelve el objeto de tipo LexAnalyzer, solo lo crea una vez
          */
         CdvLexAnalyzer.getInstance = function () {
