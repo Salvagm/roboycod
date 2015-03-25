@@ -3,9 +3,14 @@
  */
 
 ///<reference path ="CdvToken.ts" />
-
+///<reference path ="CdvgraphStates.ts" />
+    
 module compiler
 {
+    // TODO MIRAR WEB WORKERS
+    /**
+     * Clase encargada de analizar el lexico del codigo que queremos interpretar
+     */
     export class CdvLexAnalyzer
     {
         // codigo que le pasamos para que analice
@@ -28,22 +33,9 @@ module compiler
         // Array asociativo el cual le pasamos el lexema que se ha formado para comprobar si es una palabra reservada
         private static id2Reserved      : {[lexema : string] :  number;} = {};
         // Array asociativo que pasa del caracter leido a un estado del grafo
-        private static char2Type        : {[char : string] : number;} = {};
+        private static char2State        : {[char : string] : number;} = {};
 
-        private static STATEINIT    : number = 0;
-        // Transicion de >
-        private static TRANSRELOP1  : number = -1;
-        // Transicion de =
-        private static TRANSRELOP2  : number = -2;
-        // Transicion de !
-        private static TRANSRELOP3  : number = -3;
-        // Transicion de <
-        private static TRANSRELOP4  : number = -4;
-        // Transicion de &
-        private static TRANSAND  : number = -9;
-        // Transicion de |
-        private static TRANSOR  : number = -10;
-
+        private callFunc    : {[state : number] : number;} [];
         /**
          * Constructor de la clase analizador Lexico
          * En caso de que se llame lanzara error
@@ -60,29 +52,27 @@ module compiler
             CdvLexAnalyzer.id2Reserved["bool"] = CdvToken.BOOL;
             CdvLexAnalyzer.id2Reserved["cout"] = CdvToken.COUT;
             CdvLexAnalyzer.id2Reserved["endl"] = CdvToken.ENDL;
+            CdvLexAnalyzer.id2Reserved["void"] = CdvToken.VOID;
             CdvLexAnalyzer.id2Reserved["if"] = CdvToken.IF;
             CdvLexAnalyzer.id2Reserved["true"] = CdvToken.TRUE;
             CdvLexAnalyzer.id2Reserved["false"] = CdvToken.FALSE;
 
-            CdvLexAnalyzer.char2Type[','] = CdvToken.COMA;
-            CdvLexAnalyzer.char2Type[';'] = CdvToken.PYC;
-            CdvLexAnalyzer.char2Type['('] = CdvToken.PARI;
-            CdvLexAnalyzer.char2Type[')'] = CdvToken.PARD;
-            CdvLexAnalyzer.char2Type['{'] = CdvToken.LLAVEI;
-            CdvLexAnalyzer.char2Type['}'] = CdvToken.LLAVED;
-            CdvLexAnalyzer.char2Type['['] = CdvToken.CORI;
-            CdvLexAnalyzer.char2Type[']'] = CdvToken.CORD;
-            CdvLexAnalyzer.char2Type['>'] = -1; // estado de transicion
-            CdvLexAnalyzer.char2Type['='] = -2; // estado de transicion
-            CdvLexAnalyzer.char2Type['!'] = -3; // estado de transicion
-            CdvLexAnalyzer.char2Type['<'] = -4; // estado de transicion
-            CdvLexAnalyzer.char2Type['&'] = -9; // estado de transicion
-            CdvLexAnalyzer.char2Type['|'] = -10; // estado de transicion
+            CdvLexAnalyzer.char2State[','] = CdvGraphStates.STATECOMA;
+            CdvLexAnalyzer.char2State[';'] = CdvGraphStates.STATEPYC;
+            CdvLexAnalyzer.char2State['('] = CdvGraphStates.STATEPARI;
+            CdvLexAnalyzer.char2State[')'] = CdvGraphStates.STATEPARD;
+            CdvLexAnalyzer.char2State['{'] = CdvGraphStates.STATELLAVEI;
+            CdvLexAnalyzer.char2State['}'] = CdvGraphStates.STATELLAVED;
+            CdvLexAnalyzer.char2State['['] = CdvGraphStates.STATECORI;
+            CdvLexAnalyzer.char2State[']'] = CdvGraphStates.STATECORD;
 
-            //CdvLexAnalyzer.char2Type[','] = 1;
-            //CdvLexAnalyzer.char2Type[','] = 1;
-            //CdvLexAnalyzer.char2Type[','] = 1;
-
+            // Estados transicionales
+            CdvLexAnalyzer.char2State['>'] = CdvGraphStates.TRANSRELOP1;
+            CdvLexAnalyzer.char2State['='] = CdvGraphStates.TRANSRELOP2;
+            CdvLexAnalyzer.char2State['!'] = CdvGraphStates.TRANSRELOP3;
+            CdvLexAnalyzer.char2State['<'] = CdvGraphStates.TRANSRELOP4;
+            CdvLexAnalyzer.char2State['&'] = CdvGraphStates.TRANSAND;
+            CdvLexAnalyzer.char2State['|'] = CdvGraphStates.TRANSOR;
 
 
 
@@ -93,7 +83,7 @@ module compiler
          * Inizializa el Analizador lexico en base a un codigo que recibe
          * @param codigo codigo a analizar
          */
-        public initialiceAnaLex(codigo : string)
+        public AnalyzeCode(codigo : string)
         {
             this.code       = codigo;
             this.currenRow  = 1;
@@ -107,15 +97,14 @@ module compiler
          * @param codigo codigo que queremos analizar
          * @returns {CdvLexAnalyzer} devuelve el objeto de tipo LexAnalyzer, solo lo crea una vez
          */
-        public static getInstance(codigo : string) : CdvLexAnalyzer
+        public static getInstance() : CdvLexAnalyzer
         {
             if(CdvLexAnalyzer._instance === null)
             {
                 CdvLexAnalyzer.canInstantiate = true;
                 CdvLexAnalyzer._instance = new CdvLexAnalyzer();
-                CdvLexAnalyzer._instance.initialiceAnaLex(codigo);
+
                 CdvLexAnalyzer.canInstantiate = false;
-                console.log(this.id2Reserved["endl"]);
             }
             return CdvLexAnalyzer._instance;
         }
@@ -127,17 +116,22 @@ module compiler
         private getNextChar() : string
         {
             var character : string = "";
-            if(this.currentPos < this.endCodePos-1)
+            if(this.currentPos < this.endCodePos)
             {
                 character = this.code.charAt(this.currentPos);
                 ++this.currentPos;
                 ++this.currentCol;
             }
-            else if (this.currentPos == this.endCodePos-1)
+            else if (this.currentPos >= this.endCodePos)
             {
                 character = "$";
             }
 
+            if(character === "\n")
+            {
+                this.currentCol = 0;
+                ++this.currenRow;
+            }
             return character;
         }
 
@@ -156,6 +150,15 @@ module compiler
                 char = this.getNextChar();
                 this.delta(this.graphState,char);
             }
+
+
+            if(this.token.type === CdvToken.ID)
+            {
+                var newType = CdvLexAnalyzer.id2Reserved[this.token.lexeme];
+                if(newType !== undefined)
+                    this.token.type = newType;
+            }
+            this.token.row = this.currenRow;
             return this.token;
         }
 
@@ -168,116 +171,296 @@ module compiler
         {
             switch (state)
             {
-                case CdvLexAnalyzer.STATEINIT :
-                    this.token.column = this.currentCol;
+                case CdvGraphStates.STATEINIT :
                     this.graphState = this.updateState(char);
                     break;
-                case CdvLexAnalyzer.TRANSRELOP1:
-                    this.graphState = this.moreEqual(char);
+                case CdvGraphStates.TRANSRELOP1:
+                    this.graphState = this.moreEqualOpe(char);
                     break;
-                case CdvLexAnalyzer.TRANSRELOP2:
-                    this.graphState = this.equal(char);
+                case CdvGraphStates.TRANSRELOP2:
+                    this.graphState = this.equalOpe(char);
                     break;
-                case CdvLexAnalyzer.TRANSRELOP3:
-                    this.graphState = this.lessEqual(char);
+                case CdvGraphStates.TRANSRELOP3:
+                    this.graphState = this.notEqualOpe(char);
                     break;
-                case CdvLexAnalyzer.TRANSRELOP4:
-                    this.graphState = this.notEqual(char);
+                case CdvGraphStates.TRANSRELOP4:
+                    this.graphState = this.lessEqualOpe(char);
                     break;
-                case CdvLexAnalyzer.TRANSAND:
+                case CdvGraphStates.TRANSAND:
+                    this.graphState = this.andOpe(char);
                     break;
-                case CdvLexAnalyzer.TRANSOR:
+                case CdvGraphStates.TRANSOR:
+                    this.graphState = this.orOpe(char);
                     break;
-
+                case CdvGraphStates.TRANSID:
+                    this.graphState = this.generateID(char);
+                    break;
+                case CdvGraphStates.TRANSNUM:
+                    this.graphState = this.digit(char);
+                    break;
+                case CdvGraphStates.TRANSNENTERO:
+                    this.graphState = this.intDigit(char);
+                    break;
+                case CdvGraphStates.TRANSNREAL:
+                    this.graphState = this.realDigi(char);
+                    break;
+                default :
+                    throw new Error("Error Lexico (fila: "+this.token.row+", columna: "+this.token.column+"): Caracter "+char+" invalido");
             }
         }
 
 
         /**
          * Funcion que le pasamos un caracter y devuelve el estado asociado a dicho caracter
-         * Utilizamos la tabla estatica que del caracter leido obtenemos el tipo de token
+         * Utilizamos la funcion de graphState que nos devuelve el token en funcion del estado
+         * El estado lo obtenemos mediante la tabla que pasa del caracter leido al estado (solo para unos pocos)
          * @param char caractar leido actual
          * @returns {number} numero del estado en el que se encuentra
          */
         private updateState(char : string) : number
         {
-            this.token.lexeme +=char;
-            this.token.type = CdvLexAnalyzer.char2Type[char];
-            return this.token.type;
+            this.token.column = this.currentCol;
+            if(char >= "0" && char <= "9")
+            {
+                this.token.lexeme +=char;
+                return CdvGraphStates.TRANSNUM;
+            }
+            else if(char >= "a" && char <= "z" || char >= "A" && char <= "Z")
+            {
+                this.token.lexeme +=char;
+                return CdvGraphStates.TRANSID;
+            }
+            else if(char === "\t" || char === "\n" || char === " ")
+            {
+                if(char === "\t")
+                {
+                    this.currentCol += 3;
+                    this.token.column = this.currentCol;
+
+                }
+                return CdvGraphStates.STATEINIT;
+            }
+            else if(char === "$")
+            {
+                this.token.type = CdvToken.EOF;
+                this.token.lexeme = char;
+                return CdvGraphStates.STATEEND;
+            }
+            else if(CdvLexAnalyzer.char2State[char] !== undefined)
+            {
+                this.token.lexeme +=char;
+                this.token.type = CdvGraphStates.state2Token(CdvLexAnalyzer.char2State[char]);
+                return CdvLexAnalyzer.char2State[char];
+            }
+            else
+                throw new Error("Error Lexico (fila: "+this.token.row+", columna: "+this.token.column+"): Caracter "+char+" invalido");
         }
 
-        private moreEqual(char : string) : number
+        /**
+         * Comprueba operaciones >=
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado relop)
+         */
+        private moreEqualOpe(char : string) : number
         {
             if(char === "=")
             {
                 this.token.lexeme += char;
                 this.token.type = CdvToken.RELOP;
-                return 8;
+                return CdvGraphStates.STATERELOP;
             }
             else
             {
                 --this.currentPos;
+                --this.currentCol;
                 this.token.type = CdvToken.RELOP;
-                return 7;
+                return CdvGraphStates.STATERELOP1;
             }
         }
-        private lessEqual(char : string ) : number
+
+        /**
+         * Comprueba operacion <= u operaciones <<
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado relop o despi)
+         */
+        private lessEqualOpe(char : string ) : number
         {
             if( char === "=")
             {
                 this.token.lexeme += char;
                 this.token.type = CdvToken.RELOP;
-                return 8;
+                return CdvGraphStates.STATERELOP;
             }
             else if (char === "<")
             {
                 this.token.lexeme += char;
                 this.token.type = CdvToken.DESPI;
-                return 10;
+                return CdvGraphStates.STATEDESPI;
             }
             else
             {
                 --this.currentPos;
+                --this.currentCol;
                 this.token.type = CdvToken.RELOP;
-                return 7;
+                return CdvGraphStates.STATERELOP1;
             }
 
         }
-        private equal(char : string) : number
+
+        /**
+         * Comprueba operacion ==
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado relop o asig)
+         */
+        private equalOpe(char : string) : number
         {
             if (char === "=")
             {
                 this.token.lexeme += char;
                 this.token.type = CdvToken.RELOP;
-                return 8;
+                return CdvGraphStates.STATERELOP;
             }
             else {
                 --this.currentPos;
+                --this.currentCol;
                 this.token.type = CdvToken.ASIG;
-                return 9;
+                return CdvGraphStates.STATEASIG;
             }
         }
 
-        // TODO MIRAR TEMA DE DETENER EJECUCION
-        // TODO MIRAR WEB WORKERS
-        private notEqual(char : string) : number
+        /**
+         * Comprueba operacion !=
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter ( estado relop) o corta ejecucion lanzando error
+         */
+        private notEqualOpe(char : string) : number
         {
             if(char === "=")
             {
                 this.token.lexeme += char;
                 this.token.type = CdvToken.RELOP;
-                return 8;
-
+                return CdvGraphStates.STATERELOP;
             }
             else
             {
                 --this.currentPos;
-                throw  new Error ("Erros Lexico:");
+                --this.currentCol;
+                throw new Error("Error Lexico (fila: "+this.token.row+", columna: "+this.token.column+"): Caracter "+char+" invalido");
             }
 
         }
 
+        /**
+         * Genera el que ha comenzado por una letras en minuscula o mayuscula
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado ID o TRANSID)
+         */
+        private generateID(char : string) : number
+        {
+            if(char >= "a" && char <= "z" || char >= "A" && char <= "Z" || char >= "0" && char <= "9")
+            {
+                this.token.lexeme += char;
+                return CdvGraphStates.TRANSID;
+            }
+            this.token.type = CdvToken.ID;
+            --this.currentPos;
+            --this.currentCol;
+            return CdvGraphStates.STATEID;
+        }
 
+        /**
+         * Comprueba si es operacion &&
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado AND) o corta ejecucion lanzando error
+         */
+        private andOpe(char : string) : number
+        {
+            if(char === "&")
+            {
+                this.token.lexeme += char;
+                this.token.type = CdvToken.AND;
+                return CdvGraphStates.STATEAND;
+            }
+            throw new Error("Error Lexico (fila: "+this.token.row+", columna: "+this.token.column+"): Caracter "+char+" invalido");
+        }
 
+        /**
+         * Comprueba si es operacion ||
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado OR) o corta ejecucion y lanza error
+         */
+        private orOpe(char : string) : number
+        {
+            if(char === "|")
+            {
+                this.token.lexeme += char;
+                this.token.type = CdvToken.OR;
+                return CdvGraphStates.STATEOR;
+            }
+            throw new Error("Error Lexico (fila: "+this.token.row+", columna: "+this.token.column+"): Caracter "+char+" invalido");
+        }
+
+        /**
+         * Comprueba si lo que esta leyendo es un numero (entero o real)
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado TRANSNUM, TRANSNENTERO NENTERO1)
+         */
+        private digit(char : string) : number
+        {
+            if(char >= "0" && char <= "9")
+            {
+                this.token.lexeme += char;
+                return CdvGraphStates.TRANSNUM;
+            }
+            else if (char === ".")
+            {
+                return CdvGraphStates.TRANSNENTERO;
+            }
+            else
+            {
+                this.token.type = CdvToken.NENTERO;
+                --this.currentPos;
+                --this.currentCol;
+                return CdvGraphStates.STATENENTERO1;
+            }
+        }
+
+        /**
+         * Comprueba si lo que esta leyendo es un numero entero o real
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado TRANSREAL o NENTERO2)
+         */
+        private intDigit(char : string) : number
+        {
+            if(char >= "0" && char <= "9")
+            {
+                this.token.lexeme += "." + char;
+                return CdvGraphStates.TRANSNREAL;
+            }
+
+            this.currentPos-=2;
+            this.currentCol-=2;
+            this.token.type = CdvToken.NENTERO;
+            return CdvGraphStates.STATENENTERO2;
+        }
+
+        /**
+         * Comprueba si lo que esta leyendo es un numero real
+         * @param char caracter leido
+         * @returns {number} estado tras analizar caracter (estado TRANSREAL o NREAL)
+         */
+        private realDigi(char : string) : number
+        {
+            if(char >= "0" && char <= "9")
+            {
+                this.token.lexeme += char;
+                return CdvGraphStates.TRANSNREAL;
+            }
+
+            --this.currentPos;
+            --this.currentCol;
+            this.token.type = CdvToken.NREAL;
+            return CdvGraphStates.STATENREAL;
+        }
     }
 }
