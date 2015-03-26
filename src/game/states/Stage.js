@@ -3,7 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
-///<reference path="../enemies/EnemyMet.ts"/>
+///<reference path="../enemies/Enemy01.ts"/>
+///<reference path="../cdvs/CdvBase.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -24,9 +25,14 @@ var Roboycod;
         Stage.prototype.create = function () {
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.loadStage();
-            //this.groundLayer.debug = true;
             //  Asociamos un setup de teclas segun el nivel
             this.kh.setupLevel(this.player);
+            //$(document).keydown(function(e) {
+            //    if (e.ctrlKey && e.which == 9) {
+            //        this.input.keyboard.stop();
+            //        //alert("CTRL + TAB Pressed")
+            //    }
+            //})
             //TODO MEJORAR
             this.input.mouse.mouseOutCallback = function () {
                 this.input.keyboard.stop();
@@ -34,6 +40,9 @@ var Roboycod;
             this.input.mouse.mouseOverCallback = function () {
                 this.input.keyboard.start();
             };
+            //TODO CAMBIAR A CUANDO MUERE UN enemigo anyade CDV en su posicion
+            this.codevices = this.game.add.group();
+            this.codevices.add(new Roboycod.CdvBase(this.game, 200, 200));
         };
         /**
          * Segun el numero que tenga asignado el Stage, cargara unos datos u otros
@@ -62,27 +71,22 @@ var Roboycod;
         Stage.prototype.loadEnemies = function (enemyData) {
             this.enemies = this.game.add.group();
             for (var i = 0; i < enemyData.objects.length; ++i)
-                this.enemies.add(new Roboycod.EnemyMet(this.game, enemyData.objects[i].x, enemyData.objects[i].y));
+                this.enemies.add(new Roboycod.Enemy01(this.game, enemyData.objects[i].x, enemyData.objects[i].y));
         };
         Stage.prototype.removeShoot = function (bullet, ground) {
             bullet.kill();
         };
-        Stage.prototype.hitPlayer = function (player, enemy) {
-            var direction;
-            direction = Phaser.Point.subtract(player.position, enemy.position);
-            Phaser.Point.normalize(direction, direction);
-            // Mover valores a player o enemigo
-            player.body.velocity.x = player.body.velocity.y = 0;
-            player.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
-            player.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        //TODO implementar funcion de colision con player de los enemigos concretos
+        Stage.prototype.collideEnemy = function (player, enemy) {
+            enemy.collide(player, enemy);
         };
         Stage.prototype.update = function () {
-            //this.game.debug.body(this.player);
-            this.game.physics.arcade.collide(this.player, this.groundLayer);
-            this.game.physics.arcade.collide(this.enemies, this.groundLayer);
-            this.game.physics.arcade.overlap(this.enemies, this.player, this.hitPlayer);
+            this.game.physics.arcade.collide(this.groundLayer, this.player);
+            this.game.physics.arcade.collide(this.groundLayer, this.enemies);
+            this.game.physics.arcade.collide(this.groundLayer, this.codevices);
             this.game.physics.arcade.collide(this.enemies, this.enemies);
             this.game.physics.arcade.collide(this.player.gun, this.groundLayer, this.removeShoot);
+            this.game.physics.arcade.overlap(this.enemies, this.player, this.collideEnemy);
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
         };
         return Stage;

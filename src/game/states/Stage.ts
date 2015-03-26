@@ -3,7 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
-///<reference path="../enemies/EnemyMet.ts"/>
+///<reference path="../enemies/Enemy01.ts"/>
+///<reference path="../cdvs/CdvBase.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 
 
@@ -15,6 +16,7 @@ module Roboycod{
         private groundLayer : Phaser.TilemapLayer;
         private player      : Player;
         private enemies     : Phaser.Group;
+        private codevices   : Phaser.Group;
         private kh          : KeyboardHandler;
         private numStage    : string;
 
@@ -28,15 +30,24 @@ module Roboycod{
             this.kh = new KeyboardHandler(this.game);
 
             this.loadStage();
-            //this.groundLayer.debug = true;
 
             //  Asociamos un setup de teclas segun el nivel
             this.kh.setupLevel(this.player);
 
+
+            //$(document).keydown(function(e) {
+            //    if (e.ctrlKey && e.which == 9) {
+            //        this.input.keyboard.stop();
+            //        //alert("CTRL + TAB Pressed")
+            //    }
+            //})
             //TODO MEJORAR
             this.input.mouse.mouseOutCallback = function() { this.input.keyboard.stop(); };
             this.input.mouse.mouseOverCallback = function() { this.input.keyboard.start(); };
 
+            //TODO CAMBIAR A CUANDO MUERE UN enemigo anyade CDV en su posicion
+            this.codevices = this.game.add.group();
+            this.codevices.add(new CdvBase(this.game, 200, 200));
         }
 
         /**
@@ -45,7 +56,7 @@ module Roboycod{
          */
         public loadStage(){
 
-            var tempJSON = this .game.cache.getJSON('jsonStage' + this.numStage);
+            var tempJSON = this.game.cache.getJSON('jsonStage' + this.numStage);
 
             this.map = this.add.tilemap('tmStage' + this.numStage);
             this.map.addTilesetImage('tsStages');
@@ -81,34 +92,30 @@ module Roboycod{
         {
             this.enemies = this.game.add.group();
             for(var i = 0; i< enemyData.objects.length ; ++i)
-                this.enemies.add(new EnemyMet(this.game,enemyData.objects[i].x,enemyData.objects[i].y));
+                this.enemies.add(new Enemy01(this.game,enemyData.objects[i].x,enemyData.objects[i].y));
 
         }
         private removeShoot(bullet : Phaser.Sprite, ground : Phaser.Tile) : void
         {
             bullet.kill();
         }
+        //TODO implementar funcion de colision con player de los enemigos concretos
 
-        private hitPlayer(player : Phaser.Sprite , enemy : Phaser.Sprite) : void
-        {
+        private collideEnemy(player : Phaser.Sprite , enemy : Phaser.Sprite) : void{
 
-            var direction : Phaser.Point;
-            direction = Phaser.Point.subtract(player.position,enemy.position);
+            (<EnemyBase>enemy).collide(<Player>player, <EnemyBase>enemy);
 
-            Phaser.Point.normalize(direction,direction);
-            // Mover valores a player o enemigo
-            player.body.velocity.x = player.body.velocity.y = 0;
-            player.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
-            player.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
         }
         update(){
 
-            //this.game.debug.body(this.player);
-            this.game.physics.arcade.collide(this.player, this.groundLayer);
-            this.game.physics.arcade.collide(this.enemies,this.groundLayer);
-            this.game.physics.arcade.overlap(this.enemies,this.player,this.hitPlayer);
+            this.game.physics.arcade.collide(this.groundLayer, this.player);
+            this.game.physics.arcade.collide(this.groundLayer, this.enemies);
+            this.game.physics.arcade.collide(this.groundLayer, this.codevices);
+
             this.game.physics.arcade.collide(this.enemies,this.enemies);
             this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
+
+            this.game.physics.arcade.overlap(this.enemies,this.player,this.collideEnemy);
             this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);
 
         }

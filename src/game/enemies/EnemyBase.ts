@@ -7,14 +7,15 @@ module Roboycod{
 
     export class  EnemyBase extends Phaser.Sprite{
 
-        constructor(game : Phaser.Game, x : number, y : number, enemyKey : string)
+        constructor(game : Phaser.Game, x : number, y : number)
         {
-            super(game, x, y,enemyKey,0);
+            super(game, x, y,'tsDynamics',0);
             this.game.physics.enable(this);
             this.body.collideWorldBounds = true;
             game.add.existing(this);
         }
 
+        public collide(player : Player, enemy : EnemyBase){}
 
     }
 }
