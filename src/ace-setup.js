@@ -1,11 +1,13 @@
 $( document ).ready(function(){
     var editor = ace.edit("editor");
-    
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/python");
-    document.getElementById('editor').style.fontSize='18px';
+    var session = editor.getSession();
 
-    //editor.setShowInvisibles(true);
+    //elimina el warning al cargar texto
+    editor.$blockScrolling = Infinity;
+
+    editor.setTheme("ace/theme/monokai");
+    session.setMode("ace/mode/python");
+    document.getElementById('editor').style.fontSize='18px';
 
     ace.require("ace/ext/language_tools");
     editor.setOptions({
@@ -15,9 +17,9 @@ $( document ).ready(function(){
     //LIMITA LAS LINEAS A 5
 
     $( "#editor" ).keyup(function() {
-        if(editor.getSession().getLength() <= 5)
-            contentTemp = editor.getSession().getValue();
-        if(editor.getSession().getLength() >= 5){
+        if(session.getLength() <= 5)
+            contentTemp = session.getValue();
+        if(session.getLength() >= 5){
             editor.getSession().getUndoManager().undo(true);
         }
     });
@@ -25,8 +27,8 @@ $( document ).ready(function(){
     //OPCIONES DE GUARDADO
 
     $("#save-btn").on('click', function () {
-        if(editor.getSession().getValue() != ""){
-            localStorage.setItem('key', JSON.stringify(editor.getSession().getValue()));
+        if(session.getValue() != ""){
+            localStorage.setItem('key', JSON.stringify(session.getValue()));
             editor.setValue("", -1);
 
         }
@@ -35,7 +37,6 @@ $( document ).ready(function(){
     $("#load-btn").on('click', function () {
         if(localStorage.getItem('key')){
             editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
-
             localStorage.removeItem('key');
         }
 

@@ -1,18 +1,20 @@
+/**
+ * Created by javi on 2/02/15.
+ */
+///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../utils/KeyboardHandler.ts"/>
+///<reference path="../cdvs/CdvBase.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-/**
- * Created by javi on 2/02/15.
- */
-///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../utils/KeyboardHandler.ts"/>
 var Roboycod;
 (function (Roboycod) {
     var Player = (function (_super) {
         __extends(Player, _super);
+        //  TODO FIN DEMOCODE
         function Player(game, x, y, kh) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
             this.animState = 'idle';
@@ -84,10 +86,12 @@ var Roboycod;
         Player.prototype.moveRight = function () {
             this.moveTo(1);
         };
+        //  TODO DEMOCODE
         Player.prototype.jump = function () {
-            if (this.body.onFloor())
+            if (this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.runCode())
                 this.body.velocity.y = this.JUMP_SPEED;
         };
+        //  TODO FIN DEMOCODE
         Player.prototype.shoot = function () {
             this.gun.shoot(this);
         };

@@ -4,15 +4,20 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 module Roboycod {
 
-    //export class HUD extends Phaser.{
-    //
-    //    player      : Roboycod.Player;
-    //    playerLife  : string;
-    //
-    //    constructor(game : Phaser.Game){
-    //
-    //        super(game);
-    //        this.playerLife = this.game.add.text(16, 16, 'score: '+tHUD.score, { fontSize: '32px', fill: '#000' });
-    //    }
-    //}
+    export class HUD extends Phaser.Sprite{
+
+
+        constructor(game : Phaser.Game, x : number, y : number){
+
+            super(game, x, y);
+
+
+            this.fixedToCamera = true;
+
+            this.create();
+        }
+        create(){
+        }
+
+    }
 }

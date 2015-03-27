@@ -3,6 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
+///<reference path="../cdvs/CdvBase.ts"/>
+
 module Roboycod{
 
     export class Player extends Phaser.Sprite {
@@ -21,6 +23,10 @@ module Roboycod{
         private JUMP_SPEED  : number = -800;
         private ACCELERATION: number = 100;
         private DRAG        : number = 4000;
+
+        //  TODO DEMOCODE
+        public cdvDemo      : CdvBase;
+        //  TODO FIN DEMOCODE
 
         constructor(game: Phaser.Game, x: number, y: number, kh : KeyboardHandler) {
 
@@ -99,10 +105,12 @@ module Roboycod{
         moveRight() : void {
             this.moveTo(1);
         }
+        //  TODO DEMOCODE
         jump() : void {
-            if(this.body.onFloor())
+            if(this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.runCode())
                 this.body.velocity.y = this.JUMP_SPEED;
         }
+        //  TODO FIN DEMOCODE
         shoot() : void {
             this.gun.shoot(this);
         }

@@ -6,6 +6,7 @@
 ///<reference path="../enemies/Enemy01.ts"/>
 ///<reference path="../cdvs/CdvBase.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
+///<reference path="../utils/HUD.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -27,6 +28,12 @@ var Roboycod;
             this.loadStage();
             //  Asociamos un setup de teclas segun el nivel
             this.kh.setupLevel(this.player);
+            this.codevices = this.game.add.group();
+            //TODO HUD FAKE DEMO
+            this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
+            this.hudFake.width = this.game.width;
+            this.hudFake.height = this.game.width / 8;
+            this.hudFake.fixedToCamera = true;
             //$(document).keydown(function(e) {
             //    if (e.ctrlKey && e.which == 9) {
             //        this.input.keyboard.stop();
@@ -40,9 +47,6 @@ var Roboycod;
             this.input.mouse.mouseOverCallback = function () {
                 this.input.keyboard.start();
             };
-            //TODO CAMBIAR A CUANDO MUERE UN enemigo anyade CDV en su posicion
-            this.codevices = this.game.add.group();
-            this.codevices.add(new Roboycod.CdvBase(this.game, 200, 200));
         };
         /**
          * Segun el numero que tenga asignado el Stage, cargara unos datos u otros
@@ -76,9 +80,17 @@ var Roboycod;
         Stage.prototype.removeShoot = function (bullet, ground) {
             bullet.kill();
         };
-        //TODO implementar funcion de colision con player de los enemigos concretos
+        /**
+         * Esta funcion la implementara cada enemigo concreto. Si el enemigo muere,
+         * se anyade un CDV en su posicion
+         */
         Stage.prototype.collideEnemy = function (player, enemy) {
-            enemy.collide(player, enemy);
+            enemy.collide(player, this.codevices);
+        };
+        Stage.prototype.collideCdv = function (player, cdv) {
+            cdv.loadCode();
+            player.cdvDemo = cdv;
+            cdv.kill();
         };
         Stage.prototype.update = function () {
             this.game.physics.arcade.collide(this.groundLayer, this.player);
@@ -86,7 +98,8 @@ var Roboycod;
             this.game.physics.arcade.collide(this.groundLayer, this.codevices);
             this.game.physics.arcade.collide(this.enemies, this.enemies);
             this.game.physics.arcade.collide(this.player.gun, this.groundLayer, this.removeShoot);
-            this.game.physics.arcade.overlap(this.enemies, this.player, this.collideEnemy);
+            this.game.physics.arcade.overlap(this.enemies, this.player, this.collideEnemy, null, this);
+            this.game.physics.arcade.overlap(this.codevices, this.player, this.collideCdv, null, this);
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
         };
         return Stage;

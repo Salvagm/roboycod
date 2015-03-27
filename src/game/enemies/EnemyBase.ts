@@ -15,7 +15,10 @@ module Roboycod{
             game.add.existing(this);
         }
 
-        public collide(player : Player, enemy : EnemyBase){}
+        /**
+         * Comprueba la colision con el player, si muere puede anyadir CDVs al grupo en pantalla
+         */
+        public collide(player : Player, codevices : Phaser.Group){}
 
     }
 }

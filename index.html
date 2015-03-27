@@ -1,5 +1,5 @@
-<!doctype html> 
-<html lang="en"> 
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head> 
 	<meta charset="UTF-8" />
 	<title>Roboycod</title>
@@ -43,16 +43,22 @@
     <div id="container2">
         <div id="container1">
             <div id="content"></div>
-            <div id="editor" tabindex="1">def jump(keyJum):
-    if(keyJum):
-        print("SALTO")
-</div>
+            <div id="editor" tabindex="1"></div>
+            <!--<div id="editor" tabindex="1">def jump(keyJum):-->
+    <!--if(keyJum):-->
+        <!--print("SALTO")-->
+<!--jump(True)-->
+<!--</div>-->
 
         <div id = "test">
             <button class="myButton" id="save-btn">Save</button>
             <button class="myButton" id="load-btn">Load</button>
             <button class="myButton" id="runCode">Run</button>
-            <p id="output">Texto</p>
+            <div class="shell-wrap">
+                <p class="shell-top-bar">Console</p>
+                <div id="output"></div>
+
+            </div>
         </div>
 
         </div>

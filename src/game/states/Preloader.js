@@ -19,10 +19,13 @@ var Roboycod;
             //  Usamos la preloadBar mientras cargamos el resto
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
+            //TODO HUD Fake para DEMO
+            this.game.load.image('hudfake', 'assets/hudfake.png');
             /**
              * Entidades, Objetos dinamicos, etc
              */
             this.load.atlasJSONHash('tsDynamics', 'assets/entities/dynamicTiles.png', 'assets/entities/dynamicTiles.json');
+            //TODO cambiar por otra bala
             this.game.load.image('bullet', 'assets/entities/bullet.png');
             /**
              * FASES / NIVELES / STAGES
