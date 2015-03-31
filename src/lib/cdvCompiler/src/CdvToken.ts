@@ -77,10 +77,14 @@ module compiler
         public static IF        : number = 24;
         // Token identificador (25)
         public static ID        : number = 25;
+        // Token + - (26)
+        public static ADDOP     : number = 26;
+        // Token * / % (27)
+        public static MULOP     : number = 27;
 
         //TODO ADD NEW TOKEN IN NEXT STEPS
         // Token final fichero (26)
-        public static EOF       : number = 26;
+        public static EOF       : number = 28;
 
         // Array que pasa del tipo numérico del token a la cadena asociada
         private static tok2Str : string[] = ["(",
@@ -109,6 +113,8 @@ module compiler
             "false",
             "if",
             "identificador",
+            "+ | -",
+            "/ | * | %",
             "fin de fichero"] ;
 
         /**

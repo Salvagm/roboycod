@@ -35,6 +35,8 @@ var compiler;
                 case CdvGraphStates.STATEOR: return compiler.CdvToken.OR;
                 case CdvGraphStates.STATECORI: return compiler.CdvToken.CORI;
                 case CdvGraphStates.STATECORD: return compiler.CdvToken.CORD;
+                case CdvGraphStates.STATEADDOP: return compiler.CdvToken.ADDOP;
+                case CdvGraphStates.STATEMULOP: return compiler.CdvToken.MULOP;
             }
         };
         // Estado final (99)
@@ -97,6 +99,10 @@ var compiler;
         CdvGraphStates.STATECORI = 17;
         // Estado CORD aceptado (18)
         CdvGraphStates.STATECORD = 18;
+        // Estado ADDOP aceptado (19)
+        CdvGraphStates.STATEADDOP = 19;
+        // Estado MULOP aceptado (20)
+        CdvGraphStates.STATEMULOP = 20;
         return CdvGraphStates;
     })();
     compiler.CdvGraphStates = CdvGraphStates;

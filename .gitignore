@@ -7,3 +7,4 @@ src/game/enmies/*.map
 src/game/player/*.map
 src/game/states/*.map
 src/game/utils/*.map
+src/lib/cdvCompiler/src/*.map

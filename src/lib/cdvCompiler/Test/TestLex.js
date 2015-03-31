@@ -15,6 +15,7 @@ var compiler;
             this.test_anaLex_Singleton4();
             this.test_correct_Code2();
             this.test_correct_Code();
+            this.test_correct_Code3();
             this.test_fail_code();
             this.test_fail_code2();
             this.test_fail_code3();
@@ -95,6 +96,23 @@ var compiler;
         TestLex.test_correct_Code2 = function () {
             console.debug("test_correct_Code2");
             var code = "void main ()\n{\n\tfloat a;\n\ta = 3;\n\tif(a == 2)\n\t{\n\t\tcout << a << endl;\n\t}\n}";
+            var analex = compiler.CdvLexAnalyzer.getInstance();
+            analex.AnalyzeCode(code);
+            var token;
+            try {
+                do {
+                    token = analex.nextToken();
+                } while (token.type !== compiler.CdvToken.EOF);
+            }
+            catch (e) {
+                console.error(e.toString());
+                return;
+            }
+            console.info("OK");
+        };
+        TestLex.test_correct_Code3 = function () {
+            console.debug("test_correct_Code3");
+            var code = "void main ()\n{\n\tfloat a,b;\n\ta =4 + 3 - 2;\n\tb = 3 * 4 / 5 % 2;\n\tif(a == 2)\n\t{\n\t\tcout << a << endl;\n\t}\n}";
             var analex = compiler.CdvLexAnalyzer.getInstance();
             analex.AnalyzeCode(code);
             var token;

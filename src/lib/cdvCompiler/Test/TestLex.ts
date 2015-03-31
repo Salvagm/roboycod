@@ -10,6 +10,7 @@ module compiler
     {
 
         public static TestAnaLex():void {
+
             this.test_anaLex_Singleton();
             // Devuelven siempre la misma instancia de analizador lexico
             this.test_anaLex_Singleton2();
@@ -19,6 +20,7 @@ module compiler
 
             this.test_correct_Code2();
             this.test_correct_Code();
+            this.test_correct_Code3();
             this.test_fail_code();
             this.test_fail_code2();
             this.test_fail_code3();
@@ -129,6 +131,30 @@ module compiler
         {
             console.debug("test_correct_Code2");
             var code = "void main ()\n{\n\tfloat a;\n\ta = 3;\n\tif(a == 2)\n\t{\n\t\tcout << a << endl;\n\t}\n}";
+
+            var analex : CdvLexAnalyzer = CdvLexAnalyzer.getInstance();
+            analex.AnalyzeCode(code);
+            var token : CdvToken;
+
+            try{
+                do{
+                    token = analex.nextToken();
+                    //console.debug("Token: "+token.lexeme+ " columna "+token.column +" fila "+token.row)
+                }while(token.type !== CdvToken.EOF)
+
+            } catch (e)
+            {
+                console.error(e.toString());
+                return;
+            }
+
+            console.info("OK");
+        }
+
+        public static test_correct_Code3() : void
+        {
+            console.debug("test_correct_Code3");
+            var code = "void main ()\n{\n\tfloat a,b;\n\ta =4 + 3 - 2;\n\tb = 3 * 4 / 5 % 2;\n\tif(a == 2)\n\t{\n\t\tcout << a << endl;\n\t}\n}";
 
             var analex : CdvLexAnalyzer = CdvLexAnalyzer.getInstance();
             analex.AnalyzeCode(code);

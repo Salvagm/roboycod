@@ -64,6 +64,11 @@ module compiler
             CdvLexAnalyzer.char2State['}'] = CdvGraphStates.STATELLAVED;
             CdvLexAnalyzer.char2State['['] = CdvGraphStates.STATECORI;
             CdvLexAnalyzer.char2State[']'] = CdvGraphStates.STATECORD;
+            CdvLexAnalyzer.char2State['+'] = CdvGraphStates.STATEADDOP;
+            CdvLexAnalyzer.char2State['-'] = CdvGraphStates.STATEADDOP;
+            CdvLexAnalyzer.char2State['/'] = CdvGraphStates.STATEMULOP;
+            CdvLexAnalyzer.char2State['%'] = CdvGraphStates.STATEMULOP;
+            CdvLexAnalyzer.char2State['*'] = CdvGraphStates.STATEMULOP;
 
             // Estados transicionales
             CdvLexAnalyzer.char2State['>'] = CdvGraphStates.TRANSRELOP1;

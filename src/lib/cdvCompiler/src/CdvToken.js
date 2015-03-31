@@ -97,11 +97,15 @@ var compiler;
         CdvToken.IF = 24;
         // Token identificador (25)
         CdvToken.ID = 25;
+        // Token + - (26)
+        CdvToken.ADDOP = 26;
+        // Token * / % (27)
+        CdvToken.MULOP = 27;
         //TODO ADD NEW TOKEN IN NEXT STEPS
         // Token final fichero (26)
-        CdvToken.EOF = 26;
+        CdvToken.EOF = 28;
         // Array que pasa del tipo numérico del token a la cadena asociada
-        CdvToken.tok2Str = ["(", ")", "[", "]", "{", "}", "< | > | <= | >= | == | !=", ";", ",", "=", "&&", "||", "nreal", "nentero", "int", "float", "char", "bool", "void", "cout", "<<", "endl", "true", "false", "if", "identificador", "fin de fichero"];
+        CdvToken.tok2Str = ["(", ")", "[", "]", "{", "}", "< | > | <= | >= | == | !=", ";", ",", "=", "&&", "||", "nreal", "nentero", "int", "float", "char", "bool", "void", "cout", "<<", "endl", "true", "false", "if", "identificador", "+ | -", "/ | * | %", "fin de fichero"];
         return CdvToken;
     })();
     compiler.CdvToken = CdvToken;

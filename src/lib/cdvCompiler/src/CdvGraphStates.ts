@@ -70,6 +70,10 @@ module compiler {
         public static STATECORI     : number = 17;
         // Estado CORD aceptado (18)
         public static STATECORD     : number = 18;
+        // Estado ADDOP aceptado (19)
+        public static STATEADDOP    : number = 19;
+        // Estado MULOP aceptado (20)
+        public static STATEMULOP    : number = 20;
 
 
         /**
@@ -81,24 +85,26 @@ module compiler {
         {
             switch (state)
             {
-                case CdvGraphStates.STATECOMA: return CdvToken.COMA;
-                case CdvGraphStates.STATEPYC: return CdvToken.PYC;
-                case CdvGraphStates.STATEPARI: return CdvToken.PARI;
-                case CdvGraphStates.STATEPARD: return CdvToken.PARD;
-                case CdvGraphStates.STATELLAVEI: return CdvToken.LLAVEI;
-                case CdvGraphStates.STATELLAVED: return CdvToken.LLAVED;
+                case CdvGraphStates.STATECOMA:      return CdvToken.COMA;
+                case CdvGraphStates.STATEPYC:       return CdvToken.PYC;
+                case CdvGraphStates.STATEPARI:      return CdvToken.PARI;
+                case CdvGraphStates.STATEPARD:      return CdvToken.PARD;
+                case CdvGraphStates.STATELLAVEI:    return CdvToken.LLAVEI;
+                case CdvGraphStates.STATELLAVED:    return CdvToken.LLAVED;
                 case CdvGraphStates.STATERELOP:
-                case CdvGraphStates.STATERELOP1: return CdvToken.RELOP;
-                case CdvGraphStates.STATEASIG: return CdvToken.ASIG;
-                case CdvGraphStates.STATEDESPI: return CdvToken.DESPI;
+                case CdvGraphStates.STATERELOP1:    return CdvToken.RELOP;
+                case CdvGraphStates.STATEASIG:      return CdvToken.ASIG;
+                case CdvGraphStates.STATEDESPI:     return CdvToken.DESPI;
                 case CdvGraphStates.STATENENTERO1:
-                case CdvGraphStates.STATENENTERO2: return CdvToken.NENTERO;
-                case CdvGraphStates.STATENREAL: return CdvToken.NREAL;
-                case CdvGraphStates.STATEID: return CdvToken.ID;
-                case CdvGraphStates.STATEAND: return CdvToken.AND;
-                case CdvGraphStates.STATEOR: return CdvToken.OR;
-                case CdvGraphStates.STATECORI: return CdvToken.CORI;
-                case CdvGraphStates.STATECORD: return CdvToken.CORD;
+                case CdvGraphStates.STATENENTERO2:  return CdvToken.NENTERO;
+                case CdvGraphStates.STATENREAL:     return CdvToken.NREAL;
+                case CdvGraphStates.STATEID:        return CdvToken.ID;
+                case CdvGraphStates.STATEAND:       return CdvToken.AND;
+                case CdvGraphStates.STATEOR:        return CdvToken.OR;
+                case CdvGraphStates.STATECORI:      return CdvToken.CORI;
+                case CdvGraphStates.STATECORD:      return CdvToken.CORD;
+                case CdvGraphStates.STATEADDOP:     return CdvToken.ADDOP;
+                case CdvGraphStates.STATEMULOP:     return CdvToken.MULOP;
             }
 
         }

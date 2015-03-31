@@ -36,6 +36,11 @@ var compiler;
             CdvLexAnalyzer.char2State['}'] = compiler.CdvGraphStates.STATELLAVED;
             CdvLexAnalyzer.char2State['['] = compiler.CdvGraphStates.STATECORI;
             CdvLexAnalyzer.char2State[']'] = compiler.CdvGraphStates.STATECORD;
+            CdvLexAnalyzer.char2State['+'] = compiler.CdvGraphStates.STATEADDOP;
+            CdvLexAnalyzer.char2State['-'] = compiler.CdvGraphStates.STATEADDOP;
+            CdvLexAnalyzer.char2State['/'] = compiler.CdvGraphStates.STATEMULOP;
+            CdvLexAnalyzer.char2State['%'] = compiler.CdvGraphStates.STATEMULOP;
+            CdvLexAnalyzer.char2State['*'] = compiler.CdvGraphStates.STATEMULOP;
             // Estados transicionales
             CdvLexAnalyzer.char2State['>'] = compiler.CdvGraphStates.TRANSRELOP1;
             CdvLexAnalyzer.char2State['='] = compiler.CdvGraphStates.TRANSRELOP2;
