@@ -3,5 +3,4 @@
 .idea/*
 build/*
 
-src/**/*.map
-src/lib/cdvCompiler/src/CdvToken.js.map
+src/**
