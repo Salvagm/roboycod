@@ -13,36 +13,36 @@ var Roboycod;
 (function (Roboycod) {
     var Player = (function (_super) {
         __extends(Player, _super);
-        function Player(game, sheetWidth, sheetHeight, kh) {
-            _super.call(this, game, sheetWidth, sheetHeight, 'robot', 2);
+        function Player(game, x, y, kh) {
+            _super.call(this, game, x, y, 'tsDynamics', 0);
             this.animState = 'idle';
             this.endShot = true;
             this.direction = 1;
-            //	Define movement constants
+            //	Constants
             this.MAX_SPEED = 250;
             this.GRAVITY = 1800;
             this.JUMP_SPEED = -800;
             this.ACCELERATION = 100;
             this.DRAG = 4000;
             this.game.physics.enable(this);
-            this.setPosition(0, this.game.height / 2);
             // Player physics properties
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
-            this.body.setSize(50, 80, 0, 20);
-            this.anchor.setTo(0.5, 0);
-            //TODO Salva skizing
-            //this.body.center.setTo(50/2, 80/2);
+            this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
+            this.anchor.setTo(0.5, 0.5);
             this.kh = kh;
             this.gun = new Roboycod.GunBase(this.game);
-            this.animations.add('idle', [13, 14, 15, 14], 4, true);
-            this.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
-            this.animations.add('jump', [10], 5, false);
-            this.animations.add('shoot', [16, 14], 9, false);
+            this.animations.add('idle', [0, 1, 2], 4, true);
+            this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
+            this.animations.add('jump', [3], 1, false);
+            this.animations.add('fall', [5], 1, false);
+            this.animations.add('shoot', [21], 9, false);
             this.animations.add('jumpShoot', [10], 3, false);
-            this.animations.add('getHurt', [11, 12], 8, false);
+            this.animations.add('getHurt', [24], 8, false);
+            this.animations.add('die', [17], 8, false);
+            this.animations.add('off', [19, 20], 8, false);
             this.create();
             game.add.existing(this);
             this.game.camera.follow(this);
@@ -56,16 +56,16 @@ var Roboycod;
             //callback end shoot
             this.animations.getAnimation('shoot').onStart.add(function () {
                 this.endShot = false;
-            });
+            }, this);
             this.animations.getAnimation('shoot').onComplete.add(function () {
                 this.endShot = true;
-            });
+            }, this);
             this.animations.getAnimation('jumpShoot').onStart.add(function () {
                 this.endShot = false;
-            });
+            }, this);
             this.animations.getAnimation('jumpShoot').onComplete.add(function () {
                 this.endShot = true;
-            });
+            }, this);
         };
         Player.prototype.stopMove = function () {
             this.body.velocity.x = 0;
@@ -91,14 +91,27 @@ var Roboycod;
         Player.prototype.shoot = function () {
             this.gun.shoot(this);
         };
+        Player.prototype.knockBack = function (enemy) {
+            var direction;
+            direction = Phaser.Point.subtract(this.position, enemy.position);
+            Phaser.Point.normalize(direction, direction);
+            // Mover valores a player o enemigo
+            this.body.velocity.x = this.body.velocity.y = 0;
+            this.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
+            this.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        };
         Player.prototype.update = function () {
-            //this.game.debug.bodyInfo(this,20,20);
+            //this.game.debug.body(this);
             //Anim FSM
             if (this.endShot) {
                 if (this.body.velocity.y != 0) {
-                    this.animState = 'jump';
+                    if (this.yLastPos > this.body.y)
+                        this.animState = 'jump';
+                    else if (this.yLastPos < this.body.y)
+                        this.animState = 'fall';
                     if (this.kh.arrowRight.isDown)
                         this.animState = 'jumpShoot';
+                    this.yLastPos = this.body.y;
                 }
                 else if (this.body.velocity.x != 0) {
                     this.animState = 'run';

@@ -13,12 +13,14 @@ var Roboycod;
 (function (Roboycod) {
     var EnemyBase = (function (_super) {
         __extends(EnemyBase, _super);
-        function EnemyBase(game, sheetWidth, sheetheight, enemyKey) {
-            _super.call(this, game, sheetWidth, sheetheight, enemyKey, 0);
+        function EnemyBase(game, x, y) {
+            _super.call(this, game, x, y, 'tsDynamics', 0);
             this.game.physics.enable(this);
             this.body.collideWorldBounds = true;
             game.add.existing(this);
         }
+        EnemyBase.prototype.collide = function (player, enemy) {
+        };
         return EnemyBase;
     })(Phaser.Sprite);
     Roboycod.EnemyBase = EnemyBase;

@@ -12,6 +12,36 @@ $( document ).ready(function(){
         enableBasicAutocompletion: true
     });
 
+    //LIMITA LAS LINEAS A 5
+
+    $( "#editor" ).keyup(function() {
+        if(editor.getSession().getLength() <= 5)
+            contentTemp = editor.getSession().getValue();
+        if(editor.getSession().getLength() >= 5){
+            editor.getSession().getUndoManager().undo(true);
+        }
+    });
+
+    //OPCIONES DE GUARDADO
+
+    $("#save-btn").on('click', function () {
+        if(editor.getSession().getValue() != ""){
+            localStorage.setItem('key', JSON.stringify(editor.getSession().getValue()));
+            editor.setValue("", -1);
+
+        }
+    });
+
+    $("#load-btn").on('click', function () {
+        if(localStorage.getItem('key')){
+            editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
+
+            localStorage.removeItem('key');
+        }
+
+    });
+
+
     //var snippetManager = ace.require("ace/snippets").snippetManager;
     //var config = ace.require("ace/config");
     //
@@ -32,30 +62,5 @@ $( document ).ready(function(){
     //    }
     //});
 
-    //LIMITA LAS LINEAS A 5
 
-    $( "#editor" ).keyup(function() {
-        if(editor.getSession().getLength() <= 5)
-            contentTemp = editor.getSession().getValue();
-        if(editor.getSession().getLength() >= 5){
-            editor.getSession().getUndoManager().undo(true);
-        }
-    });
-
-    //OPCIONES DE GUARDADO
-
-    $("#save-btn").on('click', function () {
-        if(editor.getSession().getValue() != ""){
-            localStorage.setItem('key', JSON.stringify(editor.getSession().getValue()));
-            editor.setValue("", -1);
-        }
-    });
-
-    $("#load-btn").on('click', function () {
-        if(localStorage.getItem('key')){
-                editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
-            localStorage.removeItem('key');
-        }
-
-    });
 });
