@@ -51,12 +51,15 @@ module Roboycod {
             //this.game.debug.body(this);
         }
 
-        public collide(player : Player, enemy : EnemyBase){
+        public collide(player : Player, codevices : Phaser.Group){
 
-            if (enemy.body.touching.up){
+            if (this.body.touching.up){
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
+                var cdv : CdvBase = new CdvBase(this.game, this.x, this.y);
+                cdv.body.velocity.x = 800;
+                codevices.add(cdv);
             }
             else
             {

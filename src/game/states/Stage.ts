@@ -6,6 +6,7 @@
 ///<reference path="../enemies/Enemy01.ts"/>
 ///<reference path="../cdvs/CdvBase.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
+    ///<reference path="../utils/HUD.ts"/>
 
 
 module Roboycod{
@@ -19,6 +20,8 @@ module Roboycod{
         private codevices   : Phaser.Group;
         private kh          : KeyboardHandler;
         private numStage    : string;
+
+        private hudFake     : Phaser.Sprite;
 
 
         init(numStage : string){
@@ -34,6 +37,13 @@ module Roboycod{
             //  Asociamos un setup de teclas segun el nivel
             this.kh.setupLevel(this.player);
 
+            this.codevices = this.game.add.group();
+
+            //TODO HUD FAKE DEMO
+            this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
+            this.hudFake.width = this.game.width;
+            this.hudFake.height = this.game.width / 8;
+            this.hudFake.fixedToCamera = true;
 
             //$(document).keydown(function(e) {
             //    if (e.ctrlKey && e.which == 9) {
@@ -44,10 +54,6 @@ module Roboycod{
             //TODO MEJORAR
             this.input.mouse.mouseOutCallback = function() { this.input.keyboard.stop(); };
             this.input.mouse.mouseOverCallback = function() { this.input.keyboard.start(); };
-
-            //TODO CAMBIAR A CUANDO MUERE UN enemigo anyade CDV en su posicion
-            this.codevices = this.game.add.group();
-            this.codevices.add(new CdvBase(this.game, 200, 200));
         }
 
         /**
@@ -99,12 +105,20 @@ module Roboycod{
         {
             bullet.kill();
         }
-        //TODO implementar funcion de colision con player de los enemigos concretos
 
-        private collideEnemy(player : Phaser.Sprite , enemy : Phaser.Sprite) : void{
+        /**
+         * Esta funcion la implementara cada enemigo concreto. Si el enemigo muere,
+         * se anyade un CDV en su posicion
+         */
+        private collideEnemy(player : Player , enemy : EnemyBase) : void{
 
-            (<EnemyBase>enemy).collide(<Player>player, <EnemyBase>enemy);
+            enemy.collide(player, this.codevices);
+        }
+        private collideCdv(player : Player, cdv : CdvBase) : void{
 
+            cdv.loadCode();
+            player.cdvDemo = cdv;
+            cdv.kill();
         }
         update(){
 
@@ -115,7 +129,8 @@ module Roboycod{
             this.game.physics.arcade.collide(this.enemies,this.enemies);
             this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
 
-            this.game.physics.arcade.overlap(this.enemies,this.player,this.collideEnemy);
+            this.game.physics.arcade.overlap(this.enemies,this.player,this.collideEnemy, null, this);
+            this.game.physics.arcade.overlap(this.codevices,this.player,this.collideCdv, null, this);
             this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);
 
         }

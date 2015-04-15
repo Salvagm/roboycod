@@ -19,7 +19,10 @@ var Roboycod;
             this.body.collideWorldBounds = true;
             game.add.existing(this);
         }
-        EnemyBase.prototype.collide = function (player, enemy) {
+        /**
+         * Comprueba la colision con el player, si muere puede anyadir CDVs al grupo en pantalla
+         */
+        EnemyBase.prototype.collide = function (player, codevices) {
         };
         return EnemyBase;
     })(Phaser.Sprite);

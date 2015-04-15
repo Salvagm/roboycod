@@ -43,11 +43,14 @@ var Roboycod;
         Enemy01.prototype.update = function () {
             //this.game.debug.body(this);
         };
-        Enemy01.prototype.collide = function (player, enemy) {
-            if (enemy.body.touching.up) {
+        Enemy01.prototype.collide = function (player, codevices) {
+            if (this.body.touching.up) {
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
+                var cdv = new Roboycod.CdvBase(this.game, this.x, this.y);
+                cdv.body.velocity.x = 800;
+                codevices.add(cdv);
             }
             else {
                 player.knockBack(this);
