@@ -6,9 +6,9 @@
 
 module Roboycod {
 
-    export class CdvBase extends Phaser.Sprite {
+    export class BaseCdv extends Phaser.Sprite {
 
-        public code             : string;
+        public code     : string;
 
         //TODO DEMOCODE
         public expectedOutput   : string = "SALTO";
@@ -29,7 +29,7 @@ module Roboycod {
             this.body.drag.setTo(800, 0);
             this.animations.add('idle', [71, 71, 71, 72, 73, 74, 75, 76, 77, 71, 71, 71], 9, true);
 
-            this.code = "def jump(keyJum):\n    if(keyJum):\n        print(\"SALTO\")\njump(True)";
+            this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
 
             this.create();
@@ -44,9 +44,10 @@ module Roboycod {
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
         }
-        public runCode() : Boolean{
+        public checkCode() : Boolean{
 
-            this.runBtn.click();
+            //this.runBtn.click();
+            runit();
             var interpreterOutput = document.getElementById("output");
             var output : string = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);
             if(output == "SALTO"){

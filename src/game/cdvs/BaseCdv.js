@@ -11,10 +11,10 @@ var __extends = this.__extends || function (d, b) {
 };
 var Roboycod;
 (function (Roboycod) {
-    var CdvBase = (function (_super) {
-        __extends(CdvBase, _super);
+    var BaseCdv = (function (_super) {
+        __extends(BaseCdv, _super);
         //TODO END DEMOCODE
-        function CdvBase(game, x, y) {
+        function BaseCdv(game, x, y) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
             //TODO DEMOCODE
             this.expectedOutput = "SALTO";
@@ -27,19 +27,20 @@ var Roboycod;
             //TODO DEMOCODE
             this.body.drag.setTo(800, 0);
             this.animations.add('idle', [71, 71, 71, 72, 73, 74, 75, 76, 77, 71, 71, 71], 9, true);
-            this.code = "def jump(keyJum):\n    if(keyJum):\n        print(\"SALTO\")\njump(True)";
+            this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
             this.create();
         }
-        CdvBase.prototype.create = function () {
+        BaseCdv.prototype.create = function () {
             this.animations.play('idle');
         };
-        CdvBase.prototype.loadCode = function () {
+        BaseCdv.prototype.loadCode = function () {
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
         };
-        CdvBase.prototype.runCode = function () {
-            this.runBtn.click();
+        BaseCdv.prototype.checkCode = function () {
+            //this.runBtn.click();
+            runit();
             var interpreterOutput = document.getElementById("output");
             var output = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);
             if (output == "SALTO") {
@@ -47,11 +48,11 @@ var Roboycod;
             }
             return false;
         };
-        CdvBase.prototype.update = function () {
+        BaseCdv.prototype.update = function () {
             //this.game.debug.body(this);
         };
-        return CdvBase;
+        return BaseCdv;
     })(Phaser.Sprite);
-    Roboycod.CdvBase = CdvBase;
+    Roboycod.BaseCdv = BaseCdv;
 })(Roboycod || (Roboycod = {}));
-//# sourceMappingURL=CdvBase.js.map
+//# sourceMappingURL=BaseCdv.js.map

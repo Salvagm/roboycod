@@ -3,8 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
-///<reference path="../enemies/Enemy01.ts"/>
-///<reference path="../cdvs/CdvBase.ts"/>
+///<reference path="../enemies/WalkingEnemy.ts"/>
+///<reference path="../cdvs/BaseCdv.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
     ///<reference path="../utils/HUD.ts"/>
 
@@ -98,7 +98,7 @@ module Roboycod{
         {
             this.enemies = this.game.add.group();
             for(var i = 0; i< enemyData.objects.length ; ++i)
-                this.enemies.add(new Enemy01(this.game,enemyData.objects[i].x,enemyData.objects[i].y));
+                this.enemies.add(new WalkingEnemy(this.game,enemyData.objects[i].x,enemyData.objects[i].y));
 
         }
         private removeShoot(bullet : Phaser.Sprite, ground : Phaser.Tile) : void
@@ -110,11 +110,11 @@ module Roboycod{
          * Esta funcion la implementara cada enemigo concreto. Si el enemigo muere,
          * se anyade un CDV en su posicion
          */
-        private collideEnemy(player : Player , enemy : EnemyBase) : void{
+        private collideEnemy(player : Player , enemy : BaseEnemy) : void{
 
             enemy.collide(player, this.codevices);
         }
-        private collideCdv(player : Player, cdv : CdvBase) : void{
+        private collideCdv(player : Player, cdv : BaseCdv) : void{
 
             cdv.loadCode();
             player.cdvDemo = cdv;

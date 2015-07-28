@@ -3,8 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
-///<reference path="../enemies/Enemy01.ts"/>
-///<reference path="../cdvs/CdvBase.ts"/>
+///<reference path="../enemies/WalkingEnemy.ts"/>
+///<reference path="../cdvs/BaseCdv.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../utils/HUD.ts"/>
 var __extends = this.__extends || function (d, b) {
@@ -75,7 +75,7 @@ var Roboycod;
         Stage.prototype.loadEnemies = function (enemyData) {
             this.enemies = this.game.add.group();
             for (var i = 0; i < enemyData.objects.length; ++i)
-                this.enemies.add(new Roboycod.Enemy01(this.game, enemyData.objects[i].x, enemyData.objects[i].y));
+                this.enemies.add(new Roboycod.WalkingEnemy(this.game, enemyData.objects[i].x, enemyData.objects[i].y));
         };
         Stage.prototype.removeShoot = function (bullet, ground) {
             bullet.kill();

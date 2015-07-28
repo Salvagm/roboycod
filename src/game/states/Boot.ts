@@ -38,7 +38,10 @@ module Roboycod
             //    this.scale.pageAlignHorizontally = true;
             //
             //}
-            this.scale.setScreenSize(true);
+            //this.scale.setScreenSize(true);
+
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
 
             this.game.state.start('Preloader',true,false);
 

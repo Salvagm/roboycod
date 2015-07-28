@@ -2,7 +2,7 @@
  * Created by salva-pc on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="EnemyBase.ts"/>
+///<reference path="BaseEnemy.ts"/>
 
 module Roboycod {
 
@@ -10,10 +10,8 @@ module Roboycod {
      * Este enemigo puede ser eliminado disparandole o saltandole encima
      * Inflige danyo al golpear por los lados
      */
-    export class Enemy01 extends EnemyBase
+    export class WalkingEnemy extends BaseEnemy
     {
-        private isAlive  : boolean = true;
-
         private GRAVITY : number = 2000;
         private DRAG    : number = 3000;
 
@@ -57,7 +55,7 @@ module Roboycod {
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
-                var cdv : CdvBase = new CdvBase(this.game, this.x, this.y);
+                var cdv : BaseCdv = new BaseCdv(this.game, this.x, this.y);
                 cdv.body.velocity.x = 800;
                 codevices.add(cdv);
             }

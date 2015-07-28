@@ -8,12 +8,12 @@ var __extends = this.__extends || function (d, b) {
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../player/GunBase.ts"/>
+///<reference path="../player/BaseGun.ts"/>
 var Roboycod;
 (function (Roboycod) {
-    var EnemyBase = (function (_super) {
-        __extends(EnemyBase, _super);
-        function EnemyBase(game, x, y) {
+    var BaseEnemy = (function (_super) {
+        __extends(BaseEnemy, _super);
+        function BaseEnemy(game, x, y) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
             this.game.physics.enable(this);
             this.body.collideWorldBounds = true;
@@ -22,10 +22,10 @@ var Roboycod;
         /**
          * Comprueba la colision con el player, si muere puede anyadir CDVs al grupo en pantalla
          */
-        EnemyBase.prototype.collide = function (player, codevices) {
+        BaseEnemy.prototype.collide = function (player, codevices) {
         };
-        return EnemyBase;
+        return BaseEnemy;
     })(Phaser.Sprite);
-    Roboycod.EnemyBase = EnemyBase;
+    Roboycod.BaseEnemy = BaseEnemy;
 })(Roboycod || (Roboycod = {}));
-//# sourceMappingURL=EnemyBase.js.map
+//# sourceMappingURL=BaseEnemy.js.map

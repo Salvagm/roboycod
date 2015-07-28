@@ -2,10 +2,10 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../player/GunBase.ts"/>
+///<reference path="../player/BaseGun.ts"/>
 module Roboycod{
 
-    export class  EnemyBase extends Phaser.Sprite{
+    export class  BaseEnemy extends Phaser.Sprite{
 
         constructor(game : Phaser.Game, x : number, y : number)
         {
