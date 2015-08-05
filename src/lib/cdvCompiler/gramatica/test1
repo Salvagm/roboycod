@@ -1,0 +1,6 @@
+int a,e,f,g[3];
+float b;
+char c;
+bool d[5];
+
+
