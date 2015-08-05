@@ -15,6 +15,7 @@ module Roboycod{
 
         private map         : Phaser.Tilemap;
         private groundLayer : Phaser.TilemapLayer;
+        private finishZone  : Phaser.Sprite;
         private player      : Player;
         private enemies     : Phaser.Group;
         private codevices   : Phaser.Group;
@@ -76,12 +77,24 @@ module Roboycod{
             this.map.setCollisionBetween(1, 99, true, 'ground');
             this.groundLayer.resizeWorld();
 
+            //Se define la zona donde acabamos el nivel
+            this.finishZone = new Phaser.Sprite(
+                this.game,
+                tempJSON.layers[4].objects[1].x,
+                tempJSON.layers[4].objects[1].y
+            );
+            this.game.physics.enable(this.finishZone);
+            this.finishZone.body.width = tempJSON.layers[4].objects[1].width;
+            this.finishZone.body.height = tempJSON.layers[4].objects[1].height;
+            this.finishZone.tint = 0xff00ff;
+
             //Cargamos player
             this.player = new Player(
                 this.game,
                 tempJSON.layers[4].objects[0].x,
                 tempJSON.layers[4].objects[0].y,
-                this.kh);
+                this.kh
+            );
 
             //Cargamos enemigos
             this.loadEnemies(tempJSON.layers[3]);
@@ -120,7 +133,11 @@ module Roboycod{
             player.cdvDemo = cdv;
             cdv.kill();
         }
+        private finishStage(){
+            this.game.state.start('Stage', true, false, '00');
+        }
         update(){
+            this.game.debug.body(this.finishZone);
 
             this.game.physics.arcade.collide(this.groundLayer, this.player);
             this.game.physics.arcade.collide(this.groundLayer, this.enemies);
@@ -128,6 +145,7 @@ module Roboycod{
 
             this.game.physics.arcade.collide(this.enemies,this.enemies);
             this.game.physics.arcade.collide(this.player.gun,this.groundLayer,this.removeShoot);
+            this.game.physics.arcade.collide(this.finishZone,this.player,this.finishStage,null,this);
 
             this.game.physics.arcade.overlap(this.enemies,this.player,this.collideEnemy, null, this);
             this.game.physics.arcade.overlap(this.codevices,this.player,this.collideCdv, null, this);

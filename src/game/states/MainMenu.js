@@ -19,7 +19,7 @@ var Roboycod;
             this.startGame();
         };
         MainMenu.prototype.startGame = function () {
-            this.game.state.start('Stage', true, false, '00');
+            this.game.state.start('WorldMap', true, false);
         };
         return MainMenu;
     })(Phaser.State);

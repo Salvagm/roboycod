@@ -18,6 +18,8 @@ module Roboycod{
             //TODO HUD Fake para DEMO
             this.game.load.image('hudfake', 'assets/hudfake.png');
 
+            this.game.load.image('worldMap', 'assets/world/worldMap.png');
+
             /**
              * Entidades, Objetos dinamicos, etc
              */

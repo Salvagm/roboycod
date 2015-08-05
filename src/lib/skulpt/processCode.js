@@ -16,7 +16,7 @@
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) throw "File not found: '" + x + "'";
         return Sk.builtinFiles["files"][x];
     }
-    
+
     function runit(){
         document.getElementById("output").innerHTML = "";
         var editor = ace.edit("editor");
