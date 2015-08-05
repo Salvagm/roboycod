@@ -1,0 +1,189 @@
+S			->	FVM
+FVM 		->	Tipo id VarArr LIdentp pyc FVM
+FVM			->	TipoFunc id FVMp
+FVMp		-> lpar Arg rpar Bloque
+
+Arg			->	
+Arg			->	CArg
+CArg		->	Tipo id CArgp
+CArgp		->	coma Tipo id CArgp
+CArgp		->	
+Bloque		->	llavei BDecl SeqInstr llaved
+
+BDecl		->	BDeclp
+BDeclp		->	DecVar BDeclp
+BDeclp		->	
+
+Tipo		->	int
+Tipo		->	char
+Tipo		->	float
+Tipo		->	bool
+
+TipoFunc	->	Tipo
+TipoFunc 	-> 	void
+
+DecVar		->	Tipo LIdent pyc
+LIdent		-> Variable LIdentp
+LIdentp		-> coma Variable LIdentp
+LIdentp		-> 
+Variable	->	id VarArr
+VarArr		->	
+VarArr		->	cori nentero cord
+
+SeqInstr	->	SeqInstrp
+SeqInstrp	->	Instr SeqInstrp
+SeqInstrp	->	
+Instr		->	pyc
+Instr		->	Bloque
+Instr		->	return Expr pyc
+Instr 		-> 	Ref asig Expr pyc
+Instr 		->  RunFun pyc
+Instr 		->	cin despd id pyc
+Instr		->	cout despi Expr Instrout
+Instrout	->	despi Expr despi Instrout
+Instrout	->	despi endl pyc
+Instrout 	-> 	pyc
+Instr 		-> 	if pari Expr pard Instr Instrp
+Instrp 		-> 	else Instr
+Instrp		-> 	
+
+
+Expr		->	ExprOr
+
+ExprOr		-> 	ExprAnd ExprOrp
+ExprOrp		-> 	or ExprAnd ExprOrp
+ExprOrp		-> 	
+ExprAnd		->	ExprComp ExprAndp
+ExprAndp	-> 	and ExprComp ExprAndp
+ExprAndp	->	
+ExprComp 	->  ExprSimp ExprCompp
+ExprCompp 	->	relop ExprSimp ExprCompp
+ExprCompp	->	
+ExprSimp	-> 	Term ExprSimpp
+ExprSimpp 	-> 	addop Term ExprSimpp
+ExprSimpp	->	
+Term		-> 	Factor Termp
+{
+
+}
+Termp		->	mulop Factor Termp
+{
+
+}
+Termp		->	
+{
+	
+}
+
+Factor 		->  id Fp
+{
+	Factor.type = getIdType(id);
+	Factor.trad = id + Fp.trad;
+}
+Factor      ->  Factorsr
+{
+	Factor.trad = Factorsr.trad
+	Factor.type = Factorsr.type;
+}
+
+Factorsr	->	false
+{
+	Factorsr.trad = "false";		
+	Factorsr.type = boolType;
+}
+Factorsr	->	true
+{
+	Factorsr.trad = "true";	
+	Factorsr.type = boolType;	
+}
+Factorsr	->	nentero
+{
+	Factorsr.trad = nentero.lex;	
+	Factorsr.type = intType;	
+}
+Factorsr	->	nreal
+{
+	Factorsr.trad = nreal.lex;	
+	Factorsr.type = floatType;		
+}
+Factorsr	->	cadena
+{
+	Factorsr.trad = cadena.lex;
+	Factorsr.type = stringType;	
+}
+Factorsr	-> carater
+{
+	Factorsr.trad = caracter.lex;
+	Factorsr.type = charType;		
+}
+Factorsr	->	pari Expr pard
+{
+	Factorsr.trad = Expr.trad;
+	Factorsr.type = Expr.type;
+}
+Fp 			-> 	Refp
+{
+	Fp.trad = Refp.trad;
+	Fp.type = basicType;
+}
+Fp 			-> 	FunPar
+{
+	Fp.trad = FunPar.trad;
+	Fp.type = funcType;
+}
+Ref			-> 	id Refp
+{
+	var numClaspId = getIdNumClasp(id);
+	if(numClaspId != Refp.numClasp) throw error; // error en la posicion del id (faltan corchetes)
+	Ref.trad = id;
+	Ref.trad += Refp.trad;
+	Ref.type = getIdType(id);
+
+}
+Refp		->	cori ExprSimp {if(ExprSimp.type != intType) throw error } cord Refp
+{
+	Refp.trad = "[" + ExprSimp.trad + "]" + Refp1.trad;
+	Refp.type = ArrType;
+	Refp.numClasp = Refp.numClasp + 1;
+}
+Refp		->	
+{
+	Refp.numClasp = 0;
+}
+RunFun		->	id {if(getIdType(id) != funcType) throw error} FunPar
+{	
+	var argId = getArgs(id);
+
+	if(argsId.length != FunPar.args.length)
+		throw error; // error en la posicion de id (faltan argumentos)
+	if(!equalArgType(argId,FunPar.args))
+		throw error; // error en la posicion de id (los tipos de los argumentos no coinciden (mostrar tipos))
+	RunFun.trad = id + Funpar.trad;
+	RunFun.type = getIdType(id);
+}
+FunPar		->	pari Par pard
+{
+	FunPar.trad = "(" + Par.trad + ")";
+	FunPar.args = Par.args;
+
+}
+Par			->
+{
+	Par.args = [];
+}	
+Par			->	Expr CPar
+{
+	Par.trad = Expr.trad + Cpar.trad;
+	Par.args = Cpar.args;
+	Par.args.push(Expr.type);
+}
+CPar		->	
+{
+	Cpar.args = [];
+}
+CPar		->	coma Expr CPar
+{
+	Cpar.tard = "," + Expr.trad;
+	Cpar.args = CPar1.args;
+	Cpar.args.push(Expr.typs);
+}
