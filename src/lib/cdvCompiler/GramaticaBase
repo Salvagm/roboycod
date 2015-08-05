@@ -1,0 +1,59 @@
+Gramatica		
+
+S			->	FVM
+FVM			->	DecVar FVM
+FVM			->	Tipo id lpar Arg rpar Bloque
+Arg			->	EPSILON
+Arg			->	CArg
+CArg		->	CArg coma Tipo id
+CArg		->	Tipo id
+Bloque		->	llavei BDecl SeqInstr llaved
+BDecl		->	BDecl DecVar
+BDecl		->	EPSILON
+Tipo		->	int
+Tipo		->	char
+Tipo		->	float
+Tipo		->	bool
+Tipo		->	void
+DecVar		->	Tipo LIdent pyc
+LIdent		->	LIdent coma Variable
+LIdent		->	Variable
+Variable	->	id VarArr
+VarArr		->	EPSILON
+VarArr		->	cori nentero cord
+SeqInstr	->	SeqInstr Instr
+SeqInstr	->	EPSILON
+Instr		->	pyc
+Instr		->	Bloque
+Instr		->	return Expr pyc
+Instr		->	Expr pyc
+Instr		->	cout despi Expr despi Instrout
+Instrout	->	Expr despi Instrout
+Instrout	->	endl pyc
+Instr		->	if pari ExprOr pard Instr 
+Instr		->	if pari ExprOr pard Instr else Instr
+Expr		->	Ref asig Expr
+Expr		->	ExprSimp
+ExprOr		->	ExprOr or Exprconj
+ExprOr		->	ExprAnd
+ExprAnd		->	ExprAnd and ExprComp
+ExprAnd		->	ExprComp
+ExprCom		->	ExprComp relop ExprSimp
+ExprCom		->	ExprSimp
+ExprSimp	->	ExprSimp addop Term
+ExprSimp	->	Term
+Term		->	Term mulop Factor
+Term		->	Factor
+Factor		->	Ref
+Factor		->	FALSE
+Factor		->	TRUE
+Factor		->	nentero
+Factor		->	nreal
+Factor		->	cadena
+Factor		->	pari Expr pard
+Ref			->	id
+Ref			->	Ref coir ExprSimp cord
+Par			->	EPSILON
+Par			->	ExprAsig Cpar
+CPar		->	EPSILON
+CPar		->	coma ExprAsig CPar

@@ -1,14 +1,47 @@
 $( document ).ready(function(){
     var editor = ace.edit("editor");
-    
+    var session = editor.getSession();
+
+    //elimina el warning al cargar texto
+    editor.$blockScrolling = Infinity;
+
     editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/javascript");
+    session.setMode("ace/mode/python");
     document.getElementById('editor').style.fontSize='18px';
 
     ace.require("ace/ext/language_tools");
     editor.setOptions({
         enableBasicAutocompletion: true
     });
+
+    //LIMITA LAS LINEAS A 5
+
+    $( "#editor" ).keyup(function() {
+        if(session.getLength() <= 5)
+            contentTemp = session.getValue();
+        if(session.getLength() >= 5){
+            editor.getSession().getUndoManager().undo(true);
+        }
+    });
+
+    //OPCIONES DE GUARDADO
+
+    $("#save-btn").on('click', function () {
+        if(session.getValue() != ""){
+            localStorage.setItem('key', JSON.stringify(session.getValue()));
+            editor.setValue("", -1);
+
+        }
+    });
+
+    $("#load-btn").on('click', function () {
+        if(localStorage.getItem('key')){
+            editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
+            localStorage.removeItem('key');
+        }
+
+    });
+
 
     //var snippetManager = ace.require("ace/snippets").snippetManager;
     //var config = ace.require("ace/config");
@@ -29,4 +62,6 @@ $( document ).ready(function(){
     //        snippetManager.register(m.snippets, m.scope);
     //    }
     //});
+
+
 });

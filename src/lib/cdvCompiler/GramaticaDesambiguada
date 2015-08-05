@@ -1,0 +1,92 @@
+Gramatica Desambiguada
+
+S			->	FVM
+FVM			->	DecVar FVM
+FVM			->	Tipo id lpar Arg rpar Bloque
+Arg			->	EPSILON
+Arg			->	CArg
+------
+CArg		->	Tipo id CArg'
+CArg'		->	coma Tipo id CArg'
+CArg'		->	EPSILON
+------
+Bloque		->	llavei BDecl SeqInstr llaved
+------
+BDecl		->	BDecl'
+BDecl'		->	DecVar BDecl'
+BDecl'		->	EPSILON
+------
+Tipo		->	int
+Tipo		->	char
+Tipo		->	float
+Tipo		->	bool
+Tipo		->	void
+DecVar		->	Tipo LIdent pyc
+-------
+LIdent		-> Variable LIdent'
+LIdent'		-> coma Variable LIdent'
+LIdent'		-> EPSILON
+-------
+Variable	->	id VarArr
+VarArr		->	EPSILON
+VarArr		->	cori nentero cord
+--------
+SeqInstr	->	SeqInstr'
+SeqInstr'	->	Instr SeqInstr'
+SeqInstr'	->	EPSION
+-------
+Instr		->	pyc
+Instr		->	Bloque
+Instr		->	return Expr pyc
+Instr		->	Expr pyc
+Instr		->	cout despi ExprAsig despi Instrout
+Instrout	->	ExprAsig despi Instrout
+Instrout	->	endl pyc
+----
+Instr 		-> 	if pari ExprAsig pard Instr Instr'
+Instr' 		-> 	else Intrs
+Instr'		-> 	EPSILON
+----
+ExprAsig	->	Ref asig ExprAsig
+ExprAsig	->	ExprSimp
+-------
+ExprOr		-> 	ExprAnd ExprOr'
+ExprOr'		-> 	or ExprConj ExprOr'
+ExprOr'		-> 	EPSILON
+-------
+-------
+ExprAnd		->	ExprComp ExprAnd'
+ExprAnd'	-> 	and ExprComp ExprAnd'
+ExprAnd'	->	EPSILON
+-------
+-------
+ExprComp 	->  ExprSimp ExprComp'
+ExprComp' 	->	relop ExprSimp ExprComp'
+ExprComp'	->	EPSILON
+-------
+-------
+ExprSimp	-> 	Term ExprSimp'
+ExprSimp' 	-> 	addop Term ExprSimp'
+ExprSimp'	->	EPSILON
+-------
+-------
+Term		-> 	Factor Term'
+Term'		->	mulop Factor Term'
+Term'		->	EPSILON
+-------
+Factor		->	Ref
+Factor		->	FALSE
+Factor		->	TRUE
+Factor		->	nentero
+Factor		->	nreal
+Factor		->	cadena
+Factor		->	pari Expr pard
+-----
+Ref			-> 	id Ref'
+Ref'		->	cori ExprSimp cord Ref'
+Ref'		->	EPSILON
+-----
+Par			->	EPSILON
+Par			->	ExprAsig Cpar
+CPar		->	EPSILON
+CPar		->	coma ExprAsig CPar

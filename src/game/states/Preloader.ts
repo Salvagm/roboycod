@@ -4,9 +4,9 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 
 module Roboycod{
+
     export class Preloader extends Phaser.State {
 
-        //  Barra de carga
         preloadBar  : Phaser.Sprite;
 
         preload(){
@@ -15,33 +15,35 @@ module Roboycod{
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
 
-            //  Cargamos assets
-            this.load.atlasJSONHash(
-                'robot',
-                'assets/player/player1.png',
-                'assets/player/player1.json'
-            );
-            this.load.atlasJSONHash(
-                'megaMet',
-                'assets/enemies/metAtlas.png',
-                'assets/enemies/metAtlas.json'
-            );
-            //Cargados los JSON de los niveles en cache
-            this.game.load.json('level1','assets/levels/mapPrueba.json');
+            //TODO HUD Fake para DEMO
+            this.game.load.image('hudfake', 'assets/hudfake.png');
 
-            this.game.load.image('bullet', 'assets/player/bullet1.png');
+            this.game.load.image('worldMap', 'assets/world/worldMap.png');
 
-            //  Cargamos ahora el mapa en json del nivel
-            //TODO Cambiar titulos por level1, level2... map1, map2
+            /**
+             * Entidades, Objetos dinamicos, etc
+             */
+            this.load.atlasJSONHash(
+                'tsDynamics',
+                'assets/entities/dynamicTiles.png',
+                'assets/entities/dynamicTiles.json'
+            );
+
+            //TODO cambiar por otra bala
+            this.game.load.image('bullet', 'assets/entities/bullet.png');
+
+            /**
+             * FASES / NIVELES / STAGES
+             */
+            this.game.load.image('tsStages','assets/stages/mapTiles.png');
+
+            this.game.load.json('jsonStage00','assets/stages/stage00.json');
             this.game.load.tilemap(
-                'level',
-                'assets/levels/mapPrueba.json',
-                 null,
-                Phaser.Tilemap.TILED_JSON);
-
-            //  Cargamos tiles
-            this.game.load.image('tiles','assets/levels/tiles.png');
-
+                'tmStage00',
+                'assets/stages/stage00.json',
+                null,
+                Phaser.Tilemap.TILED_JSON
+            );
         }
 
         create() {

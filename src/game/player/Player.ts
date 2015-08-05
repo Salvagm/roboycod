@@ -3,6 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
+///<reference path="../cdvs/BaseCdv.ts"/>
+
 module Roboycod{
 
     export class Player extends Phaser.Sprite {
@@ -10,44 +12,50 @@ module Roboycod{
         private animState   : string = 'idle';
         private endShot     : boolean = true;
         private kh          : KeyboardHandler;
-        gun         : GunBase;
-        direction   : number = 1;
+        private yLastPos       : number;
 
-        //	Define movement constants
+        public gun         : BaseGun;
+        public direction   : number = 1;
+
+        //	Constants
         private MAX_SPEED   : number = 250;
         private GRAVITY     : number = 1800;
         private JUMP_SPEED  : number = -800;
         private ACCELERATION: number = 100;
         private DRAG        : number = 4000;
 
-        constructor(game: Phaser.Game, sheetWidth: number, sheetHeight: number, kh : KeyboardHandler) {
+        //  TODO DEMOCODE
+        public cdvDemo      : BaseCdv;
+        //  TODO FIN DEMOCODE
 
-            super(game, sheetWidth, sheetHeight, 'robot', 2);
+        constructor(game: Phaser.Game, x: number, y: number, kh : KeyboardHandler) {
+
+            super(game, x, y, 'tsDynamics', 0);
 
             this.game.physics.enable(this);
-            this.setPosition(0, this.game.height/2);
 
             // Player physics properties
             this.body.bounce.y = 0;
             this.body.gravity.y = this.GRAVITY;
             this.body.drag.setTo(this.DRAG, 0);
             this.body.collideWorldBounds = true;
-            this.body.setSize(50, 80, 0, 20);
-            this.anchor.setTo(0.5, 0);
 
-            //TODO Salva skizing
-            //this.body.center.setTo(50/2, 80/2);
+            this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
+            this.anchor.setTo(0.5, 0.5);
 
             this.kh = kh;
-            this.gun = new GunBase(this.game);
+            this.gun = new BaseGun(this.game);
 
 
-            this.animations.add('idle', [13, 14, 15, 14], 4, true);
-            this.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8 , 9], 8, true);
-            this.animations.add('jump', [10], 5, false);
-            this.animations.add('shoot', [16, 14], 9, false);
+            this.animations.add('idle', [0, 1, 2], 4, true);
+            this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
+            this.animations.add('jump', [3], 1, false);
+            this.animations.add('fall', [5], 1, false);
+            this.animations.add('shoot', [21], 9, false);
             this.animations.add('jumpShoot', [10], 3, false);
-            this.animations.add('getHurt', [11, 12], 8, false);
+            this.animations.add('getHurt', [24], 8, false);
+            this.animations.add('die', [17], 8, false);
+            this.animations.add('off', [19,20], 8, false);
 
             this.create();
 
@@ -67,16 +75,16 @@ module Roboycod{
             //callback end shoot
             this.animations.getAnimation('shoot').onStart.add(function(){
                 this.endShot = false;
-            });
+            }, this);
             this.animations.getAnimation('shoot').onComplete.add(function(){
                 this.endShot = true;
-            });
+            }, this);
             this.animations.getAnimation('jumpShoot').onStart.add(function(){
                 this.endShot = false;
-            });
+            }, this);
             this.animations.getAnimation('jumpShoot').onComplete.add(function(){
                 this.endShot = true;
-            });
+            }, this);
 
         }
 
@@ -97,23 +105,44 @@ module Roboycod{
         moveRight() : void {
             this.moveTo(1);
         }
+        //  TODO DEMOCODE
         jump() : void {
-            if(this.body.onFloor())
+            if(this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.checkCode())
                 this.body.velocity.y = this.JUMP_SPEED;
         }
+        //  TODO FIN DEMOCODE
         shoot() : void {
             this.gun.shoot(this);
         }
 
+        public knockBack(enemy : Phaser.Sprite) : void
+        {
+
+            var direction : Phaser.Point;
+            direction = Phaser.Point.subtract(this.position,enemy.position);
+
+            Phaser.Point.normalize(direction,direction);
+            // Mover valores a player o enemigo
+            this.body.velocity.x = this.body.velocity.y = 0;
+            this.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
+            this.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        }
         update() {
 
             //this.game.debug.body(this);
+
             //Anim FSM
             if(this.endShot){
                 if(this.body.velocity.y != 0){
-                    this.animState = 'jump';
+                    if(this.yLastPos > this.body.y)
+                        this.animState = 'jump';
+                    else if(this.yLastPos < this.body.y)
+                        this.animState = 'fall';
+
                     if(this.kh.arrowRight.isDown)
                         this.animState = 'jumpShoot';
+
+                    this.yLastPos = this.body.y;
                 }
                 else if(this.body.velocity.x != 0){
                     this.animState = 'run';

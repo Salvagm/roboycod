@@ -9,13 +9,13 @@ module Roboycod {
 
         create() {
 
-           this.startGame();
+            this.startGame();
 
         }
 
         startGame() {
 
-            this.game.state.start('Level', true, false);
+            this.game.state.start('WorldMap', true, false);
 
         }
 
