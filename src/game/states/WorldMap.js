@@ -18,7 +18,7 @@ var Roboycod;
         WorldMap.prototype.create = function () {
             this.hudFake = this.game.add.image(0, 0, 'hudfake', 0);
             this.hudFake.width = this.game.width;
-            this.hudFake.height = this.game.width / 8;
+            this.hudFake.height = this.game.height * 0.125;
             this.hudFake.fixedToCamera = true;
             this.background = this.game.add.image(0, 0 + this.hudFake.height, 'worldMap');
             //this.startStage();
