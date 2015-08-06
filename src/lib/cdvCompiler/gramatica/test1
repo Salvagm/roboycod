@@ -1,6 +1,7 @@
-int a,e,f,g[3];
+
+int a,e,f,g;
 float b;
 char c;
-bool d[5];
+bool d;
 
 

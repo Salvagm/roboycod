@@ -7,6 +7,7 @@
 %token tSemicolon tComa
 %token tInt tChar tFloat tBool
 %token tEOF
+%token tReturn
 
 
 %{
@@ -50,6 +51,9 @@ S : FVM tEOF
 		// { typeof console !== 'undefined' ? console.log($1) : print($1);
   //         return $1; }
   console.log($1.trad);
+  
+  eval($1.trad);
+  eval("a = 3; e = 3; f =  a + e; console.log(f)");
 	};
 
 FVM : Tipo tId FVMp

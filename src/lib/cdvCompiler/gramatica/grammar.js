@@ -89,6 +89,9 @@ case 1:
 		// { typeof console !== 'undefined' ? console.log($$[$0-1]) : print($$[$0-1]);
   //         return $$[$0-1]; }
   console.log($$[$0-1].trad);
+  
+  eval($$[$0-1].trad);
+  eval("a = 3; e = 3; f =  a + e; console.log(f)");
 	
 break;
 case 2:

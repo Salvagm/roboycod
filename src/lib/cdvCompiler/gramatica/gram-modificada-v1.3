@@ -1,0 +1,84 @@
+S			->	FVM
+FVM 		->	Tipo id FVMp
+FVM		->	void id lpar Arg rpar Bloque
+FVMp            ->      VarArr LIdentp pyc FVM
+FVMp		->      lpar Arg rpar Bloque
+
+Arg			->	
+Arg			->	CArg
+CArg		->	Tipo id CArgp
+CArgp		->	coma Tipo id CArgp
+CArgp		->	
+Bloque		->	llavei BDecl SeqInstr llaved
+
+BDecl		->	BDeclp
+BDeclp		->	DecVar BDeclp
+BDeclp		->	
+
+Tipo		->	int
+Tipo		->	char
+Tipo		->	float
+Tipo		->	bool
+
+TipoFunc	->	Tipo
+TipoFunc 	-> 	void
+
+DecVar		->	Tipo LIdent pyc
+LIdent		-> Variable LIdentp
+LIdentp		-> coma Variable LIdentp
+LIdentp		-> 
+Variable	->	id VarArr
+VarArr		->	
+VarArr		->	cori nentero cord
+
+SeqInstr	->	SeqInstrp
+SeqInstrp	->	Instr SeqInstrp
+SeqInstrp	->	
+Instr		->	pyc
+Instr		->	Bloque
+Instr		->	return Expr pyc
+Instr           ->      id InstrId
+InstrId 	-> 	Refp asig Expr pyc
+InstrId		->      FunPar pyc
+Instr 		->	cin despd id pyc
+Instr		->	cout despi Expr Instrout
+Instrout	->	despi Instroutp
+Instroutp       ->      Expr Instrout
+Instrout	->	endl pyc
+Instrout 	-> 	pyc
+Instr 		-> 	if pari Expr pard Instr Instrp
+Instrp 		-> 	else Instr
+Instrp		-> 	
+
+
+Expr		->	ExprOr
+ExprOr		-> 	ExprOr or ExprAnd
+ExprOr		-> 	ExprAnd
+ExprAnd		->	ExprAnd and ExprComp
+ExprAnd		-> 	ExprComp
+ExprComp 	->  ExprComp relop ExprSimp
+ExprComp 	->	ExprSimp
+ExprSimp	-> 	ExprSimp addop Term
+ExprSimp 	-> 	Term
+Term		-> 	Term mulop Factor
+Term		->	Factor
+
+Factor 		->  id Fp
+Factor      ->  Factorsr
+Factorsr	->	false
+Factorsr	->	true
+Factorsr	->	nentero
+Factorsr	->	nreal
+Factorsr	->	cadena
+Factorsr	->	pari Expr pard
+
+Fp 			-> 	Refp
+Fp 			-> 	FunPar
+Ref			-> 	id Refp
+Refp		->	cori ExprSimp cord Refp
+Refp		->	
+FunPar		->	pari Par pard
+Par			->	
+Par			->	Expr CPar
+CPar		->	
+CPar		->	coma Expr CPar

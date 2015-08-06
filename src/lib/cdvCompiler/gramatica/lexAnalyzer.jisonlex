@@ -36,6 +36,7 @@ function LexicalError()
 "cin"			return 'tCin';
 "cout"			return 'tCout';
 "endl"			return 'tEndl';
+"return"		return 'tReturn';
 
 ">>"			return 'tRdesp';
 "<<"			return 'tLdesp';
