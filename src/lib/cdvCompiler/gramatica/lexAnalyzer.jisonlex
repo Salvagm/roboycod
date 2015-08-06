@@ -25,7 +25,6 @@ function LexicalError()
 
 {D}+			return 'tInteger';
 {D}+(\.){D}+    return 'tFloat'; 
-"main"			return 'tMain';
 "if"			return 'tIf';
 "else"			return 'tElse';
 "int"			return 'tInt';
@@ -37,6 +36,8 @@ function LexicalError()
 "cout"			return 'tCout';
 "endl"			return 'tEndl';
 "return"		return 'tReturn';
+"false" 		return "tFasle";
+"true"			return "tTrue";
 
 ">>"			return 'tRdesp';
 "<<"			return 'tLdesp';
