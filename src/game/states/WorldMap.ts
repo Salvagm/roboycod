@@ -10,16 +10,17 @@ module Roboycod {
         private tileMap         : Phaser.Tilemap;
         private background      : Phaser.Image;
         private selectedLogo    : Phaser.Sprite;
-        private cursors         : Phaser.CursorKeys;
         private navMatrix       : any[][];
         private x               : number;
         private y               : number;
         private widthRatio      : number;
         private heightRatio     : number;
         private json;
+        private kh              : KeyboardHandler;
 
         //	Constants
         private LOGO_L          : number = 6;
+
 
         create() {
 
@@ -42,40 +43,24 @@ module Roboycod {
              * Creamos la matriz para navegar y poder elegir stage,
              * el area de seleccion y las teclas
              */
-            this.x = this.y = 0;
             this.buildNavigationMatrix();
 
             this.selectedLogo = this.game.add.sprite(
-                this.navMatrix[0][0].x,
-                this.navMatrix[0][0].y,
+                this.navMatrix[this.x][this.y].x,
+                this.navMatrix[this.x][this.y].y,
                 'selectedLogo'
             );
             //Aplicamos la porporcion al area de seleccion
             this.selectedLogo.width = this.selectedLogo.width / this.widthRatio;
             this.selectedLogo.height= this.selectedLogo.height / this.heightRatio;
 
-
-            // Definimos las keys para poder movernos
-            this.cursors = this.game.input.keyboard.createCursorKeys();
+            /**
+             * Definimos y mapeamos las teclas correspondientes
+             */
+            this.kh = new KeyboardHandler(this.game);
+            this.kh.setUpWorldMap(this);
 
             //this.startStage();
-        }
-        update() {
-            // Update input state
-            this.game.input.update();
-
-            if (this.cursors.down.justDown){
-                this.moveSelection(1,0);
-            }
-            if (this.cursors.up.justDown){
-                this.moveSelection(-1,0);
-            }
-            if (this.cursors.left.justDown) {
-                this.moveSelection(0,-1);
-            }
-            if (this.cursors.right.justDown) {
-                this.moveSelection(0,1);
-            }
         }
 
         private startStage() {
@@ -89,6 +74,7 @@ module Roboycod {
          * almacenando la posicion a la que se mueve el cuadro de seleccion y el stage asociado
          */
         private buildNavigationMatrix() : void{
+            this.x = this.y = 0;
             this.navMatrix = [];
             this.navMatrix[0] = [];
             this.navMatrix[1] = [];
@@ -114,7 +100,7 @@ module Roboycod {
          * Comprueba si puede moverse en la matriz dentro de los limites y
          * si puede lo hace
          */
-        private moveSelection(x : number , y : number ) : void{
+        public moveSelection(key : Phaser.Key, x : number , y : number ) : void{
 
             if(this.x + x >= 0 && this.x + x <=1){
                 if(this.y + y >= 0 && this.y + y <=2){

@@ -27,11 +27,11 @@ var Roboycod;
             this.numStage = numStage;
         };
         Stage.prototype.create = function () {
-            this.kh = new Roboycod.KeyboardHandler(this.game);
             this.loadStage();
-            //  Asociamos un setup de teclas segun el nivel
-            this.kh.setupLevel(this.player);
             this.codevices = this.game.add.group();
+            /**
+             * Definimos y mapeamos las teclas correspondientes
+             */
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
             this.hudFake.width = this.game.width;
@@ -50,6 +50,8 @@ var Roboycod;
             this.input.mouse.mouseOverCallback = function () {
                 this.input.keyboard.start();
             };
+            this.kh = new Roboycod.KeyboardHandler(this.game);
+            this.kh.setupStage(this.player);
         };
         /**
          * Segun el numero que tenga asignado el Stage, cargara unos datos u otros
@@ -73,7 +75,7 @@ var Roboycod;
             this.finishZone.body.height = tempJSON.layers[4].objects[1].height;
             this.finishZone.tint = 0xff00ff;
             //Cargamos player
-            this.player = new Roboycod.Player(this.game, tempJSON.layers[this.TRIGGER_L].objects[0].x, tempJSON.layers[this.TRIGGER_L].objects[0].y, this.kh);
+            this.player = new Roboycod.Player(this.game, tempJSON.layers[this.TRIGGER_L].objects[0].x, tempJSON.layers[this.TRIGGER_L].objects[0].y);
             //Cargamos enemigos
             this.loadEnemies(tempJSON.layers[this.ENEMY_L]);
         };

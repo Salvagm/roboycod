@@ -11,7 +11,7 @@ module Roboycod{
 
         private animState   : string = 'idle';
         private endShot     : boolean = true;
-        private kh          : KeyboardHandler;
+        //private kh          : KeyboardHandler;
         private yLastPos       : number;
 
         public gun         : BaseGun;
@@ -28,7 +28,7 @@ module Roboycod{
         public cdvDemo      : BaseCdv;
         //  TODO FIN DEMOCODE
 
-        constructor(game: Phaser.Game, x: number, y: number, kh : KeyboardHandler) {
+        constructor(game: Phaser.Game, x: number, y: number) {
 
             super(game, x, y, 'tsDynamics', 0);
 
@@ -43,7 +43,7 @@ module Roboycod{
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
 
-            this.kh = kh;
+            //this.kh = kh;
             this.gun = new BaseGun(this.game);
 
 
@@ -139,16 +139,16 @@ module Roboycod{
                     else if(this.yLastPos < this.body.y)
                         this.animState = 'fall';
 
-                    if(this.kh.arrowRight.isDown)
-                        this.animState = 'jumpShoot';
+                    //if(this.kh.arrowRight.isDown)
+                    //    this.animState = 'jumpShoot';
 
                     this.yLastPos = this.body.y;
                 }
                 else if(this.body.velocity.x != 0){
                     this.animState = 'run';
                 }
-                else if(this.kh.arrowRight.isDown)
-                    this.animState = 'shoot';
+                //else if(this.kh.arrowRight.isDown)
+                //    this.animState = 'shoot';
                 else
                     this.animState = 'idle';
             }

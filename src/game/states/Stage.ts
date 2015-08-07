@@ -34,14 +34,12 @@ module Roboycod{
 
         create(){
 
-            this.kh = new KeyboardHandler(this.game);
-
             this.loadStage();
-
-            //  Asociamos un setup de teclas segun el nivel
-            this.kh.setupLevel(this.player);
-
             this.codevices = this.game.add.group();
+            /**
+             * Definimos y mapeamos las teclas correspondientes
+             */
+
 
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
@@ -58,6 +56,10 @@ module Roboycod{
             //TODO MEJORAR
             this.input.mouse.mouseOutCallback = function() { this.input.keyboard.stop(); };
             this.input.mouse.mouseOverCallback = function() { this.input.keyboard.start(); };
+
+
+            this.kh = new KeyboardHandler(this.game);
+            this.kh.setupStage(this.player);
         }
 
         /**
@@ -95,8 +97,7 @@ module Roboycod{
             this.player = new Player(
                 this.game,
                 tempJSON.layers[this.TRIGGER_L].objects[0].x,
-                tempJSON.layers[this.TRIGGER_L].objects[0].y,
-                this.kh
+                tempJSON.layers[this.TRIGGER_L].objects[0].y
             );
 
             //Cargamos enemigos

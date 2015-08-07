@@ -15,7 +15,7 @@ var Roboycod;
     var Player = (function (_super) {
         __extends(Player, _super);
         //  TODO FIN DEMOCODE
-        function Player(game, x, y, kh) {
+        function Player(game, x, y) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
             this.animState = 'idle';
             this.endShot = true;
@@ -34,7 +34,7 @@ var Roboycod;
             this.body.collideWorldBounds = true;
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
-            this.kh = kh;
+            //this.kh = kh;
             this.gun = new Roboycod.BaseGun(this.game);
             this.animations.add('idle', [0, 1, 2], 4, true);
             this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
@@ -113,15 +113,13 @@ var Roboycod;
                         this.animState = 'jump';
                     else if (this.yLastPos < this.body.y)
                         this.animState = 'fall';
-                    if (this.kh.arrowRight.isDown)
-                        this.animState = 'jumpShoot';
+                    //if(this.kh.arrowRight.isDown)
+                    //    this.animState = 'jumpShoot';
                     this.yLastPos = this.body.y;
                 }
                 else if (this.body.velocity.x != 0) {
                     this.animState = 'run';
                 }
-                else if (this.kh.arrowRight.isDown)
-                    this.animState = 'shoot';
                 else
                     this.animState = 'idle';
             }

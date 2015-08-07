@@ -34,31 +34,17 @@ var Roboycod;
              * Creamos la matriz para navegar y poder elegir stage,
              * el area de seleccion y las teclas
              */
-            this.x = this.y = 0;
             this.buildNavigationMatrix();
-            this.selectedLogo = this.game.add.sprite(this.navMatrix[0][0].x, this.navMatrix[0][0].y, 'selectedLogo');
+            this.selectedLogo = this.game.add.sprite(this.navMatrix[this.x][this.y].x, this.navMatrix[this.x][this.y].y, 'selectedLogo');
             //Aplicamos la porporcion al area de seleccion
             this.selectedLogo.width = this.selectedLogo.width / this.widthRatio;
             this.selectedLogo.height = this.selectedLogo.height / this.heightRatio;
-            // Definimos las keys para poder movernos
-            this.cursors = this.game.input.keyboard.createCursorKeys();
+            /**
+             * Definimos y mapeamos las teclas correspondientes
+             */
+            this.kh = new Roboycod.KeyboardHandler(this.game);
+            this.kh.setUpWorldMap(this);
             //this.startStage();
-        };
-        WorldMap.prototype.update = function () {
-            // Update input state
-            this.game.input.update();
-            if (this.cursors.down.justDown) {
-                this.moveSelection(1, 0);
-            }
-            if (this.cursors.up.justDown) {
-                this.moveSelection(-1, 0);
-            }
-            if (this.cursors.left.justDown) {
-                this.moveSelection(0, -1);
-            }
-            if (this.cursors.right.justDown) {
-                this.moveSelection(0, 1);
-            }
         };
         WorldMap.prototype.startStage = function () {
             this.game.state.start('Stage', true, false, this.navMatrix[this.x][this.y]);
@@ -68,6 +54,7 @@ var Roboycod;
          * almacenando la posicion a la que se mueve el cuadro de seleccion y el stage asociado
          */
         WorldMap.prototype.buildNavigationMatrix = function () {
+            this.x = this.y = 0;
             this.navMatrix = [];
             this.navMatrix[0] = [];
             this.navMatrix[1] = [];
@@ -89,7 +76,7 @@ var Roboycod;
          * Comprueba si puede moverse en la matriz dentro de los limites y
          * si puede lo hace
          */
-        WorldMap.prototype.moveSelection = function (x, y) {
+        WorldMap.prototype.moveSelection = function (key, x, y) {
             if (this.x + x >= 0 && this.x + x <= 1) {
                 if (this.y + y >= 0 && this.y + y <= 2) {
                     this.x += x;

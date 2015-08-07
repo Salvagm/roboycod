@@ -15,25 +15,32 @@ var Roboycod;
         __extends(KeyboardHandler, _super);
         function KeyboardHandler(game) {
             _super.call(this, game);
-            this.up = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-            this.left = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-            this.down = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-            this.right = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+            this.W = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+            this.A = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+            this.S = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+            this.D = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+            this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             this.arrowUp = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             this.arrowLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
             this.arrowDown = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         }
-        KeyboardHandler.prototype.setupLevel = function (player) {
-            this.left.onHoldCallback = player.moveLeft;
-            this.left.onHoldContext = player;
-            this.right.onHoldCallback = player.moveRight;
-            this.right.onHoldContext = player;
-            this.up.onHoldCallback = player.jump;
-            this.up.onHoldContext = player;
-            this.arrowRight.onHoldCallback = player.shoot;
+        KeyboardHandler.prototype.setupStage = function (player) {
+            this.arrowLeft.onHoldCallback = player.moveLeft;
+            this.arrowLeft.onHoldContext = player;
+            this.arrowRight.onHoldCallback = player.moveRight;
             this.arrowRight.onHoldContext = player;
+            this.space.onHoldCallback = player.jump;
+            this.space.onHoldContext = player;
+            this.W.onHoldCallback = player.shoot;
+            this.W.onHoldContext = player;
             this.addCallbacks(player, null, player.stopMove, null);
+        };
+        KeyboardHandler.prototype.setUpWorldMap = function (worldMap) {
+            this.arrowUp.onDown.add(worldMap.moveSelection, worldMap, null, -1, 0);
+            this.arrowDown.onDown.add(worldMap.moveSelection, worldMap, null, 1, 0);
+            this.arrowLeft.onDown.add(worldMap.moveSelection, worldMap, null, 0, -1);
+            this.arrowRight.onDown.add(worldMap.moveSelection, worldMap, null, 0, 1);
         };
         return KeyboardHandler;
     })(Phaser.Keyboard);
