@@ -3,6 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../../lib/ace/src-noconflict/ace.d.ts"/>
+///<reference path="../../lib/skulpt/processCode.d.ts"/>
 
 module Roboycod {
 
@@ -47,7 +48,8 @@ module Roboycod {
         public checkCode() : Boolean{
 
             //this.runBtn.click();
-            runit();
+            ProcessCode.runit();
+
             var interpreterOutput = document.getElementById("output");
             var output : string = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);
             if(output == "SALTO"){

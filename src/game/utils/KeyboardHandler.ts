@@ -16,7 +16,7 @@ module Roboycod {
         private arrowUp     : Phaser.Key;
         private arrowLeft   : Phaser.Key;
         private arrowDown   : Phaser.Key;
-        arrowRight  : Phaser.Key;
+        public arrowRight  : Phaser.Key;
 
         constructor(game: Phaser.Game) {
 

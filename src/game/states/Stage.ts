@@ -24,6 +24,9 @@ module Roboycod{
 
         private hudFake     : Phaser.Sprite;
 
+        //	Constants
+        private ENEMY_L     : number = 3;
+        private TRIGGER_L   : number = 4;
 
         init(numStage : string){
             this.numStage = numStage;
@@ -80,8 +83,8 @@ module Roboycod{
             //Se define la zona donde acabamos el nivel
             this.finishZone = new Phaser.Sprite(
                 this.game,
-                tempJSON.layers[4].objects[1].x,
-                tempJSON.layers[4].objects[1].y
+                tempJSON.layers[this.TRIGGER_L].objects[1].x,
+                tempJSON.layers[this.TRIGGER_L].objects[1].y
             );
             this.game.physics.enable(this.finishZone);
             this.finishZone.body.width = tempJSON.layers[4].objects[1].width;
@@ -91,13 +94,13 @@ module Roboycod{
             //Cargamos player
             this.player = new Player(
                 this.game,
-                tempJSON.layers[4].objects[0].x,
-                tempJSON.layers[4].objects[0].y,
+                tempJSON.layers[this.TRIGGER_L].objects[0].x,
+                tempJSON.layers[this.TRIGGER_L].objects[0].y,
                 this.kh
             );
 
             //Cargamos enemigos
-            this.loadEnemies(tempJSON.layers[3]);
+            this.loadEnemies(tempJSON.layers[this.ENEMY_L]);
 
         }
 
@@ -134,7 +137,7 @@ module Roboycod{
             cdv.kill();
         }
         private finishStage(){
-            this.game.state.start('Stage', true, false, '00');
+            this.game.state.start('Stage', true, false, '0');
         }
         update(){
             this.game.debug.body(this.finishZone);
