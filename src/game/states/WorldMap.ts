@@ -7,7 +7,6 @@ module Roboycod {
 
     export class WorldMap extends Phaser.State {
 
-        private tileMap         : Phaser.Tilemap;
         private background      : Phaser.Image;
         private selectedLogo    : Phaser.Sprite;
         private navMatrix       : any[][];
@@ -21,14 +20,11 @@ module Roboycod {
         //	Constants
         private LOGO_L          : number = 6;
 
-
         create() {
-
             /**
              * Cargamos los elementos del worldMap
              */
             this.json = this.game.cache.getJSON('jsonWorldMap');
-            this.tileMap = this.add.tilemap('tmWorldMap');
             this.background = this.game.add.image(0,0,'worldMap');
 
             //Guardamos la proporcion en la que se escalan los tiles
@@ -37,7 +33,6 @@ module Roboycod {
 
             this.background.width = this.game.width;
             this.background.height = this.game.height;
-            this.background.fixedToCamera = true;
 
             /**
              * Creamos la matriz para navegar y poder elegir stage,
@@ -59,14 +54,17 @@ module Roboycod {
              */
             this.kh = new KeyboardHandler(this.game);
             this.kh.setUpWorldMap(this);
-
-            //this.startStage();
         }
 
-        private startStage() {
-            this.game.state.start(
-                'Stage', true, false, this.navMatrix[this.x][this.y]
-            );
+        public startStage() {
+            //TODO apanyo para no cargar niveles no existentes
+            if(this.navMatrix[this.x][this.y].properties.stage<1)
+                this.game.state.start(
+                    'Stage', true, false, this.navMatrix[this.x][this.y].properties.stage
+                );
+        }
+        public navToInventory() {
+            this.game.state.start('Inventory', true, false);
         }
 
         /**
@@ -74,6 +72,7 @@ module Roboycod {
          * almacenando la posicion a la que se mueve el cuadro de seleccion y el stage asociado
          */
         private buildNavigationMatrix() : void{
+
             this.x = this.y = 0;
             this.navMatrix = [];
             this.navMatrix[0] = [];
@@ -94,7 +93,6 @@ module Roboycod {
                     this.navMatrix[i][j].y /= this.heightRatio;
                 }
             }
-
         }
         /**
          * Comprueba si puede moverse en la matriz dentro de los limites y

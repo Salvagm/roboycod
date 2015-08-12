@@ -22,14 +22,12 @@ var Roboycod;
              * Cargamos los elementos del worldMap
              */
             this.json = this.game.cache.getJSON('jsonWorldMap');
-            this.tileMap = this.add.tilemap('tmWorldMap');
             this.background = this.game.add.image(0, 0, 'worldMap');
             //Guardamos la proporcion en la que se escalan los tiles
             this.widthRatio = this.background.width / this.game.width;
             this.heightRatio = this.background.height / this.game.height;
             this.background.width = this.game.width;
             this.background.height = this.game.height;
-            this.background.fixedToCamera = true;
             /**
              * Creamos la matriz para navegar y poder elegir stage,
              * el area de seleccion y las teclas
@@ -44,10 +42,14 @@ var Roboycod;
              */
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.kh.setUpWorldMap(this);
-            //this.startStage();
         };
         WorldMap.prototype.startStage = function () {
-            this.game.state.start('Stage', true, false, this.navMatrix[this.x][this.y]);
+            //TODO apanyo para no cargar niveles no existentes
+            if (this.navMatrix[this.x][this.y].properties.stage < 1)
+                this.game.state.start('Stage', true, false, this.navMatrix[this.x][this.y].properties.stage);
+        };
+        WorldMap.prototype.navToInventory = function () {
+            this.game.state.start('Inventory', true, false);
         };
         /**
          * La matriz de navegacion indicara a que posiciones y niveles nos podemos mover

@@ -7,6 +7,7 @@
 ///<reference path="MainMenu.ts"/>
 ///<reference path="Stage.ts"/>
 ///<reference path="WorldMap.ts"/>
+///<reference path="Inventory.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -22,6 +23,7 @@ var Roboycod;
             this.state.add('Boot', Roboycod.Boot, false);
             this.state.add('Preloader', Roboycod.Preloader, false);
             this.state.add('MainMenu', Roboycod.MainMenu, false);
+            this.state.add('Inventory', Roboycod.Inventory, false);
             this.state.add('WorldMap', Roboycod.WorldMap, false);
             this.state.add('Stage', Roboycod.Stage, false);
             this.state.start('Boot');

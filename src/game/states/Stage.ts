@@ -16,17 +16,18 @@ module Roboycod{
         private map         : Phaser.Tilemap;
         private groundLayer : Phaser.TilemapLayer;
         private finishZone  : Phaser.Sprite;
-        private player      : Player;
         private enemies     : Phaser.Group;
         private codevices   : Phaser.Group;
-        private kh          : KeyboardHandler;
+        private player      : Player;
         private numStage    : string;
-
-        private hudFake     : Phaser.Sprite;
+        private kh          : KeyboardHandler;
 
         //	Constants
         private ENEMY_L     : number = 3;
         private TRIGGER_L   : number = 4;
+
+        //TODO convertir en hud de verdad
+        private hudFake     : Phaser.Sprite;
 
         init(numStage : string){
             this.numStage = numStage;

@@ -28,7 +28,11 @@ var Roboycod;
             this.game.load.image('worldMap', 'assets/world/worldMap.png');
             this.game.load.json('jsonWorldMap', 'assets/world/worldMap.json');
             this.game.load.image('selectedLogo', 'assets/world/selectedLogo.png');
-            this.game.load.tilemap('tmWorldMap', 'assets/world/worldMap.json', null, Phaser.Tilemap.TILED_JSON);
+            /**
+             * Elementos Inventario
+             */
+            this.game.load.image('inventoryBackground', 'assets/inventory/inventoryBackground.png');
+            this.game.load.json('jsonInventory', 'assets/inventory/inventory.json');
             /**
              * Entidades, Objetos dinamicos, etc
              */

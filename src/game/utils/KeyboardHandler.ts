@@ -13,11 +13,13 @@ module Roboycod {
         private S       : Phaser.Key;
         private D       : Phaser.Key;
         private space   : Phaser.Key;
+        private enter   : Phaser.Key;
+        private tab     : Phaser.Key;
 
         private arrowUp     : Phaser.Key;
         private arrowLeft   : Phaser.Key;
         private arrowDown   : Phaser.Key;
-        public arrowRight  : Phaser.Key;
+        private arrowRight  : Phaser.Key;
 
         constructor(game: Phaser.Game) {
 
@@ -27,8 +29,9 @@ module Roboycod {
             this.A = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
             this.S = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
             this.D = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
-
+            this.enter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            this.tab   = this.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
 
             this.arrowUp = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             this.arrowLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -57,6 +60,19 @@ module Roboycod {
             this.arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
             this.arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
             this.arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
+
+            this.tab.onDown.add(worldMap.navToInventory,worldMap);
+            this.enter.onDown.add(worldMap.startStage,worldMap);
+        }
+        public setUpInventory(inventory : Roboycod.Inventory) : void{
+
+            //this.arrowUp.onDown.add(worldMap.moveSelection,worldMap,null,-1,0);
+            //this.arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
+            //this.arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
+            //this.arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
+
+            this.tab.onDown.add(inventory.navToWorldMap,inventory);
+            //this.enter.onDown.add(worldMap.startStage,worldMap);
         }
     }
 
