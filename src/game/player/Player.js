@@ -4,7 +4,7 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../cdvs/BaseCdv.ts"/>
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -35,7 +35,7 @@ var Roboycod;
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
             //this.kh = kh;
-            this.gun = new Roboycod.BaseGun(this.game);
+            this.gun = new BaseGun(this.game);
             this.animations.add('idle', [0, 1, 2], 4, true);
             this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
             this.animations.add('jump', [3], 1, false);

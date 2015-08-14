@@ -7,7 +7,7 @@
 ///<reference path="../cdvs/BaseCdv.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../utils/HUD.ts"/>
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -44,12 +44,8 @@ var Roboycod;
             //    }
             //})
             //TODO MEJORAR
-            this.input.mouse.mouseOutCallback = function () {
-                this.input.keyboard.stop();
-            };
-            this.input.mouse.mouseOverCallback = function () {
-                this.input.keyboard.start();
-            };
+            this.input.mouse.mouseOutCallback = function () { this.input.keyboard.stop(); };
+            this.input.mouse.mouseOverCallback = function () { this.input.keyboard.start(); };
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.kh.setupStage(this, this.player);
         };
