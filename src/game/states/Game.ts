@@ -7,6 +7,7 @@
 ///<reference path="MainMenu.ts"/>
 ///<reference path="Stage.ts"/>
 ///<reference path="WorldMap.ts"/>
+///<reference path="Inventory.ts"/>
 
 
 module Roboycod
@@ -21,6 +22,7 @@ module Roboycod
             this.state.add('Boot',Boot,false);
             this.state.add('Preloader',Preloader,false);
             this.state.add('MainMenu',MainMenu,false);
+            this.state.add('Inventory',Inventory,false);
             this.state.add('WorldMap',WorldMap,false);
             this.state.add('Stage',Stage,false);
 

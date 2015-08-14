@@ -3,7 +3,7 @@
 /** EVENTOS DE JUEGO **/
 
 // ALGUNO con CIN + COUT
-// Recoger PickUps (la carga pude sitribuirse)
+// Recoger PickUps (la carga pude distribuirse)
 // Controlar cantidad dada como maxima, para evitar vida+9999
 
 	void main(){
@@ -81,7 +81,7 @@
 
 	// dear mover paramatrizado, mover y luego lo que sea
 	"moverDerecha"
-	"mover Derecha"
+	"moverDerecha"
 	"bombardear"
 
 //TABLA CONSULTAS

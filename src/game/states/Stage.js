@@ -19,16 +19,19 @@ var Roboycod;
         __extends(Stage, _super);
         function Stage() {
             _super.apply(this, arguments);
+            //	Constants
+            this.ENEMY_L = 3;
+            this.TRIGGER_L = 4;
         }
         Stage.prototype.init = function (numStage) {
             this.numStage = numStage;
         };
         Stage.prototype.create = function () {
-            this.kh = new Roboycod.KeyboardHandler(this.game);
             this.loadStage();
-            //  Asociamos un setup de teclas segun el nivel
-            this.kh.setupLevel(this.player);
             this.codevices = this.game.add.group();
+            /**
+             * Definimos y mapeamos las teclas correspondientes
+             */
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
             this.hudFake.width = this.game.width;
@@ -47,6 +50,11 @@ var Roboycod;
             this.input.mouse.mouseOverCallback = function () {
                 this.input.keyboard.start();
             };
+            this.kh = new Roboycod.KeyboardHandler(this.game);
+            this.kh.setupStage(this, this.player);
+        };
+        Stage.prototype.navToInventory = function () {
+            this.game.state.start('Inventory', true, false, this.key, this.numStage);
         };
         /**
          * Segun el numero que tenga asignado el Stage, cargara unos datos u otros
@@ -64,15 +72,15 @@ var Roboycod;
             this.map.setCollisionBetween(1, 99, true, 'ground');
             this.groundLayer.resizeWorld();
             //Se define la zona donde acabamos el nivel
-            this.finishZone = new Phaser.Sprite(this.game, tempJSON.layers[4].objects[1].x, tempJSON.layers[4].objects[1].y);
+            this.finishZone = new Phaser.Sprite(this.game, tempJSON.layers[this.TRIGGER_L].objects[1].x, tempJSON.layers[this.TRIGGER_L].objects[1].y);
             this.game.physics.enable(this.finishZone);
             this.finishZone.body.width = tempJSON.layers[4].objects[1].width;
             this.finishZone.body.height = tempJSON.layers[4].objects[1].height;
             this.finishZone.tint = 0xff00ff;
             //Cargamos player
-            this.player = new Roboycod.Player(this.game, tempJSON.layers[4].objects[0].x, tempJSON.layers[4].objects[0].y, this.kh);
+            this.player = new Roboycod.Player(this.game, tempJSON.layers[this.TRIGGER_L].objects[0].x, tempJSON.layers[this.TRIGGER_L].objects[0].y);
             //Cargamos enemigos
-            this.loadEnemies(tempJSON.layers[3]);
+            this.loadEnemies(tempJSON.layers[this.ENEMY_L]);
         };
         Stage.prototype.shootEnemy = function (enemy, shoot) {
             enemy.damage(shoot.health);
@@ -99,7 +107,7 @@ var Roboycod;
             cdv.kill();
         };
         Stage.prototype.finishStage = function () {
-            this.game.state.start('Stage', true, false, '00');
+            this.game.state.start('Stage', true, false, '0');
         };
         Stage.prototype.update = function () {
             this.game.debug.body(this.finishZone);

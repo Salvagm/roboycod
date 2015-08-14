@@ -13,17 +13,21 @@ module Roboycod{
 
     export class Stage extends Phaser.State{
 
-        private map         : Phaser.Tilemap;
+            private map         : Phaser.Tilemap;
         private groundLayer : Phaser.TilemapLayer;
         private finishZone  : Phaser.Sprite;
-        private player      : Player;
         private enemies     : Phaser.Group;
         private codevices   : Phaser.Group;
-        private kh          : KeyboardHandler;
+        private player      : Player;
         private numStage    : string;
+        private kh          : KeyboardHandler;
 
+        //	Constants
+        private ENEMY_L     : number = 3;
+        private TRIGGER_L   : number = 4;
+
+        //TODO convertir en hud de verdad
         private hudFake     : Phaser.Sprite;
-
 
         init(numStage : string){
             this.numStage = numStage;
@@ -31,14 +35,12 @@ module Roboycod{
 
         create(){
 
-            this.kh = new KeyboardHandler(this.game);
-
             this.loadStage();
-
-            //  Asociamos un setup de teclas segun el nivel
-            this.kh.setupLevel(this.player);
-
             this.codevices = this.game.add.group();
+            /**
+             * Definimos y mapeamos las teclas correspondientes
+             */
+
 
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
@@ -55,6 +57,14 @@ module Roboycod{
             //TODO MEJORAR
             this.input.mouse.mouseOutCallback = function() { this.input.keyboard.stop(); };
             this.input.mouse.mouseOverCallback = function() { this.input.keyboard.start(); };
+
+
+            this.kh = new KeyboardHandler(this.game);
+            this.kh.setupStage(this, this.player);
+        }
+
+        public navToInventory() {
+            this.game.state.start('Inventory', true, false, this.key, this.numStage);
         }
 
         /**
@@ -80,8 +90,8 @@ module Roboycod{
             //Se define la zona donde acabamos el nivel
             this.finishZone = new Phaser.Sprite(
                 this.game,
-                tempJSON.layers[4].objects[1].x,
-                tempJSON.layers[4].objects[1].y
+                tempJSON.layers[this.TRIGGER_L].objects[1].x,
+                tempJSON.layers[this.TRIGGER_L].objects[1].y
             );
             this.game.physics.enable(this.finishZone);
             this.finishZone.body.width = tempJSON.layers[4].objects[1].width;
@@ -91,13 +101,12 @@ module Roboycod{
             //Cargamos player
             this.player = new Player(
                 this.game,
-                tempJSON.layers[4].objects[0].x,
-                tempJSON.layers[4].objects[0].y,
-                this.kh
+                tempJSON.layers[this.TRIGGER_L].objects[0].x,
+                tempJSON.layers[this.TRIGGER_L].objects[0].y
             );
 
             //Cargamos enemigos
-            this.loadEnemies(tempJSON.layers[3]);
+            this.loadEnemies(tempJSON.layers[this.ENEMY_L]);
 
         }
 
@@ -134,7 +143,7 @@ module Roboycod{
             cdv.kill();
         }
         private finishStage(){
-            this.game.state.start('Stage', true, false, '00');
+            this.game.state.start('Stage', true, false, '0');
         }
         update(){
             this.game.debug.body(this.finishZone);

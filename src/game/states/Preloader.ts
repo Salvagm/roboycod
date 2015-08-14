@@ -13,12 +13,34 @@ module Roboycod{
 
             //  Usamos la preloadBar mientras cargamos el resto
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
+            this.preloadBar.anchor.set(0.2,0.5);
             this.load.setPreloadSprite(this.preloadBar);
 
             //TODO HUD Fake para DEMO
             this.game.load.image('hudfake', 'assets/hudfake.png');
 
+
+            /**
+             * Elentos WorldMap
+             */
+
             this.game.load.image('worldMap', 'assets/world/worldMap.png');
+            this.game.load.json('jsonWorldMap','assets/world/worldMap.json');
+            this.game.load.image('selectedLogo', 'assets/world/selectedLogo.png');
+            this.load.atlasJSONHash(
+                'worldTiles',
+                'assets/world/worldTiles.png',
+                'assets/world/worldTiles.json'
+            );
+            /**
+             * Elementos Inventario
+             */
+
+            this.game.load.image(
+                'inventoryBackground', 'assets/inventory/inventoryBackground.png'
+            );
+            this.game.load.json('jsonInventory','assets/inventory/inventory.json');
+
 
             /**
              * Entidades, Objetos dinamicos, etc
@@ -33,17 +55,22 @@ module Roboycod{
             this.game.load.image('bullet', 'assets/entities/bullet.png');
 
             /**
-             * FASES / NIVELES / STAGES
+             * FASES / STAGES
              */
             this.game.load.image('tsStages','assets/stages/mapTiles.png');
 
-            this.game.load.json('jsonStage00','assets/stages/stage00.json');
+            this.game.load.json('jsonStage0','assets/stages/stage0.json');
             this.game.load.tilemap(
-                'tmStage00',
-                'assets/stages/stage00.json',
+                'tmStage0',
+                'assets/stages/stage0.json',
                 null,
                 Phaser.Tilemap.TILED_JSON
             );
+
+            /**
+             * Cargamos JSON para guardar los estados de los STATES
+             */
+            this.game.load.json('jsonStatesData','assets/statesData.json');
         }
 
         create() {
