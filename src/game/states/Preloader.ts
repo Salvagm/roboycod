@@ -27,7 +27,11 @@ module Roboycod{
             this.game.load.image('worldMap', 'assets/world/worldMap.png');
             this.game.load.json('jsonWorldMap','assets/world/worldMap.json');
             this.game.load.image('selectedLogo', 'assets/world/selectedLogo.png');
-
+            this.load.atlasJSONHash(
+                'worldTiles',
+                'assets/world/worldTiles.png',
+                'assets/world/worldTiles.json'
+            );
             /**
              * Elementos Inventario
              */

@@ -1,0 +1,60 @@
+{"frames": {
+
+"logoStage0.png":
+{
+	"frame": {"x":2,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage1.png":
+{
+	"frame": {"x":324,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage2.png":
+{
+	"frame": {"x":646,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage3.png":
+{
+	"frame": {"x":968,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage4.png":
+{
+	"frame": {"x":1290,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage5.png":
+{
+	"frame": {"x":1612,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "worldTiles.png",
+	"format": "RGBA8888",
+	"size": {"w":1934,"h":388},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:91362ac65a7a57ac672a6e1c6dd7748b:7b8b0acb18bebc4db8fbd9176fc5a53d:3ee9622496b0ab7ae8b0ad09d8e907d3$"
+}
+}

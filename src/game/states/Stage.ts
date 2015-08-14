@@ -13,7 +13,7 @@ module Roboycod{
 
     export class Stage extends Phaser.State{
 
-        private map         : Phaser.Tilemap;
+            private map         : Phaser.Tilemap;
         private groundLayer : Phaser.TilemapLayer;
         private finishZone  : Phaser.Sprite;
         private enemies     : Phaser.Group;
