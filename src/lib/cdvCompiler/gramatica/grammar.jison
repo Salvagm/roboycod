@@ -166,7 +166,6 @@ function Symbol(name,sBaseType,sArray)
 	this.sBaseType = sBaseType || 99;
 	this.sType = 99;
 	this.sArray = sArray || [];
-	this.strad = name || "";
 	this.sArgs = [];
 	this.hasValue = false;
 }
@@ -190,7 +189,6 @@ function Mark (lex,trad,baseType)
 	this.mArray = []; // atributo que nos indica si la marca es un array con sus dimensiones y tamaños
 	this.args = [];
 	this.line = 0;
-	this.isFunction = false;
 	this.currentSymbol = '';
 }
 
@@ -209,7 +207,6 @@ function copyMark(otherMark)
 	auxMark.lex = otherMark.lex;
 	auxMark.mArray = otherMark.mArray;
 	auxMark.line = otherMark.line;
-	auxMark.isFunction = otherMark.isFunction;
 	auxMark.currentSymbol = otherMark.currentSymbol;
 	auxMark.args = otherMark.args;
 	return auxMark;
