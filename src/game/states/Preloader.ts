@@ -51,7 +51,7 @@ module Roboycod{
             this.game.load.image('bullet', 'assets/entities/bullet.png');
 
             /**
-             * FASES / NIVELES / STAGES
+             * FASES / STAGES
              */
             this.game.load.image('tsStages','assets/stages/mapTiles.png');
 
@@ -62,6 +62,11 @@ module Roboycod{
                 null,
                 Phaser.Tilemap.TILED_JSON
             );
+
+            /**
+             * Cargamos JSON para guardar los estados de los STATES
+             */
+            this.game.load.json('jsonStatesData','assets/statesData.json');
         }
 
         create() {

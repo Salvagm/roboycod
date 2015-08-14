@@ -1,0 +1,24 @@
+{
+	"worldMap":
+	{
+		"firstLoad": "true", 
+		"x": "", 
+		"y": ""
+	},
+	"stage":
+	{
+		"firstLoad": "true", 
+		"player": [
+		{ 
+		 	"x": "", 
+		 	"y": "",
+		 	"life": ""
+		}]
+	},
+	"inventory":
+	{
+		"firstLoad": "true", 
+		"x": "", 
+		"y": ""
+	}
+}

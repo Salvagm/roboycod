@@ -14,7 +14,8 @@ module Roboycod {
         private y               : number;
         private widthRatio      : number;
         private heightRatio     : number;
-        private json;
+        private jsonTiles;
+        private statesData;
         private kh              : KeyboardHandler;
 
         //	Constants
@@ -22,9 +23,14 @@ module Roboycod {
 
         create() {
             /**
+             * Cargamos los datos de juego
+             */
+            this.statesData = this.game.cache.getJSON('jsonStatesData');
+            /**
              * Cargamos los elementos del worldMap
              */
-            this.json = this.game.cache.getJSON('jsonWorldMap');
+            // con true hacemos una copia del JSON para no modificarlo
+            this.jsonTiles = this.game.cache.getJSON('jsonWorldMap', true);
             this.background = this.game.add.image(0,0,'worldMap');
 
             //Guardamos la proporcion en la que se escalan los tiles
@@ -40,6 +46,13 @@ module Roboycod {
              */
             this.buildNavigationMatrix();
 
+            //Vemos si debemos cargar los datos o es la primera partida
+            if(this.statesData.worldMap.firstLoad == "false"){
+                this.x = this.statesData.worldMap.x;
+                this.y = this.statesData.worldMap.y;
+            }
+            this.statesData.worldMap.firstLoad = "false";
+
             this.selectedLogo = this.game.add.sprite(
                 this.navMatrix[this.x][this.y].x,
                 this.navMatrix[this.x][this.y].y,
@@ -54,17 +67,28 @@ module Roboycod {
              */
             this.kh = new KeyboardHandler(this.game);
             this.kh.setUpWorldMap(this);
+
         }
 
         public startStage() {
-            //TODO apanyo para no cargar niveles no existentes
-            if(this.navMatrix[this.x][this.y].properties.stage<1)
+
+            this.statesData.worldMap.x = this.x;
+            this.statesData.worldMap.y = this.y;
+
+            var numStage = this.navMatrix[this.x][this.y].properties.stage;
+
+            if(this.game.cache.checkJSONKey('jsonStage' + numStage)) {
                 this.game.state.start(
-                    'Stage', true, false, this.navMatrix[this.x][this.y].properties.stage
+                    'Stage', false, false, numStage
                 );
+            }
         }
         public navToInventory() {
-            this.game.state.start('Inventory', true, false);
+
+            this.statesData.worldMap.x = this.x;
+            this.statesData.worldMap.y = this.y;
+
+            this.game.state.start('Inventory', true, false, this.key);
         }
 
         /**
@@ -79,12 +103,13 @@ module Roboycod {
             this.navMatrix[1] = [];
 
             //En la layer LOGO_L se encontraran los objetos statelogo del Tiled
-            this.navMatrix[0][0] = this.json.layers[this.LOGO_L].objects[0];
-            this.navMatrix[0][1] = this.json.layers[this.LOGO_L].objects[1];
-            this.navMatrix[0][2] = this.json.layers[this.LOGO_L].objects[2];
-            this.navMatrix[1][0] = this.json.layers[this.LOGO_L].objects[3];
-            this.navMatrix[1][1] = this.json.layers[this.LOGO_L].objects[4];
-            this.navMatrix[1][2] = this.json.layers[this.LOGO_L].objects[5];
+            this.navMatrix[0][0] = this.jsonTiles.layers[this.LOGO_L].objects[0];
+            this.navMatrix[0][1] = this.jsonTiles.layers[this.LOGO_L].objects[1];
+            this.navMatrix[0][2] = this.jsonTiles.layers[this.LOGO_L].objects[2];
+            this.navMatrix[1][0] = this.jsonTiles.layers[this.LOGO_L].objects[3];
+            this.navMatrix[1][1] = this.jsonTiles.layers[this.LOGO_L].objects[4];
+            this.navMatrix[1][2] = this.jsonTiles.layers[this.LOGO_L].objects[5];
+
 
             //Normalizamos la posicion de los logos segun el rescalado
             for(var i : number = 0; i < 2;++i){
@@ -93,6 +118,7 @@ module Roboycod {
                     this.navMatrix[i][j].y /= this.heightRatio;
                 }
             }
+
         }
         /**
          * Comprueba si puede moverse en la matriz dentro de los limites y

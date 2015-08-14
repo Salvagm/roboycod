@@ -15,9 +15,13 @@ var Roboycod;
         function Inventory() {
             _super.apply(this, arguments);
         }
+        Inventory.prototype.init = function (lastStage, numStage) {
+            this.lastStage = lastStage;
+            this.numStage = numStage;
+        };
         Inventory.prototype.create = function () {
             this.game.stage.backgroundColor = 0x272822;
-            this.json = this.game.cache.getJSON('jsonINventory');
+            this.json = this.game.cache.getJSON('jsonInventory');
             this.background = this.game.add.image(0, 0, 'inventoryBackground');
             this.widthRatio = this.background.width / this.game.width;
             this.heightRatio = this.background.height / this.game.height;
@@ -29,8 +33,8 @@ var Roboycod;
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.kh.setUpInventory(this);
         };
-        Inventory.prototype.navToWorldMap = function () {
-            this.game.state.start('WorldMap', true, false);
+        Inventory.prototype.navToLastState = function () {
+            this.game.state.start(this.lastStage, true, false, this.numStage);
         };
         return Inventory;
     })(Phaser.State);

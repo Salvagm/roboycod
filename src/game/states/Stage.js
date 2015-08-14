@@ -51,7 +51,10 @@ var Roboycod;
                 this.input.keyboard.start();
             };
             this.kh = new Roboycod.KeyboardHandler(this.game);
-            this.kh.setupStage(this.player);
+            this.kh.setupStage(this, this.player);
+        };
+        Stage.prototype.navToInventory = function () {
+            this.game.state.start('Inventory', true, false, this.key, this.numStage);
         };
         /**
          * Segun el numero que tenga asignado el Stage, cargara unos datos u otros

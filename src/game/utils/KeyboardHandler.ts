@@ -39,7 +39,12 @@ module Roboycod {
             this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
         }
-        public setupStage(player : Roboycod.Player) : void{
+        public setupStage(stage : Roboycod.Stage, player : Roboycod.Player) : void{
+
+            this.tab.onDown.add(stage.navToInventory,stage);
+            this.setupPlayer(player);
+        }
+        public setupPlayer(player : Roboycod.Player) : void{
 
             this.arrowLeft.onHoldCallback = player.moveLeft;
             this.arrowLeft.onHoldContext = player;
@@ -66,13 +71,8 @@ module Roboycod {
         }
         public setUpInventory(inventory : Roboycod.Inventory) : void{
 
-            //this.arrowUp.onDown.add(worldMap.moveSelection,worldMap,null,-1,0);
-            //this.arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
-            //this.arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
-            //this.arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
+            this.tab.onDown.add(inventory.navToLastState,inventory);
 
-            this.tab.onDown.add(inventory.navToWorldMap,inventory);
-            //this.enter.onDown.add(worldMap.startStage,worldMap);
         }
     }
 

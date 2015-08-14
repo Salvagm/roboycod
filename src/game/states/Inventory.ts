@@ -14,14 +14,20 @@ module Roboycod {
         private y               : number;
         private widthRatio      : number;
         private heightRatio     : number;
+        private lastStage       : string;
+        private numStage        : string;
         private json;
 
         private kh              : KeyboardHandler;
 
+        init(lastStage : string, numStage : string){
+            this.lastStage = lastStage;
+            this.numStage = numStage;
+        }
         create() {
 
             this.game.stage.backgroundColor = 0x272822;
-            this.json = this.game.cache.getJSON('jsonINventory');
+            this.json = this.game.cache.getJSON('jsonInventory');
             this.background = this.game.add.image(0,0,'inventoryBackground');
 
             this.widthRatio = this.background.width / this.game.width;
@@ -37,9 +43,8 @@ module Roboycod {
             this.kh.setUpInventory(this);
 
         }
-        public navToWorldMap(){
-
-            this.game.state.start('WorldMap', true, false);
+        public navToLastState(){
+            this.game.state.start(this.lastStage, true, false, this.numStage);
 
         }
     }

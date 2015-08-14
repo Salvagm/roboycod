@@ -27,7 +27,11 @@ var Roboycod;
             this.arrowDown = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         }
-        KeyboardHandler.prototype.setupStage = function (player) {
+        KeyboardHandler.prototype.setupStage = function (stage, player) {
+            this.tab.onDown.add(stage.navToInventory, stage);
+            this.setupPlayer(player);
+        };
+        KeyboardHandler.prototype.setupPlayer = function (player) {
             this.arrowLeft.onHoldCallback = player.moveLeft;
             this.arrowLeft.onHoldContext = player;
             this.arrowRight.onHoldCallback = player.moveRight;
@@ -47,12 +51,7 @@ var Roboycod;
             this.enter.onDown.add(worldMap.startStage, worldMap);
         };
         KeyboardHandler.prototype.setUpInventory = function (inventory) {
-            //this.arrowUp.onDown.add(worldMap.moveSelection,worldMap,null,-1,0);
-            //this.arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
-            //this.arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
-            //this.arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
-            this.tab.onDown.add(inventory.navToWorldMap, inventory);
-            //this.enter.onDown.add(worldMap.startStage,worldMap);
+            this.tab.onDown.add(inventory.navToLastState, inventory);
         };
         return KeyboardHandler;
     })(Phaser.Keyboard);

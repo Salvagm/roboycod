@@ -19,9 +19,14 @@ var Roboycod;
         }
         WorldMap.prototype.create = function () {
             /**
+             * Cargamos los datos de juego
+             */
+            this.statesData = this.game.cache.getJSON('jsonStatesData');
+            /**
              * Cargamos los elementos del worldMap
              */
-            this.json = this.game.cache.getJSON('jsonWorldMap');
+            // con true hacemos una copia del JSON para no modificarlo
+            this.jsonTiles = this.game.cache.getJSON('jsonWorldMap', true);
             this.background = this.game.add.image(0, 0, 'worldMap');
             //Guardamos la proporcion en la que se escalan los tiles
             this.widthRatio = this.background.width / this.game.width;
@@ -33,6 +38,12 @@ var Roboycod;
              * el area de seleccion y las teclas
              */
             this.buildNavigationMatrix();
+            //Vemos si debemos cargar los datos o es la primera partida
+            if (this.statesData.worldMap.firstLoad == "false") {
+                this.x = this.statesData.worldMap.x;
+                this.y = this.statesData.worldMap.y;
+            }
+            this.statesData.worldMap.firstLoad = "false";
             this.selectedLogo = this.game.add.sprite(this.navMatrix[this.x][this.y].x, this.navMatrix[this.x][this.y].y, 'selectedLogo');
             //Aplicamos la porporcion al area de seleccion
             this.selectedLogo.width = this.selectedLogo.width / this.widthRatio;
@@ -44,12 +55,17 @@ var Roboycod;
             this.kh.setUpWorldMap(this);
         };
         WorldMap.prototype.startStage = function () {
-            //TODO apanyo para no cargar niveles no existentes
-            if (this.navMatrix[this.x][this.y].properties.stage < 1)
-                this.game.state.start('Stage', true, false, this.navMatrix[this.x][this.y].properties.stage);
+            this.statesData.worldMap.x = this.x;
+            this.statesData.worldMap.y = this.y;
+            var numStage = this.navMatrix[this.x][this.y].properties.stage;
+            if (this.game.cache.checkJSONKey('jsonStage' + numStage)) {
+                this.game.state.start('Stage', false, false, numStage);
+            }
         };
         WorldMap.prototype.navToInventory = function () {
-            this.game.state.start('Inventory', true, false);
+            this.statesData.worldMap.x = this.x;
+            this.statesData.worldMap.y = this.y;
+            this.game.state.start('Inventory', true, false, this.key);
         };
         /**
          * La matriz de navegacion indicara a que posiciones y niveles nos podemos mover
@@ -61,12 +77,12 @@ var Roboycod;
             this.navMatrix[0] = [];
             this.navMatrix[1] = [];
             //En la layer LOGO_L se encontraran los objetos statelogo del Tiled
-            this.navMatrix[0][0] = this.json.layers[this.LOGO_L].objects[0];
-            this.navMatrix[0][1] = this.json.layers[this.LOGO_L].objects[1];
-            this.navMatrix[0][2] = this.json.layers[this.LOGO_L].objects[2];
-            this.navMatrix[1][0] = this.json.layers[this.LOGO_L].objects[3];
-            this.navMatrix[1][1] = this.json.layers[this.LOGO_L].objects[4];
-            this.navMatrix[1][2] = this.json.layers[this.LOGO_L].objects[5];
+            this.navMatrix[0][0] = this.jsonTiles.layers[this.LOGO_L].objects[0];
+            this.navMatrix[0][1] = this.jsonTiles.layers[this.LOGO_L].objects[1];
+            this.navMatrix[0][2] = this.jsonTiles.layers[this.LOGO_L].objects[2];
+            this.navMatrix[1][0] = this.jsonTiles.layers[this.LOGO_L].objects[3];
+            this.navMatrix[1][1] = this.jsonTiles.layers[this.LOGO_L].objects[4];
+            this.navMatrix[1][2] = this.jsonTiles.layers[this.LOGO_L].objects[5];
             for (var i = 0; i < 2; ++i) {
                 for (var j = 0; j < 3; ++j) {
                     this.navMatrix[i][j].x /= this.widthRatio;

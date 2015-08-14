@@ -60,7 +60,11 @@ module Roboycod{
 
 
             this.kh = new KeyboardHandler(this.game);
-            this.kh.setupStage(this.player);
+            this.kh.setupStage(this, this.player);
+        }
+
+        public navToInventory() {
+            this.game.state.start('Inventory', true, false, this.key, this.numStage);
         }
 
         /**
