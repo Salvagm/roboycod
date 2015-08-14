@@ -1,5 +1,26 @@
-void main ()
+int c,d,e;
+
+void caca (int b, char a)
 {
-	int a;
-	a = 3;
+	
+}
+
+int main (int a, float b)
+{
+	int a,d,e;
+	float b;
+	char q,p,o;
+	bool h;
+
+	c = 213021342;
+	q = 'A';
+	a = 32 * 2;
+	d = 43;
+	cout << c << endl;
+	cout << d << endl;
+
+	if( a ==  64 )
+	{
+		cout << q << endl;
+	}
 }

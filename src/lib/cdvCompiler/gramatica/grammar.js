@@ -72,12 +72,12 @@
   }
 */
 var parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[1,5],$V2=[1,6],$V3=[1,7],$V4=[1,8],$V5=[7,18],$V6=[16,35],$V7=[2,26],$V8=[1,15],$V9=[2,24],$Va=[1,18],$Vb=[2,6],$Vc=[1,26],$Vd=[1,35],$Ve=[2,10],$Vf=[1,37],$Vg=[7,16,21,24,41,44,46,49],$Vh=[2,14],$Vi=[1,50],$Vj=[1,47],$Vk=[2,30],$Vl=[1,49],$Vm=[1,51],$Vn=[1,52],$Vo=[1,53],$Vp=[7,16,21,24,41,44,46,49,56],$Vq=[1,67],$Vr=[1,73],$Vs=[1,72],$Vt=[1,71],$Vu=[1,69],$Vv=[1,70],$Vw=[1,78],$Vx=[1,77],$Vy=[2,68],$Vz=[12,16,47,55,58,75],$VA=[1,87],$VB=[12,16,47,55,58,60,75],$VC=[1,88],$VD=[12,16,47,55,58,60,62,75],$VE=[1,89],$VF=[12,16,36,47,55,58,60,62,64,75],$VG=[1,90],$VH=[12,16,36,47,55,58,60,62,64,66,75],$VI=[2,72],$VJ=[1,113],$VK=[1,118],$VL=[1,116],$VM=[1,117],$VN=[12,16,36,47,52,55,58,60,62,64,66,75];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[8,33,34,35,36],$V1=[1,5],$V2=[1,12],$V3=[1,13],$V4=[1,14],$V5=[1,10],$V6=[2,20],$V7=[1,19],$V8=[20,26],$V9=[2,31],$Va=[1,22],$Vb=[20,22,27,30,44,50,52,55],$Vc=[2,19],$Vd=[1,30],$Ve=[2,29],$Vf=[1,32],$Vg=[2,11],$Vh=[1,42],$Vi=[1,51],$Vj=[1,59],$Vk=[2,49],$Vl=[1,53],$Vm=[1,56],$Vn=[1,57],$Vo=[1,58],$Vp=[2,15],$Vq=[1,65],$Vr=[1,84],$Vs=[1,80],$Vt=[1,78],$Vu=[1,79],$Vv=[1,81],$Vw=[1,82],$Vx=[1,83],$Vy=[1,88],$Vz=[1,89],$VA=[2,75],$VB=[13,20,53,61,81],$VC=[1,97],$VD=[13,20,53,61,63,81],$VE=[1,98],$VF=[13,20,53,61,63,65,81],$VG=[1,99],$VH=[13,20,41,53,61,63,65,67,81],$VI=[1,100],$VJ=[13,20,41,53,61,63,65,67,69,81],$VK=[2,79],$VL=[1,124],$VM=[1,129],$VN=[1,128],$VO=[13,20,41,47,53,61,63,65,67,69,81];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"S":3,"FVM":4,"tEOF":5,"Tipo":6,"tId":7,"FVMp":8,"tVoid":9,"tLparen":10,"Arg":11,"tRparen":12,"Bloque":13,"VarArr":14,"LIdentp":15,"tSemicolon":16,"CArg":17,"id":18,"CArgp":19,"coma":20,"tLbrace":21,"BDecl":22,"SeqInstr":23,"tRbrace":24,"BDeclp":25,"DecVar":26,"tInt":27,"tChar":28,"tFloat":29,"tBool":30,"TipoFunc":31,"void":32,"LIdent":33,"Variable":34,"tComa":35,"tRclasp":36,"tInteger":37,"tLclasp":38,"SeqInstrp":39,"Instr":40,"tReturn":41,"Expr":42,"InstrId":43,"tCin":44,"tRdesp":45,"tCout":46,"tLdesp":47,"Instrout":48,"tIf":49,"Instrp":50,"Refp":51,"tAssign":52,"FunPar":53,"Instroutp":54,"tEndl":55,"tElse":56,"ExprOr":57,"or":58,"ExprAnd":59,"and":60,"ExprComp":61,"relop":62,"ExprSimp":63,"addop":64,"Term":65,"mulop":66,"Factor":67,"Fp":68,"Factorsr":69,"tFalse":70,"tTrue":71,"Ref":72,"Par":73,"CPar":74,"tcoma":75,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"tEOF",7:"tId",9:"tVoid",10:"tLparen",12:"tRparen",16:"tSemicolon",18:"id",20:"coma",21:"tLbrace",24:"tRbrace",27:"tInt",28:"tChar",29:"tFloat",30:"tBool",32:"void",35:"tComa",36:"tRclasp",37:"tInteger",38:"tLclasp",41:"tReturn",44:"tCin",45:"tRdesp",46:"tCout",47:"tLdesp",49:"tIf",52:"tAssign",55:"tEndl",56:"tElse",58:"or",60:"and",62:"relop",64:"addop",66:"mulop",70:"tFalse",71:"tTrue",75:"tcoma"},
-productions_: [0,[3,2],[4,3],[4,6],[8,4],[8,4],[11,0],[11,1],[17,3],[19,4],[19,0],[13,4],[22,1],[25,2],[25,0],[6,1],[6,1],[6,1],[6,1],[31,1],[31,1],[26,3],[33,2],[15,3],[15,0],[34,2],[14,0],[14,3],[23,1],[39,2],[39,0],[40,1],[40,1],[40,3],[40,2],[40,4],[40,4],[40,6],[43,4],[43,2],[48,2],[48,2],[48,1],[54,2],[50,2],[50,0],[42,1],[57,3],[57,1],[59,3],[59,1],[61,3],[61,1],[63,3],[63,1],[65,3],[65,1],[67,2],[67,1],[69,1],[69,1],[69,1],[69,1],[69,3],[68,1],[68,1],[72,2],[51,4],[51,0],[53,3],[73,0],[73,2],[74,0],[74,3]],
+symbols_: {"error":2,"S":3,"GLOBAL":4,"FVM":5,"tEOF":6,"FVMp":7,"tInt":8,"tMain":9,"MAINSCOPE":10,"tLparen":11,"Arg":12,"tRparen":13,"Bloque":14,"GLOBALVARIABLES":15,"FUNCGLOBAL":16,"IDGLOBAL":17,"VarArr":18,"LIdentp":19,"tSemicolon":20,"TipoFunc":21,"tId":22,"CArg":23,"Tipo":24,"CArgp":25,"tComa":26,"tLbrace":27,"BDecl":28,"SeqInstr":29,"tRbrace":30,"BDeclp":31,"DecVar":32,"tChar":33,"tFloat":34,"tBool":35,"tVoid":36,"LIdent":37,"Variable":38,"tLclasp":39,"tInteger":40,"tRclasp":41,"Instr":42,"INSTRSCOPE":43,"tReturn":44,"Expr":45,"Ref":46,"tAssign":47,"FINDID":48,"FunPar":49,"tCin":50,"tRdesp":51,"tCout":52,"tLdesp":53,"Instrout":54,"tIf":55,"EXPRBOOL":56,"tElse":57,"Instroutp":58,"tEndl":59,"ExprOr":60,"tOr":61,"ExprAnd":62,"tAnd":63,"ExprComp":64,"tRelop":65,"ExprSimp":66,"tAddop":67,"Term":68,"tMulop":69,"Factor":70,"Fp":71,"Factorsr":72,"tFalse":73,"tTrue":74,"tReal":75,"tCharacter":76,"tString":77,"Refp":78,"Par":79,"CPar":80,"tcoma":81,"$accept":0,"$end":1},
+terminals_: {2:"error",6:"tEOF",8:"tInt",9:"tMain",11:"tLparen",13:"tRparen",20:"tSemicolon",22:"tId",26:"tComa",27:"tLbrace",30:"tRbrace",33:"tChar",34:"tFloat",35:"tBool",36:"tVoid",39:"tLclasp",40:"tInteger",41:"tRclasp",44:"tReturn",47:"tAssign",50:"tCin",51:"tRdesp",52:"tCout",53:"tLdesp",55:"tIf",57:"tElse",59:"tEndl",61:"tOr",63:"tAnd",65:"tRelop",67:"tAddop",69:"tMulop",73:"tFalse",74:"tTrue",75:"tReal",76:"tCharacter",77:"tString",81:"tcoma"},
+productions_: [0,[3,3],[4,0],[5,1],[5,7],[10,0],[7,2],[7,3],[15,4],[17,2],[16,4],[12,0],[12,1],[23,3],[25,4],[25,0],[14,4],[28,1],[31,2],[31,0],[24,1],[24,1],[24,1],[24,1],[21,1],[21,1],[32,3],[37,2],[19,3],[19,0],[38,2],[18,0],[18,4],[29,2],[29,0],[42,1],[42,2],[42,3],[42,4],[42,3],[42,4],[42,4],[42,6],[42,8],[54,2],[54,3],[54,1],[58,2],[56,1],[43,0],[45,1],[60,3],[60,1],[62,3],[62,1],[64,3],[64,1],[66,3],[66,1],[68,3],[68,1],[70,2],[70,1],[48,1],[72,1],[72,1],[72,1],[72,1],[72,1],[72,1],[72,3],[71,1],[71,1],[46,2],[78,4],[78,0],[49,3],[79,0],[79,2],[80,0],[80,3]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -85,128 +85,537 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
+		console.log(stackScope);
+  		console.log($$[$0-1].trad);
+		console.log("FIN DE TRADUCCION");
 		
-		// { typeof console !== 'undefined' ? console.log($$[$0-1]) : print($$[$0-1]);
-  //         return $$[$0-1]; }
-  console.log($$[$0-1].trad);
+		
+		// { typeof console !== 'undefined' ? console.log($$[$0-2]) : print($$[$0-2]);
+  //         return $$[$0-2]; }
   
-  eval($$[$0-1].trad);
+  		eval($$[$0-1].trad);
+  		eval("main()");
+
   
 	
 break;
 case 2:
 
-		trad = $$[$0-2].trad + " " + $$[$0-1] +  $$[$0].trad;
-		this.$ = new Mark("",trad,"");
+		stackScope.addGlobalScope();	
 	
 break;
-case 3: case 5: case 6: case 7: case 8: case 9: case 11: case 12: case 13: case 14: case 19: case 20: case 28: case 29: case 30: case 31: case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50: case 51: case 52: case 53: case 54: case 55: case 56: case 57: case 58: case 61: case 62: case 63: case 64: case 65: case 66: case 67: case 69: case 70: case 71: case 72: case 73:
+case 3:
 
-
+		var trad = $$[$0].trad;
+		
+		this.$ = new Mark("",trad);
 	
 break;
 case 4:
 
-		trad = $$[$0-3].trad + $$[$0-2].trad + ";" + " " + $$[$0].trad;
-		this.$ = new Mark("",trad,"");
+		sym = new Symbol("main",EnumTypes.INTEGER);
+		sym.sType = EnumTypes.FUNCTION;
+		sym.sArgs = $$[$0-2].args;
+		stackScope.globalScope.addSymbol(sym);
+		var trad = "function main (" + $$[$0-2].trad + ")" + $$[$0].trad;
+		
+		this.$ = new Mark("",trad);
+		
+	
+break;
+case 5:
+
+
+		stackScope.addNewScope("main");
+	
+break;
+case 6:
+
+		
+		var trad = $$[$0-1].trad  + $$[$0].trad;
+		
+		// var trad = $$[$0-1].trad + $$[$0].trad + ";" + " " + $$[$02].trad;
+		this.$ = new Mark("",trad);
+	
+break;
+case 7:
+
+		var trad = "function " + $$[$0-2].trad + $$[$0-1].trad + $$[$0].trad;
+		var mark = new Mark();
+		mark.type = EnumTypes.FUNCTION;
+		mark.trad = trad;
+		
+		this.$ = mark;
+	
+break;
+case 8:
+
+		// TODO : (1) Anyadir la traduccion de VarArr para hacer arrays
+		var trad = "var " + $$[$0-3].trad + $$[$0-1].trad + ";";
+		
+		stackScope.globalScope.updateType($$[$0-3].baseType);
+
+		this.$ = new Mark("",trad);
+	
+break;
+case 9:
+
+		var trad = $$[$0];
+		var mark = new Mark($$[$0],trad,$$[$0-1].baseType);
+		
+		mark.currentSymbol = stackScope.getCurrentScope().addSymbol(new Symbol($$[$0]));
+		mark.currentSymbol.sBaseType = $$[$0-1].baseType;
+		// console.log(mark);
+		this.$ = mark;
 	
 break;
 case 10:
 
-
-
+		var trad = $$[$0-3].trad + "(" + $$[$0-1].trad + ")";
+		var sym = $$[$0-3].currentSymbol;
+		sym.sType = EnumTypes.FUNCTION;
+		sym.sArgs = $$[$0-1].args;
+		stackScope.globalScope.addSymbol(sym);
+		stackScope.addNewScope(sym.name);
+		this.$ = new Mark("",trad);
 	
 break;
-case 15:
- 	
-		var mark = new Mark($$[$0],"var",typeEnum.INTEGER);
-		this.$ = mark; // devuelve el objeto con el tipo y el nombre
+case 11: case 15: case 19: case 31: case 34: case 77: case 79:
+
+		this.$ = new Mark();
+	
+break;
+case 12: case 17: case 52: case 54: case 56: case 58: case 60: case 62: case 72:
+
+		this.$ = $$[$0];
+	
+break;
+case 13:
+
+		var trad = $$[$0-1] + $$[$0].trad;
+		var mark = copyMark($$[$0]);
+		mark.trad = trad;
+		mark.args.unshift($$[$0-2].baseType);
+
+		this.$ = mark;
+	
+break;
+case 14:
+
+		var trad = "," + $$[$0-1] + $$[$0].trad;
+		var mark = copyMark($$[$0]);
+		mark.trad = trad;
+		mark.args.unshift($$[$0-2].baseType);
+
+		this.$ = mark;
 	
 break;
 case 16:
 
-		var mark = new Mark($$[$0],"var",typeEnum.CHAR);
-		this.$ = mark; // devuelve el objeto con el tipo y el nombre
+		var trad = "{"+ $$[$0-2].trad + $$[$0-1].trad + "}";
+		stackScope.deleteScope();
+		this.$ = new Mark("",trad);
 	
 break;
-case 17:
+case 18: case 33: case 47:
 
-		var mark = new Mark($$[$0],"var",typeEnum.FLOAT);
-		this.$ = mark; // devuelve el objeto con el tipo y el nombre
+		var trad = $$[$0-1].trad + $$[$0].trad;
+		this.$ = new Mark("",trad);
 	
 break;
-case 18:
- 
-		var mark = new Mark($$[$0],"var",typeEnum.BOOL);
+case 20:
+ 	
+		var mark = new Mark($$[$0],"var ",EnumTypes.INTEGER);
 		this.$ = mark; // devuelve el objeto con el tipo y el nombre
 	
 break;
 case 21:
 
-		trad = $$[$0-2].trad + $$[$0-1].trad + ";";
-		this.$ = new Mark("",trad,"");
+		var mark = new Mark($$[$0],"var ",EnumTypes.CHAR);
+		this.$ = mark; // devuelve el objeto con el tipo y el nombre
 	
 break;
 case 22:
 
-
-		trad = $$[$0-1].trad + $$[$0].trad;
-		this.$ = new Mark("",trad,"");
+		var mark = new Mark($$[$0],"var ",EnumTypes.FLOAT);
+		this.$ = mark; // devuelve el objeto con el tipo y el nombre
 	
 break;
 case 23:
-
-		trad = $$[$0-2] + $$[$0-1].trad + $$[$0].trad;
-		this.$ = new Mark("",trad,"");
+ 
+		var mark = new Mark($$[$0],"var ",EnumTypes.BOOL);
+		this.$ = mark; // devuelve el objeto con el tipo y el nombre
 	
 break;
 case 24:
 
-
-			this.$ = new Mark();
-		
+		this.$ = new Mark($$[$0],"function ", EnumTypes.FUNCTION);
+	
 break;
 case 25:
 
-		trad = $$[$0-1] + $$[$0].trad;
-		this.$ = new Mark("",trad,"");
+		this.$ = new Mark($$[$0].lex,$$[$0].trad,$$[$0].baseType);
 	
 break;
 case 26:
 
-			this.$ = new Mark();
-		
+		stackScope.getCurrentScope().updateType($$[$0-2].baseType);
+		var trad = $$[$0-2].trad + $$[$0-1].trad + ";";
+		this.$ = new Mark("",trad,"");
+	
 break;
 case 27:
 
-		var trad = "=["; 
-		var numArray = parseInt($$[$0-1]);
+		var trad = $$[$0-1].trad + $$[$0].trad;
+		this.$ = new Mark("",trad,"");
+	
+break;
+case 28:
+
+		var trad = $$[$0-2] + $$[$0-1].trad + $$[$0].trad;
+		this.$ = new Mark("",trad,"");
+	
+break;
+case 29:
+
+			
+		this.$ = new Mark();
+	
+break;
+case 30:
+
+		sym = new Symbol($$[$0-1],EnumTypes.UNDEFINED);
+		// VARIABLE EN AMBITO
+		if($$[$0].type === EnumTypes.ARRAY)
+		{
+			// TODO: (0) !IMPORTANTE HACER ARRAYS EN UN FUTURO
+		}
+		var trad = $$[$0-1] + $$[$0].trad;
+		stackScope.getCurrentScope().addSymbol(sym);
+		this.$ = new Mark("",trad,"");
+	
+break;
+case 32:
+
+		
+		var trad = "["; 
+		var numArray = parseInt($$[$0-2]);
 		for(var i = 0 ; i < numArray-1 ; ++i)
 		{
-			trad = trad + "0,"; 
+			trad = trad + "'',"; 
 		}
 		
-		trad = trad + "0]"; 
-		
-		var mark = new Mark($$[$0-1],trad);
+		trad = trad + "'']"; 
+		trad = trad + $$[$0].trad;
+		var mark = new Mark($$[$0-2],trad);
 		mark.arrayLength = numArray;
+		mark.type = EnumTypes.ARRAY;
 		this.$ = mark;
 	
 break;
-case 59: case 60:
+case 35:
 
-		this.$ = new Mark($$[$0],$$[$0],typeEnum.BOOL);
+		this.$ = new Mark("",";");
+	
+break;
+case 36:
+
+		stackScope.deleteScope();
+		this.$ = $$[$0-1];
+	
+break;
+case 37:
+
+		var trad = "return " + $$[$0-2].trad + ";";
+		this.$ = new Mark("",trad);
+	
+break;
+case 38:
+
+		var sym = $$[$0-3].currentSymbol;
+		var trad = $$[$0-3].trad + "=";
+
+		if(sym.sBaseType === EnumTypes.FLOAT || sym.sBaseType === EnumTypes.INTEGER)
+			trad = trad + numAssignation(sym,$$[$0-1]);
+		else if(sym.sBaseType === EnumTypes.CHAR)
+			trad = trad + charAssignation(sym,$$[$0-1]);
+		else if(sym.sBaseType === EnumTypes.BOOL)
+			trad = trad + boolAssignation(sym,$$[$0-1]);
+
+		trad = trad + ";";
+		sym.hasValue = true;
+		this.$ = new Mark("",trad);
+		// trad = tId.trad + InstrId.trad;
+	
+break;
+case 39:
+	
+		
+
+	
+break;
+case 40:
+
+
+	
+break;
+case 41:
+
+		// TODO: (0) Modificar por accesos al buffer
+		var trad = "console.log("+$$[$0-1].trad + $$[$0].trad;
+		this.$ = new Mark("",trad);
+	
+break;
+case 42:
+
+		var trad = "if("+ $$[$0-3].trad + ")" + $$[$0].trad;
+		this.$ = new Mark("",trad);
+	
+break;
+case 43:
+
+		var trad = "if(" + $$[$0-5].trad + ")" +  $$[$0-2].trad + "else " + $$[$0].trad;
+
+		this.$ = new Mark("",trad);
+	
+break;
+case 44:
+
+		var trad = $$[$0].trad;
+		this.$ = new Mark("",trad);
+	
+break;
+case 45:
+
+		this.$ = new Mark("","\n);");
+	
+break;
+case 46:
+
+		this.$ = new Mark("",");");
+	
+break;
+case 48:
+
+		if($$[$0].baseType !== EnumTypes.BOOL)
+			throw new compilationError(ErrorTypes.BOOLTYPE, yy.lexer.yylloc["first_line"]);
+
+		this.$ = $$[$0];
+	
+break;
+case 49:
+
+		stackScope.addNewScope("InstrScope");
+	
+break;
+case 50:
+
+		// console.log($$[$0]);
+		this.$ = $$[$0];
+	
+break;
+case 51:
+
+		var trad = "Boolean(";
+		if($$[$0-2].baseType === EnumTypes.STRING || $$[$0].baseType === EnumTypes.STRING)
+			throw new compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
+
+		convertToNumValue($$[$0-2],$$[$0]);
+		trad = trad + $$[$0-2].trad + "||" + $$[$0].trad;
+		this.$ = new Mark("",trad,EnumTypes.BOOL);
+
+
+	
+break;
+case 53:
+
+		var trad = "Boolean(";
+		if($$[$0-2].baseType === EnumTypes.STRING || $$[$0].baseType === EnumTypes.STRING)
+			throw new compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
+		convertToNumValue($$[$0-2],$$[$0]);
+		trad = trad + $$[$0-2].trad + "&&" + $$[$0].trad;
+		this.$ = new Mark("",trad,EnumTypes.BOOL);
+
+	
+break;
+case 55:
+
+		var trad = "";
+		
+		if($$[$0-2].baseType === EnumTypes.STRING || $$[$0].baseType === EnumTypes.STRING)
+			throw new compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
+		
+		convertToNumValue($$[$0-2],$$[$0]);
+		if($$[$0-1] === "==") 
+			$$[$0-1] = "===";
+
+		trad = $$[$0-2].trad + $$[$0-1] + $$[$0].trad;
+		this.$ = new Mark("",trad,EnumTypes.BOOL);
+
+
+	
+break;
+case 57:
+	
+		this.$ = aritmeticOp($$[$0-2],$$[$0],$$[$0-1]) 
+	
+break;
+case 59:
+
+		this.$ = aritmeticOp($$[$0-2],$$[$0],$$[$0-1]);
+	
+break;
+case 61:
+
+		var trad = "";
+		var mark = '';
+		// TODO: (1) COMPROBACION PARA ARRAYS POR SI FALTAN O SOBRAN CORCHETES, Y SI LOS INDICES SON DISTINTOS
+		if(!$$[$0-1].currentSymbol.hasValue)
+			throw new compilationError(ErrorTypes.INITVALUE, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
+		if($$[$0-1].currentSymbol.sType !== EnumTypes.FUNCTION && $$[$0].type === EnumTypes.FUNCTION)
+			throw new compilationError(ErrorTypes.NOTFUNCTYPEERROR, $$[$0-1].line , $$[$0-1].lex);
+		if($$[$0-1].currentSymbol.sType === EnumTypes.FUNCTION && $$[$0].type !== EnumTypes.FUNCTION)
+			throw new compilationError(ErrorTypes.FUNCTYPEERROR, $$[$0-1].line , $$[$0-1].lex);
+
+		trad = $$[$0-1].lex + $$[$0].trad;
+		mark = new Mark("",trad,$$[$0-1].currentSymbol.sBaseType);
+		mark.mArray = $$[$0-1].currentSymbol.sArray;
+
+		this.$ = mark;
+	
+break;
+case 63:
+
+		var sym = stackScope.findAttribute($$[$0]);
+		var mark = '';
+		if(sym === null)
+			throw new compilationError(ErrorTypes.NOTFOUND, yy.lexer.yylloc["first_line"],$$[$0]);
+		mark = new Mark($$[$0],$$[$0],sym.sBaseType);
+		mark.currentSymbol = sym;
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+
+	
+break;
+case 64:
+
+		var mark = new Mark($$[$0],0,EnumTypes.BOOL);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+	
+break;
+case 65:
+
+		var mark = new Mark($$[$0],1,EnumTypes.BOOL);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+	
+break;
+case 66:
+
+		var mark = new Mark($$[$0],parseInt($$[$0]),EnumTypes.INTEGER);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+	
+break;
+case 67:
+
+		var mark = new Mark($$[$0],parseFloat($$[$0]),EnumTypes.FLOAT);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
 	
 break;
 case 68:
 
-		console.log("LEO REFP");
+		var mark = new Mark($$[$0],$$[$0],EnumTypes.CHAR);
+		mark.line = yy.lexer.yylloc["first_line"]; 
+		this.$ = mark;
+	
+break;
+case 69:
+	
+		var mark = new Mark($$[$0],$$[$0],EnumTypes.STRING);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+	
+break;
+case 70:
+
+		var trad = "(" + Expr.trad + ")";
+		var mark = new Mark("",trad,Expr.type);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+	
+break;
+case 71:
+	
+		this.$ = $$[$0];
+	
+break;
+case 73:
+
+
+		var trad = "";
+		var mark = '';
+		
+		if($$[$0-1].currentSymbol.sBaseType === EnumTypes.FUNCTION)
+			throw new compilationError(ErrorTypes.FUNCTYPEERROR, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
+		if($$[$0-1].currentSymbol.sArray.length != $$[$0].mArray.length)
+			throw new compilationError(ErrorTypes.ARRAYTYPE, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
+
+		trad = $$[$0-1].trad + $$[$0].trad;
+		mark = copyMark($$[$0-1]);
+		mark.line = yy.lexer.yylloc["first_line"];
+		mark.trad = trad;
+		this.$ = mark;
+	
+break;
+case 74:
+
+		var mark = $$[$0];
+		mark.trad = "[" + $$[$0-2].trad + "]" + $$[$0].trad;
+		mark.mArray.unshift($$[$0-2].trad);
+		mark.type = EnumTypes.ARRAY;
+		this.$ = mark;
+	
+break;
+case 75:
+
+		var mark = new Mark();
+		this.$ = mark;
+	
+break;
+case 76:
+
+		var trad = "(" + $$[$0-1].trad + ")";
+		var mark = copyMark($$[$0-1]);
+		mark.trad = trad;
+		mark.type = EnumTypes.FUNCTION;
+		this.$ = mark;
+	
+break;
+case 78:
+
+		var trad = $$[$0-1].trad + $$[$0].trad;
+		var mark = copyMark($$[$0]);
+		mark.args.unshift($$[$0-1].baseType);
+		mark.trad = trad;
+	
+break;
+case 80:
+	
+		var trad = "," + $$[$0-1].trad + $$[$0].trad;
+		var mark = copyMark($$[$0]);
+		mark.args.unshift($$[$0-1].baseType);
+		mark.trad = trad;
+		this.$ = trad;
+
 	
 break;
 }
 },
-table: [{3:1,4:2,6:3,9:$V0,27:$V1,28:$V2,29:$V3,30:$V4},{1:[3]},{5:[1,9]},{7:[1,10]},{7:[1,11]},o($V5,[2,15]),o($V5,[2,16]),o($V5,[2,17]),o($V5,[2,18]),{1:[2,1]},o($V6,$V7,{8:12,14:13,10:[1,14],36:$V8}),{10:[1,16]},{5:[2,2]},{15:17,16:$V9,35:$Va},{6:21,11:19,12:$Vb,17:20,27:$V1,28:$V2,29:$V3,30:$V4},{37:[1,22]},{6:21,11:23,12:$Vb,17:20,27:$V1,28:$V2,29:$V3,30:$V4},{16:[1,24]},{7:$Vc,34:25},{12:[1,27]},{12:[2,7]},{18:[1,28]},{38:[1,29]},{12:[1,30]},{4:31,6:3,9:$V0,27:$V1,28:$V2,29:$V3,30:$V4},{15:32,16:$V9,35:$Va},o($V6,$V7,{14:33,36:$V8}),{13:34,21:$Vd},{12:$Ve,19:36,20:$Vf},o($V6,[2,27]),{13:38,21:$Vd},{5:[2,4]},{16:[2,23]},o($V6,[2,25]),{5:[2,5]},o($Vg,$Vh,{22:39,25:40,26:41,6:42,27:$V1,28:$V2,29:$V3,30:$V4}),{12:[2,8]},{6:43,27:$V1,28:$V2,29:$V3,30:$V4},{5:[2,3]},{7:$Vi,13:48,16:$Vj,21:$Vd,23:44,24:$Vk,39:45,40:46,41:$Vl,44:$Vm,46:$Vn,49:$Vo},o($Vg,[2,12]),o($Vg,$Vh,{26:41,6:42,25:54,27:$V1,28:$V2,29:$V3,30:$V4}),{7:$Vc,33:55,34:56},{18:[1,57]},{24:[1,58]},{24:[2,28]},{7:$Vi,13:48,16:$Vj,21:$Vd,24:$Vk,39:59,40:46,41:$Vl,44:$Vm,46:$Vn,49:$Vo},o($Vp,[2,31]),o($Vp,[2,32]),{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:60,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},{10:$Vw,38:$Vx,43:74,51:75,52:$Vy,53:76},{45:[1,79]},{47:[1,80]},{10:[1,81]},o($Vg,[2,13]),{16:[1,82]},{15:83,16:$V9,35:$Va},{12:$Ve,19:84,20:$Vf},o([5,7,16,21,24,41,44,46,49,56],[2,11]),{24:[2,29]},{16:[1,85]},o([12,16,47,55,75],[2,46],{58:[1,86]}),o($Vz,[2,48],{60:$VA}),o($VB,[2,50],{62:$VC}),o($VD,[2,52],{64:$VE}),o($VF,[2,54],{66:$VG}),o($VH,[2,56]),o($VH,$Vy,{68:91,51:92,53:93,10:$Vw,38:$Vx}),o($VH,[2,58]),o($VH,[2,59]),o($VH,[2,60]),o($VH,[2,61]),o($VH,[2,62]),{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:94,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},o($Vp,[2,34]),{52:[1,95]},{16:[1,96]},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,63:97,65:65,67:66,69:68,70:$Vu,71:$Vv},{7:$Vq,10:$Vr,12:[2,70],29:$Vs,37:$Vt,42:99,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv,73:98},{7:[1,100]},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:101,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:102,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},o([7,16,21,24,27,28,29,30,41,44,46,49],[2,21]),{16:[2,22]},{12:[2,9]},o($Vp,[2,33]),{7:$Vq,10:$Vr,29:$Vs,37:$Vt,59:103,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,61:104,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,63:105,65:65,67:66,69:68,70:$Vu,71:$Vv},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,65:106,67:66,69:68,70:$Vu,71:$Vv},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,67:107,69:68,70:$Vu,71:$Vv},o($VH,[2,57]),o($VH,[2,64]),o($VH,[2,65]),{12:[1,108]},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:109,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},o($Vp,[2,39]),{36:[1,110],64:$VE},{12:[1,111]},{12:$VI,74:112,75:$VJ},{16:[1,114]},{16:$VK,47:$VL,48:115,55:$VM},{12:[1,119]},o($Vz,[2,47],{60:$VA}),o($VB,[2,49],{62:$VC}),o($VD,[2,51],{64:$VE}),o($VF,[2,53],{66:$VG}),o($VH,[2,55]),o($VH,[2,63]),{16:[1,120]},o($VN,$Vy,{51:121,38:$Vx}),o($VH,[2,69]),{12:[2,71]},{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:122,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},o($Vp,[2,35]),o($Vp,[2,36]),{7:$Vq,10:$Vr,29:$Vs,37:$Vt,42:124,54:123,57:61,59:62,61:63,63:64,65:65,67:66,69:68,70:$Vu,71:$Vv},{16:[1,125]},o($Vp,[2,42]),{7:$Vi,13:48,16:$Vj,21:$Vd,40:126,41:$Vl,44:$Vm,46:$Vn,49:$Vo},o($Vp,[2,38]),o($VN,[2,67]),{12:$VI,74:127,75:$VJ},o($Vp,[2,40]),{16:$VK,47:$VL,48:128,55:$VM},o($Vp,[2,41]),o($Vg,[2,45],{50:129,56:[1,130]}),{12:[2,73]},o($Vp,[2,43]),o($Vp,[2,37]),{7:$Vi,13:48,16:$Vj,21:$Vd,40:131,41:$Vl,44:$Vm,46:$Vn,49:$Vo},o($Vp,[2,44])],
-defaultActions: {9:[2,1],12:[2,2],20:[2,7],31:[2,4],32:[2,23],34:[2,5],36:[2,8],38:[2,3],45:[2,28],59:[2,29],83:[2,22],84:[2,9],112:[2,71],127:[2,73]},
+table: [o($V0,[2,2],{3:1,4:2}),{1:[3]},{5:3,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},{6:[1,15]},{6:[2,3]},{9:[1,16],22:$V6},{5:17,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},{14:18,27:$V7},o($V8,$V9,{18:20,11:[1,21],39:$Va}),{22:[1,23]},{22:[2,24]},{22:[2,25]},{22:[2,21]},{22:[2,22]},{22:[2,23]},{1:[2,1]},{10:24,11:[2,5]},{6:[2,6]},{5:25,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},o($Vb,$Vc,{28:26,31:27,32:28,24:29,8:$Vd,33:$V2,34:$V3,35:$V4}),{19:31,20:$Ve,26:$Vf},{8:$Vd,12:33,13:$Vg,23:34,24:35,33:$V2,34:$V3,35:$V4},{40:[1,36]},o([11,20,26,39],[2,9]),{11:[1,37]},{6:[2,7]},o($Vb,[2,34],{29:38}),o($Vb,[2,17]),o($Vb,$Vc,{32:28,24:29,31:39,8:$Vd,33:$V2,34:$V3,35:$V4}),{22:$Vh,37:40,38:41},{22:$V6},{20:[1,43]},{22:$Vh,38:44},{13:[1,45]},{13:[2,12]},{22:[1,46]},{41:[1,47]},{8:$Vd,12:48,13:$Vg,23:34,24:35,33:$V2,34:$V3,35:$V4},{20:$Vi,22:$Vj,27:$Vk,30:[1,49],42:50,43:52,44:$Vl,46:54,48:55,50:$Vm,52:$Vn,55:$Vo},o($Vb,[2,18]),{20:[1,60]},{19:61,20:$Ve,26:$Vf},o($V8,$V9,{18:62,39:$Va}),o($V0,[2,8]),{19:63,20:$Ve,26:$Vf},{27:[2,10]},{13:$Vp,25:64,26:$Vq},o($V8,$V9,{18:66,39:$Va}),{13:[1,67]},o([6,8,20,22,27,30,33,34,35,36,44,50,52,55,57],[2,16]),o($Vb,[2,33]),o($Vb,[2,35]),{14:68,27:$V7},{11:$Vr,22:$Vj,40:$Vs,45:69,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{47:[1,85]},{11:$Vy,39:$Vz,47:$VA,49:86,78:87},{51:[1,90]},{53:[1,91]},{11:[1,92]},o([11,13,20,39,41,47,53,61,63,65,67,69,81],[2,63]),o([8,20,22,27,30,33,34,35,44,50,52,55],[2,26]),{20:[2,27]},o($V8,[2,30]),{20:[2,28]},{13:[2,13]},{8:$Vd,24:93,33:$V2,34:$V3,35:$V4},o($V8,[2,32]),{14:94,27:$V7},o($Vb,[2,36]),{20:[1,95]},o([13,20,53,81],[2,50],{61:[1,96]}),o($VB,[2,52],{63:$VC}),o($VD,[2,54],{65:$VE}),o($VF,[2,56],{67:$VG}),o($VH,[2,58],{69:$VI}),o($VJ,[2,60]),o($VJ,$VA,{71:101,78:102,49:103,11:$Vy,39:$Vz}),o($VJ,[2,62]),o($VJ,[2,64]),o($VJ,[2,65]),o($VJ,[2,66]),o($VJ,[2,67]),o($VJ,[2,68]),o($VJ,[2,69]),{11:$Vr,22:$Vj,40:$Vs,45:104,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,45:105,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{20:[1,106]},{47:[2,73]},{11:$Vr,13:[2,77],22:$Vj,40:$Vs,45:108,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx,79:107},{11:$Vr,22:$Vj,40:$Vs,48:76,66:109,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{22:[1,110]},{11:$Vr,22:$Vj,40:$Vs,45:111,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,45:113,48:76,56:112,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{22:[1,114]},{6:[2,4]},o($Vb,[2,37]),{11:$Vr,22:$Vj,40:$Vs,48:76,62:115,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,64:116,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,66:117,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,68:118,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,70:119,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},o($VJ,[2,61]),o($VJ,[2,71]),o($VJ,[2,72]),{13:[1,120]},{20:[1,121]},o($Vb,[2,39]),{13:[1,122]},{13:$VK,80:123,81:$VL},{41:[1,125],67:$VG},{20:[1,126]},{20:$VM,53:$VN,54:127},{13:[1,130]},{13:[2,48]},{13:$Vp,25:131,26:$Vq},o($VB,[2,51],{63:$VC}),o($VD,[2,53],{65:$VE}),o($VF,[2,55],{67:$VG}),o($VH,[2,57],{69:$VI}),o($VJ,[2,59]),o($VJ,[2,70]),o($Vb,[2,38]),o($VJ,[2,76]),{13:[2,78]},{11:$Vr,22:$Vj,40:$Vs,45:132,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},o($VO,$VA,{78:133,39:$Vz}),o($Vb,[2,40]),o($Vb,[2,41]),{11:$Vr,22:$Vj,40:$Vs,45:136,48:76,58:134,59:[1,135],60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},o($Vb,[2,46]),{27:$Vk,43:137},{13:[2,14]},{13:$VK,80:138,81:$VL},o($VO,[2,74]),o($Vb,[2,44]),{20:[1,139]},{20:$VM,53:$VN,54:140},{14:141,27:$V7},{13:[2,80]},o($Vb,[2,45]),o($Vb,[2,47]),o($Vb,[2,42],{57:[1,142]}),{20:$Vi,22:$Vj,27:$Vk,42:143,43:52,44:$Vl,46:54,48:55,50:$Vm,52:$Vn,55:$Vo},o($Vb,[2,43])],
+defaultActions: {4:[2,3],10:[2,24],11:[2,25],12:[2,21],13:[2,22],14:[2,23],15:[2,1],17:[2,6],25:[2,7],30:[2,20],34:[2,12],45:[2,10],61:[2,27],63:[2,28],64:[2,13],87:[2,73],94:[2,4],113:[2,48],123:[2,78],131:[2,14],138:[2,80]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -353,48 +762,412 @@ parse: function parse(input) {
 }};
 
 
-
-// parser.yy.parseError = function (str, hash)
-// {
-// 	console.log(token);
-// }
-
-function Mark (lex,trad,simbolType )
+/**
+ * Objeto utilizado para controlar los ambitos del programa
+ */
+function StackScope()
 {
-	this.symbolType = simbolType || '';
-	this.trad = trad || "";
-	this.lex = lex || "";
-	this.arrayLength = 0;
-
+	this.scopes = [];
+	this.globalScope = '';
+	this.scopelength = -1;
 }
-typeEnum = {
+/**
+ * Funcion para anyadir un ambito global a la pila de ambitos
+ * return {Scope} devuelve el ambito global
+ */
+StackScope.prototype.addGlobalScope = function ()
+{
+	this.globalScope = new Scope("Global");
+	return this.globalScope;
+};
+/**
+ * Funcion para anyadir un nuevo ambito a la pila de ambitos 
+ * @param {string} nombre del ambito
+ * @return {Scope} devuelve el ambito creado
+ */
+StackScope.prototype.addNewScope = function (name)
+{
+	var newScope = new Scope(name);
+	this.scopes.unshift(newScope);
+	this.scopelength = this.scopes.length - 1;
+	return newScope;
+};
+
+/**
+ * Funcion para quitar el ambito de la pila de ambitos
+ * @return {Scope} devuelve el ambito eliminado
+ */
+StackScope.prototype.deleteScope = function()
+{
+	return this.scopes.shift();
+};
+/**
+ * Funcion para buscar un atributo del ultimo ambito de la pila de ambitos
+ * @param  {string} nombre del atributo que queremos buscar 
+ * @return {bool} devuelve true si encuentra la variable, false en caso contrario
+ */
+StackScope.prototype.findAttribute = function(id)
+{
+	var symbolFound = null;
+	if(this.scopes.length > 0)
+		symbolFound =  this.scopes[this.scopelength].findId(id);
+	
+	if(symbolFound === null)
+		symbolFound = this.globalScope.findId(id);
+
+	return symbolFound;
+};
+/**
+ * Funcion que nos del ambito actual de las variables, en caso de que no haya devuelve el global
+ * @return {Scope} devuelve el ultimo ambito de la pila
+ */
+StackScope.prototype.getCurrentScope = function ()
+{
+	if(this.scopes.length > 0)
+		return this.scopes[this.scopelength];
+	return this.globalScope;
+};
+
+/**
+ * Objeto con el que encapsulamos el ambito
+ * @param {string} Nombre del ambito
+ */
+function Scope(name)
+{
+	/**
+	 * Nombre del ambito
+	 * @type {string} nombre
+	 */
+	this.name = name || "";
+	/**
+	 * lista de simbolos del ambito
+	 * @type {Array<Symbol>} array de simbolos 
+	 */
+	this.symbols = [];
+};
+/**
+ * Funcion que busca un id dentro del ambito
+ * @param  {string} variable a buscar
+ * @return {bool} devuelve true en caso de que exista
+ */
+Scope.prototype.findId = function (name)
+{
+	var symbolFound = null;
+	var exists;
+	exists = this.symbols.some(function(element, index, array) 
+	{
+		if(element.name === name)
+		{	
+			symbolFound = element;
+			return true;
+		}
+		else
+			return false;
+	});
+	return symbolFound;
+};
+/**
+ * Funcion para anayadir un nuevo simbolo al ambito
+ * @param {Symbol} simbolo nuevo
+ */
+Scope.prototype.addSymbol = function (nSymbol)
+{
+	this.symbols.push(nSymbol);
+	return nSymbol;
+};
+/**
+ * Funcion para actualizar los tipos de las variables del ambito
+ * @param  {EnumTypes} symbolType tipo de dato que se asigna a las variables sin tipo
+ */
+Scope.prototype.updateType = function (symbolType) {
+	var index = this.symbols.length -1;
+	var done  = false;
+	while(index >= 0 && !done)
+	{
+		if(this.symbols[index].sBaseType === -1)
+			this.symbols[index].sBaseType = symbolType;
+		else
+			done = true;
+
+		--index;
+	}
+}
+
+/**
+ * Objeto que encapsula el simbolo leido por el analizador
+ * @param {string} Nombre de la varibale
+ * @param {number} tipo de la varibale
+ * @param {Array} numero de dimensiones con sus tamanyos;
+ */
+function Symbol(name,sBaseType,sArray)
+{
+	this.name = name || "";
+	this.sBaseType = sBaseType || 99;
+	this.sType = 99;
+	this.sArray = sArray || [];
+	this.strad = name || "";
+	this.sArgs = [];
+	this.hasValue = false;
+}
+
+
+/**
+ * Objeto utilizado para enviar marcadores en las producciones
+ * @param {string} Lexema leido
+ * @param {string} cadena con la traduccion
+ * @param {number} Tipo de simbolo
+ */
+function Mark (lex,trad,baseType)
+{
+	this.type = '';
+	this.baseType = baseType || '';
+	if(trad === 0)
+		this.trad = 0;
+	else
+		this.trad = trad || "";
+	this.lex = lex || "";
+	this.mArray = []; // atributo que nos indica si la marca es un array con sus dimensiones y tamaños
+	this.args = [];
+	this.line = 0;
+	this.isFunction = false;
+	this.currentSymbol = '';
+}
+
+/**
+ * Copia de una marca a otra
+ * @param  {Mark} Marca que queremos copiar
+ * @return {Mark} devuelve la marca copiada
+ */
+function copyMark(otherMark)
+{
+	var auxMark = new Mark();
+
+	auxMark.type = otherMark.symbolType;
+	auxMark.baseType = otherMark.baseType;
+	auxMark.trad = otherMark.trad;
+	auxMark.lex = otherMark.lex;
+	auxMark.mArray = otherMark.mArray;
+	auxMark.line = otherMark.line;
+	auxMark.isFunction = otherMark.isFunction;
+	auxMark.currentSymbol = otherMark.currentSymbol;
+	auxMark.args = otherMark.args;
+	return auxMark;
+	
+}
+/**
+ * Enum con los tipos de variables
+ * @type {number}
+ */
+EnumTypes = {
 	INTEGER : 1,
 	FLOAT : 2,
 	CHAR : 3,
 	BOOL : 4,
-	VOID : 5
+	STRING : 5,
+	VARIABLE: 6,
+	ARRAY : 7,
+	FUNCTION : 8,
+	VOID : 9,
+	UNDEFINED : -1
 };
-
-errorTypes =
+/**
+ * Enum con los tipos de errores
+ * @type {number}
+ */
+ErrorTypes =
 {
 	TYPEMISMATCH : 1,
-	MISOPERATION : 2
-
+	MISOPERATION : 2,
+	STRINGOP : 3,
+	CHARNUMBER : 4,
+	STRINGNUMBER : 6,
+	NOTFOUND : 7,
+	FUNCTYPEERROR : 8,
+	NOTFUNCTYPEERROR : 9,
+	ARRAYTYPE : 10,
+	INITVALUE : 11
 }
+
+var stackScope = new StackScope();
 	
 
 
-function SintacError(type)
+
+function compilationError(type, nline , lex)
 {
-	console.log("Error Sintactico");
-	console.log("--------------------");
-	if(type === errorTypes.TYPEMISMATCH)
+	console.log("Error de compilacion en la linea (" + nline + "):");
+	console.log("---------------------------------------");
+	switch (type)
 	{
-		console.log("Fallo extraño");
+		case ErrorTypes.STRINGOP:
+			console.log("Operacion con String (cadena de caracteres) no permitida");
+		break;
+		
+		case ErrorTypes.STRINGNUMBER:
+			console.log("Tipos incorrectos");
+		break;
+		
+		case ErrorTypes.NOTFOUND:
+			console.log("---- Variable " + lex + " no encontrada ----");
+		break;
+		case ErrorTypes.INITVALUE:
+			console.log("---- Variable " + lex + " no esta inicializada ----");
+		break;
+		default:
+			console.log("Error no controlado");
 	}
-	console.log("--------------------");
+	console.log("---------------------------------------");
 }
-/* generated by jison-lex 0.3.4 */
+
+
+// TODO: (1) escribir funcion que comunica con buffer para enviarle la info
+function msgCout(msg)
+{
+
+}
+
+// TODO: (1) escribir funcion para leer del buffer y devolver al usuario 
+function msgCin (msg) {
+
+}
+/**
+ * Funcion para comprobar si dos simbolos son arrays y si sus dimensiones y tamaños coinciden
+ * @param  {Symbol} symL simbolo a la izquierda de la asignacion
+ * @param  {Sumbol} symR simbolo a la derecha de la asignacíon
+ * @param  {Number} line linea donde se producira el error
+ * @return {Error}  Lanza error
+ */
+function checkArrayType(symL, symR,line)
+{
+	if(symL.sArray.length != symR.sArray.length)
+		throw new compilationError(ErrorTypes.ARRYLENGTH, line , symL.lex); // no coindicen dimensiones
+	for(var i = 0; i < symL.sArray.length; ++i)
+	{
+		if(symL.sArray[i] !== symR.sArray[i])
+			throw new compilationError(ErrorTypes.ARRAYNOTMATCHUP, line , symL.lex); // no coindicen longitudes
+	}
+}
+/**
+ * Funcion que pasa el valor recibido a un numero
+ * @param  {Mark} markL marca a la izquierda de la operacion
+ * @param  {Mark} markR marca a la derecha de la operacion
+ */
+function convertToNumValue (markL,markR) 
+{
+	if(markL.baseType === EnumTypes.CHAR)
+		markL.trad = markL.trad + ".charCodeAt(0)";
+	if(markR.baseType === EnumTypes.CHAR)
+		markR.trad = markR.trad + ".charCodeAt(0)";
+
+
+}
+
+function aritmeticOp (markL,markR,op) {
+	var myType = EnumTypes.INTEGER;
+	var trad = "";
+	if(markL.baseType === EnumTypes.STRING || markR.baseType === EnumTypes.STRING)
+		throw new compilationError(ErrorTypes.STRINGOP, markL.line);
+
+	convertToNumValue(markL,markR);
+
+	if(markR.trad === 0 && (op === "/" || op === "%"))
+	{	
+		throw new compilationError(ErrorTypes.DIVISIONBYZERO, markR.line , markR.lex);
+	}
+
+	if(markL.baseType === EnumTypes.FLOAT || markR.baseType === EnumTypes.FLOAT)
+		myType = EnumTypes.FLOAT;
+
+	trad = 	markL.trad + op + markR.trad;
+
+	return new Mark("",trad,myType); 
+}
+
+/**
+ * Funcion para convertir el numero en float
+ * @param  {number} convierte de float a entero
+ * @return {number} devuelve el numero en float;
+ */
+function float2Int(value)
+{
+	return value + "| 0";
+}
+ 
+/**
+ * Funcion que pasa un valor numerico a char
+ * @param  {number} value valor numerico del caracter
+ * @return {string} devuelve el caracter del valor numerico de la tabla ASCII
+ */
+function toChar (value) {
+ 	 return "String.fromCharCode(" + value + ")";
+ }
+
+/**
+ * Funcion que pasas de un char a un numero
+ * @param  {String} value cadena que queremos convertir a numero
+ * @return {String}  devuelve la cadena asociada para la obtencion del numero que posteriormente será evaluada
+ */
+function toNum (value)
+{
+	return value + ".charCodeAt(0)";
+}
+
+/**
+ * Funcion para controlar la asignacion de una expresion a una variable de tipo numerica
+ * @param  {Symbol} sym  Simbolo al que queremos hacer la asignacion
+ * @param  {Mark} expr Expresion que recibimos para la asignacion
+ * @return {String}     cadena creada para la asignacion del simbolo
+ */
+function numAssignation (sym,expr) {
+
+	if(expr.baseType === EnumTypes.FLOAT)
+	{
+		if(sym.sBaseType === EnumTypes.INTEGER)
+			return float2Int(expr.trad);
+		return expr.trad;
+	}
+	else if (expr.baseType === EnumTypes.INTEGER || expr.baseType === EnumTypes.BOOL)
+		return expr.trad;
+	else if(expr.baseType === EnumTypes.CHAR)
+		return toNum(expr.trad);
+	else 
+		throw new compilationError(ErrorTypes.STRINGTONUMBER, sym.line , sym.name); // Asignacion de cadena a numero no valida
+}
+
+/**
+ * Funcion para controlar la asignacion de una expresiona una variable de tipo character
+ * @param  {Symbol} sym  Simbolo al que queremos asignar los datos
+ * @param  {Mark} expr Expresion que contiene las operaciones para el caracter
+ * @return {String}     cadena creada para la asignacion del simbolo
+ */
+function charAssignation (sym,expr) {
+ 	
+ 	if(expr.baseType === EnumTypes.CHAR)
+ 		return expr.trad;
+ 	else if(expr.baseType === EnumTypes.INTEGER || expr.baseType === EnumTypes.FLOAT || expr.baseType === EnumTypes.BOOL)
+ 		return toChar(expr.trad);
+ 	else 
+ 		throw new compilationError(ErrorTypes.STRINGTOCHAR, sym.lin , sym.name); // Asingancion de cadena a caracter no valida
+}
+
+
+/**
+ * Funcion para controlar la asignacion de una expresion a una variable de tipo booleana
+ * @param  {Symbol} sym  Simbolo al que queremos asignar los datos
+ * @param  {Mark} expr Expresion que contiene las operaciones para el booleano
+ * @return {String}     Cadena creada para la asignacion del simbolo
+ */
+function boolAssignation (sym,expr) {
+ 	
+ 	var value = "Boolean(";
+ 	if(expr.baseType === EnumTypes.STRING)
+ 		throw new compilationError(ErrorTypes.STRINGTOBOOL, sym.lin , sym.name); // Asignacion de cadena a booleano no valida
+ 	
+ 	value = value + expr.trad + ")";
+	
+	return value;
+
+}/* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
 
@@ -739,94 +1512,100 @@ case 1:/* skip tabs */
 break;
 case 2:/* skip newline */
 break;
-case 3:return 37;
+case 3:return 75; 
 break;
-case 4:return 29; 
+case 4:return 40;
 break;
-case 5:return 49;
+case 5:return 55;
 break;
-case 6:return 56;
+case 6:return 57;
 break;
-case 7:return 27;
+case 7:return 8;
 break;
-case 8:return 28;
+case 8:return 33;
 break;
-case 9:return 30;
+case 9:return 35;
 break;
-case 10:return 29;
+case 10:return 34;
 break;
-case 11:return 9;
+case 11:return 36;
 break;
-case 12:return 44;
+case 12:return 50;
 break;
-case 13:return 46;
+case 13:return 52;
 break;
-case 14:return 55;
+case 14:return 59;
 break;
-case 15:return 41;
+case 15:return 44;
 break;
 case 16:return "tFasle";
 break;
 case 17:return "tTrue";
 break;
-case 18:return 45;
+case 18:return "tMain";
 break;
-case 19:return 47;
+case 19:return "tString";
 break;
-case 20:return 'tRelop';
+case 20:return "tCharacter";
 break;
-case 21:return 'tRelop';
+case 21:return 51;
 break;
-case 22:return 'tRelop';
+case 22:return 53;
 break;
-case 23:return 'tRelop';
+case 23:return 65;
 break;
-case 24:return 'tRelop';
+case 24:return 65;
 break;
-case 25:return 52;
+case 25:return 65;
 break;
-case 26:return 'tOr';
+case 26:return 65;
 break;
-case 27:return 'tAnd';
+case 27:return 65;
 break;
-case 28:return 'tAddop';
+case 28:return 47;
 break;
-case 29:return 'tAddop';
+case 29:return 61;
 break;
-case 30:return 'tMulop';
+case 30:return 63;
 break;
-case 31:return 'tMulop';
+case 31:return 67;
 break;
-case 32:return 'tMulop';
+case 32:return 67;
 break;
-case 33:return 'tNot';
+case 33:return 69;
 break;
-case 34:return 21;
+case 34:return 69;
 break;
-case 35:return 24;
+case 35:return 69;
 break;
-case 36:return 10;
+case 36:return 'tNot';
 break;
-case 37:return 12;
+case 37:return 27;
 break;
-case 38:return 36;
+case 38:return 30;
 break;
-case 39:return 38;
+case 39:return 11;
 break;
-case 40:return 16;
+case 40:return 13;
 break;
-case 41:return 35;
+case 41:return 39;
 break;
-case 42:return 7;
+case 42:return 41;
 break;
-case 43:return 5;
+case 43:return 20;
 break;
-case 44:throw new LexicalError(lexer);
+case 44:return 26;
+break;
+case 45:return 22;
+break;
+case 46:return 6;
+break;
+case 47:throw new LexicalError(lexer);
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:\t)/,/^(?:\n)/,/^(?:([0-9])+)/,/^(?:([0-9])+(\.)([0-9])+)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:bool\b)/,/^(?:float\b)/,/^(?:void\b)/,/^(?:cin\b)/,/^(?:cout\b)/,/^(?:endl\b)/,/^(?:return\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:>>)/,/^(?:<<)/,/^(?:>)/,/^(?:<)/,/^(?:==)/,/^(?:<=)/,/^(?:>=)/,/^(?:=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:;)/,/^(?:,)/,/^(?:([a-zA-Z])(([0-9a-zA-Z]))*)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:\t)/,/^(?:\n)/,/^(?:([0-9])+\.([0-9])+)/,/^(?:([0-9])+)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:bool\b)/,/^(?:float\b)/,/^(?:void\b)/,/^(?:cin\b)/,/^(?:cout\b)/,/^(?:endl\b)/,/^(?:return\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:main\b)/,/^(?:"(([0-9a-zA-Z]))+")/,/^(?:'[a-zA-Z0-9]')/,/^(?:>>)/,/^(?:<<)/,/^(?:>)/,/^(?:<)/,/^(?:==)/,/^(?:<=)/,/^(?:>=)/,/^(?:=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:;)/,/^(?:,)/,/^(?:([a-zA-Z])(([0-9a-zA-Z]))*)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47],"inclusive":true}}
 });
 return lexer;
 })();
