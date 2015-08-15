@@ -9,7 +9,8 @@ module Roboycod {
 
     export class BaseCdv extends Phaser.Sprite {
 
-        public code     : string;
+        public code             : string;
+        public translatedCode   :string;
 
         //TODO DEMOCODE
         public expectedOutput   : string = "SALTO";
