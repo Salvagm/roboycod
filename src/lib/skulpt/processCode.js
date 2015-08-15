@@ -17,7 +17,7 @@
         return Sk.builtinFiles["files"][x];
     }
 
-    function runit(){
+    function runCode(){
         document.getElementById("output").innerHTML = "";
         var editor = ace.edit("editor");
         code = editor.getSession().getValue();

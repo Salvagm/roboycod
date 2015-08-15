@@ -48,8 +48,7 @@ module Roboycod {
         }
         public checkCode() : Boolean{
 
-            //this.runBtn.click();
-            ProcessCode.runit();
+            runCode();
 
             var interpreterOutput = document.getElementById("output");
             var output : string = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);

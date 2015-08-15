@@ -1,3 +1,1 @@
-declare module ProcessCode{
-	function runit() : void;
-}
+declare function runCode() : void;
