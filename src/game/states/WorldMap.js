@@ -2,7 +2,7 @@
  * Created by javi on 5/08/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-var __extends = (this && this.__extends) || function (d, b) {
+var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -63,7 +63,7 @@ var Roboycod;
             /**
              * Definimos y mapeamos las teclas correspondientes
              */
-            this.kh = new KeyboardHandler(this.game);
+            this.kh = new Roboycod.KeyboardHandler(this.game);
             this.kh.setUpWorldMap(this);
         };
         WorldMap.prototype.startStage = function () {
@@ -99,7 +99,6 @@ var Roboycod;
             this.navMatrix[1][0].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[3];
             this.navMatrix[1][1].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[4];
             this.navMatrix[1][2].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[5];
-            //Normalizamos la posicion de los logos segun el rescalado
             for (var i = 0; i < 2; ++i) {
                 for (var j = 0; j < 3; ++j) {
                     this.navMatrix[i][j].jsonItem.x /= this.widthRatio;
@@ -117,9 +116,7 @@ var Roboycod;
             var numSprite = 0;
             for (var i = 0; i < 2; ++i) {
                 for (var j = 0; j < 3; ++j) {
-                    this.stageLogos[i][j] = this.game.add.sprite(
-                    //Desplazamos la x e y ya que el anchor esta en 0.5
-                    this.navMatrix[i][j].jsonItem.x, this.navMatrix[i][j].jsonItem.y, 'worldTiles', numSprite);
+                    this.stageLogos[i][j] = this.game.add.sprite(this.navMatrix[i][j].jsonItem.x, this.navMatrix[i][j].jsonItem.y, 'worldTiles', numSprite);
                     this.stageLogos[i][j].width = this.stageLogos[i][j].width / this.widthRatio;
                     this.stageLogos[i][j].height = this.stageLogos[i][j].height / this.heightRatio;
                     this.stageLogos[i][j].anchor.set(0.5, 0.5);
