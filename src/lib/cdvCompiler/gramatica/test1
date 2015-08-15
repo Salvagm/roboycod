@@ -1,0 +1,12 @@
+
+int a,e,f,g;
+float b;
+char c;
+bool d;
+
+int main()
+{
+	
+}
+
+

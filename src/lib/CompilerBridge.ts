@@ -7,3 +7,7 @@
  * Gestiona los buffers de entrada y salida que seran actualizados por quien los requiera
  */
 
+module compiler
+{
+
+}

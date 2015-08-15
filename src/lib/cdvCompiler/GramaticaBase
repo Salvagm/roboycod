@@ -34,12 +34,12 @@ Instr		->	if pari ExprOr pard Instr
 Instr		->	if pari ExprOr pard Instr else Instr
 Expr		->	Ref asig Expr
 Expr		->	ExprSimp
-ExprOr		->	ExprOr or Exprconj
+ExprOr		->	ExprOr or ExprAnd
 ExprOr		->	ExprAnd
 ExprAnd		->	ExprAnd and ExprComp
 ExprAnd		->	ExprComp
-ExprCom		->	ExprComp relop ExprSimp
-ExprCom		->	ExprSimp
+ExprComp	->	ExprComp relop ExprSimp
+ExprComp	->	ExprSimp
 ExprSimp	->	ExprSimp addop Term
 ExprSimp	->	Term
 Term		->	Term mulop Factor
