@@ -11,7 +11,6 @@ module Roboycod{
 
         private animState   : string = 'idle';
         private endShot     : boolean = true;
-        //private kh          : KeyboardHandler;
         private yLastPos       : number;
 
         public gun         : BaseGun;
@@ -61,11 +60,6 @@ module Roboycod{
 
             game.add.existing(this);
             this.game.camera.follow(this);
-        }
-
-        public setPosition(x : number, y : number) : void{
-            this.x = x;
-            this.y = y;
         }
 
         create() {
@@ -126,6 +120,10 @@ module Roboycod{
             this.body.velocity.x = this.body.velocity.y = 0;
             this.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
             this.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        }
+        public setPosition(x : number, y : number) : void{
+            this.x = x;
+            this.y = y;
         }
         update() {
 

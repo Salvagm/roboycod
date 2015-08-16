@@ -8,5 +8,7 @@
 module Roboycod {
 
     export class CoreCdv extends BaseCdv {
+        public static queryList    : string[];
+        public static actionList    : string[];
     }
 }

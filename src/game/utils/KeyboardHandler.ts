@@ -59,7 +59,7 @@ module Roboycod {
             this.addCallbacks(player, null, player.stopMove, null);
 
         }
-        public setUpWorldMap(worldMap : Roboycod.WorldMap) : void{
+        public setupWorldMap(worldMap : Roboycod.WorldMap) : void{
 
             this.arrowUp.onDown.add(worldMap.moveSelection,worldMap,null,-1,0);
             this.arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
@@ -69,7 +69,7 @@ module Roboycod {
             this.tab.onDown.add(worldMap.navToInventory,worldMap);
             this.enter.onDown.add(worldMap.startStage,worldMap);
         }
-        public setUpInventory(inventory : Roboycod.Inventory) : void{
+        public setupInventory(inventory : Roboycod.Inventory) : void{
 
             this.tab.onDown.add(inventory.navToLastState,inventory);
 

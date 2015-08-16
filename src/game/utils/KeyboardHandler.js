@@ -42,7 +42,7 @@ var Roboycod;
             this.W.onHoldContext = player;
             this.addCallbacks(player, null, player.stopMove, null);
         };
-        KeyboardHandler.prototype.setUpWorldMap = function (worldMap) {
+        KeyboardHandler.prototype.setupWorldMap = function (worldMap) {
             this.arrowUp.onDown.add(worldMap.moveSelection, worldMap, null, -1, 0);
             this.arrowDown.onDown.add(worldMap.moveSelection, worldMap, null, 1, 0);
             this.arrowLeft.onDown.add(worldMap.moveSelection, worldMap, null, 0, -1);
@@ -50,7 +50,7 @@ var Roboycod;
             this.tab.onDown.add(worldMap.navToInventory, worldMap);
             this.enter.onDown.add(worldMap.startStage, worldMap);
         };
-        KeyboardHandler.prototype.setUpInventory = function (inventory) {
+        KeyboardHandler.prototype.setupInventory = function (inventory) {
             this.tab.onDown.add(inventory.navToLastState, inventory);
         };
         return KeyboardHandler;

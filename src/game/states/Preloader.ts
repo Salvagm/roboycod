@@ -23,7 +23,6 @@ module Roboycod{
             /**
              * Elentos WorldMap
              */
-
             this.game.load.image('worldMap', 'assets/world/worldMap.png');
             this.game.load.json('jsonWorldMap','assets/world/worldMap.json');
             this.load.atlasJSONHash(
@@ -31,14 +30,19 @@ module Roboycod{
                 'assets/world/worldTiles.png',
                 'assets/world/worldTiles.json'
             );
+
             /**
              * Elementos Inventario
              */
-
             this.game.load.image(
                 'inventoryBackground', 'assets/inventory/inventoryBackground.png'
             );
             this.game.load.json('jsonInventory','assets/inventory/inventory.json');
+            this.load.atlasJSONHash(
+                'inventoryTiles',
+                'assets/inventory/inventoryTiles.png',
+                'assets/inventory/inventoryTiles.json'
+            );
 
 
             /**

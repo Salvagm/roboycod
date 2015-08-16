@@ -9,13 +9,13 @@ module Roboycod {
 
     export class BaseCdv extends Phaser.Sprite {
 
+        //El id servira para ser distinguido por el compilador
+        public id               : string;
         public code             : string;
-        public translatedCode   :string;
+        public isCompiled       : boolean;
 
         //TODO DEMOCODE
         public expectedOutput   : string = "SALTO";
-
-        private runBtn = document.getElementById("runCode");
         //TODO END DEMOCODE
 
         constructor(game : Phaser.Game, x : number, y : number){

@@ -10,31 +10,93 @@ var __extends = this.__extends || function (d, b) {
 };
 var Roboycod;
 (function (Roboycod) {
+    var MatrixContent = (function () {
+        function MatrixContent() {
+        }
+        return MatrixContent;
+    })();
     var Inventory = (function (_super) {
         __extends(Inventory, _super);
         function Inventory() {
             _super.apply(this, arguments);
+            //	Constants
+            this.CDV_L = [4, 5, 6, 7];
+            this.ROWS = 4;
+            this.COLS = 5;
+            this.TWEEN_SCALE = 0.1;
         }
         Inventory.prototype.init = function (lastStage, numStage) {
             this.lastStage = lastStage;
             this.numStage = numStage;
         };
         Inventory.prototype.create = function () {
+            /**
+             * Cargamos los datos de juego
+             */
+            this.statesData = this.game.cache.getJSON('jsonStatesData');
+            if (this.statesData.inventory.firstLoad == "false") {
+                this.x = this.statesData.inventory.x;
+                this.y = this.statesData.inventory.y;
+            }
+            else {
+                this.x = this.y = 0;
+                this.statesData.inventory.firstLoad = "false";
+            }
+            /**
+             * Cargamos la parte grafica
+             */
             this.game.stage.backgroundColor = 0x272822;
-            this.json = this.game.cache.getJSON('jsonInventory');
+            this.jsonTiled = this.game.cache.getJSON('jsonInventory');
             this.background = this.game.add.image(0, 0, 'inventoryBackground');
             this.widthRatio = this.background.width / this.game.width;
             this.heightRatio = this.background.height / this.game.height;
             this.background.width = this.game.width;
             this.background.height = this.game.height;
             /**
+             * Cargamos
+             */
+            this.buildNavigationMatrix();
+            /**
              * Definimos y mapeamos las teclas correspondientes
              */
             this.kh = new Roboycod.KeyboardHandler(this.game);
-            this.kh.setUpInventory(this);
+            this.kh.setupInventory(this);
         };
         Inventory.prototype.navToLastState = function () {
+            this.statesData.inventory.x = this.x;
+            this.statesData.inventory.y = this.y;
+            //Guardar CDV
+            //Mandar CDVs Equipados al HUD
             this.game.state.start(this.lastStage, true, false, this.numStage);
+        };
+        Inventory.prototype.buildNavigationMatrix = function () {
+            var item;
+            var numItem;
+            //Normalizamos la posicion de los logos segun el rescalado,
+            //creamos sprites, etc
+            this.nav = [];
+            for (var i = 0; i < this.ROWS; ++i) {
+                numItem = 0;
+                this.nav[i] = [];
+                for (var j = 0; j < this.COLS; ++j) {
+                    this.nav[i][j] = new MatrixContent();
+                    item = this.nav[i][j];
+                    console.log("cargo la layer " + this.CDV_L[i]);
+                    console.log(this.jsonTiled.layers[this.CDV_L[i]].name);
+                    //En la layer LOGO_L se encontraran los objetos statelogo del Tiled
+                    item.jsonItem = this.jsonTiled.layers[this.CDV_L[i]].objects[numItem];
+                    item.jsonItem.x /= this.widthRatio;
+                    item.jsonItem.y /= this.heightRatio;
+                    item.sprite = this.game.add.sprite(item.jsonItem.x, item.jsonItem.y, 'inventoryTiles', 0);
+                    //Escalamos
+                    item.sprite.width = item.sprite.width / this.widthRatio;
+                    item.sprite.height = item.sprite.height / this.heightRatio;
+                    item.sprite.anchor.set(0.5, 0.5);
+                    ++numItem;
+                }
+            }
+            //Guardamos la escala general para hacer los tweens
+            this.initScale = new Phaser.Point(item.sprite.scale.x, item.sprite.scale.y);
         };
         return Inventory;
     })(Phaser.State);

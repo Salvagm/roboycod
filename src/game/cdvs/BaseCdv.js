@@ -19,7 +19,6 @@ var Roboycod;
             _super.call(this, game, x, y, 'tsDynamics', 0);
             //TODO DEMOCODE
             this.expectedOutput = "SALTO";
-            this.runBtn = document.getElementById("runCode");
             this.game.physics.enable(this);
             this.body.bounce.y = 0.5;
             this.body.gravity.y = 800;

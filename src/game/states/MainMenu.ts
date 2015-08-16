@@ -16,7 +16,6 @@ module Roboycod {
         startGame() {
 
             this.game.state.start('WorldMap', true, false);
-            //this.game.state.start('Stage', true, false, '0');
 
         }
 

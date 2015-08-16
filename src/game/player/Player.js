@@ -49,10 +49,6 @@ var Roboycod;
             game.add.existing(this);
             this.game.camera.follow(this);
         }
-        Player.prototype.setPosition = function (x, y) {
-            this.x = x;
-            this.y = y;
-        };
         Player.prototype.create = function () {
             this.animations.play('idle');
             //callback end shoot
@@ -103,6 +99,10 @@ var Roboycod;
             this.body.velocity.x = this.body.velocity.y = 0;
             this.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
             this.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        };
+        Player.prototype.setPosition = function (x, y) {
+            this.x = x;
+            this.y = y;
         };
         Player.prototype.update = function () {
             //this.game.debug.body(this);

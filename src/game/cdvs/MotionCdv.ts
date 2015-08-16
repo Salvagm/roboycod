@@ -8,5 +8,8 @@
 module Roboycod {
 
     export class MovementCdv extends BaseCdv {
+
+        public static queryList    : string[];
+        public static actionList    : string[];
     }
 }

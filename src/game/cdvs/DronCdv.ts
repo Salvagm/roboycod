@@ -8,5 +8,8 @@
 module Roboycod {
 
     export class DronCdv extends BaseCdv {
+
+        public static queryList    : string[];
+        public static actionList    : string[];
     }
 }

@@ -33,6 +33,7 @@ var Roboycod;
              */
             this.game.load.image('inventoryBackground', 'assets/inventory/inventoryBackground.png');
             this.game.load.json('jsonInventory', 'assets/inventory/inventory.json');
+            this.load.atlasJSONHash('inventoryTiles', 'assets/inventory/inventoryTiles.png', 'assets/inventory/inventoryTiles.json');
             /**
              * Entidades, Objetos dinamicos, etc
              */

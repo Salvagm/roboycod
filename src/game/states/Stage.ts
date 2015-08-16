@@ -116,7 +116,7 @@ module Roboycod{
             shoot.kill();
         }
 
-        private loadEnemies(enemyData) : void
+        private loadEnemies(enemyData : any) : void
         {
             this.enemies = this.game.add.group();
             for(var i = 0; i< enemyData.objects.length ; ++i)

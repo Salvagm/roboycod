@@ -8,5 +8,8 @@
 module Roboycod {
 
     export class WeaponCdv extends BaseCdv {
+
+        public static queryList    : string[];
+        public static actionList    : string[];
     }
 }
