@@ -103,7 +103,7 @@ var Roboycod;
             enemy.collide(player, this.codevices);
         };
         Stage.prototype.collideCdv = function (player, cdv) {
-            this.addCdv(cdv.cdvType);
+            this.addCdv(cdv.logicType);
             this.cdvLogicDemo.loadCode();
             //TODO demoCODE el cdv no debe estar en el player
             player.cdvLogicDemo = this.cdvLogicDemo;
@@ -111,7 +111,7 @@ var Roboycod;
             cdv.kill();
         };
         Stage.prototype.addCdv = function (type) {
-            this.cdvLogicDemo = new Roboycod.CdvLogic();
+            this.cdvLogicDemo = new Roboycod.CdvLogic(type);
         };
         Stage.prototype.finishStage = function () {
             this.game.state.start('Stage', true, false, '0');

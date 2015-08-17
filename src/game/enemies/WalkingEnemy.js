@@ -3,6 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="BaseEnemy.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -47,7 +48,7 @@ var Roboycod;
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
-                var cdv = new Roboycod.SpriteCdv(this.game, this.x, this.y);
+                var cdv = new Roboycod.SpriteCdv(this.game, this.x, this.y, Roboycod.CdvLogic.TYPES[2]);
                 cdv.body.velocity.x = 800;
                 codevices.add(cdv);
             }

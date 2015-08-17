@@ -3,6 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="BaseEnemy.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 
 module Roboycod {
 
@@ -51,11 +52,15 @@ module Roboycod {
 
         public collide(player : Player, codevices : Phaser.Group){
 
+
             if (this.body.touching.up){
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
-                var cdv : SpriteCdv = new SpriteCdv(this.game, this.x, this.y);
+                var cdv : SpriteCdv = new SpriteCdv(
+                    this.game,
+                    this.x, this.y,
+                    CdvLogic.TYPES[2]);
                 cdv.body.velocity.x = 800;
                 codevices.add(cdv);
             }

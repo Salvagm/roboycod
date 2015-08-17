@@ -141,7 +141,7 @@ module Roboycod{
         }
         private collideCdv(player : Player, cdv : SpriteCdv) : void{
 
-            this.addCdv(cdv.cdvType);
+            this.addCdv(cdv.logicType);
             this.cdvLogicDemo.loadCode();
             //TODO demoCODE el cdv no debe estar en el player
             player.cdvLogicDemo = this.cdvLogicDemo;
@@ -149,7 +149,7 @@ module Roboycod{
             cdv.kill();
         }
         private addCdv(type : string) : void{
-            this.cdvLogicDemo = new CdvLogic();
+            this.cdvLogicDemo = new CdvLogic(type);
         }
 
         private finishStage(){

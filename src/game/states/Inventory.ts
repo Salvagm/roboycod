@@ -2,13 +2,15 @@
  * Created by javi on 8/08/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 
 module Roboycod {
 
     class MatrixContent{
         public cdvSprite    : Phaser.Sprite;
         public selecSprite  : Phaser.Sprite;
-        public cdv          : SpriteCdv;
+        //TODO Pasar a matriz de CDV
+        public cdv          : CdvLogic;
 
         constructor(){}
     }
@@ -16,6 +18,7 @@ module Roboycod {
 
         private background      : Phaser.Image;
         private nav             : MatrixContent[][];
+        private cdvMatrix       : CdvLogic[][];
         private initScale       : Phaser.Point;
         private x               : number;
         private y               : number;
@@ -77,10 +80,25 @@ module Roboycod {
             this.kh.setupInventory(this);
 
             //TODO TEST
-            var content = new MatrixContent();
-            var cdv = new SpriteCdv(this.game,0,0);
-            //var jsonData  = JSON.stringify(cdv);
-            //console.log(jsonData);
+            var item    : any;
+            var numItem : number = 0;
+
+            this.cdvMatrix = [];
+            for(var i = 0; i < this.ROWS;++i){
+                this.cdvMatrix[i] = [];
+                for(var j = 0; j < this.COLS;++j) {
+                    //TODO separar de matriz logica
+                    this.cdvMatrix[i][j] = new CdvLogic(CdvLogic.TYPES[i]);
+                    item = this.cdvMatrix[i][j];
+                    item.cdvType = CdvLogic.TYPES[i];
+                    item.id = numItem;
+                    item.isCompiled = true;
+                    item.code = "print(\"SALTO\")";
+                    ++numItem;
+                }
+            }
+            var jsonData  = JSON.stringify(this.cdvMatrix);
+            console.log(jsonData);
 
         }
         public navToLastState(){

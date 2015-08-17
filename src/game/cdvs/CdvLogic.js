@@ -9,9 +9,11 @@ var Roboycod;
 (function (Roboycod) {
     var CdvLogic = (function () {
         //TODO END DEMOCODE
-        function CdvLogic() {
+        function CdvLogic(type) {
             //TODO DEMOCODE
             this.expectedOutput = "SALTO";
+            this.id = CdvLogic.idCount;
+            CdvLogic.idCount++;
             this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
         }
@@ -28,6 +30,8 @@ var Roboycod;
             }
             return false;
         };
+        CdvLogic.TYPES = ['weapon', 'core', 'motion', 'dron'];
+        CdvLogic.idCount = 0;
         return CdvLogic;
     })();
     Roboycod.CdvLogic = CdvLogic;

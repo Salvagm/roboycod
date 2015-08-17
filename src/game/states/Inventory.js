@@ -2,6 +2,7 @@
  * Created by javi on 8/08/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -62,10 +63,24 @@ var Roboycod;
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.kh.setupInventory(this);
             //TODO TEST
-            var content = new MatrixContent();
-            var cdv = new Roboycod.SpriteCdv(this.game, 0, 0);
-            //var jsonData  = JSON.stringify(cdv);
-            //console.log(jsonData);
+            var item;
+            var numItem = 0;
+            this.cdvMatrix = [];
+            for (var i = 0; i < this.ROWS; ++i) {
+                this.cdvMatrix[i] = [];
+                for (var j = 0; j < this.COLS; ++j) {
+                    //TODO separar de matriz logica
+                    this.cdvMatrix[i][j] = new Roboycod.CdvLogic(Roboycod.CdvLogic.TYPES[i]);
+                    item = this.cdvMatrix[i][j];
+                    item.cdvType = Roboycod.CdvLogic.TYPES[i];
+                    item.id = numItem;
+                    item.isCompiled = true;
+                    item.code = "print(\"SALTO\")";
+                    ++numItem;
+                }
+            }
+            var jsonData = JSON.stringify(this.cdvMatrix);
+            console.log(jsonData);
         };
         Inventory.prototype.navToLastState = function () {
             this.statesData.inventory.x = this.x;

@@ -10,21 +10,31 @@ module Roboycod {
 
     export class CdvLogic {
 
-        public static weaponQuerys      : string[];
-        public static weaponActions     : string[];
+        public static TYPES         :string[] = ['weapon', 'core', 'motion', 'dron'];
+        public static idCount       : number = 0;
 
+        public static weaponQuerys  :string[];
+        public static weaponActions :string[];
+        public static coreQuerys    :string[];
+        public static coreActions   :string[];
+        public static motionQuerys  :string[];
+        public static motionActions :string[];
+        public static dronQuerys    :string[];
+        public static dronActions   :string[];
         //El id servira para ser distinguido por el compilador
-        public id               : string;
-        public cdvType          : string;
+        public id               : number;
+        public type             : string;
         public code             : string;
         public isCompiled       : boolean;
+        public isSelected       : boolean;
 
         //TODO DEMOCODE
         public expectedOutput   : string = "SALTO";
         //TODO END DEMOCODE
 
-        constructor(){
-
+        constructor(type : string){
+            this.id = CdvLogic.idCount;
+            CdvLogic.idCount++;
             this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
         } public loadCode(){
