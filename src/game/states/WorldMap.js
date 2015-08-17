@@ -29,14 +29,14 @@ var Roboycod;
             /**
              * Cargamos los datos de juego
              */
-            this.statesData = this.game.cache.getJSON('jsonStatesData');
-            if (this.statesData.worldMap.firstLoad == "false") {
-                this.x = this.statesData.worldMap.x;
-                this.y = this.statesData.worldMap.y;
+            this.gameData = this.game.cache.getJSON('gameData');
+            if (this.gameData.worldMap.firstLoad == "false") {
+                this.x = this.gameData.worldMap.x;
+                this.y = this.gameData.worldMap.y;
             }
             else {
                 this.x = this.y = 0;
-                this.statesData.worldMap.firstLoad = "false";
+                this.gameData.worldMap.firstLoad = "false";
             }
             /**
              * Cargamos los elementos del worldMap
@@ -130,16 +130,16 @@ var Roboycod;
             }
         };
         WorldMap.prototype.startStage = function () {
-            this.statesData.worldMap.x = this.x;
-            this.statesData.worldMap.y = this.y;
+            this.gameData.worldMap.x = this.x;
+            this.gameData.worldMap.y = this.y;
             var numStage = this.nav[this.x][this.y].jsonItem.properties.stage;
             if (this.game.cache.checkJSONKey('jsonStage' + numStage)) {
                 this.game.state.start('Stage', false, false, numStage);
             }
         };
         WorldMap.prototype.navToInventory = function () {
-            this.statesData.worldMap.x = this.x;
-            this.statesData.worldMap.y = this.y;
+            this.gameData.worldMap.x = this.x;
+            this.gameData.worldMap.y = this.y;
             this.game.state.start('Inventory', true, false, this.key);
         };
         return WorldMap;

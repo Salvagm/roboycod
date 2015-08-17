@@ -41,14 +41,22 @@ var Roboycod;
         }
         SpriteCdv.prototype.create = function () {
             this.timer = this.game.time.time;
-            this.animations.play(Roboycod.CdvLogic.TYPES[0]);
+            this.animations.play(this.logicType);
         };
         SpriteCdv.prototype.update = function () {
             //Controlamos el delay de la animacion
             if (this.game.time.time > this.timer + this.WAIT_TIME) {
-                this.animations.play(Roboycod.CdvLogic.TYPES[0]);
+                this.animations.play(this.logicType);
                 this.timer = this.game.time.time;
             }
+        };
+        /**
+         * Dado un tipo de CDV nos devuelve su frame
+         * @param type el tipo de CDV que tenemos
+         * @returns {number} el numero correspondiente al primer frame
+         */
+        SpriteCdv.prototype.getFrame = function (type) {
+            return this.animations.getAnimation(Roboycod.CdvLogic.TYPES[type]).frame;
         };
         return SpriteCdv;
     })(Phaser.Sprite);

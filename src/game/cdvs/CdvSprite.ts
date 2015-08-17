@@ -48,14 +48,23 @@ module Roboycod {
 
         create(){
             this.timer = this.game.time.time;
-            this.animations.play(CdvLogic.TYPES[0]);
+            this.animations.play(this.logicType);
         }
         update(){
             //Controlamos el delay de la animacion
             if(this.game.time.time > this.timer + this.WAIT_TIME){
-                this.animations.play(CdvLogic.TYPES[0]);
+                this.animations.play(this.logicType);
                 this.timer = this.game.time.time;
             }
+        }
+
+        /**
+         * Dado un tipo de CDV nos devuelve su frame
+         * @param type el tipo de CDV que tenemos
+         * @returns {number} el numero correspondiente al primer frame
+         */
+        public getFrame(type : number){
+            return this.animations.getAnimation(CdvLogic.TYPES[type]).frame;
         }
 
 

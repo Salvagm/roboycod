@@ -73,7 +73,7 @@ module Roboycod{
             /**
              * Cargamos JSON para guardar los estados de los STATES
              */
-            this.game.load.json('jsonStatesData','assets/statesData.json');
+            this.game.load.json('gameData','assets/gameData.json');
         }
 
         create() {

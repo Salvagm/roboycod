@@ -49,7 +49,7 @@ var Roboycod;
             /**
              * Cargamos JSON para guardar los estados de los STATES
              */
-            this.game.load.json('jsonStatesData', 'assets/statesData.json');
+            this.game.load.json('gameData', 'assets/gameData.json');
         };
         Preloader.prototype.create = function () {
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);

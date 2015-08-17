@@ -22,7 +22,7 @@ module Roboycod {
         private widthRatio      : number;
         private heightRatio     : number;
         private jsonTiled       : any;
-        private statesData      : any;
+        private gameData        : any;
         private kh              : KeyboardHandler;
 
         //	Constants
@@ -35,15 +35,15 @@ module Roboycod {
             /**
              * Cargamos los datos de juego
              */
-            this.statesData = this.game.cache.getJSON('jsonStatesData');
+            this.gameData = this.game.cache.getJSON('gameData');
 
-            if(this.statesData.worldMap.firstLoad == "false"){
-                this.x = this.statesData.worldMap.x;
-                this.y = this.statesData.worldMap.y;
+            if(this.gameData.worldMap.firstLoad == "false"){
+                this.x = this.gameData.worldMap.x;
+                this.y = this.gameData.worldMap.y;
             }
             else{
                 this.x = this.y = 0;
-                this.statesData.worldMap.firstLoad = "false";
+                this.gameData.worldMap.firstLoad = "false";
             }
             /**
              * Cargamos los elementos del worldMap
@@ -179,8 +179,8 @@ module Roboycod {
         }
         public startStage() {
 
-            this.statesData.worldMap.x = this.x;
-            this.statesData.worldMap.y = this.y;
+            this.gameData.worldMap.x = this.x;
+            this.gameData.worldMap.y = this.y;
 
             var numStage = this.nav[this.x][this.y].jsonItem.properties.stage;
 
@@ -192,8 +192,8 @@ module Roboycod {
         }
         public navToInventory() {
 
-            this.statesData.worldMap.x = this.x;
-            this.statesData.worldMap.y = this.y;
+            this.gameData.worldMap.x = this.x;
+            this.gameData.worldMap.y = this.y;
 
             this.game.state.start('Inventory', true, false, this.key);
         }

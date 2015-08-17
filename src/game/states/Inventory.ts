@@ -27,7 +27,7 @@ module Roboycod {
         private lastStage       : string;
         private numStage        : string;
         private jsonTiled       : any;
-        private statesData      : any;
+        private gameData        : any;
 
         private kh              : KeyboardHandler;
 
@@ -45,15 +45,15 @@ module Roboycod {
             /**
              * Cargamos los datos de juego
              */
-            this.statesData = this.game.cache.getJSON('jsonStatesData');
+            this.gameData = this.game.cache.getJSON('gameData');
 
-            if(this.statesData.inventory.firstLoad == "false"){
-                this.x = this.statesData.inventory.x;
-                this.y = this.statesData.inventory.y;
+            if(this.gameData.inventory.firstLoad == "false"){
+                this.x = this.gameData.inventory.x;
+                this.y = this.gameData.inventory.y;
             }
             else{
                 this.x = this.y = 0;
-                this.statesData.inventory.firstLoad = "false";
+                this.gameData.inventory.firstLoad = "false";
             }
             /**
              * Cargamos la parte grafica
@@ -102,8 +102,8 @@ module Roboycod {
 
         }
         public navToLastState(){
-            this.statesData.inventory.x = this.x;
-            this.statesData.inventory.y = this.y;
+            this.gameData.inventory.x = this.x;
+            this.gameData.inventory.y = this.y;
             //Guardar CDV
             //Mandar CDVs Equipados al HUD
             this.game.state.start(this.lastStage, true, false, this.numStage);
