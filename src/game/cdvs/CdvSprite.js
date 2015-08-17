@@ -12,13 +12,10 @@ var __extends = this.__extends || function (d, b) {
 };
 var Roboycod;
 (function (Roboycod) {
-    var BaseCdv = (function (_super) {
-        __extends(BaseCdv, _super);
-        //TODO END DEMOCODE
-        function BaseCdv(game, x, y) {
+    var SpriteCdv = (function (_super) {
+        __extends(SpriteCdv, _super);
+        function SpriteCdv(game, x, y) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
-            //TODO DEMOCODE
-            this.expectedOutput = "SALTO";
             this.game.physics.enable(this);
             this.body.bounce.y = 0.5;
             this.body.gravity.y = 800;
@@ -27,31 +24,14 @@ var Roboycod;
             //TODO DEMOCODE
             this.body.drag.setTo(800, 0);
             this.animations.add('idle', [71, 71, 71, 72, 73, 74, 75, 76, 77, 71, 71, 71], 9, true);
-            this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
             this.create();
         }
-        BaseCdv.prototype.create = function () {
+        SpriteCdv.prototype.create = function () {
             this.animations.play('idle');
         };
-        BaseCdv.prototype.loadCode = function () {
-            var editor = ace.edit("editor");
-            editor.setValue(this.code, -1);
-        };
-        BaseCdv.prototype.checkCode = function () {
-            runCode();
-            var interpreterOutput = document.getElementById("output");
-            var output = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);
-            if (output == "SALTO") {
-                return true;
-            }
-            return false;
-        };
-        BaseCdv.prototype.update = function () {
-            //this.game.debug.body(this);
-        };
-        return BaseCdv;
+        return SpriteCdv;
     })(Phaser.Sprite);
-    Roboycod.BaseCdv = BaseCdv;
+    Roboycod.SpriteCdv = SpriteCdv;
 })(Roboycod || (Roboycod = {}));
-//# sourceMappingURL=BaseCdv.js.map
+//# sourceMappingURL=CdvSprite.js.map

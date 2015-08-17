@@ -3,11 +3,11 @@
  */
 
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="BaseCdv.ts"/>
+///<reference path="CdvLogic.ts"/>
 
 module Roboycod {
 
-    export class DronCdv extends BaseCdv {
+    export class DronCdv extends CdvLogic {
 
         public static queryList    : string[];
         public static actionList    : string[];

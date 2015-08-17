@@ -4,7 +4,8 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
 ///<reference path="../enemies/WalkingEnemy.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
     ///<reference path="../utils/HUD.ts"/>
 
@@ -21,6 +22,8 @@ module Roboycod{
         private player      : Player;
         private numStage    : string;
         private kh          : KeyboardHandler;
+
+        public cdvLogicDemo : CdvLogic;
 
         //	Constants
         private ENEMY_L     : number = 3;
@@ -136,12 +139,19 @@ module Roboycod{
 
             enemy.collide(player, this.codevices);
         }
-        private collideCdv(player : Player, cdv : BaseCdv) : void{
+        private collideCdv(player : Player, cdv : SpriteCdv) : void{
 
-            cdv.loadCode();
-            player.cdvDemo = cdv;
+            this.addCdv(cdv.cdvType);
+            this.cdvLogicDemo.loadCode();
+            //TODO demoCODE el cdv no debe estar en el player
+            player.cdvLogicDemo = this.cdvLogicDemo;
+            //TODO si hay sitio kill, si no bounce
             cdv.kill();
         }
+        private addCdv(type : string) : void{
+            this.cdvLogicDemo = new CdvLogic();
+        }
+
         private finishStage(){
             this.game.state.start('Stage', true, false, '0');
         }

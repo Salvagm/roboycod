@@ -1,5 +1,6 @@
 /**
- * Created by javi on 26/03/15.
+ * Created by javi on 17/08/15.
+ *
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../../lib/ace/src-noconflict/ace.d.ts"/>
@@ -7,10 +8,14 @@
 
 module Roboycod {
 
-    export class BaseCdv extends Phaser.Sprite {
+    export class CdvLogic {
+
+        public static weaponQuerys      : string[];
+        public static weaponActions     : string[];
 
         //El id servira para ser distinguido por el compilador
         public id               : string;
+        public cdvType          : string;
         public code             : string;
         public isCompiled       : boolean;
 
@@ -18,30 +23,11 @@ module Roboycod {
         public expectedOutput   : string = "SALTO";
         //TODO END DEMOCODE
 
-        constructor(game : Phaser.Game, x : number, y : number){
-            super(game, x, y,'tsDynamics', 0);
-
-            this.game.physics.enable(this);
-            this.body.bounce.y = 0.5;
-            this.body.gravity.y = 800;
-            this.body.setSize(this.body.width/2, this.body.height/2, 0, 0);
-            this.anchor.setTo(0.4, 0.6);
-
-            //TODO DEMOCODE
-            this.body.drag.setTo(800, 0);
-            this.animations.add('idle', [71, 71, 71, 72, 73, 74, 75, 76, 77, 71, 71, 71], 9, true);
+        constructor(){
 
             this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
-
-            this.create();
-        }
-
-        create(){
-            this.animations.play('idle');
-        }
-
-        public loadCode(){
+        } public loadCode(){
 
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
@@ -57,10 +43,6 @@ module Roboycod {
             }
             return false;
 
-        }
-
-        update(){
-            //this.game.debug.body(this);
         }
 
     }

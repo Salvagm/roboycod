@@ -47,7 +47,7 @@ var Roboycod;
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
-                var cdv = new Roboycod.BaseCdv(this.game, this.x, this.y);
+                var cdv = new Roboycod.SpriteCdv(this.game, this.x, this.y);
                 cdv.body.velocity.x = 800;
                 codevices.add(cdv);
             }

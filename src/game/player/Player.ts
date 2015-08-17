@@ -3,7 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 
 module Roboycod{
 
@@ -24,7 +25,7 @@ module Roboycod{
         private DRAG        : number = 4000;
 
         //  TODO DEMOCODE
-        public cdvDemo      : BaseCdv;
+        public cdvLogicDemo : CdvLogic;
         //  TODO FIN DEMOCODE
 
         constructor(game: Phaser.Game, x: number, y: number) {
@@ -101,7 +102,7 @@ module Roboycod{
         }
         //  TODO DEMOCODE
         jump() : void {
-            if(this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.checkCode())
+            if(this.cdvLogicDemo != null && this.body.onFloor() && this.cdvLogicDemo.checkCode())
                 this.body.velocity.y = this.JUMP_SPEED;
         }
         //  TODO FIN DEMOCODE

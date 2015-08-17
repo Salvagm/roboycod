@@ -4,7 +4,8 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
 ///<reference path="../enemies/WalkingEnemy.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../utils/HUD.ts"/>
 var __extends = this.__extends || function (d, b) {
@@ -102,9 +103,15 @@ var Roboycod;
             enemy.collide(player, this.codevices);
         };
         Stage.prototype.collideCdv = function (player, cdv) {
-            cdv.loadCode();
-            player.cdvDemo = cdv;
+            this.addCdv(cdv.cdvType);
+            this.cdvLogicDemo.loadCode();
+            //TODO demoCODE el cdv no debe estar en el player
+            player.cdvLogicDemo = this.cdvLogicDemo;
+            //TODO si hay sitio kill, si no bounce
             cdv.kill();
+        };
+        Stage.prototype.addCdv = function (type) {
+            this.cdvLogicDemo = new Roboycod.CdvLogic();
         };
         Stage.prototype.finishStage = function () {
             this.game.state.start('Stage', true, false, '0');

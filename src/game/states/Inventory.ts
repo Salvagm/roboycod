@@ -8,7 +8,7 @@ module Roboycod {
     class MatrixContent{
         public cdvSprite    : Phaser.Sprite;
         public selecSprite  : Phaser.Sprite;
-        public cdv          : BaseCdv;
+        public cdv          : SpriteCdv;
 
         constructor(){}
     }
@@ -56,7 +56,7 @@ module Roboycod {
              * Cargamos la parte grafica
              */
             this.game.stage.backgroundColor = 0x272822;
-            this.jsonTiled = this.game.cache.getJSON('jsonInventory');
+            this.jsonTiled = this.game.cache.getJSON('jsonInventory', true);
             this.background = this.game.add.image(0,0,'inventoryBackground');
 
             this.widthRatio = this.background.width / this.game.width;
@@ -76,6 +76,12 @@ module Roboycod {
             this.kh = new KeyboardHandler(this.game);
             this.kh.setupInventory(this);
 
+            //TODO TEST
+            var content = new MatrixContent();
+            var cdv = new SpriteCdv(this.game,0,0);
+            //var jsonData  = JSON.stringify(cdv);
+            //console.log(jsonData);
+
         }
         public navToLastState(){
             this.statesData.inventory.x = this.x;
@@ -86,8 +92,9 @@ module Roboycod {
 
         }
         private buildNavigationMatrix() : void{
-            var item : any;
+            var item    : any;
             var numItem : number;
+            var jsonItem: any;
 
             //Normalizamos la posicion de los logos segun el rescalado,
             //creamos sprites, etc
@@ -98,18 +105,16 @@ module Roboycod {
                 for(var j = 0; j < this.COLS;++j){
                     this.nav[i][j] = new MatrixContent();
                     item = this.nav[i][j];
-                    console.log("cargo la layer " + this.CDV_L[i]);
-                    console.log(this.jsonTiled.layers[this.CDV_L[i]].name);
                     //En la layer LOGO_L se encontraran los objetos statelogo del Tiled
-                    item.jsonItem = this.jsonTiled.layers[this.CDV_L[i]].objects[numItem];
-                    item.jsonItem.x /= this.widthRatio;
-                    item.jsonItem.y /= this.heightRatio;
+                    jsonItem = this.jsonTiled.layers[this.CDV_L[i]].objects[numItem];
+                    jsonItem.x /= this.widthRatio;
+                    jsonItem.y /= this.heightRatio;
 
                     item.sprite = this.game.add.sprite(
-                        item.jsonItem.x,
-                        item.jsonItem.y,
+                        jsonItem.x,
+                        jsonItem.y,
                         'inventoryTiles',
-                        0
+                        i
                     );
                     //Escalamos
                     item.sprite.width = item.sprite.width / this.widthRatio;

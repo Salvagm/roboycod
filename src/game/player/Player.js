@@ -3,7 +3,8 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -84,7 +85,7 @@ var Roboycod;
         };
         //  TODO DEMOCODE
         Player.prototype.jump = function () {
-            if (this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.checkCode())
+            if (this.cdvLogicDemo != null && this.body.onFloor() && this.cdvLogicDemo.checkCode())
                 this.body.velocity.y = this.JUMP_SPEED;
         };
         //  TODO FIN DEMOCODE

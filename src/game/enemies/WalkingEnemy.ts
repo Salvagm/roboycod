@@ -55,7 +55,7 @@ module Roboycod {
                 player.body.velocity.y = -400;
                 this.body.enable = false;
                 this.animations.play('die');
-                var cdv : BaseCdv = new BaseCdv(this.game, this.x, this.y);
+                var cdv : SpriteCdv = new SpriteCdv(this.game, this.x, this.y);
                 cdv.body.velocity.x = 800;
                 codevices.add(cdv);
             }

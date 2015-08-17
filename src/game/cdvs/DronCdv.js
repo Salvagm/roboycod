@@ -8,7 +8,7 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="BaseCdv.ts"/>
+///<reference path="CdvLogic.ts"/>
 var Roboycod;
 (function (Roboycod) {
     var DronCdv = (function (_super) {
@@ -17,7 +17,7 @@ var Roboycod;
             _super.apply(this, arguments);
         }
         return DronCdv;
-    })(Roboycod.BaseCdv);
+    })(Roboycod.CdvLogic);
     Roboycod.DronCdv = DronCdv;
 })(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=DronCdv.js.map
