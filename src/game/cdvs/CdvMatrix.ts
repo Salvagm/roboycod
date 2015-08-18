@@ -6,20 +6,49 @@
 
 module Roboycod{
     export class CdvMatrix {
-        private matrix       : CdvLogic[][];
+
+        public data       : CdvLogic[][];
 
         //	Constants
         private ROWS            : number = 4;
         private COLS            : number = 5;
 
         constructor(){
-            this.matrix = [];
+            this.data = [];
             for(var i = 0; i < this.ROWS;++i) {
-                this.matrix[i] = [];
+                this.data[i] = [];
             }
         }
+
+        /**
+         * Trata de anyadir un cdv a la matriz de inventario
+         * @param cdv el elemento a anyadir
+         * @returns {boolean} si pudo anyadirlo o no
+         */
         public add(cdv : CdvLogic) : boolean{
-            return true;
+            console.log("Es tipo " + cdv.type);
+            var row : number;
+            switch (cdv.type){
+                case CdvLogic.TYPES[0] :
+                    row = 0;
+                    break;
+                case CdvLogic.TYPES[1] :
+                    row = 1;
+                    break;
+                case CdvLogic.TYPES[2] :
+                    row = 2;
+                    break;
+                case CdvLogic.TYPES[3] :
+                    row = 3;
+                    break;
+                default :
+                    console.log("No existe el tipo de cdv a anyadir");
+            }
+            if(this.data[row].length < this.COLS){
+                this.data[row].push(cdv);
+                return true;
+            }
+            return false;
         }
     }
 }

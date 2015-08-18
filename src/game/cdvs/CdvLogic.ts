@@ -10,8 +10,9 @@ module Roboycod {
 
     export class CdvLogic {
 
+        //Estaran en el orden en que los representa el inventario
         public static TYPES         :string[] = ['weapon', 'core', 'motion', 'dron'];
-        public static idCount       : number = 0;
+        public static idCount       :number = 0;
 
         public static weaponQuerys  :string[];
         public static weaponActions :string[];
@@ -34,7 +35,10 @@ module Roboycod {
 
         constructor(type : string){
             this.id = CdvLogic.idCount;
+            this.type = type;
             CdvLogic.idCount++;
+
+            //TODO DEMOCODE
             this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
         } public loadCode(){

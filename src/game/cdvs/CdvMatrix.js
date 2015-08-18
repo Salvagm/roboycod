@@ -10,13 +10,40 @@ var Roboycod;
             //	Constants
             this.ROWS = 4;
             this.COLS = 5;
-            this.matrix = [];
+            this.data = [];
             for (var i = 0; i < this.ROWS; ++i) {
-                this.matrix[i] = [];
+                this.data[i] = [];
             }
         }
+        /**
+         * Trata de anyadir un cdv a la matriz de inventario
+         * @param cdv el elemento a anyadir
+         * @returns {boolean} si pudo anyadirlo o no
+         */
         CdvMatrix.prototype.add = function (cdv) {
-            return true;
+            console.log("Es tipo " + cdv.type);
+            var row;
+            switch (cdv.type) {
+                case Roboycod.CdvLogic.TYPES[0]:
+                    row = 0;
+                    break;
+                case Roboycod.CdvLogic.TYPES[1]:
+                    row = 1;
+                    break;
+                case Roboycod.CdvLogic.TYPES[2]:
+                    row = 2;
+                    break;
+                case Roboycod.CdvLogic.TYPES[3]:
+                    row = 3;
+                    break;
+                default:
+                    console.log("No existe el tipo de cdv a anyadir");
+            }
+            if (this.data[row].length < this.COLS) {
+                this.data[row].push(cdv);
+                return true;
+            }
+            return false;
         };
         return CdvMatrix;
     })();

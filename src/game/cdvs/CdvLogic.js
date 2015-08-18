@@ -13,7 +13,9 @@ var Roboycod;
             //TODO DEMOCODE
             this.expectedOutput = "SALTO";
             this.id = CdvLogic.idCount;
+            this.type = type;
             CdvLogic.idCount++;
+            //TODO DEMOCODE
             this.code = "print(\"SALTO\")";
             //TODO END DEMOCODE
         }
@@ -30,6 +32,7 @@ var Roboycod;
             }
             return false;
         };
+        //Estaran en el orden en que los representa el inventario
         CdvLogic.TYPES = ['weapon', 'core', 'motion', 'dron'];
         CdvLogic.idCount = 0;
         return CdvLogic;

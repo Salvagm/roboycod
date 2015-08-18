@@ -78,7 +78,7 @@ var Roboycod;
                 for (var j = 0; j < this.COLS; ++j) {
                     this.nav[i][j] = new MatrixContent();
                     item = this.nav[i][j];
-                    //En la layer LOGO_L se encontraran los objetos statelogo del Tiled
+                    //En la layer LOGO_L se encontraran los objetos del Tiled
                     item.jsonItem = this.jsonTiled.layers[this.LOGO_L].objects[numItem];
                     item.jsonItem.x /= this.widthRatio;
                     item.jsonItem.y /= this.heightRatio;
@@ -116,8 +116,8 @@ var Roboycod;
          * si puede lo hace
          */
         WorldMap.prototype.moveSelection = function (key, x, y) {
-            if (this.x + x >= 0 && this.x + x <= 1) {
-                if (this.y + y >= 0 && this.y + y <= 2) {
+            if (this.x + x >= 0 && this.x + x <= this.ROWS) {
+                if (this.y + y >= 0 && this.y + y <= this.COLS) {
                     //Cambiamos por el sprite sin seleccion
                     this.nav[this.x][this.y].sprite.loadTexture('worldTiles', parseInt(this.nav[this.x][this.y].jsonItem.properties.stage));
                     this.reduceTween(this.nav[this.x][this.y]);

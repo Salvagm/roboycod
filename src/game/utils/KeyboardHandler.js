@@ -51,6 +51,10 @@ var Roboycod;
             this.enter.onDown.add(worldMap.startStage, worldMap);
         };
         KeyboardHandler.prototype.setupInventory = function (inventory) {
+            this.arrowUp.onDown.add(inventory.moveSelection, inventory, null, -1, 0);
+            this.arrowDown.onDown.add(inventory.moveSelection, inventory, null, 1, 0);
+            this.arrowLeft.onDown.add(inventory.moveSelection, inventory, null, 0, -1);
+            this.arrowRight.onDown.add(inventory.moveSelection, inventory, null, 0, 1);
             this.tab.onDown.add(inventory.navToLastState, inventory);
         };
         return KeyboardHandler;
