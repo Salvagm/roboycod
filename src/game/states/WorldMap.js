@@ -2,6 +2,7 @@
  * Created by javi on 5/08/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../utils/GameManager.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -29,15 +30,9 @@ var Roboycod;
             /**
              * Cargamos los datos de juego
              */
-            this.gameData = this.game.cache.getJSON('gameData');
-            if (this.gameData.worldMap.firstLoad == "false") {
-                this.x = this.gameData.worldMap.x;
-                this.y = this.gameData.worldMap.y;
-            }
-            else {
-                this.x = this.y = 0;
-                this.gameData.worldMap.firstLoad = "false";
-            }
+            this.gameData = Roboycod.GameManager.getInstance().getData(this.game);
+            this.x = parseInt(this.gameData.worldMap.x);
+            this.y = parseInt(this.gameData.worldMap.y);
             /**
              * Cargamos los elementos del worldMap
              */
@@ -116,8 +111,8 @@ var Roboycod;
          * si puede lo hace
          */
         WorldMap.prototype.moveSelection = function (key, x, y) {
-            if (this.x + x >= 0 && this.x + x <= this.ROWS) {
-                if (this.y + y >= 0 && this.y + y <= this.COLS) {
+            if (this.x + x >= 0 && this.x + x < this.ROWS) {
+                if (this.y + y >= 0 && this.y + y < this.COLS) {
                     //Cambiamos por el sprite sin seleccion
                     this.nav[this.x][this.y].sprite.loadTexture('worldTiles', parseInt(this.nav[this.x][this.y].jsonItem.properties.stage));
                     this.reduceTween(this.nav[this.x][this.y]);

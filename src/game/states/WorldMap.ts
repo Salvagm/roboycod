@@ -2,6 +2,7 @@
  * Created by javi on 5/08/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../utils/GameManager.ts"/>
 
 module Roboycod {
 
@@ -35,16 +36,12 @@ module Roboycod {
             /**
              * Cargamos los datos de juego
              */
-            this.gameData = this.game.cache.getJSON('gameData');
+            this.gameData = GameManager.getInstance().getData(this.game);
 
-            if(this.gameData.worldMap.firstLoad == "false"){
-                this.x = this.gameData.worldMap.x;
-                this.y = this.gameData.worldMap.y;
-            }
-            else{
-                this.x = this.y = 0;
-                this.gameData.worldMap.firstLoad = "false";
-            }
+            this.x = parseInt(this.gameData.worldMap.x);
+            this.y = parseInt(this.gameData.worldMap.y);
+
+
             /**
              * Cargamos los elementos del worldMap
              */
@@ -154,8 +151,8 @@ module Roboycod {
          */
         public moveSelection(key : Phaser.Key, x : number , y : number ) : void {
 
-            if(this.x + x >= 0 && this.x + x <=  this.ROWS){
-                if(this.y + y >= 0 && this.y + y <= this.COLS){
+            if(this.x + x >= 0 && this.x + x <  this.ROWS){
+                if(this.y + y >= 0 && this.y + y < this.COLS){
                     //Cambiamos por el sprite sin seleccion
                     this.nav[this.x][this.y].sprite.loadTexture(
                         'worldTiles',

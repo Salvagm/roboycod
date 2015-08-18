@@ -4,6 +4,7 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../cdvs/CdvMatrix.ts"/>
+///<reference path="../states/Game.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -35,27 +36,12 @@ var Roboycod;
             /**
              * Cargamos los datos de juego
              */
-            this.gameData = this.game.cache.getJSON('gameData');
-            //TODO TEST
-            //this.cm = new CdvMatrix();
-            //this.cm.add(new CdvLogic(CdvLogic.TYPES[0]));
-            //this.cm.add(new CdvLogic(CdvLogic.TYPES[2]));
-            //this.cm.add(new CdvLogic(CdvLogic.TYPES[2]));
-            //
-            //var cdvMatrix  = JSON.stringify(this.cm);
-            //console.log(cdvMatrix);
-            //
-            //this.gameData.cdvMatrix = this.cm;
-            //console.log(this.gameData);
-            //TODO FIN TEST
-            if (this.gameData.inventory.firstLoad == "false") {
-                this.x = this.gameData.inventory.x;
-                this.y = this.gameData.inventory.y;
-            }
-            else {
-                this.x = this.y = 0;
-                this.gameData.inventory.firstLoad = "false";
-            }
+            this.gameData = Roboycod.GameManager.getInstance().getData(this.game);
+            this.isEmpty = this.gameData.inventory.isEmpty;
+            this.x = this.gameData.inventory.x;
+            this.y = this.gameData.inventory.y;
+            this.cm = new Roboycod.CdvMatrix(this.gameData.cdvMatrix.data);
+            ////TODO mirar cuando guardar
             /**
              * Cargamos la parte grafica
              */
@@ -69,15 +55,18 @@ var Roboycod;
             /**
              * Cargamos
              */
-            console.log("Aumento la escala de " + this.x + ", " + this.y);
             this.buildNavigationMatrix();
-            this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
-            this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+            if (!this.isEmpty) {
+                this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
+                this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+            }
             /**
              * Definimos y mapeamos las teclas correspondientes
              */
             this.kh = new Roboycod.KeyboardHandler(this.game);
             this.kh.setupInventory(this);
+            //TODO TEST
+            Roboycod.GameManager.getInstance().save();
         };
         Inventory.prototype.navToLastState = function () {
             this.gameData.inventory.x = this.x;
@@ -102,7 +91,7 @@ var Roboycod;
                     jsonItem.x /= this.widthRatio;
                     jsonItem.y /= this.heightRatio;
                     //Si existe un cdvLogico pintamos su sprite
-                    if (!(this.cm.data[i][j] === undefined)) {
+                    if (this.cm.data[i][j] !== undefined) {
                         item.icon = this.game.add.sprite(jsonItem.x, jsonItem.y, 'inventoryTiles', i);
                         //Escalamos
                         item.icon.width = item.icon.width / this.widthRatio;
@@ -110,6 +99,11 @@ var Roboycod;
                         item.icon.anchor.set(0.5, 0.5);
                         //Guardamos la escala general para hacer los tweens
                         this.initScale = new Phaser.Point(item.icon.scale.x, item.icon.scale.y);
+                        if (this.isEmpty) {
+                            this.x = i;
+                            this.y = j;
+                            this.isEmpty = false;
+                        }
                     }
                 }
             }
@@ -152,8 +146,10 @@ var Roboycod;
                 this.x = oldX;
                 this.y = oldY;
             }
-            this.reduceTween(this.nav[oldX][oldY]);
-            this.enlargeTween(this.nav[this.x][this.y]);
+            if (!this.isEmpty) {
+                this.reduceTween(this.nav[oldX][oldY]);
+                this.enlargeTween(this.nav[this.x][this.y]);
+            }
         };
         return Inventory;
     })(Phaser.State);

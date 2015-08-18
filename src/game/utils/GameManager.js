@@ -7,6 +7,7 @@ var Roboycod;
 (function (Roboycod) {
     var GameManager = (function () {
         function GameManager() {
+            this.key = 'roboycodData';
             if (GameManager._instance) {
                 throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
             }
@@ -18,34 +19,34 @@ var Roboycod;
             }
             return GameManager._instance;
         };
-        GameManager.save = function (game) {
-            if (localStorage.getItem(GameManager.key)) {
-                localStorage.removeItem(GameManager.key);
+        GameManager.prototype.save = function () {
+            if (localStorage.getItem(this.key)) {
+                localStorage.removeItem(this.key);
             }
-            GameManager.data = game.cache.getJSON('gameData');
-            localStorage.setItem(GameManager.key, GameManager.data);
+            localStorage.setItem(this.key, JSON.stringify(this.data));
         };
         /**
          * Trata de cargar los datos de la memoria y si no carga los iniciales
          * @param game
          */
-        GameManager.load = function (game) {
-            if (localStorage.getItem(GameManager.key)) {
-                GameManager.data = localStorage.getItem(GameManager.key);
+        GameManager.prototype.load = function (game) {
+            if (localStorage.getItem(this.key)) {
+                this.data = JSON.parse(localStorage.getItem(this.key));
             }
-            GameManager.data = game.cache.getJSON('gameData');
-        };
-        GameManager.getData = function (game) {
-            if (GameManager.data === undefined) {
-                GameManager.load(game);
+            else {
+                this.data = game.cache.getJSON('gameData');
             }
-            return GameManager.data;
         };
-        GameManager.clearData = function () {
-            GameManager.data = undefined;
+        GameManager.prototype.getData = function (game) {
+            if (this.data === undefined) {
+                this.load(game);
+            }
+            return this.data;
+        };
+        GameManager.prototype.clearData = function () {
+            this.data = undefined;
         };
         GameManager._instance = null;
-        GameManager.key = 'roboycodData';
         return GameManager;
     })();
     Roboycod.GameManager = GameManager;

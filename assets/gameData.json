@@ -1,24 +1,28 @@
 {
 	"worldMap":
-	{
-		"firstLoad": "true", 
-		"x": "", 
-		"y": ""
+	{		
+		"x": 0, 
+		"y": 0
 	},
 	"stage":
-	{
-		"firstLoad": "true", 
+	{		
 		"player": [
 		{ 
-		 	"x": "", 
-		 	"y": "",
+		 	"x": 0, 
+		 	"y": 0,
 		 	"life": ""
 		}]
 	},
 	"inventory":
+	{		
+		"isEmpty" : true,
+		"x": 0, 
+		"y": 0
+	},
+	"cdvMatrix":
 	{
-		"firstLoad": "true", 
-		"x": "", 
-		"y": ""
+		"ROWS":4,
+		"COLS":5,
+		"data":[[],[],[],[]]
 	}
 }

@@ -4,6 +4,7 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../cdvs/CdvMatrix.ts"/>
+    ///<reference path="../states/Game.ts"/>
 
 module Roboycod {
 
@@ -26,6 +27,7 @@ module Roboycod {
         private heightRatio     : number;
         private lastStage       : string;
         private numStage        : string;
+        private isEmpty         : boolean;
         private jsonTiled       : any;
         private gameData        : any;
 
@@ -45,30 +47,17 @@ module Roboycod {
             /**
              * Cargamos los datos de juego
              */
-            this.gameData = this.game.cache.getJSON('gameData');
+            this.gameData = GameManager.getInstance().getData(this.game);
 
-            //TODO TEST
-            //this.cm = new CdvMatrix();
-            //this.cm.add(new CdvLogic(CdvLogic.TYPES[0]));
-            //this.cm.add(new CdvLogic(CdvLogic.TYPES[2]));
-            //this.cm.add(new CdvLogic(CdvLogic.TYPES[2]));
-            //
-            //var cdvMatrix  = JSON.stringify(this.cm);
-            //console.log(cdvMatrix);
-            //
-            //this.gameData.cdvMatrix = this.cm;
-            //console.log(this.gameData);
+            this.isEmpty = this.gameData.inventory.isEmpty;
+            this.x = this.gameData.inventory.x;
+            this.y = this.gameData.inventory.y;
+            this.cm = new CdvMatrix(this.gameData.cdvMatrix.data);
 
-            //TODO FIN TEST
+            ////TODO mirar cuando guardar
 
-            if(this.gameData.inventory.firstLoad == "false"){
-                this.x = this.gameData.inventory.x;
-                this.y = this.gameData.inventory.y;
-            }
-            else{
-                this.x = this.y = 0;
-                this.gameData.inventory.firstLoad = "false";
-            }
+
+
             /**
              * Cargamos la parte grafica
              */
@@ -84,11 +73,12 @@ module Roboycod {
             /**
              * Cargamos
              */
-
-            console.log("Aumento la escala de " + this.x + ", "+this.y);
             this.buildNavigationMatrix();
-            this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
-            this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+
+            if(!this.isEmpty){
+                this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
+                this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+            }
 
             /**
              * Definimos y mapeamos las teclas correspondientes
@@ -96,10 +86,14 @@ module Roboycod {
             this.kh = new KeyboardHandler(this.game);
             this.kh.setupInventory(this);
 
+            //TODO TEST
+            GameManager.getInstance().save();
         }
         public navToLastState(){
+
             this.gameData.inventory.x = this.x;
             this.gameData.inventory.y = this.y;
+
             //Guardar CDV
             //Mandar CDVs Equipados al HUD
             this.game.state.start(this.lastStage, true, false, this.numStage);
@@ -123,7 +117,7 @@ module Roboycod {
                     jsonItem.y /= this.heightRatio;
 
                     //Si existe un cdvLogico pintamos su sprite
-                    if(!(this.cm.data[i][j] === undefined)){
+                    if(this.cm.data[i][j] !== undefined){
                         item.icon = this.game.add.sprite(
                             jsonItem.x,
                             jsonItem.y,
@@ -136,6 +130,12 @@ module Roboycod {
                         item.icon.anchor.set(0.5,0.5);
                         //Guardamos la escala general para hacer los tweens
                         this.initScale = new Phaser.Point(item.icon.scale.x, item.icon.scale.y);
+
+                        if(this.isEmpty){
+                            this.x = i;
+                            this.y = j;
+                            this.isEmpty = false;
+                        }
                     }
                 }
             }
@@ -193,8 +193,10 @@ module Roboycod {
                 this.x = oldX;
                 this.y = oldY;
             }
-            this.reduceTween(this.nav[oldX][oldY]);
-            this.enlargeTween(this.nav[this.x][this.y]);
+            if(!this.isEmpty) {
+                this.reduceTween(this.nav[oldX][oldY]);
+                this.enlargeTween(this.nav[this.x][this.y]);
+            }
 
         }
     }

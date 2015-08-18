@@ -6,13 +6,18 @@
 var Roboycod;
 (function (Roboycod) {
     var CdvMatrix = (function () {
-        function CdvMatrix() {
+        function CdvMatrix(data) {
             //	Constants
             this.ROWS = 4;
             this.COLS = 5;
-            this.data = [];
-            for (var i = 0; i < this.ROWS; ++i) {
-                this.data[i] = [];
+            if (data === undefined) {
+                this.data = [];
+                for (var i = 0; i < this.ROWS; ++i) {
+                    this.data[i] = [];
+                }
+            }
+            else {
+                this.data = data;
             }
         }
         /**
@@ -21,7 +26,6 @@ var Roboycod;
          * @returns {boolean} si pudo anyadirlo o no
          */
         CdvMatrix.prototype.add = function (cdv) {
-            console.log("Es tipo " + cdv.type);
             var row;
             switch (cdv.type) {
                 case Roboycod.CdvLogic.TYPES[0]:
