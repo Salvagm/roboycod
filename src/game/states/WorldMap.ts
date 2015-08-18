@@ -154,7 +154,7 @@ module Roboycod {
          */
         public moveSelection(key : Phaser.Key, x : number , y : number ) : void {
 
-            if(this.x + x >= 0 && this.x + x <= this.ROWS){
+            if(this.x + x >= 0 && this.x + x <=  this.ROWS){
                 if(this.y + y >= 0 && this.y + y <= this.COLS){
                     //Cambiamos por el sprite sin seleccion
                     this.nav[this.x][this.y].sprite.loadTexture(
