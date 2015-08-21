@@ -28,11 +28,10 @@ var Roboycod;
             this.numStage = numStage;
         };
         Stage.prototype.create = function () {
+            this.gameData = Roboycod.GameManager.getInstance().getData(this.game);
+            this.cm = new Roboycod.CdvMatrix(this.gameData.cdvMatrix.data);
             this.loadStage();
             this.codevices = this.game.add.group();
-            /**
-             * Definimos y mapeamos las teclas correspondientes
-             */
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
             this.hudFake.width = this.game.width;
@@ -51,10 +50,14 @@ var Roboycod;
             this.input.mouse.mouseOverCallback = function () {
                 this.input.keyboard.start();
             };
-            this.kh = new Roboycod.KeyboardHandler(this.game);
-            this.kh.setupStage(this, this.player);
+            //Definimos y mapeamos las teclas correspondientes
+            Roboycod.KeyboardHandler.getInstance().setupStage(this, this.player);
+            //Asiganmos teclas a los CDVs equipados
+            Roboycod.KeyboardHandler.getInstance().setupCdvs(this, this.cm.getEquiped());
         };
         Stage.prototype.navToInventory = function () {
+            //TODO guardar datos de entidades
+            Roboycod.GameManager.getInstance().save();
             this.game.state.start('Inventory', true, false, this.key, this.numStage);
         };
         /**
@@ -103,12 +106,20 @@ var Roboycod;
             enemy.collide(player, this.codevices);
         };
         Stage.prototype.collideCdv = function (player, cdv) {
+            console.log("Quiero anyadir CDV");
             //TODO si hay sitio kill, si no bounce
             //TODO demoCODE el cdv no debe estar en el player
-            this.addCdv(cdv.logicType);
-            this.cdvLogicDemo.loadCode();
-            player.cdvLogicDemo = this.cdvLogicDemo;
-            cdv.kill();
+            if (this.cm.add(new Roboycod.CdvLogic(cdv.logicType))) {
+                console.log("CDV anyadido");
+                cdv.kill();
+            }
+            else {
+                cdv.body.velocity.y = 600;
+            }
+            //this.addCdv(cdv.logicType);
+            //this.cdvLogicDemo.loadCode();
+            //player.cdvLogicDemo = this.cdvLogicDemo;
+            //cdv.kill();
         };
         Stage.prototype.addCdv = function (type) {
             this.cdvLogicDemo = new Roboycod.CdvLogic(type);
@@ -129,6 +140,7 @@ var Roboycod;
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
         };
         Stage.prototype.navToWorldMap = function () {
+            Roboycod.GameManager.getInstance().save();
             this.game.state.start('WorldMap', true, false);
         };
         return Stage;

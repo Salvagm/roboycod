@@ -9,84 +9,99 @@
 
 module Roboycod {
 
-    export class KeyboardHandler extends Phaser.Keyboard{
+    export class KeyboardHandler{
 
-        private W       : Phaser.Key;
-        private A       : Phaser.Key;
-        private S       : Phaser.Key;
-        private D       : Phaser.Key;
-        private E       : Phaser.Key;
-        private space   : Phaser.Key;
-        private enter   : Phaser.Key;
-        private tab     : Phaser.Key;
+        private static _instance:KeyboardHandler = null;
 
-        private arrowUp     : Phaser.Key;
-        private arrowLeft   : Phaser.Key;
-        private arrowDown   : Phaser.Key;
-        private arrowRight  : Phaser.Key;
+        constructor() {
 
-        constructor(game: Phaser.Game) {
+            if(KeyboardHandler._instance){
+                throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
+            }
+            KeyboardHandler._instance = this;
 
-            super(game);
-
-            this.W = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-            this.A = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-            this.S = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-            this.D = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
-            this.E = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
-            this.enter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-            this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            this.tab   = this.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
-
-            this.arrowUp = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-            this.arrowLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-            this.arrowDown = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-            this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
+        }
+        public static getInstance():KeyboardHandler {
+            if(KeyboardHandler._instance === null) {
+                KeyboardHandler._instance = new KeyboardHandler();
+            }
+            return KeyboardHandler._instance;
         }
         public setupStage(stage : Roboycod.Stage, player : Roboycod.Player) : void{
 
-            this.tab.onDown.add(stage.navToInventory,stage);
+            var tab   = stage.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            var enter = stage.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+            tab.onDown.add(stage.navToInventory,stage);
+            enter.onDown.add(stage.navToWorldMap,stage);
             this.setupPlayer(player);
         }
         public setupPlayer(player : Roboycod.Player) : void{
 
-            this.arrowLeft.onHoldCallback = player.moveLeft;
-            this.arrowLeft.onHoldContext = player;
-            this.arrowRight.onHoldCallback = player.moveRight;
-            this.arrowRight.onHoldContext = player;
-            this.space.onHoldCallback = player.jump;
-            this.space.onHoldContext = player;
+            var space = player.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-            this.W.onHoldCallback = player.shoot;
-            this.W.onHoldContext = player;
+            var arrowLeft = player.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            var arrowRight = player.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-            this.addCallbacks(player, null, player.stopMove, null);
+            var W = player.game.input.keyboard.addKey(Phaser.Keyboard.W);
+
+            arrowLeft.onHoldCallback = player.moveLeft;
+            arrowLeft.onHoldContext = player;
+            arrowRight.onHoldCallback = player.moveRight;
+            arrowRight.onHoldContext = player;
+
+            space.onHoldCallback = player.jump;
+            space.onHoldContext = player;
+
+            W.onHoldCallback = player.shoot;
+            W.onHoldContext = player;
+
+            player.game.input.keyboard.addCallbacks(player, null, player.stopMove, null);
 
         }
         public setupWorldMap(worldMap : Roboycod.WorldMap) : void{
 
-            this.arrowUp.onDown.add(worldMap.moveSelection,worldMap,null,-1,0);
-            this.arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
-            this.arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
-            this.arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
+            var enter = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+            var tab   = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
 
-            this.tab.onDown.add(worldMap.navToInventory,worldMap);
-            this.enter.onDown.add(worldMap.startStage,worldMap);
+            var arrowUp = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            var arrowLeft = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            var arrowDown = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+            var arrowRight = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+            arrowUp.onDown.add(worldMap.moveSelection,worldMap,null,-1,0);
+            arrowDown.onDown.add(worldMap.moveSelection,worldMap,null,1,0);
+            arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
+            arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
+
+            tab.onDown.add(worldMap.navToInventory,worldMap);
+            enter.onDown.add(worldMap.startStage,worldMap);
         }
         public setupInventory(inventory : Roboycod.Inventory) : void{
 
-            this.arrowUp.onDown.add(inventory.moveSelection,inventory,null,-1,0);
-            this.arrowDown.onDown.add(inventory.moveSelection,inventory,null,1,0);
-            this.arrowLeft.onDown.add(inventory.moveSelection,inventory,null,0,-1);
-            this.arrowRight.onDown.add(inventory.moveSelection,inventory,null,0,1);
-            this.E.onDown.add(inventory.equipCdv,inventory,null);
+            var tab   = inventory.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
 
-            this.tab.onDown.add(inventory.navToLastState,inventory);
+            var arrowUp = inventory.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            var arrowLeft = inventory.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            var arrowDown = inventory.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+            var arrowRight = inventory.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+            var E = inventory.game.input.keyboard.addKey(Phaser.Keyboard.E);
+
+            arrowUp.onDown.add(inventory.moveSelection,inventory,null,-1,0);
+            arrowDown.onDown.add(inventory.moveSelection,inventory,null,1,0);
+            arrowLeft.onDown.add(inventory.moveSelection,inventory,null,0,-1);
+            arrowRight.onDown.add(inventory.moveSelection,inventory,null,0,1);
+            E.onDown.add(inventory.equipCdv,inventory,null);
+
+            tab.onDown.add(inventory.navToLastState,inventory);
 
         }
-        public setupCdv(inventory : Roboycod.Inventory): void{
-
+        public setupCdvs(stage : Roboycod.Stage, cdvList : CdvLogic[]): void{
+            for (var c in cdvList){
+                var key = stage.game.input.keyboard.addKey(c.keyCode);
+                key.onDown.add(function(){console.log("Pulso "+  c.keyCode)},c);
+            }
         }
     }
 

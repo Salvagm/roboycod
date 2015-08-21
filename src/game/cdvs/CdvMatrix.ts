@@ -10,8 +10,8 @@ module Roboycod{
         public data       : CdvLogic[][];
 
         //	Constants
-        private ROWS            : number = 4;
-        private COLS            : number = 5;
+        public ROWS            : number = 4;
+        public COLS            : number = 5;
 
         constructor(data? : CdvLogic[][]){
             if(data === undefined)
@@ -22,7 +22,17 @@ module Roboycod{
                 }
             }
             else{
+                //creamos los objetos para que tengan funciones de la clase
                 this.data = data;
+                var item : CdvLogic;
+                for(var i = 0; i < this.ROWS; i++){
+                    for(var j = 0; j < this.COLS; j++) {
+                        item = this.data[i][j];
+                        if(item !==undefined){
+                            this.data[i][j] = new CdvLogic(item);
+                        }
+                    }
+                }
             }
         }
         /**
@@ -49,6 +59,21 @@ module Roboycod{
                 return true;
             }
             return false;
+        }
+        public getEquiped() : CdvLogic[]{
+            var list : CdvLogic[] = [];
+
+            for(var i = 0; i < this.ROWS; i++){
+                for(var j = 0; j < this.COLS; j++){
+                    if(this.data[i][j]!==undefined){
+                        if(this.data[i][j].isSelected){
+                            list.push(this.data[i][j]);
+                        }
+                    }
+                }
+            }
+
+            return list;
         }
 
     }

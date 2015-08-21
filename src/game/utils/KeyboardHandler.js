@@ -6,66 +6,82 @@
 ///<reference path="../states/Stage.ts"/>
 ///<reference path="../states/Inventory.ts"/>
 ///<reference path="../states/WorldMap.ts"/>
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 var Roboycod;
 (function (Roboycod) {
-    var KeyboardHandler = (function (_super) {
-        __extends(KeyboardHandler, _super);
-        function KeyboardHandler(game) {
-            _super.call(this, game);
-            this.W = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-            this.A = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-            this.S = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-            this.D = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
-            this.E = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
-            this.enter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-            this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            this.tab = this.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
-            this.arrowUp = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-            this.arrowLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-            this.arrowDown = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-            this.arrowRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    var KeyboardHandler = (function () {
+        function KeyboardHandler() {
+            if (KeyboardHandler._instance) {
+                throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
+            }
+            KeyboardHandler._instance = this;
         }
+        KeyboardHandler.getInstance = function () {
+            if (KeyboardHandler._instance === null) {
+                KeyboardHandler._instance = new KeyboardHandler();
+            }
+            return KeyboardHandler._instance;
+        };
         KeyboardHandler.prototype.setupStage = function (stage, player) {
-            this.tab.onDown.add(stage.navToInventory, stage);
+            var tab = stage.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            var enter = stage.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+            tab.onDown.add(stage.navToInventory, stage);
+            enter.onDown.add(stage.navToWorldMap, stage);
             this.setupPlayer(player);
         };
         KeyboardHandler.prototype.setupPlayer = function (player) {
-            this.arrowLeft.onHoldCallback = player.moveLeft;
-            this.arrowLeft.onHoldContext = player;
-            this.arrowRight.onHoldCallback = player.moveRight;
-            this.arrowRight.onHoldContext = player;
-            this.space.onHoldCallback = player.jump;
-            this.space.onHoldContext = player;
-            this.W.onHoldCallback = player.shoot;
-            this.W.onHoldContext = player;
-            this.addCallbacks(player, null, player.stopMove, null);
+            var space = player.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            var arrowLeft = player.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            var arrowRight = player.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+            var W = player.game.input.keyboard.addKey(Phaser.Keyboard.W);
+            arrowLeft.onHoldCallback = player.moveLeft;
+            arrowLeft.onHoldContext = player;
+            arrowRight.onHoldCallback = player.moveRight;
+            arrowRight.onHoldContext = player;
+            space.onHoldCallback = player.jump;
+            space.onHoldContext = player;
+            W.onHoldCallback = player.shoot;
+            W.onHoldContext = player;
+            player.game.input.keyboard.addCallbacks(player, null, player.stopMove, null);
         };
         KeyboardHandler.prototype.setupWorldMap = function (worldMap) {
-            this.arrowUp.onDown.add(worldMap.moveSelection, worldMap, null, -1, 0);
-            this.arrowDown.onDown.add(worldMap.moveSelection, worldMap, null, 1, 0);
-            this.arrowLeft.onDown.add(worldMap.moveSelection, worldMap, null, 0, -1);
-            this.arrowRight.onDown.add(worldMap.moveSelection, worldMap, null, 0, 1);
-            this.tab.onDown.add(worldMap.navToInventory, worldMap);
-            this.enter.onDown.add(worldMap.startStage, worldMap);
+            var enter = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+            var tab = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            var arrowUp = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            var arrowLeft = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            var arrowDown = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+            var arrowRight = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+            arrowUp.onDown.add(worldMap.moveSelection, worldMap, null, -1, 0);
+            arrowDown.onDown.add(worldMap.moveSelection, worldMap, null, 1, 0);
+            arrowLeft.onDown.add(worldMap.moveSelection, worldMap, null, 0, -1);
+            arrowRight.onDown.add(worldMap.moveSelection, worldMap, null, 0, 1);
+            tab.onDown.add(worldMap.navToInventory, worldMap);
+            enter.onDown.add(worldMap.startStage, worldMap);
         };
         KeyboardHandler.prototype.setupInventory = function (inventory) {
-            this.arrowUp.onDown.add(inventory.moveSelection, inventory, null, -1, 0);
-            this.arrowDown.onDown.add(inventory.moveSelection, inventory, null, 1, 0);
-            this.arrowLeft.onDown.add(inventory.moveSelection, inventory, null, 0, -1);
-            this.arrowRight.onDown.add(inventory.moveSelection, inventory, null, 0, 1);
-            this.E.onDown.add(inventory.equipCdv, inventory, null);
-            this.tab.onDown.add(inventory.navToLastState, inventory);
+            var tab = inventory.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            var arrowUp = inventory.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            var arrowLeft = inventory.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            var arrowDown = inventory.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+            var arrowRight = inventory.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+            var E = inventory.game.input.keyboard.addKey(Phaser.Keyboard.E);
+            arrowUp.onDown.add(inventory.moveSelection, inventory, null, -1, 0);
+            arrowDown.onDown.add(inventory.moveSelection, inventory, null, 1, 0);
+            arrowLeft.onDown.add(inventory.moveSelection, inventory, null, 0, -1);
+            arrowRight.onDown.add(inventory.moveSelection, inventory, null, 0, 1);
+            E.onDown.add(inventory.equipCdv, inventory, null);
+            tab.onDown.add(inventory.navToLastState, inventory);
         };
-        KeyboardHandler.prototype.setupCdv = function (inventory) {
+        KeyboardHandler.prototype.setupCdvs = function (stage, cdvList) {
+            for (var c in cdvList) {
+                var key = stage.game.input.keyboard.addKey(c.keyCode);
+                key.onDown.add(function () {
+                    console.log("Pulso " + c.keyCode);
+                }, c);
+            }
         };
+        KeyboardHandler._instance = null;
         return KeyboardHandler;
-    })(Phaser.Keyboard);
+    })();
     Roboycod.KeyboardHandler = KeyboardHandler;
 })(Roboycod || (Roboycod = {}));
 //# sourceMappingURL=KeyboardHandler.js.map

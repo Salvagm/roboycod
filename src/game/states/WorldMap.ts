@@ -24,7 +24,6 @@ module Roboycod {
         private heightRatio     : number;
         private jsonTiled       : any;
         private gameData        : any;
-        private kh              : KeyboardHandler;
 
         //	Constants
         private ROWS            : number = 2;
@@ -72,8 +71,7 @@ module Roboycod {
             /**
              * Definimos y mapeamos las teclas correspondientes
              */
-            this.kh = new KeyboardHandler(this.game);
-            this.kh.setupWorldMap(this);
+            KeyboardHandler.getInstance().setupWorldMap(this);
 
         }
 

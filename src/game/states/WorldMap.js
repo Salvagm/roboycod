@@ -55,8 +55,7 @@ var Roboycod;
             /**
              * Definimos y mapeamos las teclas correspondientes
              */
-            this.kh = new Roboycod.KeyboardHandler(this.game);
-            this.kh.setupWorldMap(this);
+            Roboycod.KeyboardHandler.getInstance().setupWorldMap(this);
         };
         /**
          * La matriz de navegacion indicara a que posiciones y niveles nos podemos mover

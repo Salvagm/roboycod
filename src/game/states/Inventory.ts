@@ -31,8 +31,6 @@ module Roboycod {
         private jsonTiled       : any;
         private gameData        : any;
 
-        private kh              : KeyboardHandler;
-
         //	Constants
         private CDV_L           : number[] = [4,5,6,7];
         private ROWS            : number = 4;
@@ -44,9 +42,9 @@ module Roboycod {
             this.numStage = numStage;
         }
         create() {
-            /**
-             * Cargamos los datos de juego
-             */
+
+            // Cargamos los datos de juego
+
             this.gameData = GameManager.getInstance().getData(this.game);
 
             this.isEmpty = this.gameData.inventory.isEmpty;
@@ -54,9 +52,9 @@ module Roboycod {
             this.y = this.gameData.inventory.y;
             this.cm = new CdvMatrix(this.gameData.cdvMatrix.data);
 
-            /**
-             * Cargamos la parte grafica
-             */
+
+            // Cargamos la parte grafica
+
             this.game.stage.backgroundColor = 0x272822;
             this.jsonTiled = this.game.cache.getJSON('jsonInventory', true);
             this.background = this.game.add.image(0,0,'inventoryBackground');
@@ -66,9 +64,9 @@ module Roboycod {
 
             this.background.width = this.game.width;
             this.background.height = this.game.height;
-            /**
-             * Cargamos la matriz de navegacion
-             */
+
+            //Cargamos la matriz de navegacion
+
             this.buildNavigationMatrix();
 
             if(!this.isEmpty){
@@ -76,11 +74,10 @@ module Roboycod {
                 this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
             }
 
-            /**
-             * Definimos y mapeamos las teclas correspondientes
-             */
-            this.kh = new KeyboardHandler(this.game);
-            this.kh.setupInventory(this);
+
+            // Definimos y mapeamos las teclas correspondientes
+
+            KeyboardHandler.getInstance().setupInventory(this);
 
         }
         public navToLastState(){
@@ -147,6 +144,10 @@ module Roboycod {
                             this.y = j;
                             this.isEmpty = false;
                         }
+                        //Pintamos la seleccion
+                        if(this.cm.data[i][j].isSelected){
+                            this.drawSelection(this.nav[i][j]);
+                        }
                     }
                 }
             }
@@ -187,7 +188,6 @@ module Roboycod {
          */
         public moveSelection(key : Phaser.Key, x : number , y : number ) : void {
 
-            //TODO publicar en el editor el codigo del cdv
             var found : boolean = false;
 
             var oldX = this.x;
@@ -208,12 +208,12 @@ module Roboycod {
             if(!this.isEmpty) {
                 this.reduceTween(this.nav[oldX][oldY]);
                 this.enlargeTween(this.nav[this.x][this.y]);
+                console.log( this.cm.data[this.x][this.y]);
+                this.cm.data[this.x][this.y].showCode();
             }
 
         }
 
-        //TODO comprobar que no puedan equiparse 2 del mismo tipo
-        //TODO guardar el anterior y quitarle la seleccion
         /**
          * Trata de equipar el cdv seleccionado
          */
@@ -239,16 +239,19 @@ module Roboycod {
                 }
 
                 item.isSelected = true;
-                graphicItem.selected = this.game.add.sprite(
-                    graphicItem.icon.x,
-                    graphicItem.icon.y,
-                    'inventoryTiles',
-                    7
-                );
-                graphicItem.selected.width = graphicItem.compiled.width;
-                graphicItem.selected.height = graphicItem.compiled.height;
-                graphicItem.selected.anchor.set(0.5,0.5);
+                this.drawSelection(graphicItem);
             }
+        }
+        private drawSelection(graphicItem : MatrixContent) : void{
+            graphicItem.selected = this.game.add.sprite(
+                graphicItem.icon.x,
+                graphicItem.icon.y,
+                'inventoryTiles',
+                7
+            );
+            graphicItem.selected.width = graphicItem.compiled.width;
+            graphicItem.selected.height = graphicItem.compiled.height;
+            graphicItem.selected.anchor.set(0.5,0.5);
         }
     }
 }

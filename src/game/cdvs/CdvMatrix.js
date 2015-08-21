@@ -17,7 +17,17 @@ var Roboycod;
                 }
             }
             else {
+                //creamos los objetos para que tengan funciones de la clase
                 this.data = data;
+                var item;
+                for (var i = 0; i < this.ROWS; i++) {
+                    for (var j = 0; j < this.COLS; j++) {
+                        item = this.data[i][j];
+                        if (item !== undefined) {
+                            this.data[i][j] = new Roboycod.CdvLogic(item);
+                        }
+                    }
+                }
             }
         }
         /**
@@ -48,6 +58,19 @@ var Roboycod;
                 return true;
             }
             return false;
+        };
+        CdvMatrix.prototype.getEquiped = function () {
+            var list = [];
+            for (var i = 0; i < this.ROWS; i++) {
+                for (var j = 0; j < this.COLS; j++) {
+                    if (this.data[i][j] !== undefined) {
+                        if (this.data[i][j].isSelected) {
+                            list.push(this.data[i][j]);
+                        }
+                    }
+                }
+            }
+            return list;
         };
         return CdvMatrix;
     })();
