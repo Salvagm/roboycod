@@ -34,17 +34,13 @@ module Roboycod{
             var row : number;
             switch (cdv.type){
                 case CdvLogic.TYPES[0] :
-                    row = 0;
-                    break;
+                    row = 0; break;
                 case CdvLogic.TYPES[1] :
-                    row = 1;
-                    break;
+                    row = 1; break;
                 case CdvLogic.TYPES[2] :
-                    row = 2;
-                    break;
+                    row = 2; break;
                 case CdvLogic.TYPES[3] :
-                    row = 3;
-                    break;
+                    row = 3; break;
                 default :
                     console.log("No existe el tipo de cdv a anyadir");
             }

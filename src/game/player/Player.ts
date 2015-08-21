@@ -5,6 +5,7 @@
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../cdvs/CdvSprite.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
+///<reference path="BaseGun.ts"/>
 
 module Roboycod{
 
@@ -64,6 +65,10 @@ module Roboycod{
         }
 
         create() {
+            /*
+             * Asignamos la referencia del player a los CDVs
+             */
+            CdvLogic.setPlayer(this);
 
             this.animations.play('idle');
 

@@ -54,10 +54,6 @@ module Roboycod {
             this.y = this.gameData.inventory.y;
             this.cm = new CdvMatrix(this.gameData.cdvMatrix.data);
 
-            ////TODO mirar cuando guardar
-
-
-
             /**
              * Cargamos la parte grafica
              */
@@ -71,7 +67,7 @@ module Roboycod {
             this.background.width = this.game.width;
             this.background.height = this.game.height;
             /**
-             * Cargamos
+             * Cargamos la matriz de navegacion
              */
             this.buildNavigationMatrix();
 
@@ -86,22 +82,23 @@ module Roboycod {
             this.kh = new KeyboardHandler(this.game);
             this.kh.setupInventory(this);
 
-            //TODO TEST
-            GameManager.getInstance().save();
         }
         public navToLastState(){
 
             this.gameData.inventory.x = this.x;
             this.gameData.inventory.y = this.y;
+            this.gameData.inventory.isEmpty = this.isEmpty;
 
-            //Guardar CDV
-            //Mandar CDVs Equipados al HUD
+            //TODO mirar cuando guardar
+            GameManager.getInstance().save();
+
             this.game.state.start(this.lastStage, true, false, this.numStage);
 
         }
         private buildNavigationMatrix() : void{
             var item    : any;
             var jsonItem: any;
+            var compiledFrame : number = 5;
 
             //Normalizamos la posicion de los logos segun el rescalado,
             //creamos sprites, etc
@@ -118,6 +115,15 @@ module Roboycod {
 
                     //Si existe un cdvLogico pintamos su sprite
                     if(this.cm.data[i][j] !== undefined){
+                        //TODO quitar codigo
+                        this.cm.data[i][j].isCompiled = true;
+                        compiledFrame = this.cm.data[i][j].isCompiled? 6 : 5;
+                        item.compiled = this.game.add.sprite(
+                            jsonItem.x,
+                            jsonItem.y,
+                            'inventoryTiles',
+                            compiledFrame
+                        );
                         item.icon = this.game.add.sprite(
                             jsonItem.x,
                             jsonItem.y,
@@ -128,9 +134,14 @@ module Roboycod {
                         item.icon.width = item.icon.width / this.widthRatio;
                         item.icon.height = item.icon.height / this.heightRatio;
                         item.icon.anchor.set(0.5,0.5);
+
+                        item.compiled.width = item.icon.width;
+                        item.compiled.height = item.icon.height;
+                        item.compiled.anchor.set(0.5,0.5);
+
                         //Guardamos la escala general para hacer los tweens
                         this.initScale = new Phaser.Point(item.icon.scale.x, item.icon.scale.y);
-
+                        //Si fuese el primer elemento nos situariamos en el
                         if(this.isEmpty){
                             this.x = i;
                             this.y = j;
@@ -176,6 +187,7 @@ module Roboycod {
          */
         public moveSelection(key : Phaser.Key, x : number , y : number ) : void {
 
+            //TODO publicar en el editor el codigo del cdv
             var found : boolean = false;
 
             var oldX = this.x;
@@ -198,6 +210,45 @@ module Roboycod {
                 this.enlargeTween(this.nav[this.x][this.y]);
             }
 
+        }
+
+        //TODO comprobar que no puedan equiparse 2 del mismo tipo
+        //TODO guardar el anterior y quitarle la seleccion
+        /**
+         * Trata de equipar el cdv seleccionado
+         */
+        public equipCdv() : void{
+
+            var item = this.cm.data[this.x][this.y];
+            var graphicItem = this.nav[this.x][this.y];
+            var isOtherSelected : boolean = false;
+            var j = 0;
+            //Miramos si hay algun otro cdv seleccionado
+            if(item.isCompiled == true){
+                for(; !isOtherSelected && j<this.COLS; j++){
+                    if(this.cm.data[this.x][j] != undefined
+                        && this.cm.data[this.x][j].isSelected)
+                    {
+                        isOtherSelected = true;
+                    }
+                }
+                //Elminamos la seleccion anterior
+                if(isOtherSelected){
+                    this.cm.data[this.x][j].isSelected = false;
+                    this.nav[this.x][j].selected.kill();
+                }
+
+                item.isSelected = true;
+                graphicItem.selected = this.game.add.sprite(
+                    graphicItem.icon.x,
+                    graphicItem.icon.y,
+                    'inventoryTiles',
+                    7
+                );
+                graphicItem.selected.width = graphicItem.compiled.width;
+                graphicItem.selected.height = graphicItem.compiled.height;
+                graphicItem.selected.anchor.set(0.5,0.5);
+            }
         }
     }
 }

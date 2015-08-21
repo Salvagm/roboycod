@@ -103,11 +103,11 @@ var Roboycod;
             enemy.collide(player, this.codevices);
         };
         Stage.prototype.collideCdv = function (player, cdv) {
+            //TODO si hay sitio kill, si no bounce
+            //TODO demoCODE el cdv no debe estar en el player
             this.addCdv(cdv.logicType);
             this.cdvLogicDemo.loadCode();
-            //TODO demoCODE el cdv no debe estar en el player
             player.cdvLogicDemo = this.cdvLogicDemo;
-            //TODO si hay sitio kill, si no bounce
             cdv.kill();
         };
         Stage.prototype.addCdv = function (type) {
@@ -127,6 +127,9 @@ var Roboycod;
             this.game.physics.arcade.overlap(this.enemies, this.player, this.collideEnemy, null, this);
             this.game.physics.arcade.overlap(this.codevices, this.player, this.collideCdv, null, this);
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
+        };
+        Stage.prototype.navToWorldMap = function () {
+            this.game.state.start('WorldMap', true, false);
         };
         return Stage;
     })(Phaser.State);

@@ -5,6 +5,7 @@
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../cdvs/CdvSprite.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
+///<reference path="BaseGun.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -51,6 +52,10 @@ var Roboycod;
             this.game.camera.follow(this);
         }
         Player.prototype.create = function () {
+            /*
+             * Asignamos la referencia del player a los CDVs
+             */
+            Roboycod.CdvLogic.setPlayer(this);
             this.animations.play('idle');
             //callback end shoot
             this.animations.getAnimation('shoot').onStart.add(function () {

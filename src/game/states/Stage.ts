@@ -141,11 +141,11 @@ module Roboycod{
         }
         private collideCdv(player : Player, cdv : SpriteCdv) : void{
 
+            //TODO si hay sitio kill, si no bounce
+            //TODO demoCODE el cdv no debe estar en el player
             this.addCdv(cdv.logicType);
             this.cdvLogicDemo.loadCode();
-            //TODO demoCODE el cdv no debe estar en el player
             player.cdvLogicDemo = this.cdvLogicDemo;
-            //TODO si hay sitio kill, si no bounce
             cdv.kill();
         }
         private addCdv(type : string) : void{
@@ -169,6 +169,11 @@ module Roboycod{
             this.game.physics.arcade.overlap(this.enemies,this.player,this.collideEnemy, null, this);
             this.game.physics.arcade.overlap(this.codevices,this.player,this.collideCdv, null, this);
             this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);
+
+        }
+        public navToWorldMap() {
+
+            this.game.state.start('WorldMap', true, false);
 
         }
 

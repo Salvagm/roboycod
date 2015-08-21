@@ -3,6 +3,9 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
+///<reference path="../states/Stage.ts"/>
+///<reference path="../states/Inventory.ts"/>
+///<reference path="../states/WorldMap.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -19,6 +22,7 @@ var Roboycod;
             this.A = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
             this.S = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
             this.D = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+            this.E = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
             this.enter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             this.tab = this.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
@@ -55,7 +59,10 @@ var Roboycod;
             this.arrowDown.onDown.add(inventory.moveSelection, inventory, null, 1, 0);
             this.arrowLeft.onDown.add(inventory.moveSelection, inventory, null, 0, -1);
             this.arrowRight.onDown.add(inventory.moveSelection, inventory, null, 0, 1);
+            this.E.onDown.add(inventory.equipCdv, inventory, null);
             this.tab.onDown.add(inventory.navToLastState, inventory);
+        };
+        KeyboardHandler.prototype.setupCdv = function (inventory) {
         };
         return KeyboardHandler;
     })(Phaser.Keyboard);

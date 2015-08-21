@@ -2,7 +2,10 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-    ///<reference path="../player/Player.ts"/>
+///<reference path="../player/Player.ts"/>
+///<reference path="../states/Stage.ts"/>
+///<reference path="../states/Inventory.ts"/>
+///<reference path="../states/WorldMap.ts"/>
 
 module Roboycod {
 
@@ -12,6 +15,7 @@ module Roboycod {
         private A       : Phaser.Key;
         private S       : Phaser.Key;
         private D       : Phaser.Key;
+        private E       : Phaser.Key;
         private space   : Phaser.Key;
         private enter   : Phaser.Key;
         private tab     : Phaser.Key;
@@ -29,6 +33,7 @@ module Roboycod {
             this.A = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
             this.S = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
             this.D = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+            this.E = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
             this.enter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             this.tab   = this.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
@@ -75,8 +80,12 @@ module Roboycod {
             this.arrowDown.onDown.add(inventory.moveSelection,inventory,null,1,0);
             this.arrowLeft.onDown.add(inventory.moveSelection,inventory,null,0,-1);
             this.arrowRight.onDown.add(inventory.moveSelection,inventory,null,0,1);
+            this.E.onDown.add(inventory.equipCdv,inventory,null);
 
             this.tab.onDown.add(inventory.navToLastState,inventory);
+
+        }
+        public setupCdv(inventory : Roboycod.Inventory): void{
 
         }
     }
