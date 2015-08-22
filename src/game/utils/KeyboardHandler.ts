@@ -49,14 +49,9 @@ module Roboycod {
             arrowLeft.onHoldContext = player;
             arrowRight.onHoldCallback = player.moveRight;
             arrowRight.onHoldContext = player;
+            arrowLeft.onUp.add(player.stopMove, player);
+            arrowRight.onUp.add(player.stopMove, player);
 
-            space.onHoldCallback = player.jump;
-            space.onHoldContext = player;
-
-            W.onHoldCallback = player.shoot;
-            W.onHoldContext = player;
-
-            player.game.input.keyboard.addCallbacks(player, null, player.stopMove, null);
 
         }
         public setupWorldMap(worldMap : Roboycod.WorldMap) : void{
@@ -98,9 +93,23 @@ module Roboycod {
 
         }
         public setupCdvs(stage : Roboycod.Stage, cdvList : CdvLogic[]): void{
-            for (var c in cdvList){
-                var key = stage.game.input.keyboard.addKey(c.keyCode);
-                key.onDown.add(function(){console.log("Pulso "+  c.keyCode)},c);
+
+            var item : CdvLogic;
+            for (var i = 0; i< cdvList.length; ++i){
+
+                item = cdvList[i];
+                var key = stage.game.input.keyboard.addKey(item.keyCode);
+
+                var f : Function;
+                //Se ejecuta en el momento en el que se define
+                //Devuelve la funcion creada en ese contexto
+                f = (function(item)
+                {
+                    return item.execAction;
+                }
+                )(item);
+
+                key.onDown.add(f,item);
             }
         }
     }

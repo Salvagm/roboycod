@@ -2,7 +2,6 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../cdvs/CdvSprite.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="BaseGun.ts"/>
@@ -10,6 +9,9 @@
 module Roboycod{
 
     export class Player extends Phaser.Sprite {
+
+        //TODO mejorar, la usamos para no perder el contexto
+        public static This : Player;
 
         private animState   : string = 'idle';
         private endShot     : boolean = true;
@@ -24,10 +26,6 @@ module Roboycod{
         private JUMP_SPEED  : number = -800;
         private ACCELERATION: number = 100;
         private DRAG        : number = 4000;
-
-        //  TODO DEMOCODE
-        public cdvLogicDemo : CdvLogic;
-        //  TODO FIN DEMOCODE
 
         constructor(game: Phaser.Game, x: number, y: number) {
 
@@ -44,7 +42,6 @@ module Roboycod{
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
 
-            //this.kh = kh;
             this.gun = new BaseGun(this.game);
 
 
@@ -86,6 +83,7 @@ module Roboycod{
                 this.endShot = true;
             }, this);
 
+            Player.This = this;
         }
 
         stopMove() : void {
@@ -105,14 +103,15 @@ module Roboycod{
         moveRight() : void {
             this.moveTo(1);
         }
-        //  TODO DEMOCODE
         jump() : void {
-            if(this.cdvLogicDemo != null && this.body.onFloor() && this.cdvLogicDemo.checkCode())
-                this.body.velocity.y = this.JUMP_SPEED;
+            console.log(this);
+            console.log("Llaman a saltar");
+            if(Player.This.body.onFloor())
+                Player.This.body.velocity.y = Player.This.JUMP_SPEED;
         }
-        //  TODO FIN DEMOCODE
         shoot() : void {
-            this.gun.shoot(this);
+
+            Player.This.gun.shoot(Player.This);
         }
 
         public knockBack(enemy : Phaser.Sprite) : void

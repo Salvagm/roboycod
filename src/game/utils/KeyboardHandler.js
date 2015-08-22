@@ -37,11 +37,8 @@ var Roboycod;
             arrowLeft.onHoldContext = player;
             arrowRight.onHoldCallback = player.moveRight;
             arrowRight.onHoldContext = player;
-            space.onHoldCallback = player.jump;
-            space.onHoldContext = player;
-            W.onHoldCallback = player.shoot;
-            W.onHoldContext = player;
-            player.game.input.keyboard.addCallbacks(player, null, player.stopMove, null);
+            arrowLeft.onUp.add(player.stopMove, player);
+            arrowRight.onUp.add(player.stopMove, player);
         };
         KeyboardHandler.prototype.setupWorldMap = function (worldMap) {
             var enter = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -72,11 +69,17 @@ var Roboycod;
             tab.onDown.add(inventory.navToLastState, inventory);
         };
         KeyboardHandler.prototype.setupCdvs = function (stage, cdvList) {
-            for (var c in cdvList) {
-                var key = stage.game.input.keyboard.addKey(c.keyCode);
-                key.onDown.add(function () {
-                    console.log("Pulso " + c.keyCode);
-                }, c);
+            var item;
+            for (var i = 0; i < cdvList.length; ++i) {
+                item = cdvList[i];
+                var key = stage.game.input.keyboard.addKey(item.keyCode);
+                var f;
+                //Se ejecuta en el momento en el que se define
+                //Devuelve la funcion creada en ese contexto
+                f = (function (item) {
+                    return item.execAction;
+                })(item);
+                key.onDown.add(f, item);
             }
         };
         KeyboardHandler._instance = null;

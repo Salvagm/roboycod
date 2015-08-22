@@ -45,13 +45,8 @@ body {
     overflow: hidden;
 }
 .shell-wrap {
-    width: 500px;
-    margin-top: 2%;
-
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-
+    width: 100%;
+    margin: 0;
     height: 200px;
 }
 .shell-top-bar{

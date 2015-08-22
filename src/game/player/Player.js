@@ -2,7 +2,6 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../cdvs/CdvSprite.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="BaseGun.ts"/>
@@ -16,7 +15,6 @@ var Roboycod;
 (function (Roboycod) {
     var Player = (function (_super) {
         __extends(Player, _super);
-        //  TODO FIN DEMOCODE
         function Player(game, x, y) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
             this.animState = 'idle';
@@ -36,7 +34,6 @@ var Roboycod;
             this.body.collideWorldBounds = true;
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
-            //this.kh = kh;
             this.gun = new Roboycod.BaseGun(this.game);
             this.animations.add('idle', [0, 1, 2], 4, true);
             this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
@@ -70,6 +67,7 @@ var Roboycod;
             this.animations.getAnimation('jumpShoot').onComplete.add(function () {
                 this.endShot = true;
             }, this);
+            Player.This = this;
         };
         Player.prototype.stopMove = function () {
             this.body.velocity.x = 0;
@@ -88,14 +86,14 @@ var Roboycod;
         Player.prototype.moveRight = function () {
             this.moveTo(1);
         };
-        //  TODO DEMOCODE
         Player.prototype.jump = function () {
-            if (this.cdvLogicDemo != null && this.body.onFloor() && this.cdvLogicDemo.checkCode())
-                this.body.velocity.y = this.JUMP_SPEED;
+            console.log(this);
+            console.log("Llaman a saltar");
+            if (Player.This.body.onFloor())
+                Player.This.body.velocity.y = Player.This.JUMP_SPEED;
         };
-        //  TODO FIN DEMOCODE
         Player.prototype.shoot = function () {
-            this.gun.shoot(this);
+            Player.This.gun.shoot(Player.This);
         };
         Player.prototype.knockBack = function (enemy) {
             var direction;

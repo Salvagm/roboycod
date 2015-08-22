@@ -148,20 +148,12 @@ module Roboycod{
         }
         private collideCdv(player : Player, cdv : SpriteCdv) : void{
 
-            console.log("Quiero anyadir CDV");
-            //TODO si hay sitio kill, si no bounce
-            //TODO demoCODE el cdv no debe estar en el player
             if(this.cm.add(new CdvLogic(cdv.logicType))){
-                console.log("CDV anyadido");
                 cdv.kill();
             }
             else{
                 cdv.body.velocity.y = 600;
             }
-            //this.addCdv(cdv.logicType);
-            //this.cdvLogicDemo.loadCode();
-            //player.cdvLogicDemo = this.cdvLogicDemo;
-            //cdv.kill();
         }
         private addCdv(type : string) : void{
             this.cdvLogicDemo = new CdvLogic(type);

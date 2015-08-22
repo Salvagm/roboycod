@@ -151,7 +151,6 @@ var Roboycod;
             if (!this.isEmpty) {
                 this.reduceTween(this.nav[oldX][oldY]);
                 this.enlargeTween(this.nav[this.x][this.y]);
-                console.log(this.cm.data[this.x][this.y]);
                 this.cm.data[this.x][this.y].showCode();
             }
         };
@@ -160,23 +159,22 @@ var Roboycod;
          */
         Inventory.prototype.equipCdv = function () {
             var item = this.cm.data[this.x][this.y];
-            var graphicItem = this.nav[this.x][this.y];
-            var isOtherSelected = false;
-            var j = 0;
+            var yFound = -1;
             //Miramos si hay algun otro cdv seleccionado
             if (item.isCompiled == true) {
-                for (; !isOtherSelected && j < this.COLS; j++) {
+                for (var j = 0; yFound == -1 && j < this.COLS; j++) {
                     if (this.cm.data[this.x][j] != undefined && this.cm.data[this.x][j].isSelected) {
-                        isOtherSelected = true;
+                        yFound = j;
                     }
                 }
-                //Elminamos la seleccion anterior
-                if (isOtherSelected) {
-                    this.cm.data[this.x][j].isSelected = false;
-                    this.nav[this.x][j].selected.kill();
+                //Eliminamos la seleccion anterior
+                if (yFound != -1) {
+                    console.log(this.nav[this.x][yFound]);
+                    this.cm.data[this.x][yFound].isSelected = false;
+                    this.nav[this.x][yFound].selected.kill();
                 }
                 item.isSelected = true;
-                this.drawSelection(graphicItem);
+                this.drawSelection(this.nav[this.x][this.y]);
             }
         };
         Inventory.prototype.drawSelection = function (graphicItem) {

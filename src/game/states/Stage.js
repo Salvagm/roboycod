@@ -106,20 +106,12 @@ var Roboycod;
             enemy.collide(player, this.codevices);
         };
         Stage.prototype.collideCdv = function (player, cdv) {
-            console.log("Quiero anyadir CDV");
-            //TODO si hay sitio kill, si no bounce
-            //TODO demoCODE el cdv no debe estar en el player
             if (this.cm.add(new Roboycod.CdvLogic(cdv.logicType))) {
-                console.log("CDV anyadido");
                 cdv.kill();
             }
             else {
                 cdv.body.velocity.y = 600;
             }
-            //this.addCdv(cdv.logicType);
-            //this.cdvLogicDemo.loadCode();
-            //player.cdvLogicDemo = this.cdvLogicDemo;
-            //cdv.kill();
         };
         Stage.prototype.addCdv = function (type) {
             this.cdvLogicDemo = new Roboycod.CdvLogic(type);
