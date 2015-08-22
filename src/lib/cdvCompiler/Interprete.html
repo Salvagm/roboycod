@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <title>Interprete</title>
 
-    <script src="src/CdvToken.js" type="application/javascript"></script>
-    <script src="src/CdvLexAnalyzer.js" type="application/javascript"></script>
-    <script src="src/CdvGraphStates.js" type="application/javascript"></script>
-    <script src="Test/TestToken.js" type="application/javascript"></script>
-    <script src="Test/TestLex.js" type="application/javascript"></script>
+    <script src="gramatica/CGrammar.js" type="application/javascript"></script>
+    <script src="src/CompilerBridge.js" type="application/javascript"></script>
+    <script src="src/CCompiler.js" type="application/javascript"></script>
+    <script src="src/ParseData.js" type="application/javascript"></script>
+    <script src="src/MotionBuffer.js" type="application/javascript"></script>
+
 
 </head>
 <body>
@@ -16,11 +17,25 @@
 </body>
 
 <script type="application/javascript">
-    window.onload = function()
-    {
-        compiler.TestToken.TestToken();
-        compiler.TestLex.TestAnaLex();
-    }
+
+//        var compiler = new Compiler.CCompiler();
+//        var trad  = compiler.exec("int cacaMaca; int main(){int a; a = 2; cout << a << endl;}");
+        var comp = BufferSystem.CompilerBridge.getInstace();
+//        while(!comp._endWork)
+//        {
+//            console.log(comp._endWork);
+//        }
+//            var worker = new Worker("fichero.js");
+//            worker.onmessage = function (event) {
+//                console.log(event.data);
+//            }
+//        eval(trad._code);
+//        main();
+
+
+
+comp.runit("int cacaMaca; int main(){cout << \"SALTAR\" << endl;}");
+
 
 
 </script>

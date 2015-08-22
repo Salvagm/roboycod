@@ -9,7 +9,8 @@ module Roboycod {
 
     export class BaseCdv extends Phaser.Sprite {
 
-        public code     : string;
+        public code             : string;
+        public translatedCode   :string;
 
         //TODO DEMOCODE
         public expectedOutput   : string = "SALTO";
@@ -47,8 +48,7 @@ module Roboycod {
         }
         public checkCode() : Boolean{
 
-            //this.runBtn.click();
-            ProcessCode.runit();
+            runCode();
 
             var interpreterOutput = document.getElementById("output");
             var output : string = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);

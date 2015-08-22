@@ -1,6 +1,6 @@
 {"frames": {
 
-"logoStage0.png":
+"logoStage00.png":
 {
 	"frame": {"x":2,"y":2,"w":320,"h":384},
 	"rotated": false,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
 	"sourceSize": {"w":320,"h":384}
 },
-"logoStage1.png":
+"logoStage01.png":
 {
 	"frame": {"x":324,"y":2,"w":320,"h":384},
 	"rotated": false,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
 	"sourceSize": {"w":320,"h":384}
 },
-"logoStage2.png":
+"logoStage02.png":
 {
 	"frame": {"x":646,"y":2,"w":320,"h":384},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
 	"sourceSize": {"w":320,"h":384}
 },
-"logoStage3.png":
+"logoStage03.png":
 {
 	"frame": {"x":968,"y":2,"w":320,"h":384},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
 	"sourceSize": {"w":320,"h":384}
 },
-"logoStage4.png":
+"logoStage04.png":
 {
 	"frame": {"x":1290,"y":2,"w":320,"h":384},
 	"rotated": false,
@@ -40,9 +40,57 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
 	"sourceSize": {"w":320,"h":384}
 },
-"logoStage5.png":
+"logoStage05.png":
 {
 	"frame": {"x":1612,"y":2,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage10.png":
+{
+	"frame": {"x":2,"y":388,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage11.png":
+{
+	"frame": {"x":324,"y":388,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage12.png":
+{
+	"frame": {"x":646,"y":388,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage13.png":
+{
+	"frame": {"x":968,"y":388,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage14.png":
+{
+	"frame": {"x":1290,"y":388,"w":320,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
+	"sourceSize": {"w":320,"h":384}
+},
+"logoStage15.png":
+{
+	"frame": {"x":1612,"y":388,"w":320,"h":384},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":384},
@@ -53,8 +101,8 @@
 	"version": "1.0",
 	"image": "worldTiles.png",
 	"format": "RGBA8888",
-	"size": {"w":1934,"h":388},
+	"size": {"w":1934,"h":774},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:91362ac65a7a57ac672a6e1c6dd7748b:7b8b0acb18bebc4db8fbd9176fc5a53d:3ee9622496b0ab7ae8b0ad09d8e907d3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6fbc13739fc1b945e8cd35e665fda227:711b64a14960ce79839eba274de13d24:3ee9622496b0ab7ae8b0ad09d8e907d3$"
 }
 }

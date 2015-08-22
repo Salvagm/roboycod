@@ -6,8 +6,7 @@
 module Roboycod {
 
     class MatrixContent{
-        public stageLogo    : Phaser.Sprite;
-        public tween        : Phaser.Tween;
+        public sprite       : Phaser.Sprite;
         public jsonItem     : any;
 
         constructor(){}
@@ -15,10 +14,9 @@ module Roboycod {
 
     export class WorldMap extends Phaser.State {
 
-        private stageLogos      : Phaser.Sprite[][];
-        private selectedLogo    : Phaser.Sprite;
         private background      : Phaser.Image;
-        private navMatrix       : MatrixContent[][];
+        private nav             : MatrixContent[][];
+        private tweenScale      : any;
         private x               : number;
         private y               : number;
         private widthRatio      : number;
@@ -27,7 +25,7 @@ module Roboycod {
         private statesData;
         private kh              : KeyboardHandler;
 
-            //	Constants
+        //	Constants
         private LOGO_L          : number = 6;
 
         create() {
@@ -63,21 +61,12 @@ module Roboycod {
              * el area de seleccion y las teclas
              */
             this.buildNavigationMatrix();
-            this.createStageLogos();
 
-            this.selectedLogo = this.game.add.sprite(
-            this.navMatrix[this.x][this.y].jsonItem.x,
-            this.navMatrix[this.x][this.y].jsonItem.y,
-            'selectedLogo'
+            this.enlargeTween(this.nav[this.x][this.y]);
+            this.nav[this.x][this.y].sprite.loadTexture(
+                'worldTiles',
+                parseInt(this.nav[this.x][this.y].jsonItem.properties.stage) + 6
             );
-            //Aplicamos la porporcion al area de seleccion
-            this.selectedLogo.width = this.selectedLogo.width / this.widthRatio;
-            this.selectedLogo.height= this.selectedLogo.height / this.heightRatio;
-            this.selectedLogo.anchor.set(0.5,0.5);
-            this.selectedLogo.scale.x+=0.1;
-            this.selectedLogo.scale.y+=0.1;
-
-            this.enlargeTween(this.stageLogos[this.x][this.y]);
 
             /**
              * Definimos y mapeamos las teclas correspondientes
@@ -87,97 +76,68 @@ module Roboycod {
 
         }
 
-        public startStage() {
-
-            this.statesData.worldMap.x = this.x;
-            this.statesData.worldMap.y = this.y;
-
-            var numStage = this.navMatrix[this.x][this.y].jsonItem.properties.stage;
-
-            if(this.game.cache.checkJSONKey('jsonStage' + numStage)) {
-                this.game.state.start(
-                'Stage', false, false, numStage
-            );
-            }
-        }
-        public navToInventory() {
-
-            this.statesData.worldMap.x = this.x;
-            this.statesData.worldMap.y = this.y;
-
-            this.game.state.start('Inventory', true, false, this.key);
-        }
 
         /**
-             * La matriz de navegacion indicara a que posiciones y niveles nos podemos mover
-             * almacenando la posicion a la que se mueve el cuadro de seleccion y el stage asociado
-             */
+         * La matriz de navegacion indicara a que posiciones y niveles nos podemos mover
+         * almacenando la posicion a la que se mueve el cuadro de seleccion y el stage asociado
+         */
         private buildNavigationMatrix() : void{
 
-            this.navMatrix = [];
-            this.navMatrix[0] = [];
-            this.navMatrix[1] = [];
+            this.nav = [];
+            this.nav[0] = [];
+            this.nav[1] = [];
             for(var i : number = 0; i < 2;++i){
                 for(var j : number = 0; j < 3;++j){
-                    this.navMatrix[i][j] = new MatrixContent();
+                    this.nav[i][j] = new MatrixContent();
                 }
             }
 
             //En la layer LOGO_L se encontraran los objetos statelogo del Tiled
-            this.navMatrix[0][0].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[0];
-            this.navMatrix[0][1].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[1];
-            this.navMatrix[0][2].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[2];
-            this.navMatrix[1][0].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[3];
-            this.navMatrix[1][1].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[4];
-            this.navMatrix[1][2].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[5];
+            this.nav[0][0].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[0];
+            this.nav[0][1].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[1];
+            this.nav[0][2].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[2];
+            this.nav[1][0].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[3];
+            this.nav[1][1].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[4];
+            this.nav[1][2].jsonItem = this.jsonTiles.layers[this.LOGO_L].objects[5];
 
 
-            //Normalizamos la posicion de los logos segun el rescalado
+            //Normalizamos la posicion de los logos segun el rescalado,
+            //creamos sprites y tweens
+
             for(var i : number = 0; i < 2;++i){
                 for(var j : number = 0; j < 3;++j){
-                    this.navMatrix[i][j].jsonItem.x /= this.widthRatio;
-                    this.navMatrix[i][j].jsonItem.y /= this.heightRatio;
+                    this.nav[i][j].jsonItem.x /= this.widthRatio;
+                    this.nav[i][j].jsonItem.y /= this.heightRatio;
+
+                    this.nav[i][j].sprite = this.game.add.sprite(
+                        this.nav[i][j].jsonItem.x,
+                        this.nav[i][j].jsonItem.y,
+                        'worldTiles',
+                        parseInt(this.nav[i][j].jsonItem.properties.stage)
+                    );
+                    //Escalamos
+                    this.nav[i][j].sprite.width = this.nav[i][j].sprite.width / this.widthRatio;
+                    this.nav[i][j].sprite.height = this.nav[i][j].sprite.height / this.heightRatio;
+                    this.nav[i][j].sprite.anchor.set(0.5,0.5);
+
                 }
             }
+            //Guardamos la escala general para hacer los tweens
+            this.tweenScale = new Phaser.Point(this.nav[0][0].sprite.scale.x, this.nav[0][0].sprite.scale.y);
 
-        }
 
-        /**
-         * Crea los logos de las fases
-         */
-        private createStageLogos() :void{
-
-            this.stageLogos = [];
-            this.stageLogos[0] = [];
-            this.stageLogos[1] = [];
-            var numSprite : number = 0;
-            for(var i : number = 0; i < 2;++i){
-                for(var j : number = 0; j < 3;++j){
-                    this.stageLogos[i][j] = this.game.add.sprite(
-                    //Desplazamos la x e y ya que el anchor esta en 0.5
-                    this.navMatrix[i][j].jsonItem.x,
-                    this.navMatrix[i][j].jsonItem.y,
-                    'worldTiles',
-                    numSprite
-                );
-                    this.stageLogos[i][j].width = this.stageLogos[i][j].width / this.widthRatio;
-                    this.stageLogos[i][j].height = this.stageLogos[i][j].height / this.heightRatio;
-                    this.stageLogos[i][j].anchor.set(0.5,0.5);
-                    console.log("Escala del sprite : "+numSprite +" = " +this.stageLogos[i][j].scale);
-                    ++numSprite;
-                }
-            }
         }
 
         /**
          * Funcion para resaltar el logo seleccionado
          * @param logo el logo seleccionado
          */
-        private enlargeTween(logo : Phaser.Sprite) {
+        private enlargeTween(item : MatrixContent) {
 
-            var s = this.game.add.tween(logo.scale);
+
+            var s = this.game.add.tween(item.sprite.scale);
             s.to(
-                {x: logo.scale.x+0.1, y:logo.scale.y+0.1},
+                {x : this.tweenScale.x+0.1, y : this.tweenScale.y+0.1},
                 50,
                 Phaser.Easing.Linear.None
             );
@@ -188,10 +148,10 @@ module Roboycod {
          * Funcion para reducir el logo desseleccionado
          * @param logo el logo desseleccionado
          */
-        private reduceTween(logo : Phaser.Sprite) {
-            var s = this.game.add.tween(logo.scale);
+        private reduceTween(item : MatrixContent) {
+            var s = this.game.add.tween(item.sprite.scale);
             s.to(
-                {x: logo.scale.x-0.1, y:logo.scale.y-0.1},
+                {x : this.tweenScale.x, y : this.tweenScale.y},
                 50,
                 Phaser.Easing.Linear.None
             );
@@ -205,17 +165,46 @@ module Roboycod {
 
             if(this.x + x >= 0 && this.x + x <=1){
                 if(this.y + y >= 0 && this.y + y <=2){
-                    this.reduceTween(this.stageLogos[this.x][this.y]);
+                    //Cambiamos por el sprite sin seleccion
+                    this.nav[this.x][this.y].sprite.loadTexture(
+                        'worldTiles',
+                        parseInt(this.nav[this.x][this.y].jsonItem.properties.stage)
+                    );
+
+                    this.reduceTween(this.nav[this.x][this.y]);
 
                     this.x += x;
                     this.y += y;
-                    
-                    this.enlargeTween(this.stageLogos[this.x][this.y]);
-                }
-                this.selectedLogo.x = this.navMatrix[this.x][this.y].jsonItem.x;
-                this.selectedLogo.y = this.navMatrix[this.x][this.y].jsonItem.y;
 
+                    this.enlargeTween(this.nav[this.x][this.y]);
+
+                    //Cambiamos por el sprite con seleccion
+                    this.nav[this.x][this.y].sprite.loadTexture(
+                        'worldTiles',
+                        parseInt(this.nav[this.x][this.y].jsonItem.properties.stage) + 6
+                    );
+                }
             }
+        }
+        public startStage() {
+
+            this.statesData.worldMap.x = this.x;
+            this.statesData.worldMap.y = this.y;
+
+            var numStage = this.nav[this.x][this.y].jsonItem.properties.stage;
+
+            if(this.game.cache.checkJSONKey('jsonStage' + numStage)) {
+                this.game.state.start(
+                    'Stage', false, false, numStage
+                );
+            }
+        }
+        public navToInventory() {
+
+            this.statesData.worldMap.x = this.x;
+            this.statesData.worldMap.y = this.y;
+
+            this.game.state.start('Inventory', true, false, this.key);
         }
     }
 }

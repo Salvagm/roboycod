@@ -71,7 +71,7 @@
     recoverable: (boolean: TRUE when the parser has a error recovery rule available for this particular error)
   }
 */
-var parser = (function(){
+var CGrammar = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[8,33,34,35,36],$V1=[1,5],$V2=[1,12],$V3=[1,13],$V4=[1,14],$V5=[1,10],$V6=[2,20],$V7=[1,19],$V8=[20,26],$V9=[2,31],$Va=[1,22],$Vb=[20,22,27,30,44,50,52,55],$Vc=[2,19],$Vd=[1,30],$Ve=[2,29],$Vf=[1,32],$Vg=[2,11],$Vh=[1,42],$Vi=[1,51],$Vj=[1,59],$Vk=[2,49],$Vl=[1,53],$Vm=[1,56],$Vn=[1,57],$Vo=[1,58],$Vp=[2,15],$Vq=[1,65],$Vr=[1,84],$Vs=[1,80],$Vt=[1,78],$Vu=[1,79],$Vv=[1,81],$Vw=[1,82],$Vx=[1,83],$Vy=[1,88],$Vz=[1,89],$VA=[2,75],$VB=[13,20,53,61,81],$VC=[1,97],$VD=[13,20,53,61,63,81],$VE=[1,98],$VF=[13,20,53,61,63,65,81],$VG=[1,99],$VH=[13,20,41,53,61,63,65,67,81],$VI=[1,100],$VJ=[13,20,41,53,61,63,65,67,69,81],$VK=[2,79],$VL=[1,124],$VM=[1,129],$VN=[1,128],$VO=[13,20,41,47,53,61,63,65,67,69,81];
 var parser = {trace: function trace() { },
 yy: {},
@@ -85,17 +85,17 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-		console.log(stackScope);
-  		console.log($$[$0-1].trad);
-		console.log("FIN DE TRADUCCION");
+		// console.log(stackScope);
+  // 		console.log($$[$0-1].trad);
+		// console.log("FIN DE TRADUCCION");
 		
 		
 		// { typeof console !== 'undefined' ? console.log($$[$0-2]) : print($$[$0-2]);
   //         return $$[$0-2]; }
   
-  		eval($$[$0-1].trad);
-  		eval("main()");
-
+  		// eval($$[$0-1].trad);
+  		//eval("main()");
+  		return $$[$0-1].trad;
   
 	
 break;
@@ -356,13 +356,13 @@ case 39:
 break;
 case 40:
 
-
+		// TODO : (0) Modificar para recoger valr del buffer
 	
 break;
 case 41:
 
 		// TODO: (0) Modificar por accesos al buffer
-		var trad = "console.log("+$$[$0-1].trad + $$[$0].trad;
+		var trad = msgCout( $$[$0-1].trad + $$[$0].trad);
 		this.$ = new Mark("",trad);
 	
 break;
@@ -387,12 +387,12 @@ case 44:
 break;
 case 45:
 
-		this.$ = new Mark("","\n);");
+		this.$ = new Mark("","\n");
 	
 break;
 case 46:
 
-		this.$ = new Mark("",");");
+		this.$ = new Mark("","");
 	
 break;
 case 48:
@@ -905,7 +905,6 @@ function Symbol(name,sBaseType,sArray)
 	this.sBaseType = sBaseType || 99;
 	this.sType = 99;
 	this.sArray = sArray || [];
-	this.strad = name || "";
 	this.sArgs = [];
 	this.hasValue = false;
 }
@@ -929,7 +928,6 @@ function Mark (lex,trad,baseType)
 	this.mArray = []; // atributo que nos indica si la marca es un array con sus dimensiones y tamaños
 	this.args = [];
 	this.line = 0;
-	this.isFunction = false;
 	this.currentSymbol = '';
 }
 
@@ -948,7 +946,6 @@ function copyMark(otherMark)
 	auxMark.lex = otherMark.lex;
 	auxMark.mArray = otherMark.mArray;
 	auxMark.line = otherMark.line;
-	auxMark.isFunction = otherMark.isFunction;
 	auxMark.currentSymbol = otherMark.currentSymbol;
 	auxMark.args = otherMark.args;
 	return auxMark;
@@ -964,10 +961,8 @@ EnumTypes = {
 	CHAR : 3,
 	BOOL : 4,
 	STRING : 5,
-	VARIABLE: 6,
 	ARRAY : 7,
 	FUNCTION : 8,
-	VOID : 9,
 	UNDEFINED : -1
 };
 /**
@@ -1023,11 +1018,12 @@ function compilationError(type, nline , lex)
 // TODO: (1) escribir funcion que comunica con buffer para enviarle la info
 function msgCout(msg)
 {
-
+	return Compiler.CCompiler.getInstance().bufferTrad(msg);
 }
 
 // TODO: (1) escribir funcion para leer del buffer y devolver al usuario 
-function msgCin (msg) {
+function msgCin (msg) 
+{
 
 }
 /**

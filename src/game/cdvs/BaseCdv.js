@@ -40,8 +40,7 @@ var Roboycod;
             editor.setValue(this.code, -1);
         };
         BaseCdv.prototype.checkCode = function () {
-            //this.runBtn.click();
-            ProcessCode.runit();
+            runCode();
             var interpreterOutput = document.getElementById("output");
             var output = interpreterOutput.textContent.toString().substr(0, this.expectedOutput.length);
             if (output == "SALTO") {
