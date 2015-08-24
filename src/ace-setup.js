@@ -14,33 +14,56 @@ $( document ).ready(function(){
         enableBasicAutocompletion: true
     });
 
-    //LIMITA LAS LINEAS A 5
-
-    $( "#editor" ).keyup(function() {
-        if(session.getLength() <= 5)
-            contentTemp = session.getValue();
-        if(session.getLength() >= 5){
-            editor.getSession().getUndoManager().undo(true);
+    /**
+     * Captura Ctrl+S
+     */
+    editor.commands.addCommand({
+        name: 'saveFile',
+        bindKey: {
+            win: 'Ctrl-S',
+            mac: 'Command-S',
+            sender: 'editor|cli'
+        },
+        exec: function(env, args, request) {
+            Roboycod.Inventory.getInstance().saveCdv();
         }
     });
+
+    //Deshabilitamos las funciones del raton
+    editor.container.style.pointerEvents = "none";
+    function stop(editor) { editor.stop() }
+    ["mousedown", "dblclick", "tripleclick",
+        "quadclick", "click", "mousemove"].forEach(function(name) {
+            editor.on(name, stop)
+        })
+
+    //LIMITA LAS LINEAS A 5
+
+    //$( "#editor" ).keyup(function() {
+    //    if(session.getLength() <= 5)
+    //        contentTemp = session.getValue();
+    //    if(session.getLength() >= 5){
+    //        editor.getSession().getUndoManager().undo(true);
+    //    }
+    //});
 
     //OPCIONES DE GUARDADO
 
-    $("#save-btn").on('click', function () {
-        if(session.getValue() != ""){
-            localStorage.setItem('key', JSON.stringify(session.getValue()));
-            editor.setValue("", -1);
+    //$("#save-btn").on('click', function () {
+    //    if(session.getValue() != ""){
+    //        localStorage.setItem('key', JSON.stringify(session.getValue()));
+    //        editor.setValue("", -1);
+    //
+    //    }
+    //});
 
-        }
-    });
-
-    $("#load-btn").on('click', function () {
-        if(localStorage.getItem('key')){
-            editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
-            localStorage.removeItem('key');
-        }
-
-    });
+    //$("#load-btn").on('click', function () {
+    //    if(localStorage.getItem('key')){
+    //        editor.setValue(JSON.parse(localStorage.getItem('key')), -1);
+    //        localStorage.removeItem('key');
+    //    }
+    //
+    //});
 
 
     //var snippetManager = ace.require("ace/snippets").snippetManager;

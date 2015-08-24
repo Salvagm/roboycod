@@ -55,6 +55,7 @@ var Roboycod;
             }
             // Definimos y mapeamos las teclas correspondientes
             Roboycod.KeyboardHandler.getInstance().setupInventory(this);
+            Inventory._instance = this;
         };
         Inventory.prototype.navToLastState = function () {
             this.gameData.inventory.x = this.x;
@@ -176,6 +177,33 @@ var Roboycod;
                 item.isSelected = true;
                 this.drawSelection(this.nav[this.x][this.y]);
             }
+        };
+        /**
+         * Va al editor para escribir en el CDV, al volver guarda
+         */
+        Inventory.prototype.writeCdv = function () {
+            this.input.keyboard.stop();
+            var editor = ace.edit("editor");
+            editor.focus();
+            var n = editor.getSession().getValue().split("\n").length;
+            editor.gotoLine(n); //Go to end of document
+        };
+        /**
+         * Esta funcion guarda la edicion actual del editor en el cdv
+         */
+        Inventory.prototype.saveCdv = function () {
+            console.log("GUARDO CDV");
+            var editor = ace.edit("editor");
+            editor.blur();
+            Roboycod.GameManager.getInstance().save();
+            this.input.keyboard.start();
+            //TODO Bridge.Compile(Cdv id, Cdv code)
+        };
+        /**
+         * Esta funcion da acceso a la instancia desde fuera
+         */
+        Inventory.getInstance = function () {
+            return Inventory._instance;
         };
         Inventory.prototype.drawSelection = function (graphicItem) {
             graphicItem.selected = this.game.add.sprite(graphicItem.icon.x, graphicItem.icon.y, 'inventoryTiles', 7);

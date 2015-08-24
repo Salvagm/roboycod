@@ -37,19 +37,6 @@ var Roboycod;
             this.hudFake.width = this.game.width;
             this.hudFake.height = this.game.height * 0.125;
             this.hudFake.fixedToCamera = true;
-            //$(document).keydown(function(e) {
-            //    if (e.ctrlKey && e.which == 9) {
-            //        this.input.keyboard.stop();
-            //        //alert("CTRL + TAB Pressed")
-            //    }
-            //})
-            //TODO MEJORAR
-            this.input.mouse.mouseOutCallback = function () {
-                this.input.keyboard.stop();
-            };
-            this.input.mouse.mouseOverCallback = function () {
-                this.input.keyboard.start();
-            };
             //Definimos y mapeamos las teclas correspondientes
             Roboycod.KeyboardHandler.getInstance().setupStage(this, this.player);
             //Asiganmos teclas a los CDVs equipados

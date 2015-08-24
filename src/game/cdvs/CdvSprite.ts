@@ -4,6 +4,7 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../../lib/ace/src-noconflict/ace.d.ts"/>
 ///<reference path="../../lib/skulpt/processCode.d.ts"/>
+///<reference path="CdvLogic.ts"/>
 
 
 module Roboycod {

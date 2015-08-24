@@ -81,17 +81,25 @@ module Roboycod {
             var arrowDown = inventory.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             var arrowRight = inventory.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-            var E = inventory.game.input.keyboard.addKey(Phaser.Keyboard.E);
+            var Equip = inventory.game.input.keyboard.addKey(Phaser.Keyboard.E);
+            var Write = inventory.game.input.keyboard.addKey(Phaser.Keyboard.W);
 
             arrowUp.onDown.add(inventory.moveSelection,inventory,null,-1,0);
             arrowDown.onDown.add(inventory.moveSelection,inventory,null,1,0);
             arrowLeft.onDown.add(inventory.moveSelection,inventory,null,0,-1);
             arrowRight.onDown.add(inventory.moveSelection,inventory,null,0,1);
-            E.onDown.add(inventory.equipCdv,inventory,null);
+            Equip.onDown.add(inventory.equipCdv,inventory,null);
+            Write.onDown.add(inventory.writeCdv,inventory,null);
 
             tab.onDown.add(inventory.navToLastState,inventory);
 
         }
+
+        /**
+         * Anyade las teclas a cada CDV seleccionado
+         * @param stage
+         * @param cdvList
+         */
         public setupCdvs(stage : Roboycod.Stage, cdvList : CdvLogic[]): void{
 
             var item : CdvLogic;

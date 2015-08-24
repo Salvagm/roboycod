@@ -17,6 +17,11 @@ module Roboycod {
     }
     export class Inventory extends Phaser.State {
 
+        /**
+         * Variable necesaria para comunicarnos con el editor
+         */
+        private static _instance: Inventory;
+
         private background      : Phaser.Image;
         private nav             : MatrixContent[][];
         private cm              : CdvMatrix;
@@ -78,6 +83,8 @@ module Roboycod {
             // Definimos y mapeamos las teclas correspondientes
 
             KeyboardHandler.getInstance().setupInventory(this);
+
+            Inventory._instance = this;
 
         }
         public navToLastState(){
@@ -239,6 +246,36 @@ module Roboycod {
                 item.isSelected = true;
                 this.drawSelection(this.nav[this.x][this.y]);
             }
+        }
+
+        /**
+         * Va al editor para escribir en el CDV, al volver guarda
+         */
+        public writeCdv() : void{
+            this.input.keyboard.stop();
+            var editor = ace.edit("editor");
+            editor.focus();
+            var n = editor.getSession().getValue().split("\n").length;
+            editor.gotoLine(n); //Go to end of document
+        }
+
+        /**
+         * Esta funcion guarda la edicion actual del editor en el cdv
+         */
+        public saveCdv() : void{
+            console.log("GUARDO CDV");
+            var editor = ace.edit("editor");
+            editor.blur();
+            GameManager.getInstance().save();
+            this.input.keyboard.start();
+            //TODO Bridge.Compile(Cdv id, Cdv code)
+        }
+
+        /**
+         * Esta funcion da acceso a la instancia desde fuera
+         */
+        public static getInstance() : Inventory{
+            return Inventory._instance;
         }
         private drawSelection(graphicItem : MatrixContent) : void{
             graphicItem.selected = this.game.add.sprite(
