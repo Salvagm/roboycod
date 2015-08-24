@@ -16,7 +16,7 @@ module Roboycod
     {
         constructor(width,height){
 
-            super(width,height,Phaser.AUTO,'content');
+            super(width,height,Phaser.AUTO,'game');
 
 
             this.state.add('Boot',Boot,false);

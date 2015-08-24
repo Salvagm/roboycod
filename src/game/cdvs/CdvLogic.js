@@ -76,9 +76,9 @@ var Roboycod;
             //y buscara el valor de la key
             //TODO Pasar a Bridge con tiempos de espera
             var output = runCode(this.code);
-            //TODO Pasar a Bridge
-            console.log("Codigo : " + this.code);
-            console.log("Output : " + output);
+            //TODO Pasar a Bridge, hacer un callback bridge.OnCompleteRun(
+            //TODO  this.actions[output](CdvLogic.player);
+            //TODO  )
             this.actions[output](CdvLogic.player);
         };
         CdvLogic.prototype.showCode = function () {

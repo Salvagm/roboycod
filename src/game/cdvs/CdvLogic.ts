@@ -118,10 +118,10 @@ module Roboycod {
 
             var output = runCode(this.code);
 
-            //TODO Pasar a Bridge
+            //TODO Pasar a Bridge, hacer un callback bridge.OnCompleteRun(
+            //TODO  this.actions[output](CdvLogic.player);
+            //TODO  )
 
-            console.log("Codigo : " + this.code);
-            console.log("Output : " + output);
 
             this.actions[output](CdvLogic.player);
         }
