@@ -38,12 +38,16 @@ module BufferSystem
         bufferOutAdd(input:string):number {
 
             return this.bufferOut.push(input);
+
+            //TODO Notificar que se anaye el input a la posicion X del buffer al CDV
         }
 
         bufferOutGet(id:number):string {
 
-            return this.bufferOut[id];
+            return this.bufferOut.splice(id,1)[0];
         }
+
+
 
 
     }

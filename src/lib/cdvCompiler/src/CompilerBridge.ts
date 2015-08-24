@@ -15,12 +15,13 @@ module BufferSystem
     {
 
         public compiledObjetcs          : Array<Function>;
-        private info                    : Compiler.ParseData;
         private static _instance        : CompilerBridge = null;
         private static _canInstantiate  : boolean = false;
+        private info                    : Compiler.ParseData;
         private compilerWorker          : Worker;
         private compileMaxTime          : number;
-        private timeOutExec             : any;
+        private timeOutExec             : number;
+        private execute                  : boolean;
 
         public static getInstace() : CompilerBridge
         {
@@ -45,6 +46,7 @@ module BufferSystem
             this.compilerWorker.addEventListener("message",this.proccessMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessErr, false);
             this.compiledObjetcs = new Array<Function>();
+            this.execute = false;
             CompilerBridge._instance = this;
         }
 
@@ -59,14 +61,13 @@ module BufferSystem
          * @param id identificador que se asigna al codigo para almacenarlo
          * @returns {number} devuevle el numero del identificador
          */
-        public runit(code? : string, id? : number) : any
+        public runit(code? : string ,id? : number) : any
         {
             //TODO realizar cambios aqui para en un futuro se almacene el objeto que se crea en el array
-            console.log(code);
+            this.execute = true;
             if(id !== undefined)
             {
-                console.log("Entro donde no debo");
-                return -1;
+                this.runCode(id);
             }
             else
             {
@@ -74,7 +75,7 @@ module BufferSystem
                 this.timeOutExec =  setTimeout(this.breakWorker, this.compileMaxTime,this);
             }
 
-            return this.info;
+            return true;
         }
 
         /**
@@ -84,8 +85,10 @@ module BufferSystem
          */
         public compile(code : string) : boolean
         {
+            this.execute = false;
             this.compilerWorker.postMessage(code);
-            return false;
+            this.timeOutExec =  setTimeout(this.breakWorker, this.compileMaxTime,this);
+            return true;
         }
 
         public executionTime(time : number)
@@ -93,21 +96,34 @@ module BufferSystem
             this.compileMaxTime = time;
         }
 
+        private addNewProgram(code : string)
+        {
+            // TODO Notificar al CDV cual es el ID de ejecucion de su programa
+            var position = this.compiledObjetcs.push(new Function(code));
+            --position;
+            if(this.execute)
+                this.compiledObjetcs[position]();
+        }
+
         private breakWorker(cB : CompilerBridge)
         {
             cB.compilerWorker.terminate();
         }
 
-
+        private runCode(id : number)
+        {
+            this.compiledObjetcs[id]();
+        }
         private proccessMsg (info) : void
         {
+
             var cB : CompilerBridge = CompilerBridge.getInstace();
             clearTimeout(cB.timeOutExec);
-            // TODO gestionar info
+
             cB.info = new Compiler.ParseData(info.data._isCompiled,info.data._code);
-            console.log(cB.info);
-            cB.compiledObjetcs.push(new Function(cB.info.getCode()));
-            cB.compiledObjetcs[0]();
+
+            cB.addNewProgram(cB.info.getCode());
+
         }
 
         private proccessErr(info) : void

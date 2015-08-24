@@ -20,6 +20,7 @@ var BufferSystem;
             this.compilerWorker.addEventListener("message", this.proccessMsg, false);
             this.compilerWorker.addEventListener("error", this.proccessErr, false);
             this.compiledObjetcs = new Array();
+            this.execute = false;
             CompilerBridge._instance = this;
         }
         CompilerBridge.getInstace = function () {
@@ -41,16 +42,15 @@ var BufferSystem;
          */
         CompilerBridge.prototype.runit = function (code, id) {
             //TODO realizar cambios aqui para en un futuro se almacene el objeto que se crea en el array
-            console.log(code);
+            this.execute = true;
             if (id !== undefined) {
-                console.log("Entro donde no debo");
-                return -1;
+                this.runCode(id);
             }
             else {
                 this.compilerWorker.postMessage({ code: code, type: "motion" });
                 this.timeOutExec = setTimeout(this.breakWorker, this.compileMaxTime, this);
             }
-            return this.info;
+            return true;
         };
         /**
          * Funcion que unicamente compila el codigo, sin ejecutarlo
@@ -58,23 +58,32 @@ var BufferSystem;
          * @returns {boolean} devuelve true si ha conseguido compilar, false en otro caso
          */
         CompilerBridge.prototype.compile = function (code) {
+            this.execute = false;
             this.compilerWorker.postMessage(code);
-            return false;
+            this.timeOutExec = setTimeout(this.breakWorker, this.compileMaxTime, this);
+            return true;
         };
         CompilerBridge.prototype.executionTime = function (time) {
             this.compileMaxTime = time;
         };
+        CompilerBridge.prototype.addNewProgram = function (code) {
+            // TODO Notificar al CDV cual es el ID de ejecucion de su programa
+            var position = this.compiledObjetcs.push(new Function(code));
+            --position;
+            if (this.execute)
+                this.compiledObjetcs[position]();
+        };
         CompilerBridge.prototype.breakWorker = function (cB) {
             cB.compilerWorker.terminate();
+        };
+        CompilerBridge.prototype.runCode = function (id) {
+            this.compiledObjetcs[id]();
         };
         CompilerBridge.prototype.proccessMsg = function (info) {
             var cB = CompilerBridge.getInstace();
             clearTimeout(cB.timeOutExec);
-            // TODO gestionar info
             cB.info = new Compiler.ParseData(info.data._isCompiled, info.data._code);
-            console.log(cB.info);
-            cB.compiledObjetcs.push(new Function(cB.info.getCode()));
-            cB.compiledObjetcs[0]();
+            cB.addNewProgram(cB.info.getCode());
         };
         CompilerBridge.prototype.proccessErr = function (info) {
             var cB = CompilerBridge.getInstace();

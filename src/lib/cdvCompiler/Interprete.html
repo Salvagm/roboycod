@@ -18,23 +18,9 @@
 
 <script type="application/javascript">
 
-//        var compiler = new Compiler.CCompiler();
-//        var trad  = compiler.exec("int cacaMaca; int main(){int a; a = 2; cout << a << endl;}");
-        var comp = BufferSystem.CompilerBridge.getInstace();
-//        while(!comp._endWork)
-//        {
-//            console.log(comp._endWork);
-//        }
-//            var worker = new Worker("fichero.js");
-//            worker.onmessage = function (event) {
-//                console.log(event.data);
-//            }
-//        eval(trad._code);
-//        main();
+    var comp = BufferSystem.CompilerBridge.getInstace();
 
-
-
-comp.runit("int cacaMaca; int main(){cout << \"SALTAR\" << endl;}");
+    comp.runit("int cacaMaca; int main(){cout << \"SALTAR\" << endl;}");
 
 
 
