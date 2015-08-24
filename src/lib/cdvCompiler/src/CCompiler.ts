@@ -91,7 +91,7 @@ module Compiler
             var info : ParseData = wCompiler.compile(e.data.code);
 
             info.setCode(info.getCode() + " main();");
-            while(true){}
+
             self.postMessage(info,null);
 
         }

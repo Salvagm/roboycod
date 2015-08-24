@@ -2,8 +2,9 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../utils/KeyboardHandler.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
+///<reference path="BaseGun.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -14,7 +15,6 @@ var Roboycod;
 (function (Roboycod) {
     var Player = (function (_super) {
         __extends(Player, _super);
-        //  TODO FIN DEMOCODE
         function Player(game, x, y) {
             _super.call(this, game, x, y, 'tsDynamics', 0);
             this.animState = 'idle';
@@ -34,8 +34,7 @@ var Roboycod;
             this.body.collideWorldBounds = true;
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
-            //this.kh = kh;
-            this.gun = new BaseGun(this.game);
+            this.gun = new Roboycod.BaseGun(this.game);
             this.animations.add('idle', [0, 1, 2], 4, true);
             this.animations.add('run', [8, 9, 10, 11, 12, 13], 8, true);
             this.animations.add('jump', [3], 1, false);
@@ -49,11 +48,11 @@ var Roboycod;
             game.add.existing(this);
             this.game.camera.follow(this);
         }
-        Player.prototype.setPosition = function (x, y) {
-            this.x = x;
-            this.y = y;
-        };
         Player.prototype.create = function () {
+            /*
+             * Asignamos la referencia del player a los CDVs
+             */
+            Roboycod.CdvLogic.setPlayer(this);
             this.animations.play('idle');
             //callback end shoot
             this.animations.getAnimation('shoot').onStart.add(function () {
@@ -68,6 +67,7 @@ var Roboycod;
             this.animations.getAnimation('jumpShoot').onComplete.add(function () {
                 this.endShot = true;
             }, this);
+            Player.This = this;
         };
         Player.prototype.stopMove = function () {
             this.body.velocity.x = 0;
@@ -86,14 +86,14 @@ var Roboycod;
         Player.prototype.moveRight = function () {
             this.moveTo(1);
         };
-        //  TODO DEMOCODE
         Player.prototype.jump = function () {
-            if (this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.checkCode())
-                this.body.velocity.y = this.JUMP_SPEED;
+            console.log(this);
+            console.log("Llaman a saltar");
+            if (Player.This.body.onFloor())
+                Player.This.body.velocity.y = Player.This.JUMP_SPEED;
         };
-        //  TODO FIN DEMOCODE
         Player.prototype.shoot = function () {
-            this.gun.shoot(this);
+            Player.This.gun.shoot(Player.This);
         };
         Player.prototype.knockBack = function (enemy) {
             var direction;
@@ -103,6 +103,10 @@ var Roboycod;
             this.body.velocity.x = this.body.velocity.y = 0;
             this.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
             this.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        };
+        Player.prototype.setPosition = function (x, y) {
+            this.x = x;
+            this.y = y;
         };
         Player.prototype.update = function () {
             //this.game.debug.body(this);

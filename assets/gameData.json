@@ -1,0 +1,28 @@
+{
+	"worldMap":
+	{		
+		"x": 0, 
+		"y": 0
+	},
+	"stage":
+	{		
+		"player": [
+		{ 
+		 	"x": 0, 
+		 	"y": 0,
+		 	"life": ""
+		}]
+	},
+	"inventory":
+	{		
+		"isEmpty" : true,
+		"x": 0, 
+		"y": 0
+	},
+	"cdvMatrix":
+	{
+		"ROWS":4,
+		"COLS":5,
+		"data":[[],[],[],[]]
+	}
+}

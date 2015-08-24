@@ -3,6 +3,8 @@
 .idea/*
 build/*
 
-
+src/game/**/*.js
+src/lib/cdvCompiler/**/*.js
 src/**/*.map
 src/**/*.orig
+!src/lib/cdvCompiler/gramatica/CGrammar.js

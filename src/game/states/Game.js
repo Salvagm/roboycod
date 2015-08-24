@@ -19,7 +19,7 @@ var Roboycod;
     var Game = (function (_super) {
         __extends(Game, _super);
         function Game(width, height) {
-            _super.call(this, width, height, Phaser.AUTO, 'content');
+            _super.call(this, width, height, Phaser.AUTO, 'game');
             this.state.add('Boot', Roboycod.Boot, false);
             this.state.add('Preloader', Roboycod.Preloader, false);
             this.state.add('MainMenu', Roboycod.MainMenu, false);

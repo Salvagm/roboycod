@@ -33,6 +33,7 @@ var Roboycod;
              */
             this.game.load.image('inventoryBackground', 'assets/inventory/inventoryBackground.png');
             this.game.load.json('jsonInventory', 'assets/inventory/inventory.json');
+            this.load.atlasJSONHash('inventoryTiles', 'assets/inventory/inventoryTiles.png', 'assets/inventory/inventoryTiles.json');
             /**
              * Entidades, Objetos dinamicos, etc
              */
@@ -48,7 +49,7 @@ var Roboycod;
             /**
              * Cargamos JSON para guardar los estados de los STATES
              */
-            this.game.load.json('jsonStatesData', 'assets/statesData.json');
+            this.game.load.json('gameData', 'assets/gameData.json');
         };
         Preloader.prototype.create = function () {
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);

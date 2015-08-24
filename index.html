@@ -22,6 +22,7 @@
     <script type="text/javascript" src="src/game/states/Preloader.js"></script>
     <script type="text/javascript" src="src/game/states/Game.js"></script>
 
+    <script type="text/javascript" src="src/game/utils/GameManager.js"></script>
     <script type="text/javascript" src="src/game/utils/KeyboardHandler.js"></script>
     <script type="text/javascript" src="src/game/utils/HUD.js"></script>
 
@@ -30,11 +31,9 @@
 
     <script type="text/javascript" src="src/game/player/Player.js"></script>
     <script type="text/javascript" src="src/game/player/BaseGun.js"></script>
-    <script type="text/javascript" src="src/game/cdvs/BaseCdv.js"></script>
-    <script type="text/javascript" src="src/game/cdvs/CoreCdv.js"></script>
-    <script type="text/javascript" src="src/game/cdvs/DronCdv.js"></script>
-    <script type="text/javascript" src="src/game/cdvs/MovementCdv.js"></script>
-    <script type="text/javascript" src="src/game/cdvs/WeaponCdv.js"></script>
+    <script type="text/javascript" src="src/game/cdvs/CdvLogic.js"></script>
+    <script type="text/javascript" src="src/game/cdvs/CdvSprite.js"></script>
+    <script type="text/javascript" src="src/game/cdvs/CdvMatrix.js"></script>
 
     <script type="text/javascript" src="src/lib/ace/src-noconflict/ace.js" charset="utf-8"></script>
     <script src="src/lib/ace/src-noconflict/ext-language_tools.js"></script>
@@ -49,13 +48,10 @@
 <body>
     <div id="container2">
         <div id="container1">
-            <div id="content"></div>
+            <div id="game"></div>
             <div id="editor" tabindex="1"></div>
 
         <div id = "test">
-            <button class="myButton" id="save-btn">Save</button>
-            <button class="myButton" id="load-btn">Load</button>
-            <button class="myButton" id="runCode">Run</button>
             <div class="shell-wrap">
                 <p class="shell-top-bar">Console</p>
                 <div id="output"></div>

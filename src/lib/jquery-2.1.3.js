@@ -944,7 +944,7 @@ function siblingCheck( a, b ) {
 }
 
 /**
- * Returns a function to use in pseudos for input types
+ * Returns a function to use in pseudos for input TYPES
  * @param {String} type
  */
 function createInputPseudo( type ) {
@@ -1579,7 +1579,7 @@ Expr = Sizzle.selectors = {
 				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
 				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
 
-			// other types prohibit arguments
+			// other TYPES prohibit arguments
 			} else if ( match[3] ) {
 				Sizzle.error( match[0] );
 			}
@@ -1919,7 +1919,7 @@ Expr = Sizzle.selectors = {
 			return !Expr.pseudos["empty"]( elem );
 		},
 
-		// Element/input types
+		// Element/input TYPES
 		"header": function( elem ) {
 			return rheader.test( elem.nodeName );
 		},
@@ -4197,7 +4197,7 @@ jQuery.event = {
 			return;
 		}
 
-		// Once for each type.namespace in types; type may be omitted
+		// Once for each type.namespace in TYPES; type may be omitted
 		types = ( types || "" ).match( rnotwhite ) || [ "" ];
 		t = types.length;
 		while ( t-- ) {
@@ -4806,11 +4806,11 @@ jQuery.fn.extend({
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var origFn, type;
 
-		// Types can be a map of types/handlers
+		// Types can be a map of TYPES/handlers
 		if ( typeof types === "object" ) {
-			// ( types-Object, selector, data )
+			// ( TYPES-Object, selector, data )
 			if ( typeof selector !== "string" ) {
-				// ( types-Object, data )
+				// ( TYPES-Object, data )
 				data = data || selector;
 				selector = undefined;
 			}
@@ -4821,16 +4821,16 @@ jQuery.fn.extend({
 		}
 
 		if ( data == null && fn == null ) {
-			// ( types, fn )
+			// ( TYPES, fn )
 			fn = selector;
 			data = selector = undefined;
 		} else if ( fn == null ) {
 			if ( typeof selector === "string" ) {
-				// ( types, selector, fn )
+				// ( TYPES, selector, fn )
 				fn = data;
 				data = undefined;
 			} else {
-				// ( types, data, fn )
+				// ( TYPES, data, fn )
 				fn = data;
 				data = selector;
 				selector = undefined;
@@ -4872,14 +4872,14 @@ jQuery.fn.extend({
 			return this;
 		}
 		if ( typeof types === "object" ) {
-			// ( types-object [, selector] )
+			// ( TYPES-object [, selector] )
 			for ( type in types ) {
 				this.off( type, selector, types[ type ] );
 			}
 			return this;
 		}
 		if ( selector === false || typeof selector === "function" ) {
-			// ( types [, fn] )
+			// ( TYPES [, fn] )
 			fn = selector;
 			selector = undefined;
 		}
@@ -7499,7 +7499,7 @@ jQuery.fn.extend({
 		return this.on( types, selector, data, fn );
 	},
 	undelegate: function( selector, types, fn ) {
-		// ( namespace ) or ( selector, types [, fn] )
+		// ( namespace ) or ( selector, TYPES [, fn] )
 		return arguments.length === 1 ? this.off( selector, "**" ) : this.off( types, selector || "**", fn );
 	}
 });
@@ -7854,7 +7854,7 @@ jQuery.extend({
 		},
 
 		// Data converters
-		// Keys separate source (or catchall "*") and destination types with a single space
+		// Keys separate source (or catchall "*") and destination TYPES with a single space
 		converters: {
 
 			// Convert anything to text

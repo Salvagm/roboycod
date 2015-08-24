@@ -4,7 +4,8 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
 ///<reference path="../enemies/WalkingEnemy.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
     ///<reference path="../utils/HUD.ts"/>
 
@@ -20,7 +21,11 @@ module Roboycod{
         private codevices   : Phaser.Group;
         private player      : Player;
         private numStage    : string;
-        private kh          : KeyboardHandler;
+
+        private cm          : CdvMatrix;
+        private gameData    : any;
+
+        public cdvLogicDemo : CdvLogic;
 
         //	Constants
         private ENEMY_L     : number = 3;
@@ -35,12 +40,11 @@ module Roboycod{
 
         create(){
 
+            this.gameData = GameManager.getInstance().getData(this.game);
+            this.cm = new CdvMatrix(this.gameData.cdvMatrix.data);
+
             this.loadStage();
             this.codevices = this.game.add.group();
-            /**
-             * Definimos y mapeamos las teclas correspondientes
-             */
-
 
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
@@ -58,12 +62,18 @@ module Roboycod{
             this.input.mouse.mouseOutCallback = function() { this.input.keyboard.stop(); };
             this.input.mouse.mouseOverCallback = function() { this.input.keyboard.start(); };
 
+            //Definimos y mapeamos las teclas correspondientes
+            KeyboardHandler.getInstance().setupStage(this, this.player);
+            //Asiganmos teclas a los CDVs equipados
+            KeyboardHandler.getInstance().setupCdvs(this, this.cm.getEquiped());
 
-            this.kh = new KeyboardHandler(this.game);
-            this.kh.setupStage(this, this.player);
+
         }
 
+
         public navToInventory() {
+            //TODO guardar datos de entidades
+            GameManager.getInstance().save();
             this.game.state.start('Inventory', true, false, this.key, this.numStage);
         }
 
@@ -116,7 +126,7 @@ module Roboycod{
             shoot.kill();
         }
 
-        private loadEnemies(enemyData) : void
+        private loadEnemies(enemyData : any) : void
         {
             this.enemies = this.game.add.group();
             for(var i = 0; i< enemyData.objects.length ; ++i)
@@ -136,12 +146,19 @@ module Roboycod{
 
             enemy.collide(player, this.codevices);
         }
-        private collideCdv(player : Player, cdv : BaseCdv) : void{
+        private collideCdv(player : Player, cdv : SpriteCdv) : void{
 
-            cdv.loadCode();
-            player.cdvDemo = cdv;
-            cdv.kill();
+            if(this.cm.add(new CdvLogic(cdv.logicType))){
+                cdv.kill();
+            }
+            else{
+                cdv.body.velocity.y = 600;
+            }
         }
+        private addCdv(type : string) : void{
+            this.cdvLogicDemo = new CdvLogic(type);
+        }
+
         private finishStage(){
             this.game.state.start('Stage', true, false, '0');
         }
@@ -159,6 +176,12 @@ module Roboycod{
             this.game.physics.arcade.overlap(this.enemies,this.player,this.collideEnemy, null, this);
             this.game.physics.arcade.overlap(this.codevices,this.player,this.collideCdv, null, this);
             this.game.physics.arcade.overlap(this.enemies,this.player.gun,this.shootEnemy);
+
+        }
+        public navToWorldMap() : void{
+
+            GameManager.getInstance().save();
+            this.game.state.start('WorldMap', true, false);
 
         }
 

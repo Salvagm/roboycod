@@ -1,1 +1,1 @@
-declare function runCode() : void;
+declare function runCode(code : string) : string;

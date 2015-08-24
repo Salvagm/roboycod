@@ -20,11 +20,15 @@ var BufferSystem;
             return MotionBuffer._instance;
         };
         MotionBuffer.prototype.bufferOutAdd = function (input) {
-            return this.bufferOut.push(input);
+            var position = this.bufferOut.push(input);
+            --position;
+            return position;
             //TODO Notificar que se anaye el input a la posicion X del buffer al CDV
         };
         MotionBuffer.prototype.bufferOutGet = function (id) {
             return this.bufferOut.splice(id, 1)[0];
+        };
+        MotionBuffer.prototype.notify = function () {
         };
         MotionBuffer._instance = null;
         MotionBuffer._canInstantiate = false;

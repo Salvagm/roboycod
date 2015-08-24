@@ -13,6 +13,7 @@ module BufferSystem
         private bufferOut               : Array<string>;
         private bufferIn                : Array<string>;
 
+
         public static getInstace() : MotionBuffer
         {
             if(MotionBuffer._instance === null)
@@ -37,7 +38,9 @@ module BufferSystem
 
         bufferOutAdd(input:string):number {
 
-            return this.bufferOut.push(input);
+            var position = this.bufferOut.push(input);
+            --position;
+            return position;
 
             //TODO Notificar que se anaye el input a la posicion X del buffer al CDV
         }
@@ -47,6 +50,10 @@ module BufferSystem
             return this.bufferOut.splice(id,1)[0];
         }
 
+        public notify () : void
+        {
+
+        }
 
 
 

@@ -4,10 +4,11 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../player/Player.ts"/>
 ///<reference path="../enemies/WalkingEnemy.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="../utils/HUD.ts"/>
-var __extends = (this && this.__extends) || function (d, b) {
+var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -27,11 +28,10 @@ var Roboycod;
             this.numStage = numStage;
         };
         Stage.prototype.create = function () {
+            this.gameData = Roboycod.GameManager.getInstance().getData(this.game);
+            this.cm = new Roboycod.CdvMatrix(this.gameData.cdvMatrix.data);
             this.loadStage();
             this.codevices = this.game.add.group();
-            /**
-             * Definimos y mapeamos las teclas correspondientes
-             */
             //TODO HUD FAKE DEMO
             this.hudFake = this.game.add.sprite(0, 0, 'hudfake', 0);
             this.hudFake.width = this.game.width;
@@ -44,12 +44,20 @@ var Roboycod;
             //    }
             //})
             //TODO MEJORAR
-            this.input.mouse.mouseOutCallback = function () { this.input.keyboard.stop(); };
-            this.input.mouse.mouseOverCallback = function () { this.input.keyboard.start(); };
-            this.kh = new Roboycod.KeyboardHandler(this.game);
-            this.kh.setupStage(this, this.player);
+            this.input.mouse.mouseOutCallback = function () {
+                this.input.keyboard.stop();
+            };
+            this.input.mouse.mouseOverCallback = function () {
+                this.input.keyboard.start();
+            };
+            //Definimos y mapeamos las teclas correspondientes
+            Roboycod.KeyboardHandler.getInstance().setupStage(this, this.player);
+            //Asiganmos teclas a los CDVs equipados
+            Roboycod.KeyboardHandler.getInstance().setupCdvs(this, this.cm.getEquiped());
         };
         Stage.prototype.navToInventory = function () {
+            //TODO guardar datos de entidades
+            Roboycod.GameManager.getInstance().save();
             this.game.state.start('Inventory', true, false, this.key, this.numStage);
         };
         /**
@@ -98,9 +106,15 @@ var Roboycod;
             enemy.collide(player, this.codevices);
         };
         Stage.prototype.collideCdv = function (player, cdv) {
-            cdv.loadCode();
-            player.cdvDemo = cdv;
-            cdv.kill();
+            if (this.cm.add(new Roboycod.CdvLogic(cdv.logicType))) {
+                cdv.kill();
+            }
+            else {
+                cdv.body.velocity.y = 600;
+            }
+        };
+        Stage.prototype.addCdv = function (type) {
+            this.cdvLogicDemo = new Roboycod.CdvLogic(type);
         };
         Stage.prototype.finishStage = function () {
             this.game.state.start('Stage', true, false, '0');
@@ -116,6 +130,10 @@ var Roboycod;
             this.game.physics.arcade.overlap(this.enemies, this.player, this.collideEnemy, null, this);
             this.game.physics.arcade.overlap(this.codevices, this.player, this.collideCdv, null, this);
             this.game.physics.arcade.overlap(this.enemies, this.player.gun, this.shootEnemy);
+        };
+        Stage.prototype.navToWorldMap = function () {
+            Roboycod.GameManager.getInstance().save();
+            this.game.state.start('WorldMap', true, false);
         };
         return Stage;
     })(Phaser.State);

@@ -2,16 +2,19 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
-///<reference path="../utils/KeyboardHandler.ts"/>
-///<reference path="../cdvs/BaseCdv.ts"/>
+///<reference path="../cdvs/CdvSprite.ts"/>
+///<reference path="../cdvs/CdvLogic.ts"/>
+///<reference path="BaseGun.ts"/>
 
 module Roboycod{
 
     export class Player extends Phaser.Sprite {
 
+        //TODO mejorar, la usamos para no perder el contexto
+        public static This : Player;
+
         private animState   : string = 'idle';
         private endShot     : boolean = true;
-        //private kh          : KeyboardHandler;
         private yLastPos       : number;
 
         public gun         : BaseGun;
@@ -23,10 +26,6 @@ module Roboycod{
         private JUMP_SPEED  : number = -800;
         private ACCELERATION: number = 100;
         private DRAG        : number = 4000;
-
-        //  TODO DEMOCODE
-        public cdvDemo      : BaseCdv;
-        //  TODO FIN DEMOCODE
 
         constructor(game: Phaser.Game, x: number, y: number) {
 
@@ -43,7 +42,6 @@ module Roboycod{
             this.body.setSize(this.body.width - 30, this.body.height - 10, 0, 0);
             this.anchor.setTo(0.5, 0.5);
 
-            //this.kh = kh;
             this.gun = new BaseGun(this.game);
 
 
@@ -63,12 +61,11 @@ module Roboycod{
             this.game.camera.follow(this);
         }
 
-        public setPosition(x : number, y : number) : void{
-            this.x = x;
-            this.y = y;
-        }
-
         create() {
+            /*
+             * Asignamos la referencia del player a los CDVs
+             */
+            CdvLogic.setPlayer(this);
 
             this.animations.play('idle');
 
@@ -86,6 +83,7 @@ module Roboycod{
                 this.endShot = true;
             }, this);
 
+            Player.This = this;
         }
 
         stopMove() : void {
@@ -105,14 +103,15 @@ module Roboycod{
         moveRight() : void {
             this.moveTo(1);
         }
-        //  TODO DEMOCODE
         jump() : void {
-            if(this.cdvDemo != null && this.body.onFloor() && this.cdvDemo.checkCode())
-                this.body.velocity.y = this.JUMP_SPEED;
+            console.log(this);
+            console.log("Llaman a saltar");
+            if(Player.This.body.onFloor())
+                Player.This.body.velocity.y = Player.This.JUMP_SPEED;
         }
-        //  TODO FIN DEMOCODE
         shoot() : void {
-            this.gun.shoot(this);
+
+            Player.This.gun.shoot(Player.This);
         }
 
         public knockBack(enemy : Phaser.Sprite) : void
@@ -126,6 +125,10 @@ module Roboycod{
             this.body.velocity.x = this.body.velocity.y = 0;
             this.body.velocity.x = direction.x * Math.cos(0.523598776) * 1300;
             this.body.velocity.y = direction.y * Math.sin(0.523598776) * 1300;
+        }
+        public setPosition(x : number, y : number) : void{
+            this.x = x;
+            this.y = y;
         }
         update() {
 

@@ -17,10 +17,7 @@
         return Sk.builtinFiles["files"][x];
     }
 
-    function runCode(){
-        document.getElementById("output").innerHTML = "";
-        var editor = ace.edit("editor");
-        code = editor.getSession().getValue();
+    function runCode(code){
 
         Sk.configure({output:outf, read:builtinRead});
         try
@@ -31,6 +28,10 @@
         {
             console.log(e.toString());
         }
+
+        var terminal  = document.getElementById("output").innerHTML;
+        var list = terminal.split("\n");
+        return list[list.length-2];
     }
     $("#runCode").click(function()
     {

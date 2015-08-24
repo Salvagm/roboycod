@@ -68,8 +68,6 @@ var Compiler;
         wCompiler.setBufferType(e.data.type);
         var info = wCompiler.compile(e.data.code);
         info.setCode(info.getCode() + " main();");
-        while (true) {
-        }
         self.postMessage(info, null);
     }, false);
 })(Compiler || (Compiler = {}));

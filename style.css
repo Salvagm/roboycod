@@ -17,7 +17,7 @@ body {
     right: 50%;
     background: none repeat scroll 0% 0% #D6D6D6;
 }
-#content {
+#game {
     float: left;
     width: 46%;
     position: relative;
@@ -45,13 +45,8 @@ body {
     overflow: hidden;
 }
 .shell-wrap {
-    width: 500px;
-    margin-top: 2%;
-
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-
+    width: 100%;
+    margin: 0;
     height: 200px;
 }
 .shell-top-bar{

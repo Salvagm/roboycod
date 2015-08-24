@@ -21,6 +21,7 @@ var BufferSystem;
             this.compilerWorker.addEventListener("error", this.proccessErr, false);
             this.compiledObjetcs = new Array();
             this.execute = false;
+            this.timeOutExec = new Array();
             CompilerBridge._instance = this;
         }
         CompilerBridge.getInstace = function () {
@@ -40,17 +41,20 @@ var BufferSystem;
          * @param id identificador que se asigna al codigo para almacenarlo
          * @returns {number} devuevle el numero del identificador
          */
-        CompilerBridge.prototype.runit = function (code, id) {
-            //TODO realizar cambios aqui para en un futuro se almacene el objeto que se crea en el array
+        /**
+         *
+         * @param codeOrId parametro que puede ser un codigo o un ID
+         */
+        CompilerBridge.prototype.runit = function (codeOrId) {
             this.execute = true;
-            if (id !== undefined) {
-                this.runCode(id);
+            if (typeof codeOrId === "number") {
+                this.runCode(codeOrId);
             }
             else {
-                this.compilerWorker.postMessage({ code: code, type: "motion" });
-                this.timeOutExec = setTimeout(this.breakWorker, this.compileMaxTime, this);
+                //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
+                this.compilerWorker.postMessage({ code: codeOrId, type: "motion" });
+                this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime, this));
             }
-            return true;
         };
         /**
          * Funcion que unicamente compila el codigo, sin ejecutarlo
@@ -60,7 +64,7 @@ var BufferSystem;
         CompilerBridge.prototype.compile = function (code) {
             this.execute = false;
             this.compilerWorker.postMessage(code);
-            this.timeOutExec = setTimeout(this.breakWorker, this.compileMaxTime, this);
+            this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime, this));
             return true;
         };
         CompilerBridge.prototype.executionTime = function (time) {
@@ -72,8 +76,10 @@ var BufferSystem;
             --position;
             if (this.execute)
                 this.compiledObjetcs[position]();
+            return position;
         };
         CompilerBridge.prototype.breakWorker = function (cB) {
+            console.log("Termino Worker");
             cB.compilerWorker.terminate();
         };
         CompilerBridge.prototype.runCode = function (id) {
@@ -81,7 +87,7 @@ var BufferSystem;
         };
         CompilerBridge.prototype.proccessMsg = function (info) {
             var cB = CompilerBridge.getInstace();
-            clearTimeout(cB.timeOutExec);
+            clearTimeout(cB.timeOutExec.pop());
             cB.info = new Compiler.ParseData(info.data._isCompiled, info.data._code);
             cB.addNewProgram(cB.info.getCode());
         };
@@ -89,7 +95,7 @@ var BufferSystem;
             var cB = CompilerBridge.getInstace();
             //TODO gestionar Error
             console.log("Error"); // TODO FUnciona cuando lanza un error!!!
-            clearTimeout(cB.timeOutExec);
+            clearTimeout(cB.timeOutExec.pop());
         };
         CompilerBridge._instance = null;
         CompilerBridge._canInstantiate = false;

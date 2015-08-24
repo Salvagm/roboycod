@@ -7,8 +7,6 @@ module BufferSystem
     {
         bufferOutAdd(input : string) : number;
         bufferOutGet(id : number) : string;
-
-
     }
 
 }
