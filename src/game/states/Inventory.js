@@ -56,6 +56,9 @@ var Roboycod;
             // Definimos y mapeamos las teclas correspondientes
             Roboycod.KeyboardHandler.getInstance().setupInventory(this);
             Inventory._instance = this;
+            //Mostramos el editor
+            var editor = document.getElementById('editor');
+            editor.style.display = 'block';
         };
         Inventory.prototype.navToLastState = function () {
             this.gameData.inventory.x = this.x;
@@ -63,6 +66,9 @@ var Roboycod;
             this.gameData.inventory.isEmpty = this.isEmpty;
             //TODO mirar cuando guardar
             Roboycod.GameManager.getInstance().save();
+            //Ocultamos el editor
+            var editor = document.getElementById('editor');
+            editor.style.display = 'none';
             this.game.state.start(this.lastStage, true, false, this.numStage);
         };
         Inventory.prototype.buildNavigationMatrix = function () {
@@ -183,21 +189,22 @@ var Roboycod;
          */
         Inventory.prototype.writeCdv = function () {
             this.input.keyboard.stop();
+            //Nos movemos al editor, al final del codigo
             var editor = ace.edit("editor");
+            var row = editor.session.getLength() - 1;
+            var column = editor.session.getLine(row).length;
+            editor.gotoLine(row + 1, column);
             editor.focus();
-            var n = editor.getSession().getValue().split("\n").length;
-            editor.gotoLine(n); //Go to end of document
         };
         /**
          * Esta funcion guarda la edicion actual del editor en el cdv
          */
         Inventory.prototype.saveCdv = function () {
-            console.log("GUARDO CDV");
             var editor = ace.edit("editor");
             editor.blur();
+            this.cm.data[this.x][this.y].code = editor.getValue();
             Roboycod.GameManager.getInstance().save();
             this.input.keyboard.start();
-            //TODO Bridge.Compile(Cdv id, Cdv code)
         };
         /**
          * Esta funcion da acceso a la instancia desde fuera

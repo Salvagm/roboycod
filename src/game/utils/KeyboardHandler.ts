@@ -29,6 +29,8 @@ module Roboycod {
         }
         public setupStage(stage : Roboycod.Stage, player : Roboycod.Player) : void{
 
+            this.disableBrowserEvents(stage);
+
             var tab   = stage.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
             var enter = stage.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
@@ -56,6 +58,8 @@ module Roboycod {
         }
         public setupWorldMap(worldMap : Roboycod.WorldMap) : void{
 
+            this.disableBrowserEvents(worldMap);
+
             var enter = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             var tab   = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
 
@@ -73,6 +77,8 @@ module Roboycod {
             enter.onDown.add(worldMap.startStage,worldMap);
         }
         public setupInventory(inventory : Roboycod.Inventory) : void{
+
+            this.disableBrowserEvents(inventory);
 
             var tab   = inventory.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
 
@@ -119,6 +125,14 @@ module Roboycod {
 
                 key.onDown.add(f,item);
             }
+        }
+        private disableBrowserEvents(state : Phaser.State){
+            var ctrl = state.game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
+            state.game.input.keyboard.addKeyCapture(ctrl.keyCode);
+            ctrl.enabled=true;
+            var S = state.game.input.keyboard.addKey(Phaser.Keyboard.S);
+            state.game.input.keyboard.addKeyCapture(S.keyCode);
+            S.enabled=true;
         }
     }
 

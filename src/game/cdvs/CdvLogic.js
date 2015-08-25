@@ -56,7 +56,6 @@ var Roboycod;
             }
         };
         CdvLogic.setPlayer = function (player) {
-            CdvLogic.player = player;
             //TODO pasar a Player.shoot , Player.jump,etc aun asi necesitan el contexto
             /*
              * Inicializamos los diccionarios de acciones
@@ -79,7 +78,7 @@ var Roboycod;
             //TODO Pasar a Bridge, hacer un callback bridge.OnCompleteRun(
             //TODO  this.actions[output](CdvLogic.player);
             //TODO  )
-            this.actions[output](CdvLogic.player);
+            this.actions[output]();
         };
         CdvLogic.prototype.showCode = function () {
             var editor = ace.edit("editor");

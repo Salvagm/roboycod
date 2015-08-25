@@ -22,6 +22,7 @@ var Roboycod;
             return KeyboardHandler._instance;
         };
         KeyboardHandler.prototype.setupStage = function (stage, player) {
+            this.disableBrowserEvents(stage);
             var tab = stage.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
             var enter = stage.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             tab.onDown.add(stage.navToInventory, stage);
@@ -41,6 +42,7 @@ var Roboycod;
             arrowRight.onUp.add(player.stopMove, player);
         };
         KeyboardHandler.prototype.setupWorldMap = function (worldMap) {
+            this.disableBrowserEvents(worldMap);
             var enter = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             var tab = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
             var arrowUp = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -55,6 +57,7 @@ var Roboycod;
             enter.onDown.add(worldMap.startStage, worldMap);
         };
         KeyboardHandler.prototype.setupInventory = function (inventory) {
+            this.disableBrowserEvents(inventory);
             var tab = inventory.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
             var arrowUp = inventory.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             var arrowLeft = inventory.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -88,6 +91,14 @@ var Roboycod;
                 })(item);
                 key.onDown.add(f, item);
             }
+        };
+        KeyboardHandler.prototype.disableBrowserEvents = function (state) {
+            var ctrl = state.game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
+            state.game.input.keyboard.addKeyCapture(ctrl.keyCode);
+            ctrl.enabled = true;
+            var S = state.game.input.keyboard.addKey(Phaser.Keyboard.S);
+            state.game.input.keyboard.addKeyCapture(S.keyCode);
+            S.enabled = true;
         };
         KeyboardHandler._instance = null;
         return KeyboardHandler;

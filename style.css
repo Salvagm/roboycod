@@ -26,6 +26,7 @@ body {
 }
 #editor {
 
+    display : none;
     float: left;
 
     /*requiere minimo 300px de height para visualizarse*/
@@ -34,6 +35,16 @@ body {
     position: relative;
     left: 56%;
     overflow: hidden;
+
+    /*opacity: 1;*/
+    /*-webkit-transition: opacity 1s; *//* For Safari 3.1 to 6.0 */
+    /*transition: opacity 1s;*/
+}
+.fadeout {
+    opacity:0;
+}
+.fadein {
+    opacity:1;
 }
 #test {
     margin-top: 1%;

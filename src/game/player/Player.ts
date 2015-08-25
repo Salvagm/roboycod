@@ -104,8 +104,6 @@ module Roboycod{
             this.moveTo(1);
         }
         jump() : void {
-            console.log(this);
-            console.log("Llaman a saltar");
             if(Player.This.body.onFloor())
                 Player.This.body.velocity.y = Player.This.JUMP_SPEED;
         }

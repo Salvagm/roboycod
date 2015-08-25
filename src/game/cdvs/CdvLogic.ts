@@ -17,10 +17,6 @@ module Roboycod {
         public static TYPES         :string[] = ['weapon', 'core', 'motion', 'dron'];
         //TODO hacer que le id sea persistente en el localStorage
         public static idCount       :number = 0;
-        /**
-         * Cuando se cree el player, se asignara
-         */
-        public static player        : Roboycod.Player;
 
         //TODO Crear Run(id cdv.id) y readBuffer(id), si la salida coincide
         //TODO con la salida de ese tipo, se ejecuta la funcion del diccionario
@@ -95,7 +91,6 @@ module Roboycod {
             }
         }
         public static setPlayer(player : Player){
-            CdvLogic.player = player;
 
             //TODO pasar a Player.shoot , Player.jump,etc aun asi necesitan el contexto
             /*
@@ -123,7 +118,7 @@ module Roboycod {
             //TODO  )
 
 
-            this.actions[output](CdvLogic.player);
+            this.actions[output]();
         }
         public showCode() : void{
 

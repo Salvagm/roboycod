@@ -86,6 +86,9 @@ module Roboycod {
 
             Inventory._instance = this;
 
+            //Mostramos el editor
+            var editor = document.getElementById('editor');
+            editor.style.display = 'block';
         }
         public navToLastState(){
 
@@ -95,6 +98,10 @@ module Roboycod {
 
             //TODO mirar cuando guardar
             GameManager.getInstance().save();
+
+            //Ocultamos el editor
+            var editor = document.getElementById('editor');
+            editor.style.display = 'none';
 
             this.game.state.start(this.lastStage, true, false, this.numStage);
 
@@ -253,22 +260,26 @@ module Roboycod {
          */
         public writeCdv() : void{
             this.input.keyboard.stop();
+
+            //Nos movemos al editor, al final del codigo
             var editor = ace.edit("editor");
+            var row = editor.session.getLength() - 1;
+            var column = editor.session.getLine(row).length;
+            editor.gotoLine(row + 1, column);
             editor.focus();
-            var n = editor.getSession().getValue().split("\n").length;
-            editor.gotoLine(n); //Go to end of document
         }
 
         /**
          * Esta funcion guarda la edicion actual del editor en el cdv
          */
         public saveCdv() : void{
-            console.log("GUARDO CDV");
             var editor = ace.edit("editor");
             editor.blur();
+
+            this.cm.data[this.x][this.y].code = editor.getValue();
+
             GameManager.getInstance().save();
             this.input.keyboard.start();
-            //TODO Bridge.Compile(Cdv id, Cdv code)
         }
 
         /**
