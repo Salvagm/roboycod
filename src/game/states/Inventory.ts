@@ -107,9 +107,7 @@ module Roboycod {
 
         }
         private buildNavigationMatrix() : void{
-            var item    : any;
             var jsonItem: any;
-            var compiledFrame : number = 5;
 
             //Normalizamos la posicion de los logos segun el rescalado,
             //creamos sprites, etc
@@ -118,7 +116,6 @@ module Roboycod {
                 this.nav[i] = [];
                 for(var j = 0; j < this.COLS;++j){
                     this.nav[i][j] = new MatrixContent();
-                    item = this.nav[i][j];
                     //En la layer CDV_L se encontraran los objetos del Tiled
                     jsonItem = this.jsonTiled.layers[this.CDV_L[i]].objects[j];
                     jsonItem.x /= this.widthRatio;
@@ -128,42 +125,46 @@ module Roboycod {
                     if(this.cm.data[i][j] !== undefined){
                         //TODO quitar codigo
                         this.cm.data[i][j].isCompiled = true;
-                        compiledFrame = this.cm.data[i][j].isCompiled? 6 : 5;
-                        item.compiled = this.game.add.sprite(
-                            jsonItem.x,
-                            jsonItem.y,
-                            'inventoryTiles',
-                            compiledFrame
-                        );
-                        item.icon = this.game.add.sprite(
-                            jsonItem.x,
-                            jsonItem.y,
-                            'inventoryTiles',
-                            i
-                        );
-                        //Escalamos
-                        item.icon.width = item.icon.width / this.widthRatio;
-                        item.icon.height = item.icon.height / this.heightRatio;
-                        item.icon.anchor.set(0.5,0.5);
-
-                        item.compiled.width = item.icon.width;
-                        item.compiled.height = item.icon.height;
-                        item.compiled.anchor.set(0.5,0.5);
-
-                        //Guardamos la escala general para hacer los tweens
-                        this.initScale = new Phaser.Point(item.icon.scale.x, item.icon.scale.y);
-                        //Si fuese el primer elemento nos situariamos en el
-                        if(this.isEmpty){
-                            this.x = i;
-                            this.y = j;
-                            this.isEmpty = false;
-                        }
-                        //Pintamos la seleccion
-                        if(this.cm.data[i][j].isSelected){
-                            this.drawSelection(this.nav[i][j]);
-                        }
+                        this.drawCdv(i,j, jsonItem.x, jsonItem.y);
                     }
                 }
+            }
+        }
+        private drawCdv(i : number, j : number, x: number, y : number) : void{
+            var item    : any = this.nav[i][j];
+            var compiledFrame : number = 5;
+
+            compiledFrame = this.cm.data[i][j].isCompiled? 6 : 5;
+            item.compiled = this.game.add.sprite(
+                x, y,
+                'inventoryTiles',
+                compiledFrame
+            );
+            item.icon = this.game.add.sprite(
+                x, y,
+                'inventoryTiles',
+                i
+            );
+            //Escalamos
+            item.icon.width = item.icon.width / this.widthRatio;
+            item.icon.height = item.icon.height / this.heightRatio;
+            item.icon.anchor.set(0.5,0.5);
+
+            item.compiled.width = item.icon.width;
+            item.compiled.height = item.icon.height;
+            item.compiled.anchor.set(0.5,0.5);
+
+            //Guardamos la escala general para hacer los tweens
+            this.initScale = new Phaser.Point(item.icon.scale.x, item.icon.scale.y);
+            //Si fuese el primer elemento nos situariamos en el
+            if(this.isEmpty){
+                this.x = i;
+                this.y = j;
+                this.isEmpty = false;
+            }
+            //Pintamos la seleccion
+            if(this.cm.data[i][j].isSelected){
+                this.drawSelection(this.nav[i][j]);
             }
         }
 
@@ -277,6 +278,11 @@ module Roboycod {
             editor.blur();
 
             this.cm.data[this.x][this.y].code = editor.getValue();
+
+            //TODO llamar a compilar
+            //Miramos si compila o no y pintamos
+            var sprite = this.nav[this.x][this.y].compiled;
+            this.drawCdv(this.x,this.y,sprite.x, sprite.y);
 
             GameManager.getInstance().save();
             this.input.keyboard.start();

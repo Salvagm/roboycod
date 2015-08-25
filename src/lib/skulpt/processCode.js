@@ -17,12 +17,12 @@
         return Sk.builtinFiles["files"][x];
     }
 
-    function runCode(code){
+    function runit(cdv){
 
         Sk.configure({output:outf, read:builtinRead});
         try
         {
-            eval(Sk.importMainWithBody("<stdin>",false,code));
+            eval(Sk.importMainWithBody("<stdin>",false,cdv.code));
         }
         catch (e)
         {
@@ -31,7 +31,9 @@
 
         var terminal  = document.getElementById("output").innerHTML;
         var list = terminal.split("\n");
-        return list[list.length-2];
+        //TODO deberia devolver todas las salidas emitidas por la ejecucion
+        var output = [list[list.length-2]];
+        return output;
     }
     $("#runCode").click(function()
     {

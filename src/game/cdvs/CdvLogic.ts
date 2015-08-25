@@ -15,8 +15,6 @@ module Roboycod {
         //TODO mirar si sacar estaticos una clase Common
         //Estaran en el orden en que los representa el inventario
         public static TYPES         :string[] = ['weapon', 'core', 'motion', 'dron'];
-        //TODO hacer que le id sea persistente en el localStorage
-        public static idCount       :number = 0;
 
         //TODO Crear Run(id cdv.id) y readBuffer(id), si la salida coincide
         //TODO con la salida de ese tipo, se ejecuta la funcion del diccionario
@@ -52,18 +50,20 @@ module Roboycod {
                 if(typeof other == "string"){
                     var type = <string> other;
                     this.setType(type);
-                    this.id = CdvLogic.idCount;
+                    this.id = -1;
                     this.isSelected = false;
-                    CdvLogic.idCount++;
+
+                    this.isCompiled = this.compile();
                 }
                 else{
                     var copy : CdvLogic = <CdvLogic> other;
                     this.id = copy.id;
                     this.setType(copy.type);
-                    this.isCompiled = copy.isCompiled;
                     this.isSelected = copy.isSelected;
                     this.keyCode = copy.keyCode;
                     this.code = copy.code;
+
+                    this.isCompiled = this.compile();
                 }
             }
         }
@@ -105,25 +105,49 @@ module Roboycod {
         /**
          * Ejecutara la accion de la instacia
          */
-        public execAction() : void{
+        public runCode() : void{
             //Segun el type de esa instancia, leera de un buffer concreto
             //y buscara el valor de la key
 
             //TODO Pasar a Bridge con tiempos de espera
 
-            var output = runCode(this.code);
+            var output : string[] = runit(this);
 
             //TODO Pasar a Bridge, hacer un callback bridge.OnCompleteRun(
             //TODO  this.actions[output](CdvLogic.player);
             //TODO  )
 
+            //TODO ejecutar el array de outputs en el BRIDGE
+            this.execAction(output);
 
-            this.actions[output]();
+        }
+
+        /**
+         * Recibe una query y devuelve el valor actual del juego para la pregunta
+         * asociada
+         * @param query
+         */
+        public answerQuerys() : void{
+            // enTierra? --> function(){ return Player.body.onfloor;}
+        }
+
+        /**
+         * Ejecuta una serie de acciones en una lista
+         * @param output
+         */
+        public execAction(output : string[]){
+            for(var i = 0; i< output.length ; ++i){
+                this.actions[output[i]]();
+            }
         }
         public showCode() : void{
 
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
+        }
+        public compile() : boolean{
+            //TODO return Bridge.compile(this)
+            return true;
         }
     }
 }

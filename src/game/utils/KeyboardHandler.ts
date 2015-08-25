@@ -119,7 +119,7 @@ module Roboycod {
                 //Devuelve la funcion creada en ese contexto
                 f = (function(item)
                 {
-                    return item.execAction;
+                    return item.runCode;
                 }
                 )(item);
 
