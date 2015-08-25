@@ -2,7 +2,7 @@
  * Created by salva on 21/08/15.
  */
 ///<reference path="IBuffer.ts"/>
-module BufferSystem
+module IOSystem
 {
     export class DronBuffer implements IBuffer
     {

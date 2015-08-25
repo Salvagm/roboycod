@@ -10,7 +10,7 @@
  * Esta clase se encagarga de la comunicacion entre el juego y el compilador
  * Gestiona los buffers de entrada y salida que seran actualizados por quien los requiera
  */
-module BufferSystem
+module IOSystem
 {
     // TODO Hacer esta clase singleton
     export class CompilerBridge
@@ -18,8 +18,8 @@ module BufferSystem
         private static _instance        : CompilerBridge = null;
         private static _canInstantiate  : boolean = false;
 
-        private listOfCdv               : Array<Roboycod.CdvLogic>;
-        private compiledObjetcs         : Array<Function>;
+        private listOfCdv               : {[idCdv : number] : Roboycod.CdvLogic};
+        private compiledObjetcs         : {[idFunc : number] : Function};
         private info                    : Compiler.ParseData;
         private compilerWorker          : Worker;
         private compileMaxTime          : number;
@@ -48,10 +48,10 @@ module BufferSystem
             this.compileMaxTime = 2000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessErr, false);
-            this.compiledObjetcs = new Array<Function>();
-            this.listOfCdv = new Array<Roboycod.CdvLogic>();
+            this.compiledObjetcs = {};
+            this.listOfCdv = {};
             this.execute = false;
-            this.timeOutExec = new Array<number>();
+            this.timeOutExec = [];
 
             CompilerBridge._instance = this;
         }
@@ -61,15 +61,11 @@ module BufferSystem
             return this.info;
         }
 
+
         /**
          * Funcion que ejecuta el codigo que escribe el usuario
-         * @param code codigo escrito en el lenguaje soportado
-         * @param id identificador que se asigna al codigo para almacenarlo
-         * @returns {number} devuevle el numero del identificador
-         */
-        /**
-         *
          * @param codeOrId parametro que puede ser un codigo o un ID
+         * @param cdv parte del robot que manda la compilacion
          */
         public runit(codeOrId : any, cdv : Roboycod.CdvLogic) : void
         {
@@ -80,8 +76,9 @@ module BufferSystem
             }
             else
             {
-                var position = this.listOfCdv.push(cdv);
-                --position;
+                var position = Math.abs(Math.random() * Date.now() | 0);
+                this.listOfCdv[position] = cdv;
+
 
                 //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
                 this.compilerWorker.postMessage({code : codeOrId, type : "motion", id : position});
@@ -111,8 +108,11 @@ module BufferSystem
         private addNewProgram(code : string) : number
         {
             // TODO Notificar al CDV cual es el ID de ejecucion de su programa
-            var position = this.compiledObjetcs.push(new Function(code));
-            --position;
+            var position = Math.abs(Math.random() * Date.now() | 0);
+                this.compiledObjetcs[position] = new Function(code);
+            //TODO Modificar para que sea mediante workers
+
+
             if(this.execute)
                 this.compiledObjetcs[position]();
 
@@ -121,7 +121,6 @@ module BufferSystem
 
         private breakWorker(cB : CompilerBridge)
         {
-            console.log("Termino Worker");
             cB.compilerWorker.terminate();
         }
 

@@ -2,17 +2,18 @@
  * Created by salva on 21/08/15.
  */
 ///<reference path="IBuffer.ts"/>
+///<reference path="INotifier.ts"/>
 
-module BufferSystem
+module IOSystem
 {
-    export class MotionBuffer implements IBuffer
+    export class MotionBuffer implements INotifier
     {
         private static _instance        : MotionBuffer = null;
         private static _canInstantiate  : boolean = false;
 
-        private bufferOut               : Array<string>;
-        private bufferIn                : Array<string>;
 
+        private bufferIn                : Array<any>;
+        private currentCdvs             : {[idCdv : number] : Roboycod.CdvLogic};
 
         public static getInstace() : MotionBuffer
         {
@@ -31,34 +32,43 @@ module BufferSystem
         {
             if(!MotionBuffer._canInstantiate)
                 throw Error("Fail to instantiate, use MotioBuffer.getInstance() instead");
-            this.bufferOut = new Array<string>();
-            this.bufferIn = new Array<string>();
+
+            this.bufferIn = [];
+            this.currentCdvs = {};
 
         }
 
-        bufferOutAdd(input:string):number {
-            if(input.slice(-1) === "?")
-            {
-                console.log(input);
-            }
-            var position = this.bufferOut.push(input);
-            --position;
-            return position;
+        public consoleOut(input:string):number {
+            //TODO enviar info la "consola"
 
             //TODO Notificar que se anaye el input a la posicion X del buffer al CDV
+            return this.notify(input);
+
         }
 
-        bufferOutGet(id:number):string {
-
-            return this.bufferOut.splice(id,1)[0];
-        }
-
-        public notify () : void
+        public notify (msg : string) : number
         {
-
+            for(var ite in this.currentCdvs)
+            {
+                console.log(this.currentCdvs[ite]);
+                //TODO this.currentCdvs[ite].doAction(msg);
+            }
+            return 0;
         }
 
+        public addCdv(newCDV:Roboycod.CdvLogic):number {
+            var position = Math.abs(Math.random() * Date.now() | 0 );
+            this.currentCdvs[position] = newCDV;
+            return position;
+        }
 
-
+        public removeCdv(id:number):boolean {
+            if(this.currentCdvs[id] !== undefined)
+            {
+                delete this.currentCdvs[id];
+                return true;
+            }
+            return false;
+        }
     }
 }

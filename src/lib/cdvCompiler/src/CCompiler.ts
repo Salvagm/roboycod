@@ -55,7 +55,7 @@ module Compiler
         // weapon, core, motion, dron
         public bufferTrad(code: string) : string
         {
-            var cad : string = "BufferSystem";
+            var cad : string = "IOSystem";
             switch (this.bufferType)
             {
                 case 'weapon' :
@@ -73,7 +73,7 @@ module Compiler
                 default :
                     throw Error("Type is not defined or unknwon");
             }
-            cad +=".getInstace().bufferOutAdd("+code+")";
+            cad +=".getInstace().consoleOut("+code+")";
             return cad;
         }
 
@@ -94,6 +94,6 @@ module Compiler
             var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : e.data.id};
             self.postMessage(msg,null);
 
-        }
-        ,false);
+        },false);
+
 }

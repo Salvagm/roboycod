@@ -1,7 +1,7 @@
 /**
  * Created by salva on 21/08/15.
  */
-module BufferSystem
+module IOSystem
 {
     export interface IBuffer
     {

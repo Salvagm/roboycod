@@ -3,7 +3,7 @@
  */
 ///<reference path="../../../game/cdvs/CdvLogic.ts"/>
 
-module BufferSystem
+module IOSystem
 {
     export interface INotifier
     {
@@ -21,8 +21,9 @@ module BufferSystem
         removeCdv(id : number) : boolean;
         /**
          * Funcion que notifica a todos sus registrados si se ha producido un cambio
+         * @param msg mensaje a notificar
          * @return numero de observadores notificados
          */
-        notify() : number;
+        notify(msg : string) : number;
     }
 }

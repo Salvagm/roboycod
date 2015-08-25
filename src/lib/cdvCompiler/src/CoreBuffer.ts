@@ -3,7 +3,7 @@
  */
 ///<reference path="IBuffer.ts"/>
 
-module BufferSystem
+module IOSystem
 {
     export class CoreBuffer implements IBuffer
     {
