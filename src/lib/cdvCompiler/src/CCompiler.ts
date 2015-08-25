@@ -86,13 +86,13 @@ module Compiler
             importScripts("../gramatica/CGrammar.js","ParseData.js");
             var wCompiler = CCompiler.getInstance();
 
+            console.log(e.data);
             wCompiler.setBufferType(e.data.type);
-
             var info : ParseData = wCompiler.compile(e.data.code);
 
             info.setCode(info.getCode() + " main();");
-
-            self.postMessage(info,null);
+            var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : e.data.id};
+            self.postMessage(msg,null);
 
         }
         ,false);

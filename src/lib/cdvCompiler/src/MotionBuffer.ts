@@ -37,7 +37,10 @@ module BufferSystem
         }
 
         bufferOutAdd(input:string):number {
-
+            if(input.slice(-1) === "?")
+            {
+                console.log(input);
+            }
             var position = this.bufferOut.push(input);
             --position;
             return position;

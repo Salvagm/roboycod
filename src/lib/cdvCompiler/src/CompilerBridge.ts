@@ -4,6 +4,8 @@
 
 ///<reference path ="ICompiler.ts"/>
 ///<reference path ="CCompiler.ts"/>
+///<reference path="INotifier.ts"/>
+
 /**
  * Esta clase se encagarga de la comunicacion entre el juego y el compilador
  * Gestiona los buffers de entrada y salida que seran actualizados por quien los requiera
@@ -13,15 +15,16 @@ module BufferSystem
     // TODO Hacer esta clase singleton
     export class CompilerBridge
     {
-
-        public compiledObjetcs          : Array<Function>;
         private static _instance        : CompilerBridge = null;
         private static _canInstantiate  : boolean = false;
+
+        private listOfCdv               : Array<Roboycod.CdvLogic>;
+        private compiledObjetcs         : Array<Function>;
         private info                    : Compiler.ParseData;
         private compilerWorker          : Worker;
         private compileMaxTime          : number;
         private timeOutExec             : Array<number>;
-        private execute                  : boolean;
+        private execute                 : boolean;
 
         public static getInstace() : CompilerBridge
         {
@@ -46,8 +49,10 @@ module BufferSystem
             this.compilerWorker.addEventListener("message",this.proccessMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessErr, false);
             this.compiledObjetcs = new Array<Function>();
+            this.listOfCdv = new Array<Roboycod.CdvLogic>();
             this.execute = false;
             this.timeOutExec = new Array<number>();
+
             CompilerBridge._instance = this;
         }
 
@@ -66,7 +71,7 @@ module BufferSystem
          *
          * @param codeOrId parametro que puede ser un codigo o un ID
          */
-        public runit(codeOrId : any) : void
+        public runit(codeOrId : any, cdv : Roboycod.CdvLogic) : void
         {
             this.execute = true;
             if(typeof codeOrId === "number")
@@ -75,8 +80,11 @@ module BufferSystem
             }
             else
             {
+                var position = this.listOfCdv.push(cdv);
+                --position;
+
                 //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
-                this.compilerWorker.postMessage({code : codeOrId, type : "motion"});
+                this.compilerWorker.postMessage({code : codeOrId, type : "motion", id : position});
                 this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
             }
 
@@ -88,13 +96,11 @@ module BufferSystem
          * @param code codigo escrito en el lenguaje soprotado
          * @returns {boolean} devuelve true si ha conseguido compilar, false en otro caso
          */
-        public compile(code : string) : boolean
+        public compile(code : string) : void
         {
             this.execute = false;
             this.compilerWorker.postMessage(code);
             this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
-
-            return true;
         }
 
         public executionTime(time : number)
@@ -130,9 +136,11 @@ module BufferSystem
 
             clearTimeout(cB.timeOutExec.pop());
 
-            cB.info = new Compiler.ParseData(info.data._isCompiled,info.data._code);
+            cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
 
-            cB.addNewProgram(cB.info.getCode());
+            var index = cB.addNewProgram(cB.info.getCode());
+
+            //TODO cB.listOfCdv[info.data.id].ProgramId(index);
 
         }
 
@@ -143,6 +151,8 @@ module BufferSystem
             console.log("Error"); // TODO FUnciona cuando lanza un error!!!
             clearTimeout(cB.timeOutExec.pop());
         }
+
+
     }
 
 
