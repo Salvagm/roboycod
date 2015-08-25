@@ -3,15 +3,12 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../cdvs/CdvSprite.ts"/>
-///<reference path="../cdvs/CdvLogic.ts"/>
+///<reference path="../cdvs/CdvCommon.ts"/>
 ///<reference path="BaseGun.ts"/>
 
 module Roboycod{
 
     export class Player extends Phaser.Sprite {
-
-        //TODO mejorar, la usamos para no perder el contexto
-        public static This : Player;
 
         private animState   : string = 'idle';
         private endShot     : boolean = true;
@@ -63,9 +60,9 @@ module Roboycod{
 
         create() {
             /*
-             * Asignamos la referencia del player a los CDVs
+             * Mandamos la instancia para asociar las funciones a los CDVs
              */
-            CdvLogic.setPlayer(this);
+            CdvCommon.getInstance().setPlayer(this);
 
             this.animations.play('idle');
 
@@ -82,8 +79,6 @@ module Roboycod{
             this.animations.getAnimation('jumpShoot').onComplete.add(function(){
                 this.endShot = true;
             }, this);
-
-            Player.This = this;
         }
 
         stopMove() : void {
@@ -104,12 +99,11 @@ module Roboycod{
             this.moveTo(1);
         }
         jump() : void {
-            if(Player.This.body.onFloor())
-                Player.This.body.velocity.y = Player.This.JUMP_SPEED;
+            if(this.body.onFloor())
+               this.body.velocity.y = this.JUMP_SPEED;
         }
         shoot() : void {
-
-            Player.This.gun.shoot(Player.This);
+            this.gun.shoot(this);
         }
 
         public knockBack(enemy : Phaser.Sprite) : void

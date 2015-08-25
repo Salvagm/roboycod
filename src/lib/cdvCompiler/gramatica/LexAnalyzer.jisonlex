@@ -40,7 +40,7 @@ function LexicalError()
 "false" 			return "tFasle";
 "true"				return "tTrue";
 "main"				return "tMain";
-"\""({LD})+"\""	return "tString";
+"\"".+"\""	return "tString";
 "'"[a-zA-Z0-9]"'"		return "tCharacter";
 ">>"				return 'tRdesp';
 "<<"				return 'tLdesp';

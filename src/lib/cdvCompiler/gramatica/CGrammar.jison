@@ -222,10 +222,8 @@ EnumTypes = {
 	CHAR : 3,
 	BOOL : 4,
 	STRING : 5,
-	VARIABLE: 6,
 	ARRAY : 7,
 	FUNCTION : 8,
-	VOID : 9,
 	UNDEFINED : -1
 };
 /**
@@ -259,17 +257,17 @@ var stackScope = new StackScope();
 
 S : GLOBAL FVM tEOF
 	{
-		console.log(stackScope);
-  		console.log($2.trad);
-		console.log("FIN DE TRADUCCION");
+		// console.log(stackScope);
+  // 		console.log($2.trad);
+		// console.log("FIN DE TRADUCCION");
 		
 		
 		// { typeof console !== 'undefined' ? console.log($1) : print($1);
   //         return $1; }
   
-  		eval($2.trad);
-  		eval("main()");
-
+  		// eval($2.trad);
+  		//eval("main()");
+  		return $2.trad;
   
 	};
 GLOBAL :  // anyadimos el ambito global al inicio
@@ -566,7 +564,7 @@ Instr : tCin tRdesp tId tSemicolon
 Instr : tCout tLdesp Expr Instrout
 	{
 		// TODO: (0) Modificar por accesos al buffer
-		var trad = "console.log("+$3.trad + $4.trad;
+		var trad = msgCout( $3.trad + $4.trad);
 		$$ = new Mark("",trad);
 	};
 Instrout : tLdesp Instroutp
@@ -576,11 +574,11 @@ Instrout : tLdesp Instroutp
 	};
 Instrout : tLdesp tEndl tSemicolon
 	{
-		$$ = new Mark("","\n);");
+		$$ = new Mark("","\n");
 	};
 Instrout : tSemicolon
 	{
-		$$ = new Mark("",");");
+		$$ = new Mark("","");
 	};
 Instroutp : Expr Instrout
 	{
@@ -878,11 +876,12 @@ function compilationError(type, nline , lex)
 // TODO: (1) escribir funcion que comunica con buffer para enviarle la info
 function msgCout(msg)
 {
-
+	return Compiler.CCompiler.getInstance().bufferTrad(msg);
 }
 
 // TODO: (1) escribir funcion para leer del buffer y devolver al usuario 
-function msgCin (msg) {
+function msgCin (msg) 
+{
 
 }
 /**

@@ -7,6 +7,8 @@
 ///<reference path="../../lib/skulpt/processCode.d.ts"/>
 ///<reference path="../player/Player.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
+///<reference path="CdvCommon.ts"/>
+
 
 module Roboycod {
 
@@ -19,19 +21,10 @@ module Roboycod {
         //TODO Crear Run(id cdv.id) y readBuffer(id), si la salida coincide
         //TODO con la salida de ese tipo, se ejecuta la funcion del diccionario
 
-        //Diccionarios de acciones - funcion
-        public static weaponActions :{[action : string] : Function;} = {};
-        public static coreActions   :{[action : string] : Function;} = {};
-        public static motionActions :{[action : string] : Function;} = {};
-        public static dronActions   :{[action : string] : Function;} = {};
-        public static coreQuerys    :string[];
-        public static motionQuerys  :string[];
-        public static dronQuerys    :string[];
-        public static weaponQuerys  :string[];
-
 
         //En el constructor asignaremos el diccionario concreto segun su tipo
-        private actions  :{[action : string] : Function;} = {};
+        private actions  :{[action  : string] : any;} = {};
+        private answers  :{[query   : string] : any;} = {};
         //El id servira para ser distinguido por el compilador
         public id               : number;
         public type             : string;
@@ -72,73 +65,43 @@ module Roboycod {
             switch (this.type){
                 case CdvLogic.TYPES[0] :
                     this.code = "print(\"disparar\")";
-                    this.actions = CdvLogic.weaponActions;
+                    this.actions = CdvCommon.weaponActions;
                     this.keyCode = Phaser.Keyboard.W;
                     break;
                 case CdvLogic.TYPES[1] :
-                    this.actions = CdvLogic.coreActions;
+                    this.actions = CdvCommon.coreActions;
                     break;
                 case CdvLogic.TYPES[2] :
-                    this.actions = CdvLogic.motionActions;
+                    this.actions = CdvCommon.motionActions;
                     this.code = "print(\"saltar\")";
                     this.keyCode = Phaser.Keyboard.SPACEBAR;
                     break;
                 case CdvLogic.TYPES[3] :
-                    this.actions = CdvLogic.dronActions;
+                    this.actions = CdvCommon.dronActions;
                     break;
                 default :
                     console.log("No existe el tipo de cdv al asignar tabla de acciones");
             }
         }
-        public static setPlayer(player : Player){
-
-            //TODO pasar a Player.shoot , Player.jump,etc aun asi necesitan el contexto
-            /*
-             * Inicializamos los diccionarios de acciones
-             */
-            CdvLogic.weaponActions['disparar'] = (function(player){return player.shoot;})(player);
-
-
-            CdvLogic.motionActions['saltar'] = (function(player){return player.jump;})(player);
-        }
 
         /**
-         * Ejecutara la accion de la instacia
+         * Ejecutara el codigo asociado, se realizaran las acciones que tengan
+         * como clave la salida de la ejecucion del codigo
          */
         public runCode() : void{
-            //Segun el type de esa instancia, leera de un buffer concreto
-            //y buscara el valor de la key
-
-            //TODO Pasar a Bridge con tiempos de espera
-
-            var output : string[] = runit(this);
-
-            //TODO Pasar a Bridge, hacer un callback bridge.OnCompleteRun(
-            //TODO  this.actions[output](CdvLogic.player);
-            //TODO  )
-
-            //TODO ejecutar el array de outputs en el BRIDGE
-            this.execAction(output);
-
+            //TODO runit de Bridge
+            runit(this);
         }
-
+        public execAction(output : string){
+            this.actions[output]();
+        }
         /**
-         * Recibe una query y devuelve el valor actual del juego para la pregunta
-         * asociada
-         * @param query
+         * Devuelve el estado actual del juego (respuesta a las preguntas)
+         * en una hash query-->valor respuesta
          */
-        public answerQuerys() : void{
+        public answerQuerys() : any{
+
             // enTierra? --> function(){ return Player.body.onfloor;}
-        }
-
-        /**
-         * Ejecuta una serie de acciones en una lista
-         * @param output
-         */
-        public execAction(output : string[]){
-            for(var i = 0; i< output.length ; ++i){
-                this.actions[output[i]]();
-            }
         }
         public showCode() : void{
 

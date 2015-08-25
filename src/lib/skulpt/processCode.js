@@ -31,9 +31,9 @@
 
         var terminal  = document.getElementById("output").innerHTML;
         var list = terminal.split("\n");
-        //TODO deberia devolver todas las salidas emitidas por la ejecucion
-        var output = [list[list.length-2]];
-        return output;
+        var output = list[list.length-2];
+        cdv.execAction(output);
+        //return list[list.length-2];
     }
     $("#runCode").click(function()
     {

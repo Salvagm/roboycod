@@ -1,1 +1,1 @@
-declare function runit(code : Roboycod.CdvLogic) : string[];
+declare function runit(code : Roboycod.CdvLogic) : void;
