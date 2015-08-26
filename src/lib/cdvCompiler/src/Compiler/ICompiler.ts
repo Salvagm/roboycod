@@ -18,7 +18,7 @@ module Compiler
          * Funcion que recibe el codigo escrito en el lenguaje y devuelve un objeto
          * @param code codigo que queremos compilar
          */
-        compile(code : string) : void;
+        compile(code : string) : ParseData;
 
 
 

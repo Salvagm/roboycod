@@ -2,17 +2,17 @@
  * Created by javi on 15/04/15.
  */
 
-///<reference path ="../Compiler/ICompiler.ts"/>
-///<reference path ="../Compiler/CCompiler.ts"/>
-///<reference path="INotifier.ts"/>
+///<reference path ="../Compiler/ParseData.ts"/>
+///<reference path="../../../../game/cdvs/CdvLogic.ts"/>
 
-/**
- * Esta clase se encagarga de la comunicacion entre el juego y el compilador
- * Gestiona los buffers de entrada y salida que seran actualizados por quien los requiera
- */
+
 module IOSystem
 {
-    // TODO Hacer esta clase singleton
+
+    /**
+     * Esta clase se encagarga de la comunicacion entre el juego y el compilador
+     * Gestiona los buffers de entrada y salida que seran actualizados segun las llamadas de los CDV
+     */
     export class CompilerBridge
     {
         private static _instance        : CompilerBridge = null;
@@ -26,6 +26,10 @@ module IOSystem
         private timeOutExec             : Array<number>;
         private execute                 : boolean;
 
+        /**
+         * Devuelve la instancia unica de la clase
+         * @returns {CompilerBridge} objeto unico de tipo CompilerBridge
+         */
         public static getInstace() : CompilerBridge
         {
             if(CompilerBridge._instance === null)
@@ -36,7 +40,9 @@ module IOSystem
             }
             return CompilerBridge._instance;
         }
-
+        /**
+         * Constructor que solo es llamado una vez, ya que solo puede exitir un unica instancia
+         */
         constructor()
         {
             if(!CompilerBridge._canInstantiate)
@@ -56,6 +62,10 @@ module IOSystem
             CompilerBridge._instance = this;
         }
 
+        /**
+         * Devuelve la informacion de compilacion
+         * @returns {Compiler.ParseData} Objeto que contiene la informacion de compilacion
+         */
         public getInfo() : Compiler.ParseData
         {
             return this.info;
@@ -99,22 +109,33 @@ module IOSystem
             this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
         }
 
-        public executionTime(time : number)
+        /**
+         * Establece el tiempo limite de ejecucion
+         * @param time tiempo introducido por el usuario
+         */
+        public executionTime(time : number) : void
         {
             this.compileMaxTime = time;
         }
 
+        /**
+         * Anyade un el codigo compilador a un array interno con un codigo unico
+         * @param code codigo resultante de la compilacion
+         * @returns {number} identificador unico que se asigna
+         */
         private addNewProgram(code : string) : number
         {
-            // TODO Notificar al CDV cual es el ID de ejecucion de su programa
             var position = Math.abs(Math.random() * Date.now() | 0);
                 this.compiledObjetcs[position] = code;
-            //TODO Modificar para que sea mediante workers
-
-
             return position;
         }
-        private executeProgram (code : string, cdv : Roboycod.CdvLogic)
+
+        /**
+         * Ejecuta un codigo que ha sido traducido y envia las respuestas al CDV que manda ejecucion
+         * @param code codigo que queremos ejecutar
+         * @param cdv CDV al que queremo enviar las salidas de la ejecucion
+         */
+        private executeProgram (code : string, cdv : Roboycod.CdvLogic) : void
         {
             var wProgram = new Worker("src/WorkProgram.js");
             wProgram['CDV'] = cdv;
@@ -124,16 +145,20 @@ module IOSystem
             wProgram.postMessage(code);
 
         }
+
+        /**
+         * Funcion que termina un worker si este no ha compleato la tarea, la cual se llama desde otros ambitos
+         * @param cB esta misma clase que pasamos al metodo, ya que puede ser invocada desde otro ambitos
+         */
         private breakWorker(cB : CompilerBridge)
         {
             cB.compilerWorker.terminate();
         }
 
-        private runCode(id : number)
-        {
-            // TODO modificar por worker
-            //this.compiledObjetcs[id]();
-        }
+        /**
+         * FUncion que procesa la informacion que se recibe desde el hilo del compilador
+         * @param info informacion recibida
+         */
         private proccessMsg (info) : void
         {
 
@@ -151,6 +176,10 @@ module IOSystem
 
         }
 
+        /**
+         * Funcion que procesa los errores que hayan podido generarse durante la compilacion
+         * @param info informacion que recibimos
+         */
         private proccessErr(info) : void
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
@@ -160,17 +189,21 @@ module IOSystem
             clearTimeout(cB.timeOutExec.pop());
         }
 
+        /**
+         * Funcion que envia la informacion recibida por un worker al CDV
+         * @param info informacion que recibimos
+         */
         private sendInfoToCdv(info)
         {
-            //if(info.data.cmd === "end")
-            //{
-            //    info.target.terminate();
-            //}
 
             //info.taget.CDV.execAction(info.data.output);
             console.log(info.data.output);
         }
 
+        /**
+         * Funcion que se ejecuta si se ha producido un error al ejecutar una funcion
+         * @param info informacion del error
+         */
         private runError(info)
         {
             info.target.terminate();
