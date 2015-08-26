@@ -2,9 +2,10 @@
  * Created by salva on 21/08/15.
  */
 ///<reference path="IBuffer.ts"/>
+
 module IOSystem
 {
-    export class WeaponBuffer implements IBuffer
+    export class CoreBuffer
     {
 
         bufferOutAdd(input:string):number {

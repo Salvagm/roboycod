@@ -2,8 +2,8 @@
  * Created by javi on 15/04/15.
  */
 
-///<reference path ="ICompiler.ts"/>
-///<reference path ="CCompiler.ts"/>
+///<reference path ="../Compiler/ICompiler.ts"/>
+///<reference path ="../Compiler/CCompiler.ts"/>
 ///<reference path="INotifier.ts"/>
 
 /**
@@ -19,7 +19,7 @@ module IOSystem
         private static _canInstantiate  : boolean = false;
 
         private listOfCdv               : {[idCdv : number] : Roboycod.CdvLogic};
-        private compiledObjetcs         : {[idFunc : number] : Function};
+        private compiledObjetcs         : {[idFunc : number] : string};
         private info                    : Compiler.ParseData;
         private compilerWorker          : Worker;
         private compileMaxTime          : number;
@@ -64,15 +64,14 @@ module IOSystem
 
         /**
          * Funcion que ejecuta el codigo que escribe el usuario
-         * @param codeOrId parametro que puede ser un codigo o un ID
          * @param cdv parte del robot que manda la compilacion
          */
-        public runit(codeOrId : any, cdv : Roboycod.CdvLogic) : void
+        public runit(cdv : Roboycod.CdvLogic) : void
         {
             this.execute = true;
-            if(typeof codeOrId === "number")
+            if(cdv.id !== -1)
             {
-                this.runCode(codeOrId);
+                this.executeProgram(this.compiledObjetcs[cdv.id], cdv);
             }
             else
             {
@@ -81,7 +80,7 @@ module IOSystem
 
 
                 //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
-                this.compilerWorker.postMessage({code : codeOrId, type : "motion", id : position});
+                this.compilerWorker.postMessage({code : cdv.code, type : "motion", id : position});
                 this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
             }
 
@@ -109,16 +108,22 @@ module IOSystem
         {
             // TODO Notificar al CDV cual es el ID de ejecucion de su programa
             var position = Math.abs(Math.random() * Date.now() | 0);
-                this.compiledObjetcs[position] = new Function(code);
+                this.compiledObjetcs[position] = code;
             //TODO Modificar para que sea mediante workers
 
 
-            if(this.execute)
-                this.compiledObjetcs[position]();
-
             return position;
         }
+        private executeProgram (code : string, cdv : Roboycod.CdvLogic)
+        {
+            var wProgram = new Worker("src/WorkProgram.js");
+            wProgram['CDV'] = cdv;
+            wProgram.addEventListener("message", this.sendInfoToCdv,false);
+            wProgram.addEventListener("error",this.runError,false);
 
+            wProgram.postMessage(code);
+
+        }
         private breakWorker(cB : CompilerBridge)
         {
             cB.compilerWorker.terminate();
@@ -126,7 +131,8 @@ module IOSystem
 
         private runCode(id : number)
         {
-            this.compiledObjetcs[id]();
+            // TODO modificar por worker
+            //this.compiledObjetcs[id]();
         }
         private proccessMsg (info) : void
         {
@@ -138,7 +144,9 @@ module IOSystem
             cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
 
             var index = cB.addNewProgram(cB.info.getCode());
-
+            cB.listOfCdv[info.data.id].isCompiled = cB.info.isCompiled();
+            cB.listOfCdv[info.data.id].id = index;
+            cB.executeProgram(cB.compiledObjetcs[index],cB.listOfCdv[info.data.id]);
             //TODO cB.listOfCdv[info.data.id].ProgramId(index);
 
         }
@@ -147,11 +155,26 @@ module IOSystem
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
             //TODO gestionar Error
+
             console.log("Error"); // TODO FUnciona cuando lanza un error!!!
             clearTimeout(cB.timeOutExec.pop());
         }
 
+        private sendInfoToCdv(info)
+        {
+            //if(info.data.cmd === "end")
+            //{
+            //    info.target.terminate();
+            //}
 
+            //info.taget.CDV.execAction(info.data.output);
+            console.log(info.data.output);
+        }
+
+        private runError(info)
+        {
+            info.target.terminate();
+        }
     }
 
 

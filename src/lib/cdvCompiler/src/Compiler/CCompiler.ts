@@ -4,7 +4,7 @@
 
 ///<reference path ="ICompiler.ts" />
 ///<reference path ="ParseData.ts" />
-///<reference path="../gramatica/CGrammar.d.ts"/>
+///<reference path="../../gramatica/CGrammar.d.ts"/>
     
 module Compiler
 {
@@ -55,26 +55,27 @@ module Compiler
         // weapon, core, motion, dron
         public bufferTrad(code: string) : string
         {
-            var cad : string = "IOSystem";
+            var trad : string = "IOSystem.sendMsg("+code+",";
             switch (this.bufferType)
             {
                 case 'weapon' :
-                    cad += ".WeaponBuffer";
+                    trad += "\"weapon\"";
                     break;
                 case 'core' :
-                    cad += ".CoreBuffer";
+                    trad += "\"core\"";
                     break;
                 case 'motion' :
-                    cad += ".MotionBuffer";
+                    trad += "\"motion\"";
                     break;
                 case 'dron' :
-                    cad += ".DronBuffer";
+                    trad += "\"dron\"";
                     break;
                 default :
                     throw Error("Type is not defined or unknwon");
             }
-            cad +=".getInstace().consoleOut("+code+")";
-            return cad;
+            trad +=",\"cout\")";
+
+            return trad;
         }
 
 

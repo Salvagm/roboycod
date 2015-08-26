@@ -3,6 +3,9 @@
  */
 module IOSystem
 {
+    /**
+     * INFO DE SALIDA PARA COUT Y CIN
+     */
     export interface IBuffer
     {
         bufferOutAdd(input : string) : number;

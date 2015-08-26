@@ -4,7 +4,7 @@
 ///<reference path="IBuffer.ts"/>
 module IOSystem
 {
-    export class DronBuffer implements IBuffer
+    export class WeaponBuffer
     {
 
         bufferOutAdd(input:string):number {

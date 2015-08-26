@@ -2,10 +2,9 @@
  * Created by salva on 21/08/15.
  */
 ///<reference path="IBuffer.ts"/>
-
 module IOSystem
 {
-    export class CoreBuffer implements IBuffer
+    export class DronBuffer
     {
 
         bufferOutAdd(input:string):number {

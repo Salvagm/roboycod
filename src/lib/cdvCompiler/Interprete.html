@@ -9,6 +9,7 @@
     <script src="src/CCompiler.js" type="application/javascript"></script>
     <script src="src/ParseData.js" type="application/javascript"></script>
     <script src="src/MotionBuffer.js" type="application/javascript"></script>
+    <script src="src/WorkProgram.js" type="application/javascript"></script>
 
 
 </head>
@@ -19,10 +20,9 @@
 <script type="application/javascript">
 
     var comp = IOSystem.CompilerBridge.getInstace();
+    var cdv ={id : -1 , code : "int cacaMaca; int main(){cout << \"EnAire?\" << endl;}"};
 
-
-    comp.runit("int cacaMaca; int main(){cout << \"EnAire?\" << endl;}",null);
-    comp.runit("int cacaMaca; int main(){cout << \"SALTAR\" << endl;}",null);
+//    comp.runit("int cacaMaca; int main(){cout << \"SALTAR\" << endl;}",null);
     //    comp.runit(0);
 
 

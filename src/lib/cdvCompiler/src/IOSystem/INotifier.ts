@@ -1,7 +1,7 @@
 /**
  * Created by salva on 24/08/15.
  */
-///<reference path="../../../game/cdvs/CdvLogic.ts"/>
+///<reference path="../../../../game/cdvs/CdvLogic.ts"/>
 
 module IOSystem
 {
