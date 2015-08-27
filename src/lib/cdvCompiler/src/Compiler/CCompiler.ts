@@ -4,18 +4,21 @@
 
 ///<reference path ="ICompiler.ts" />
 ///<reference path ="ParseData.ts" />
-///<reference path="../gramatica/CGrammar.d.ts"/>
+///<reference path="../../gramatica/CGrammar.d.ts"/>
     
 module Compiler
 {
     export class CCompiler implements ICompiler {
 
         private static _instance            : CCompiler = null;
-        private static _canInstantiate     : boolean = false;
+        private static _canInstantiate      : boolean = false;
         public _cCompiler                   :CGrammar.Parser;
         private info                        :ParseData;
-        public bufferType                   : string;
+        private bufferType                   : string;
 
+        /**
+         * Constructor que solo es llamado una vez, ya que solo puede exitir un unica instancia
+         */
         constructor() {
             if(!CCompiler._canInstantiate)
                 throw Error("Fail to instantiate, use CCompiler.getInstance() instead");
@@ -24,6 +27,10 @@ module Compiler
             this._cCompiler = new CGrammar.Parser();
         }
 
+        /**
+         * Funcion estatica que nos devuelve la instancia del compilador
+         * @returns {CCompiler} devuelve la instancia unica de tipo CCompiler
+         */
         public static getInstance():CCompiler
         {
             if(CCompiler._instance === null)
@@ -35,10 +42,21 @@ module Compiler
             return CCompiler._instance;
 
         }
+
+        /**
+         * Establece el tipo de buffer al que debe enviar la informacion la compilacion
+         * @param type cadena con el tipo de buffer
+         */
         public setBufferType(type : string)
         {
             this.bufferType = type;
         }
+
+        /**
+         * Funcion que compila el codigo escrito por el usuario
+         * @param code cadena con el codigo escrito
+         * @returns {ParseData} Devuelve un objeto con la informacion de compilacion
+         */
         public compile(code : string) : ParseData
         {
             try{
@@ -53,33 +71,44 @@ module Compiler
         }
 
         // weapon, core, motion, dron
+        /**
+         * Devuelve la traduccion para que el compilador genere el codigo para enviar mensajes
+         * @param code codigo que queremos enviar por mensaje
+         * @returns {string} traduccion resultante que genera el compilador
+         */
         public bufferTrad(code: string) : string
         {
-            var cad : string = "IOSystem";
+            var trad : string = "IOSystem.sendMsg("+code+",";
             switch (this.bufferType)
             {
                 case 'weapon' :
-                    cad += ".WeaponBuffer";
+                    trad += "\"weapon\"";
                     break;
                 case 'core' :
-                    cad += ".CoreBuffer";
+                    trad += "\"core\"";
                     break;
                 case 'motion' :
-                    cad += ".MotionBuffer";
+                    trad += "\"motion\"";
                     break;
                 case 'dron' :
-                    cad += ".DronBuffer";
+                    trad += "\"dron\"";
                     break;
                 default :
                     throw Error("Type is not defined or unknwon");
             }
-            cad +=".getInstace().consoleOut("+code+")";
-            return cad;
+            trad +=",\"cout\")";
+
+            return trad;
         }
 
 
     }
     // Fuera de la clase
+    /**
+     * Funcion que espera recibir un mensaje desde el hilo principal y manda al compilador
+     * la ejecucion del codigo, una vez termina devuelve otro mensaje al hilo con el resutlado
+     * de la compilacion
+     */
     addEventListener("message",
         function(e)
         {
