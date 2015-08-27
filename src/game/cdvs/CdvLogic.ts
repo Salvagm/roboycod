@@ -65,19 +65,19 @@ module Roboycod {
             switch (this.type){
                 case CdvLogic.TYPES[0] :
                     this.code = "print(\"disparar\")";
-                    this.actions = CdvCommon.weaponActions;
+                    this.actions = CdvCommon.weaponHash;
                     this.keyCode = Phaser.Keyboard.W;
                     break;
                 case CdvLogic.TYPES[1] :
-                    this.actions = CdvCommon.coreActions;
+                    this.actions = CdvCommon.coreHash;
                     break;
                 case CdvLogic.TYPES[2] :
-                    this.actions = CdvCommon.motionActions;
+                    this.actions = CdvCommon.motionHash;
                     this.code = "print(\"saltar\")";
                     this.keyCode = Phaser.Keyboard.SPACEBAR;
                     break;
                 case CdvLogic.TYPES[3] :
-                    this.actions = CdvCommon.dronActions;
+                    this.actions = CdvCommon.dronHash;
                     break;
                 default :
                     console.log("No existe el tipo de cdv al asignar tabla de acciones");

@@ -9,13 +9,14 @@ module Roboycod{
     export class GameManager{
 
         private static _instance:GameManager = null;
+        private static _canInstantiate = false;
 
         private key  : string = 'roboycodData';
 
         private data : any;
 
         constructor() {
-            if(GameManager._instance){
+            if(!GameManager._canInstantiate){
                 throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
             }
             GameManager._instance = this;
@@ -23,7 +24,9 @@ module Roboycod{
 
         public static getInstance():GameManager {
             if(GameManager._instance === null) {
+                GameManager._canInstantiate = true;
                 GameManager._instance = new GameManager();
+                GameManager._canInstantiate = false;
             }
             return GameManager._instance;
         }

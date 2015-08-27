@@ -62,7 +62,7 @@ module Roboycod{
             /*
              * Mandamos la instancia para asociar las funciones a los CDVs
              */
-            CdvCommon.getInstance().setPlayer(this);
+            CdvCommon.getInstance().initCdvDictionaries(this);
 
             this.animations.play('idle');
 

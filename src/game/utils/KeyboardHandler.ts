@@ -12,10 +12,11 @@ module Roboycod {
     export class KeyboardHandler{
 
         private static _instance:KeyboardHandler = null;
+        private static _canInstantiate = false;
 
         constructor() {
 
-            if(KeyboardHandler._instance){
+            if(!KeyboardHandler._canInstantiate){
                 throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
             }
             KeyboardHandler._instance = this;
@@ -23,7 +24,9 @@ module Roboycod {
         }
         public static getInstance():KeyboardHandler {
             if(KeyboardHandler._instance === null) {
+                KeyboardHandler._canInstantiate = true;
                 KeyboardHandler._instance = new KeyboardHandler();
+                KeyboardHandler._canInstantiate = false;
             }
             return KeyboardHandler._instance;
         }
