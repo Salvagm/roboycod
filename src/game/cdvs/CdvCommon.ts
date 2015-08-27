@@ -1,6 +1,8 @@
 /**
  * Created by javi on 25/08/15.
  */
+///<reference path="../player/Player.ts"/>
+
 module Roboycod {
 
     export class CdvCommon {
@@ -15,16 +17,32 @@ module Roboycod {
         public static dronHash   :{[action : string] : Function;} = {};
 
         //Acciones que pueden realizarse
-        public static wActs : string[] = ['disparar', 'cargar'];
-        public static cActs : string[] = ['defender'];
-        public static mActs : string[] = ['saltar'];
-        public static dActs : string[] = ['atacar'];
+        public static wActs : string[] = [
+            'disparar', 'cargar'
+        ];
+        public static cActs : string[] = [
+            'defender'
+        ];
+        public static mActs : string[] = [
+            'saltar'
+        ];
+        public static dActs : string[] = [
+            'atacar'
+        ];
 
         //Preguntas sobre el estado del juego
-        public static weaponQuerys  : string[] = ['carga?'];
-        public static coreQuerys    : string[] = ['pickup?'];
-        public static motionQuerys  : string[] = ['enAire?'];
-        public static dronQuerys    : string[] = ['enemigo?'];
+        public static weaponQuerys  : string[] = [
+            'carga?'
+        ];
+        public static coreQuerys    : string[] = [
+            'pickup?'
+        ];
+        public static motionQuerys  : string[] = [
+            'enTierra?', 'enAire?'
+        ];
+        public static dronQuerys    : string[] = [
+            'enemigo?'
+        ];
 
         constructor() {
             if(!CdvCommon._canInstantiate){
