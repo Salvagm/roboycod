@@ -1,7 +1,8 @@
 /**
  * Created by salva on 27/08/15.
  */
-
+///<reference path="../../../../game/cdvs/CdvCommon.ts"/>
+    
 module IOSystem
 {
     export class MotionBuffer
