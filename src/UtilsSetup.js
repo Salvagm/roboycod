@@ -1,8 +1,50 @@
-$( document ).ready(function(){
+/*
+ * FUNCIONES PARA APARTADO VISUAL
+ */
+
+function fixRightSide(){
+    var delay=200; //1 seconds
+
+    setTimeout(function(){
+
+        //El nodo canvas no estara disponible hasta que phaser lo genere
+        var canvas  = document.querySelector('#game canvas');
+        var buffers = document.getElementById('buffers');
+        var wb      = document.getElementById('weaponBuffer');
+        var cb      = document.getElementById('coreBuffer');
+        var mb      = document.getElementById('motionBuffer');
+        var db      = document.getElementById('dronBuffer');
+        var tc      = document.getElementById('testConsole');
+
+        buffers.style.height = canvas.style.height;
+
+        var quarterHeight = canvas.clientHeight /4 + 'px';
+        wb.style.height = quarterHeight;
+        cb.style.height = quarterHeight;
+        mb.style.height = quarterHeight;
+        db.style.height = quarterHeight;
+        //El editor mide 300px
+        tc.style.height = canvas.clientHeight - 300 + 'px';
+
+        //Reajustamos el contenedor de las columnas al canvas
+        $(".side").height(canvas.clientHeight);
+
+    }, delay);
+}
+
+// Cada vez que se reajuste la pantalla se debe modificar la altura
+window.addEventListener("resize", fixRightSide);
+
+$( window ).load(function(){
+
+    /*
+     * FUNCIONES PARA EL EDITOR
+     */
+
     var editor = ace.edit("editor");
     var session = editor.getSession();
 
-    //elimina el warning al cargar texto
+    //Elimina el warning al cargar texto
     editor.$blockScrolling = Infinity;
 
     editor.setTheme("ace/theme/monokai");
@@ -28,41 +70,4 @@ $( document ).ready(function(){
             Roboycod.Inventory.getInstance().saveCdv();
         }
     });
-
-//TODO SACAR DE AQUI
-    window.addEventListener("resize", function(){
-        var canvas = document.querySelector('#game canvas');
-        var buffers = document.getElementById('buffers');
-        var wb  = document.getElementById('weaponBuffer');
-        var cb  = document.getElementById('coreBuffer');
-        var mb  = document.getElementById('motionBuffer');
-        var db  = document.getElementById('dronBuffer');
-        buffers.style.height = canvas.style.height;
-
-        console.log("Cavas height : " + canvas.clientHeight);
-        console.log("Un cuarto de height : "+ canvas.clientHeight /4);
-        console.log("Altura de wb : " +wb.clientHeight);
-        var quarterHeight = canvas.clientHeight /4 + 'px';
-        wb.style.height = quarterHeight;
-        cb.style.height = quarterHeight;
-        mb.style.height = quarterHeight;
-        db.style.height = quarterHeight;
-
-
-        console.log("resize");
-    });
 });
-
-//function showEditor(){
-//    editor.className = 'fadein';
-//    setTimeout(function() {
-//        $(editor).css('display', 'block');
-//    }, 1000);
-//};
-//
-//function hideEditor(){
-//    editor.className = 'fadeout';
-//    setTimeout(function() {
-//        $(editor).css('display', 'none');
-//    }, 1000);
-//};
