@@ -29,6 +29,28 @@ $( document ).ready(function(){
         }
     });
 
+//TODO SACAR DE AQUI
+    window.addEventListener("resize", function(){
+        var canvas = document.querySelector('#game canvas');
+        var buffers = document.getElementById('buffers');
+        var wb  = document.getElementById('weaponBuffer');
+        var cb  = document.getElementById('coreBuffer');
+        var mb  = document.getElementById('motionBuffer');
+        var db  = document.getElementById('dronBuffer');
+        buffers.style.height = canvas.style.height;
+
+        console.log("Cavas height : " + canvas.clientHeight);
+        console.log("Un cuarto de height : "+ canvas.clientHeight /4);
+        console.log("Altura de wb : " +wb.clientHeight);
+        var quarterHeight = canvas.clientHeight /4 + 'px';
+        wb.style.height = quarterHeight;
+        cb.style.height = quarterHeight;
+        mb.style.height = quarterHeight;
+        db.style.height = quarterHeight;
+
+
+        console.log("resize");
+    });
 });
 
 //function showEditor(){

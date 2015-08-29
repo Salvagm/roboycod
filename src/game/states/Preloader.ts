@@ -37,6 +37,18 @@ module Roboycod{
             this.game.load.image(
                 'inventoryBackground', 'assets/inventory/inventoryBackground.png'
             );
+            this.game.load.image(
+                'iAvatarW', 'assets/inventory/iAvatarW.png'
+            );
+            this.game.load.image(
+                'iAvatarC', 'assets/inventory/iAvatarC.png'
+            );
+            this.game.load.image(
+                'iAvatarM', 'assets/inventory/iAvatarM.png'
+            );
+            this.game.load.image(
+                'iAvatarD', 'assets/inventory/iAvatarD.png'
+            );
             this.game.load.json('jsonInventory','assets/inventory/inventory.json');
             this.load.atlasJSONHash(
                 'inventoryTiles',
@@ -44,6 +56,7 @@ module Roboycod{
                 'assets/inventory/inventoryTiles.json'
             );
 
+            this.game.load.bitmapFont('gemFont', 'assets/fonts/bitmapFonts/gem.png', 'assets/fonts/bitmapFonts/gem.xml');
 
             /**
              * Entidades, Objetos dinamicos, etc

@@ -41,6 +41,7 @@ module Roboycod {
             this.y = parseInt(this.gameData.worldMap.y);
 
 
+
             /**
              * Cargamos los elementos del worldMap
              */

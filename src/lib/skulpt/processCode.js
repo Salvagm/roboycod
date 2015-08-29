@@ -9,7 +9,7 @@
     Sk.execLimit = 3;
 
     function outf(text) {
-        var mypre = document.getElementById("output");
+        var mypre = document.getElementById("weaponOutput");
         mypre.innerHTML = mypre.innerHTML + text;
     }
     function builtinRead(x) {
@@ -29,7 +29,7 @@
             console.log(e.toString());
         }
 
-        var terminal  = document.getElementById("output").innerHTML;
+        var terminal  = document.getElementById("weaponOutput").innerHTML;
         var list = terminal.split("\n");
         var output = list[list.length-2];
         cdv.execAction(output);
@@ -37,7 +37,7 @@
     }
     $("#runCode").click(function()
     {
-        document.getElementById("output").innerHTML = "";
+        document.getElementById("weaponOutput").innerHTML = "";
         var editor = ace.edit("editor");
         code = editor.getSession().getValue();
 

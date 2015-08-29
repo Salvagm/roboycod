@@ -1,53 +1,9 @@
-.mask{
-    position: relative;
-    overflow: hidden;
-    margin: 0px auto;
-    width: 100%;
-    background-color: #f4f4f4
+.side{
+    /*min-height: 400px;*/
+    height: 100%;
 }
-.header{
-    float: left;
-    width: 100%;
-    background-color: #f4f4f4
-}
-.colleft{
-    position: relative;
-    width: 100%;
-    right: 40%;
-    background-color: #f4f4f4
-}
-.col1{
-    position: relative;
-    overflow: hidden;
-    float: left;
-    width: 38%;
-    left: 101%;
-    background-color: #e6e6e6
-}
-.col2{
-
-    position: relative;
-    overflow: hidden;
-    float: left;
-    width: 100px;
-    height: 100px;
-    left: 3%;
-    background-color: #e6e6e6
-}
-.footer{
-    float: left;
-    width: 100%;
-    background-color: #b4caf7
-}
-canvas{
-    width: 100px;
-    height: 100px;
-}
-body {
-    padding: 0px;
-    margin: 0px;
-    font-size: 90%;
-    background-color: #e7e7de
+.wrapper{
+    height: 100%;
 }
 #editor {
 
@@ -55,15 +11,19 @@ body {
 
     /*requiere minimo 300px de height para visualizarse*/
     height: 300px;
-    width: 46%;
+    width: 100%;
     position: relative;
-    left: 56%;
+
     overflow: hidden;
+
+    /*opacity: 1;*/
+    /*-webkit-transition: opacity 1s; *//* For Safari 3.1 to 6.0 */
+    /*transition: opacity 1s;*/
 }
 .shell-wrap {
     width: 100%;
-    margin: 0;
-    height: 200px;
+    margin-top: 1%;
+    height: 25%;
 }
 .shell-top-bar{
     text-align: center;
@@ -92,7 +52,10 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#B8B8B8',GradientType=0 ); /* IE6-9 */
 }
 
-#output{
+.output {
+
+    overflow: auto;
+    height: 300%;
 
     margin: 0;
     padding: 5px;
@@ -109,6 +72,5 @@ body {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 
-    height: 100%;
 }
 
