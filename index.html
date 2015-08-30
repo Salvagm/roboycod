@@ -38,6 +38,18 @@
     <script type="text/javascript" src="src/game/cdvs/CdvSprite.js"></script>
     <script type="text/javascript" src="src/game/cdvs/CdvMatrix.js"></script>
 
+    <!-- Clases de Entrada/Salida -->
+    <script src="src/lib/cdvCompiler/src/IOSystem/MotionBuffer.js"></script>
+    <script src="src/lib/cdvCompiler/src/IOSystem/CompilerBridge.js"></script>
+    <script src="src/lib/cdvCompiler/src/IOSystem/WorkProgram.js"></script>
+
+    <!-- Clases de Compilador -->
+    <script src="src/lib/cdvCompiler/src/Compiler/CCompiler.js"></script>
+    <script src="src/lib/cdvCompiler/src/Compiler/ParseData.js.js"></script>
+
+    <!-- Gramatica de C/C++ -->
+    <script src="src/lib/cdvCompiler/gramatica/CGrammar.js"></script>
+
     <script type="text/javascript" src="src/lib/ace/src-noconflict/ace.js" charset="utf-8"></script>
     <script src="src/lib/ace/src-noconflict/ext-language_tools.js"></script>
 
@@ -113,7 +125,16 @@
                             <div class="buffer-bar">MOVILIDAD</div>
                             <div class="shell-wrap  buffer">
                                 <div class="shell-top-bar">Entrada</div>
-                                <div class="input" id="motionInput"></div>
+                                <div class="input" id="motionInput">
+                                    <div class="list-group-item">
+                                        <dl class="dl-horizontal">
+                                            <dt>enAire =</dt>
+                                            <dd id="stInAir">true</dd>
+                                            <dt>enTierra =</dt>
+                                            <dd id="stInGround">false</dd>
+                                        </dl>
+                                    </div>
+                                </div>
                             </div>
                             <div class="shell-wrap buffer">
                                 <div class="shell-top-bar">Salida</div>
