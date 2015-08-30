@@ -140,27 +140,26 @@ module Compiler
             //    });
             //}
             var info : ParseData;
-
+            var msg = {};
             wCompiler.setBufferType(message.data.type);
 
             try{
 
                 info = wCompiler.compile(message.data.code);
+                info.setCode(info.getCode() + " main();");
+                msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : message.data.id, type : message.data.type};
+                self.postMessage(msg,null);
             }
             catch(error){
-                var errorAux = new ErrorEvent();
-                errorAux.message = error.message;
-                errorAux.error = {
-                    type        : message.data.type,
+                msg = {
+                    cmd         : "error",
                     isCompiled  : false,
-                    id          : message.data.id
+                    code        : error.message,
+                    id          : message.data.id,
+                    type        : message.data.type
                 };
-                throw errorAux;
+                self.postMessage(msg, null);
             }
-
-            info.setCode(info.getCode() + " main();");
-            var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : message.data.id, type : message.data.type};
-            self.postMessage(msg,null);
 
         },false);
 

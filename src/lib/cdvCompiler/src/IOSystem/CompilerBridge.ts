@@ -231,16 +231,31 @@ module IOSystem
 
             var cB : CompilerBridge = CompilerBridge.getInstace();
             clearTimeout(cB.timeOutCompile.pop());
-            var cdv : Roboycod.CdvLogic = cB.lisOfCdv[info.data.id];
-            cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
-            cB.addNewProgram(cB.info.getCode(),cdv.id);
+            var cdv : Roboycod.CdvLogic;
+            if(info.data.cmd === "error")
+            {
+                cdv = cB.compilationError(info.data);
+            }
+            else
+            {
+                cdv = cB.lisOfCdv[info.data.id];
+                cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
+                cB.addNewProgram(cB.info.getCode(),cdv.id);
 
-            cdv.isCompiled = cB.info.isCompiled();
-
+                cdv.isCompiled = cB.info.isCompiled();
+            }
             if(info.target.targetX !== undefined && info.target.targetY !== undefined )
                 cdv.graphicUpdate(info.target.targetX,info.target.targetY);
 
+        }
+        private compilationError(data : any )
+        {
+            this.sendBufferInfo(data.type,data.msg);
+            var cdv : Roboycod.CdvLogic = this.lisOfCdv[data.id];
+            console.log(data.code);
+            cdv.isCompiled = data.isCompiled;
 
+            return cdv;
         }
 
         /**
@@ -250,12 +265,14 @@ module IOSystem
         private proccessCompileErr(info) : void
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
-            //TODO gestionar Error
-            console.log(info);
-            var errMsg : string = info.message.split("Uncaught Error: ")[1];
-            //TODO enviar al buffer
-            //cB.sendBufferInfo(info.target.CDV.type, errMsg);
-            clearTimeout(cB.timeOutCompile.pop());
+
+                //TODO gestionar Error
+                var errMsg : string = info.message.split("Uncaught Error: ")[1];
+                console.log(errMsg);
+                //TODO enviar al buffer
+                //cB.sendBufferInfo(info.target.CDV.type, errMsg);
+                clearTimeout(cB.timeOutCompile.pop());
+
         }
 
         /**
