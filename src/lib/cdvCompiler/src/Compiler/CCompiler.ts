@@ -18,8 +18,8 @@ module Compiler
         private static _canInstantiate      : boolean = false;
         public _cCompiler                   :CGrammar.Parser;
         private info                        :ParseData;
-        private bufferType                   : string;
-
+        private bufferType                  :string;
+        private static dependencies         : string [] = ["../../gramatica/CGrammar.js", "ParseData.js"];
         /**
          * Constructor que solo es llamado una vez, ya que solo puede exitir un unica instancia
          */
@@ -69,6 +69,10 @@ module Compiler
 
             return this.info;
 
+        }
+        public static getDependencies() : string[]
+        {
+            return CCompiler.dependencies;
         }
 
         // weapon, core, motion, dron
@@ -123,6 +127,7 @@ module Compiler
     addEventListener("message",
         function(message)
         {
+
             importScripts("../../gramatica/CGrammar.js","ParseData.js");
             var wCompiler = CCompiler.getInstance();
             var info : ParseData;

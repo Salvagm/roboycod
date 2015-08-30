@@ -18,12 +18,12 @@ module IOSystem
         private static _instance        : CompilerBridge = null;
         private static _canInstantiate  : boolean = false;
 
-        private listOfCdv               : {[idCdv : number] : Roboycod.CdvLogic};
         private compiledObjetcs         : {[idFunc : number] : string};
         private info                    : Compiler.ParseData;
         private compilerWorker          : Worker;
         private compileMaxTime          : number;
-        private timeOutExec             : Array<number>;
+        private timeOutCompile          : Array<number>;
+        private timeOutExe              : Array<number>;
         private execute                 : boolean;
 
         /**
@@ -52,13 +52,12 @@ module IOSystem
 
             this.compilerWorker = new Worker("src/Compiler/CCompiler.js");
             this.compileMaxTime = 2000; // 2 segundos maximo
-            this.compilerWorker.addEventListener("message",this.proccessMsg,false);
-            this.compilerWorker.addEventListener("error",this.proccessErr, false);
+            this.compilerWorker.addEventListener("message",this.proccessCompileMsg,false);
+            this.compilerWorker.addEventListener("error",this.proccessCompileErr, false);
             this.compiledObjetcs = {};
-            this.listOfCdv = {};
             this.execute = false;
-            this.timeOutExec = [];
-
+            this.timeOutCompile = [];
+            this.timeOutExe = [];
             CompilerBridge._instance = this;
         }
 
@@ -82,17 +81,20 @@ module IOSystem
             this.execute = true;
             if(cdv.id !== -1)
             {
+                if(!cdv.isCompiled)
+                {
+
+                }
                 this.executeProgram(this.compiledObjetcs[cdv.id], cdv);
             }
             else
             {
-                var position = Math.abs(Math.random() * Date.now() | 0);
-                this.listOfCdv[position] = cdv;
+
                 this.compilerWorker['CDV'] = cdv;
 
                 //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
-                this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : position});
-                this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
+                this.compilerWorker.postMessage({code : cdv.code, type : cdv.type});
+                this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
             }
 
 
@@ -103,11 +105,14 @@ module IOSystem
          * @param code codigo escrito en el lenguaje soprotado
          * @returns {boolean} devuelve true si ha conseguido compilar, false en otro caso
          */
-        public compile(code : string) : void
+        public compile(cdv : Roboycod.CdvLogic, x? : number, y? : number) : void
         {
             this.execute = false;
-            this.compilerWorker.postMessage(code);
-            this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
+            this.compilerWorker['CDV'] = cdv;
+            this.compilerWorker["targetX"] = x;
+            this.compilerWorker["targetY"] = y;
+            this.compilerWorker.postMessage(cdv.code);
+            this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
         }
 
         /**
@@ -146,7 +151,7 @@ module IOSystem
             var cdvStates = this.getStates(cdv.type);
 
             wProgram.postMessage({code : code, playerState : cdvStates});
-
+            this.timeOutExe.unshift(setTimeout(this.breakExecWorker,this.executionTime, wProgram));
         }
 
         /**
@@ -199,29 +204,42 @@ module IOSystem
          * Funcion que termina un worker si este no ha compleato la tarea, la cual se llama desde otros ambitos
          * @param cB esta misma clase que pasamos al metodo, ya que puede ser invocada desde otro ambitos
          */
-        private breakWorker(cB : CompilerBridge)
+        private breakCompilerWorker(cB : CompilerBridge)
         {
             cB.compilerWorker.terminate();
+            cB.compilerWorker = new Worker("src/Compiler/CCompiler.js");
+        }
+
+        /**
+         * FUncion que finaliza la ejecucion de un worker si sobrepasa un tiempo determinado
+         * @param currentWorker worker que queremos terminar
+         */
+        private breakExecWorker(currentWorker : Worker)
+        {
+            currentWorker.terminate();
         }
 
         /**
          * FUncion que procesa la informacion que se recibe desde el hilo del compilador
          * @param info informacion recibida
          */
-        private proccessMsg (info) : void
+        private proccessCompileMsg (info) : void
         {
 
             var cB : CompilerBridge = CompilerBridge.getInstace();
 
-            clearTimeout(cB.timeOutExec.pop());
+            clearTimeout(cB.timeOutCompile.pop());
 
             cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
 
             var index = cB.addNewProgram(cB.info.getCode());
-            cB.listOfCdv[info.data.id].isCompiled = cB.info.isCompiled();
-            cB.listOfCdv[info.data.id].id = index;
-            cB.executeProgram(cB.compiledObjetcs[index],cB.listOfCdv[info.data.id]);
-            //TODO cB.listOfCdv[info.data.id].ProgramId(index);
+            info.target.CDV.isCompiled = cB.info.isCompiled();
+            info.target.CDV.id = index;
+            if(info.target.targetX !== undefined && info.target.targetY !== undefined )
+                info.target.CDV.graphicUpdate(info.target.targetX,info.target.targetY);
+
+            cB.executeProgram(cB.compiledObjetcs[index],info.target.CDV);
+
 
         }
 
@@ -229,13 +247,13 @@ module IOSystem
          * Funcion que procesa los errores que hayan podido generarse durante la compilacion
          * @param info informacion que recibimos
          */
-        private proccessErr(info) : void
+        private proccessCompileErr(info) : void
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
             //TODO gestionar Error
             var errMsg : string = info.message.split("Uncaught Error: ")[1];
             cB.sendBufferInfo(info.target.CDV.type, errMsg);
-            clearTimeout(cB.timeOutExec.pop());
+            clearTimeout(cB.timeOutCompile.pop());
         }
 
         /**
@@ -245,12 +263,12 @@ module IOSystem
         private sendInfoToCdv(info)
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
+            clearTimeout(cB.timeOutExe.pop());
             if(info.data.output === "saltar") console.log("salto");
             console.log(info.data.output);
 
-            //info.taget.CDV.execAction(info.data.output)
-            IOSystem.MotionBuffer.getInstance().writeMessage(info.data.output);
-
+            info.taget.CDV.execAction(info.data.action);
+            cB.sendBufferInfo(info.target.CDV.type,info.data.output);
         }
 
         /**
@@ -260,6 +278,7 @@ module IOSystem
         private runError(info)
         {
             info.target.terminate();
+            //clearTimeout(cB.timeOutExe.pop());
         }
     }
 
