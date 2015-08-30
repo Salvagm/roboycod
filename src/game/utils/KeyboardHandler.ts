@@ -42,6 +42,20 @@ module Roboycod {
             tab.onDown.add(stage.navToInventory,stage);
             enter.onDown.add(stage.navToWorldMap,stage);
             this.setupPlayer(player);
+
+            //TODO GODMODE
+
+            var one = stage.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+            var two = stage.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+            var three = stage.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+            var four = stage.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+
+            one.onDown.add(stage.GENERATECDV, stage, null, 0);
+            two.onDown.add(stage.GENERATECDV, stage, null, 1);
+            three.onDown.add(stage.GENERATECDV, stage, null, 2);
+            four.onDown.add(stage.GENERATECDV, stage, null, 3);
+
+            //TODO FIN GODMODE
         }
         public setupPlayer(player : Roboycod.Player) : void{
 

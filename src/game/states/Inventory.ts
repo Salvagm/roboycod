@@ -26,6 +26,7 @@ module Roboycod {
         //Graficos
         private background      : Phaser.Image;
         private avatar          : Phaser.Image[];
+        private blackMask       : Phaser.Graphics;
         private initScale       : Phaser.Point;
         private widthRatio      : number;
         private heightRatio     : number;
@@ -56,9 +57,7 @@ module Roboycod {
             this.numStage = numStage;
         }
         create() {
-
             // Cargamos los datos de juego
-
             this.gameData = GameManager.getInstance().getData(this.game);
 
             this.isEmpty = this.gameData.inventory.isEmpty;
@@ -88,11 +87,13 @@ module Roboycod {
             if(!this.isEmpty){
                 this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
                 this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
-
+                this.switchText();
             }
+
+            //Cargamos avatares y mascara
             this.loadAvatar();
             this.switchAvatar();
-
+            this.initMask();
 
             // Definimos y mapeamos las teclas correspondientes
 
@@ -103,6 +104,8 @@ module Roboycod {
             //Cambiamos la vista lateral
             $('#buffers').hide();
             $('#inventoryUtils').show();
+
+            GameManager.getInstance().fadeOut(this.game);
         }
         public navToLastState(){
 
@@ -238,6 +241,7 @@ module Roboycod {
                 this.cm.data[this.x][this.y].showCode();
             }
             if(this.x != oldX){
+                this.switchText();
                 this.switchAvatar(oldX);
             }
 
@@ -274,6 +278,7 @@ module Roboycod {
          * Va al editor para escribir en el CDV, al volver guarda
          */
         public writeCdv() : void{
+            this.switchMask();
             this.input.keyboard.stop();
 
             //Nos movemos al editor, al final del codigo
@@ -291,14 +296,28 @@ module Roboycod {
             var editor = ace.edit("editor");
             editor.blur();
 
-            this.cm.data[this.x][this.y].code = editor.getValue();
+            var cdv = this.cm.data[this.x][this.y];
+            cdv.code = editor.getValue();
 
-            //TODO llamar a compilar
+            //TODO llamar a compilar con draw = true
             //Miramos si compila o no y pintamos
-            var sprite = this.nav[this.x][this.y].compiled;
-            this.drawCdv(this.x,this.y,sprite.x, sprite.y);
+            //cdv.compile(this.x,this.y);
+
+        }
+
+        /**
+         * Este metodo sirve para actualizar la parte grafica desde el Birdge
+         * tras compilar, ya se que la compilacion se realiza de forma concurrente
+         * @param x la posicion x del cdv complado
+         * @param y la posicion y del cdv complado
+         */
+        public refreshCdv(x : number, y : number){
+            var sprite = this.nav[x][y].compiled;
+            this.drawCdv(x,y,sprite.x, sprite.y);
 
             GameManager.getInstance().save();
+
+            this.switchMask();
             this.input.keyboard.start();
         }
 
@@ -353,11 +372,68 @@ module Roboycod {
             this.actionsText= this.game.add.bitmapText(actionsX, actionsY, 'gemFont', "ACCIONES:", 20);
             this.queryText  = this.game.add.bitmapText(querysX, querysY, 'gemFont', "PREGUNTAS:", 20)
         }
+        private switchText() : void{
+
+            var sType   : string;
+            var sActons : string[];
+            var sQuerys : string[];
+            switch (this.cm.data[this.x][this.y].type){
+                case CdvLogic.TYPES[0] :
+                    sType = 'ARMA';
+                    sActons = CdvCommon.wActs;
+                    sQuerys = CdvCommon.weaponQuerys;
+                    break;
+                case CdvLogic.TYPES[1] :
+                    sType = 'CORE';
+                    sActons = CdvCommon.cActs;
+                    sQuerys = CdvCommon.coreQuerys;
+                    break;
+                case CdvLogic.TYPES[2] :
+                    sType = 'MOVIL';
+                    sActons = CdvCommon.mActs;
+                    sQuerys = CdvCommon.motionQuerys;
+                    break;
+                case CdvLogic.TYPES[3] :
+                    sType = 'DRON';
+                    sActons = CdvCommon.dActs;
+                    sQuerys = CdvCommon.dronQuerys;
+                    break;
+                default :
+                    console.log("No existe el tipo de cdv al cambiar el texto del inventario");
+            }
+            this.titleText.text = 'CDV ' + sType;
+            this.actionsText.text = 'ACCIONES: \n\n';
+            for(var i = 0; i < sActons.length; ++i){
+                this.actionsText.text += sActons[i] +'\n';
+            }
+            this.queryText.text = 'PREGUNTAS: \n\n';
+            for(var i = 0; i < sQuerys.length; ++i){
+                this.queryText.text += sQuerys[i] +'\n';
+            }
+        }
+        private initMask() : void{
+            this.blackMask = this.game.add.graphics(0, 0);
+            this.blackMask.beginFill(0, 1);
+            this.blackMask.drawRect(0, 0, this.game.width, this.game.height);
+            this.blackMask.alpha = 0;
+            this.blackMask.endFill();
+        }
+        private switchMask(){
+            if(this.blackMask.alpha == 0){
+                //Rehacemos la mascara para que los Cdvs no se pinten sobre ella
+                this.initMask();
+                this.blackMask.alpha = 0.5;
+            }
+            else{
+                this.blackMask.alpha = 0;
+            }
+        }
         /**
          * Esta funcion da acceso a la instancia desde fuera
          */
         public static getInstance() : Inventory{
             return Inventory._instance;
         }
+
     }
 }

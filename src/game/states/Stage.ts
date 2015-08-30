@@ -56,6 +56,8 @@ module Roboycod{
             KeyboardHandler.getInstance().setupStage(this, this.player);
             //Asiganmos teclas a los CDVs equipados
             KeyboardHandler.getInstance().setupCdvs(this, this.cm.getEquiped());
+
+            GameManager.getInstance().fadeOut(this.game);
         }
 
 
@@ -171,6 +173,16 @@ module Roboycod{
             GameManager.getInstance().save();
             this.game.state.start('WorldMap', true, false);
 
+        }
+        //TODO GODMODE
+        public GENERATECDV(key : Phaser.Key, type : number ){
+
+            var cdv : SpriteCdv = new SpriteCdv(
+                this.game,
+                this.player.x, this.player.y - this.player.height,
+                CdvLogic.TYPES[type]);
+            this.codevices.add(cdv);
+            cdv.body.velocity.y = -200;
         }
 
 
