@@ -76,7 +76,7 @@ module Roboycod{
         }
         public fadeIn () {
             var spr_bg = this.game.add.graphics(0, 0);
-            spr_bg.beginFill(255255255255 , 1);
+            spr_bg.beginFill(255255255 , 1);
             spr_bg.drawRect(0, 0, this.game.world.width, this.game.world.height*2);
             spr_bg.alpha = 1;
             spr_bg.endFill();
