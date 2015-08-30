@@ -245,10 +245,11 @@ module IOSystem
         private sendInfoToCdv(info)
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
-
+            if(info.data.output === "saltar") console.log("salto");
             console.log(info.data.output);
 
             //info.taget.CDV.execAction(info.data.output)
+            IOSystem.MotionBuffer.getInstance().writeMessage(info.data.output);
 
         }
 

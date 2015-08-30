@@ -23,6 +23,10 @@ module IOSystem
 
     export function sendMsg(code : string, cdvType : string, buffeType : string)
     {
-        self.postMessage({output : code, cdvType : cdvType, bType : buffeType, cmd : "cout"},null);
+        var action : string = code;
+        if(action.slice(-1) === "\n")
+            action = code.slice(0,-1);
+
+        self.postMessage({acction:  action, output : code, cdvType : cdvType, bType : buffeType, cmd : "cout"},null);
     }
 }

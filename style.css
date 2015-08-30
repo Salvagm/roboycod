@@ -1,3 +1,28 @@
+.list-group-item
+{
+    height: 100%;
+    overflow: hidden;
+}
+dl .dl-horizontal
+{
+    margin-bottom: 0%;
+}
+
+.dl-horizontal dt
+{
+    text-align: left;
+    width: auto;
+    padding-right: 2%;
+}
+
+.dl-horizontal dd
+{
+    text-align: left;
+    margin-left: 0;
+}
+
+
+
 .row{
     margin-right: 0px;
     margin-left: 0px;
