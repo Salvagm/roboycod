@@ -21,7 +21,10 @@ dl .dl-horizontal
     margin-left: 0;
 }
 
-
+dd{
+    font-weight: bold;
+    color: #EE274D;
+}
 
 .row{
     margin-right: 0px;

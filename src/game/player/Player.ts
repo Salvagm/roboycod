@@ -5,6 +5,7 @@
 ///<reference path="../cdvs/CdvSprite.ts"/>
 ///<reference path="../cdvs/CdvCommon.ts"/>
 ///<reference path="BaseGun.ts"/>
+///<reference path="../../lib/cdvCompiler/src/IOSystem/MotionBuffer.ts"/>
 
 module Roboycod{
 
@@ -12,10 +13,11 @@ module Roboycod{
 
         private animState   : string = 'idle';
         private endShot     : boolean = true;
-        private yLastPos       : number;
+        private yLastPos    : number;
+        private motionBuffer: IOSystem.MotionBuffer;
 
-        public gun         : BaseGun;
-        public direction   : number = 1;
+        public gun          : BaseGun;
+        public direction    : number = 1;
 
         //	Constants
         private MAX_SPEED   : number = 250;
@@ -79,6 +81,8 @@ module Roboycod{
             this.animations.getAnimation('jumpShoot').onComplete.add(function(){
                 this.endShot = true;
             }, this);
+
+            this.motionBuffer = IOSystem.MotionBuffer.getInstance();
         }
 
         stopMove() : void {
@@ -123,7 +127,6 @@ module Roboycod{
             this.y = y;
         }
         update() {
-
             //this.game.debug.body(this);
 
             //Anim FSM
@@ -155,6 +158,12 @@ module Roboycod{
             }
 
             this.animations.play(this.animState);
+
+
+            //Actualizamos informacion de los buffers
+            this.motionBuffer.inAir = !this.body.onFloor();
+            this.motionBuffer.inGround = this.body.onFloor();
+            this.motionBuffer.updateInput();
         }
 
     }

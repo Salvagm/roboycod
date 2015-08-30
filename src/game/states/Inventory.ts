@@ -318,6 +318,8 @@ module Roboycod {
             var sprite = this.nav[x][y].compiled;
             if(sprite !==undefined){
                 this.drawCdv(x,y,sprite.x, sprite.y);
+                this.nav[x][y].icon.scale.x += this.TWEEN_SCALE;
+                this.nav[x][y].icon.scale.y += this.TWEEN_SCALE;
             }
         }
 
@@ -329,11 +331,12 @@ module Roboycod {
         public refreshCdvById(id : number) : void{
             var found : boolean = false;
             var cdv   : CdvLogic;
-            for(var i = 0; i < this.ROWS ; ++i){
+            for(var i = 0; i < this.ROWS && !found; ++i){
                 for(var j = 0; j < this.COLS; ++j){
                     cdv = this.cm.data[i][j];
-                    if(cdv !== undefined && cdv.id == id){
-                        this.refreshCdv(i,j);
+                    if(cdv !== undefined && cdv.id == id) {
+                        this.refreshCdv(i, j);
+                        found = true;
                     }
                 }
             }
