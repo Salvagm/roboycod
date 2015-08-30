@@ -55,7 +55,10 @@ module Roboycod{
             return this.data;
         }
         public clearData(){
-            this.data = undefined;
+            if(localStorage.getItem(this.key)){
+                delete window.localStorage[this.key];
+                this.data = game.cache.getJSON('gameData');
+            }
         }
         public fadeOut (game : Phaser.Game) {
             var spr_bg = game.add.graphics(0, 0);
