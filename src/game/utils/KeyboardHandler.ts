@@ -50,6 +50,10 @@ module Roboycod {
             var three = stage.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
             var four = stage.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
 
+            var zero = stage.game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+            var gm = Roboycod.GameManager.getInstance();
+            zero.onDown.add(gm.clearData, gm);
+
             one.onDown.add(stage.GENERATECDV, stage, null, 0);
             two.onDown.add(stage.GENERATECDV, stage, null, 1);
             three.onDown.add(stage.GENERATECDV, stage, null, 2);
@@ -94,6 +98,14 @@ module Roboycod {
 
             tab.onDown.add(worldMap.navToInventory,worldMap);
             enter.onDown.add(worldMap.startStage,worldMap);
+
+            //TODO GODMODE
+
+            var zero = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+            var gm = Roboycod.GameManager.getInstance();
+            zero.onDown.add(gm.clearData, gm);
+
+            //TODO FIN GODMODE
         }
         public setupInventory(inventory : Roboycod.Inventory) : void{
 
