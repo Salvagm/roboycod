@@ -57,5 +57,16 @@ module Roboycod{
         public clearData(){
             this.data = undefined;
         }
+        public fadeOut (game : Phaser.Game) {
+            var spr_bg = game.add.graphics(0, 0);
+            spr_bg.beginFill(0, 1);
+            spr_bg.drawRect(0, 0, game.world.width, game.world.height*2);
+            spr_bg.alpha = 1;
+            spr_bg.endFill();
+
+            var s = game.add.tween(spr_bg)
+            s.to({ alpha: 0 }, 500, null)
+            s.start();
+        }
     }
 }

@@ -73,7 +73,7 @@ module Roboycod {
              * Definimos y mapeamos las teclas correspondientes
              */
             KeyboardHandler.getInstance().setupWorldMap(this);
-
+            GameManager.getInstance().fadeOut(this.game);
         }
 
 

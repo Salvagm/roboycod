@@ -56,9 +56,7 @@ module Roboycod {
             this.numStage = numStage;
         }
         create() {
-
             // Cargamos los datos de juego
-
             this.gameData = GameManager.getInstance().getData(this.game);
 
             this.isEmpty = this.gameData.inventory.isEmpty;
@@ -88,7 +86,7 @@ module Roboycod {
             if(!this.isEmpty){
                 this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
                 this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
-
+                this.switchText();
             }
             this.loadAvatar();
             this.switchAvatar();
@@ -103,6 +101,8 @@ module Roboycod {
             //Cambiamos la vista lateral
             $('#buffers').hide();
             $('#inventoryUtils').show();
+
+            GameManager.getInstance().fadeOut(this.game);
         }
         public navToLastState(){
 
@@ -238,6 +238,7 @@ module Roboycod {
                 this.cm.data[this.x][this.y].showCode();
             }
             if(this.x != oldX){
+                this.switchText();
                 this.switchAvatar(oldX);
             }
 
@@ -274,6 +275,7 @@ module Roboycod {
          * Va al editor para escribir en el CDV, al volver guarda
          */
         public writeCdv() : void{
+            this.fadeOut ();
             this.input.keyboard.stop();
 
             //Nos movemos al editor, al final del codigo
@@ -353,11 +355,26 @@ module Roboycod {
             this.actionsText= this.game.add.bitmapText(actionsX, actionsY, 'gemFont', "ACCIONES:", 20);
             this.queryText  = this.game.add.bitmapText(querysX, querysY, 'gemFont', "PREGUNTAS:", 20)
         }
+        private switchText() : void{
+            this.titleText.text = 'CDV ' + this.cm.data[this.x][this.y].type;
+        }
+        private fadeOut () {
+            var spr_bg = this.game.add.graphics(0, 0);
+            spr_bg.beginFill(0, 1);
+            spr_bg.drawRect(0, 0, this.game.width, this.game.height);
+            spr_bg.alpha = 1;
+            spr_bg.endFill();
+
+            var s = this.game.add.tween(spr_bg)
+            s.to({ alpha: 0 }, 600, null)
+            s.start();
+        }
         /**
          * Esta funcion da acceso a la instancia desde fuera
          */
         public static getInstance() : Inventory{
             return Inventory._instance;
         }
+
     }
 }
