@@ -233,18 +233,18 @@ EnumTypes = {
 ErrorTypes =
 {
 	TYPEMISMATCH : 1,
-	MISOPERATION : 2,
-	STRINGOP : 3,
-	CHARNUMBER : 4,
-	STRINGNUMBER : 6,
-	NOTFOUND : 7,
-	FUNCTYPEERROR : 8,
-	NOTFUNCTYPEERROR : 9,
-	ARRAYTYPE : 10,
-	INITVALUE : 11
+	BOOLTYPE : 2,
+	STRINGLOGOP : 3,
+	STRINGNUMBER : 4,
+	NOTFOUND : 5,
+	FUNCTYPEERROR : 6,
+	NOTFUNCTYPEERROR : 7,
+	ARRAYTYPE : 8,
+	INITVALUE : 9
 }
 
 var stackScope = new StackScope();
+var action = "";
 	
 
 %}
@@ -266,7 +266,8 @@ S : GLOBAL FVM tEOF
   //         return $1; }
   
   		// eval($2.trad);
-  		//eval("main()");
+  		// eval("main()");
+  		
   		return $2.trad;
   
 	};
@@ -524,8 +525,7 @@ Instr : tSemicolon
 	};
 Instr : INSTRSCOPE Bloque
 	{
-		stackScope.deleteScope();
-		$$ = $1;
+		$$ = $2;
 	};
 
 Instr : tReturn Expr tSemicolon
@@ -555,36 +555,36 @@ Instr : Ref tAssign Expr tSemicolon
 Instr : FINDID FunPar tSemicolon
 	{	
 		
-
+		$$ = new Mark();
 	};
-Instr : tCin tRdesp tId tSemicolon
-	{
-		// TODO : (0) Modificar para recoger valr del buffer
+Instr : tCin tRdesp FINDID tSemicolon
+	{	
+		var trad = msgCin($3);
+		$3.currentSymbol.hasValue = true;
+		$$ = new Mark("",trad);
 	};
 Instr : tCout tLdesp Expr Instrout
 	{
-		// TODO: (0) Modificar por accesos al buffer
-		var trad = msgCout( $3.trad + $4.trad);
+		
+		var trad = $3.trad + $4.trad;
+		
+		trad = msgCout( trad);
 		$$ = new Mark("",trad);
 	};
-Instrout : tLdesp Instroutp
+Instrout : tLdesp Expr Instrout
 	{
-		var trad = $2.trad;
+		var trad = "+" + $2.trad + $3.trad;
 		$$ = new Mark("",trad);
 	};
 Instrout : tLdesp tEndl tSemicolon
 	{
-		$$ = new Mark("","\n");
+		$$ = new Mark("","+\"\\n\"");
 	};
 Instrout : tSemicolon
 	{
 		$$ = new Mark("","");
 	};
-Instroutp : Expr Instrout
-	{
-		var trad = $1.trad + $2.trad;
-		$$ = new Mark("",trad);
-	};
+
 Instr : tIf tLparen EXPRBOOL tRparen INSTRSCOPE Bloque %prec tIfWithoutElse
 	{
 		var trad = "if("+ $3.trad + ")" + $6.trad;
@@ -592,6 +592,7 @@ Instr : tIf tLparen EXPRBOOL tRparen INSTRSCOPE Bloque %prec tIfWithoutElse
 	};
 Instr : tIf tLparen EXPRBOOL tRparen INSTRSCOPE Bloque tElse Instr
 	{
+		
 		var trad = "if(" + $3.trad + ")" +  $6.trad + "else " + $8.trad;
 
 		$$ = new Mark("",trad);
@@ -599,7 +600,7 @@ Instr : tIf tLparen EXPRBOOL tRparen INSTRSCOPE Bloque tElse Instr
 EXPRBOOL : Expr
 	{
 		if($1.baseType !== EnumTypes.BOOL)
-			throw new compilationError(ErrorTypes.BOOLTYPE, yy.lexer.yylloc["first_line"]);
+			 compilationError(ErrorTypes.BOOLTYPE, yy.lexer.yylloc["first_line"]);
 
 		$$ = $1;
 	};
@@ -619,7 +620,7 @@ ExprOr : ExprOr tOr ExprAnd
 	{
 		var trad = "Boolean(";
 		if($1.baseType === EnumTypes.STRING || $3.baseType === EnumTypes.STRING)
-			throw new compilationError(ErrorTypes.STRINGLOGOP, $1.line);
+			 compilationError(ErrorTypes.STRINGLOGOP, $1.line);
 
 		convertToNumValue($1,$3);
 		trad = trad + $1.trad + "||" + $3.trad;
@@ -636,7 +637,7 @@ ExprAnd : ExprAnd tAnd ExprComp
 	{
 		var trad = "Boolean(";
 		if($1.baseType === EnumTypes.STRING || $3.baseType === EnumTypes.STRING)
-			throw new compilationError(ErrorTypes.STRINGLOGOP, $1.line);
+			 compilationError(ErrorTypes.STRINGLOGOP, $1.line);
 		convertToNumValue($1,$3);
 		trad = trad + $1.trad + "&&" + $3.trad;
 		$$ = new Mark("",trad,EnumTypes.BOOL);
@@ -651,7 +652,7 @@ ExprComp : ExprComp tRelop ExprSimp
 		var trad = "";
 		
 		if($1.baseType === EnumTypes.STRING || $3.baseType === EnumTypes.STRING)
-			throw new compilationError(ErrorTypes.STRINGLOGOP, $1.line);
+			 compilationError(ErrorTypes.STRINGLOGOP, $1.line);
 		
 		convertToNumValue($1,$3);
 		if($2 === "==") 
@@ -692,11 +693,11 @@ Factor : FINDID Fp
 		var mark = '';
 		// TODO: (1) COMPROBACION PARA ARRAYS POR SI FALTAN O SOBRAN CORCHETES, Y SI LOS INDICES SON DISTINTOS
 		if(!$1.currentSymbol.hasValue)
-			throw new compilationError(ErrorTypes.INITVALUE, yy.lexer.yylloc["first_line"] , $1.lex);
+			 compilationError(ErrorTypes.INITVALUE, yy.lexer.yylloc["first_line"] , $1.lex);
 		if($1.currentSymbol.sType !== EnumTypes.FUNCTION && $2.type === EnumTypes.FUNCTION)
-			throw new compilationError(ErrorTypes.NOTFUNCTYPEERROR, $1.line , $1.lex);
+			 compilationError(ErrorTypes.NOTFUNCTYPEERROR, $1.line , $1.lex);
 		if($1.currentSymbol.sType === EnumTypes.FUNCTION && $2.type !== EnumTypes.FUNCTION)
-			throw new compilationError(ErrorTypes.FUNCTYPEERROR, $1.line , $1.lex);
+			 compilationError(ErrorTypes.FUNCTYPEERROR, $1.line , $1.lex);
 
 		trad = $1.lex + $2.trad;
 		mark = new Mark("",trad,$1.currentSymbol.sBaseType);
@@ -710,7 +711,7 @@ FINDID : tId
 		var sym = stackScope.findAttribute($1);
 		var mark = '';
 		if(sym === null)
-			throw new compilationError(ErrorTypes.NOTFOUND, yy.lexer.yylloc["first_line"],$1);
+			 compilationError(ErrorTypes.NOTFOUND, yy.lexer.yylloc["first_line"],$1);
 		mark = new Mark($1,$1,sym.sBaseType);
 		mark.currentSymbol = sym;
 		mark.line = yy.lexer.yylloc["first_line"];
@@ -725,13 +726,13 @@ Factor : Factorsr
 
 Factorsr : tFalse
 	{
-		var mark = new Mark($1,0,EnumTypes.BOOL);
+		var mark = new Mark($1,false,EnumTypes.BOOL);
 		mark.line = yy.lexer.yylloc["first_line"];
 		$$ = mark;
 	};
 Factorsr : tTrue
 	{
-		var mark = new Mark($1,1,EnumTypes.BOOL);
+		var mark = new Mark($1,true,EnumTypes.BOOL);
 		mark.line = yy.lexer.yylloc["first_line"];
 		$$ = mark;
 	};
@@ -786,9 +787,9 @@ Ref : FINDID Refp
 		var mark = '';
 		
 		if($1.currentSymbol.sBaseType === EnumTypes.FUNCTION)
-			throw new compilationError(ErrorTypes.FUNCTYPEERROR, yy.lexer.yylloc["first_line"] , $1.lex);
+			 compilationError(ErrorTypes.FUNCTYPEERROR, yy.lexer.yylloc["first_line"] , $1.lex);
 		if($1.currentSymbol.sArray.length != $2.mArray.length)
-			throw new compilationError(ErrorTypes.ARRAYTYPE, yy.lexer.yylloc["first_line"] , $1.lex);
+			 compilationError(ErrorTypes.ARRAYTYPE, yy.lexer.yylloc["first_line"] , $1.lex);
 
 		trad = $1.trad + $2.trad;
 		mark = copyMark($1);
@@ -848,40 +849,84 @@ CPar : tcoma Expr CPar
 
 function compilationError(type, nline , lex)
 {
-	console.log("Error de compilacion en la linea (" + nline + "):");
-	console.log("---------------------------------------");
+	var err = "Error de compilacion en la linea (" + nline + "):\n---------------------------------------\n"; 
+	
 	switch (type)
 	{
 		case ErrorTypes.STRINGOP:
-			console.log("Operacion con String (cadena de caracteres) no permitida");
+			err = err + "Operacion con String (cadena de caracteres) no permitida";
+			
 		break;
-		
 		case ErrorTypes.STRINGNUMBER:
-			console.log("Tipos incorrectos");
+			err = err + "Tipos incorrectos";
+			
 		break;
-		
+		case ErrorTypes.BOOLTYPE:
+			err = err + "----- Operacion debe ser booleana -----";
+			
+		break;
+		case ErrorTypes.STRINGLOGOP :
+			err = err + "----- Operaciones logicas con cadenas no validas ----";
+			
+		break;
+		case ErrorTypes.NOTFUNCTYPEERROR:
+			err = err + "---- Variable " + lex + " no es una funcion ----";
+			
+		break;
+		case ErrorTypes.FUNCTYPEERROR : 
+			err = err + "---- Variable " + lex + " se ha declarado como funcion -----";
+			
+		break;
 		case ErrorTypes.NOTFOUND:
-			console.log("---- Variable " + lex + " no encontrada ----");
+			err = err + "---- Variable " + lex + " no encontrada ----";
+			
 		break;
 		case ErrorTypes.INITVALUE:
-			console.log("---- Variable " + lex + " no esta inicializada ----");
+			err = err + "---- Variable " + lex + " no esta inicializada ----";
+			
+		break;
+		case ErrorTypes.ARRAYTYPE : 
+			err = err + "---- Variable " + lex + " no es de tipo Array";
+			
+		break;
+		case ErrorTypes.TYPEMISMATCH:
+			err = err + "---- Variable " + lex + " no es del mismo tipo ";
+			
 		break;
 		default:
-			console.log("Error no controlado");
+			err = err + "Error no controlado";
+			
 	}
-	console.log("---------------------------------------");
+	err = err + "\n---------------------------------------";
+	
+	throw Error(err);
 }
 
 
 // TODO: (1) escribir funcion que comunica con buffer para enviarle la info
 function msgCout(msg)
 {
+	// console.log(msg);
+	// return "console.log(" + msg +");";
 	return Compiler.CCompiler.getInstance().bufferTrad(msg);
+	
 }
 
 // TODO: (1) escribir funcion para leer del buffer y devolver al usuario 
-function msgCin (msg) 
+function msgCin (mark) 
 {
+	var trad = mark.trad + "=action;";  
+	// if(typeof(action) === "boolean" && mark.baseType === EnumTypes.BOOL)
+	// 	trad = trad + "=" + action + ";";
+	// else if(typeof(action) === "number" && mark.baseType === EnumTypes.INTEGER)
+	// 	trad = trad + "=" + action + " | 0;";
+	// else if(typeof(action) === "number" && mark.baseType === EnumTypes.FLOAT)
+	// 	trad = trad + "=" + action + ";";
+	// else if(typeof(action) === "string" && mark.baseType === EnumTypes.CHAR && action.length === 1)
+	// 	trad = trad + "=" + action + ";";
+	// else
+	// 	 compilationError(ErrorTypes.TYPEMISMATCH,mark.line,mark.trad);
+	return trad;
 
 }
 /**
@@ -894,11 +939,11 @@ function msgCin (msg)
 function checkArrayType(symL, symR,line)
 {
 	if(symL.sArray.length != symR.sArray.length)
-		throw new compilationError(ErrorTypes.ARRYLENGTH, line , symL.lex); // no coindicen dimensiones
+		 compilationError(ErrorTypes.ARRYLENGTH, line , symL.lex); // no coindicen dimensiones
 	for(var i = 0; i < symL.sArray.length; ++i)
 	{
 		if(symL.sArray[i] !== symR.sArray[i])
-			throw new compilationError(ErrorTypes.ARRAYNOTMATCHUP, line , symL.lex); // no coindicen longitudes
+			 compilationError(ErrorTypes.ARRAYNOTMATCHUP, line , symL.lex); // no coindicen longitudes
 	}
 }
 /**
@@ -920,13 +965,13 @@ function aritmeticOp (markL,markR,op) {
 	var myType = EnumTypes.INTEGER;
 	var trad = "";
 	if(markL.baseType === EnumTypes.STRING || markR.baseType === EnumTypes.STRING)
-		throw new compilationError(ErrorTypes.STRINGOP, markL.line);
+		 compilationError(ErrorTypes.STRINGOP, markL.line);
 
 	convertToNumValue(markL,markR);
 
 	if(markR.trad === 0 && (op === "/" || op === "%"))
 	{	
-		throw new compilationError(ErrorTypes.DIVISIONBYZERO, markR.line , markR.lex);
+		 compilationError(ErrorTypes.DIVISIONBYZERO, markR.line , markR.lex);
 	}
 
 	if(markL.baseType === EnumTypes.FLOAT || markR.baseType === EnumTypes.FLOAT)
@@ -985,7 +1030,7 @@ function numAssignation (sym,expr) {
 	else if(expr.baseType === EnumTypes.CHAR)
 		return toNum(expr.trad);
 	else 
-		throw new compilationError(ErrorTypes.STRINGTONUMBER, sym.line , sym.name); // Asignacion de cadena a numero no valida
+		 compilationError(ErrorTypes.STRINGTONUMBER, sym.line , sym.name); // Asignacion de cadena a numero no valida
 }
 
 /**
@@ -1001,7 +1046,7 @@ function charAssignation (sym,expr) {
  	else if(expr.baseType === EnumTypes.INTEGER || expr.baseType === EnumTypes.FLOAT || expr.baseType === EnumTypes.BOOL)
  		return toChar(expr.trad);
  	else 
- 		throw new compilationError(ErrorTypes.STRINGTOCHAR, sym.lin , sym.name); // Asingancion de cadena a caracter no valida
+ 		 compilationError(ErrorTypes.STRINGTOCHAR, sym.lin , sym.name); // Asingancion de cadena a caracter no valida
 }
 
 
@@ -1015,7 +1060,7 @@ function boolAssignation (sym,expr) {
  	
  	var value = "Boolean(";
  	if(expr.baseType === EnumTypes.STRING)
- 		throw new compilationError(ErrorTypes.STRINGTOBOOL, sym.lin , sym.name); // Asignacion de cadena a booleano no valida
+ 		 compilationError(ErrorTypes.STRINGTOBOOL, sym.lin , sym.name); // Asignacion de cadena a booleano no valida
  	
  	value = value + expr.trad + ")";
 	

@@ -8,6 +8,10 @@
     
 module Compiler
 {
+    /**
+     * Clase del compilador de C/C++ que contiene la gramatica
+     * En esta clase se implementan las funciones necesarias para que la gramatica pueda acceder a ella
+     */
     export class CCompiler implements ICompiler {
 
         private static _instance            : CCompiler = null;
@@ -59,13 +63,10 @@ module Compiler
          */
         public compile(code : string) : ParseData
         {
-            try{
-                var trad = this._cCompiler.parse(code);
-                this.info = new ParseData(true,trad);
-            }catch(e)
-            {
-                this.info = new ParseData(false,e);
-            }
+
+            var trad = this._cCompiler.parse(code);
+            this.info = new ParseData(true,trad);
+
             return this.info;
 
         }
@@ -78,7 +79,17 @@ module Compiler
          */
         public bufferTrad(code: string) : string
         {
-            var trad : string = "IOSystem.sendMsg("+code+",";
+            var codeAux = "";
+            var index = code.indexOf("?");
+            if(index !== -1)
+                codeAux = code.split("+")[0];
+            else
+                codeAux = code;
+
+            var trad : string ="if("+codeAux+".slice(-1) === \"?\"){";
+            trad += "var action= IOSystem.WorkProgram.playerStates["+codeAux+"];}"; //;
+            trad +="else {";
+            trad += "IOSystem.sendMsg("+code+",";
             switch (this.bufferType)
             {
                 case 'weapon' :
@@ -96,8 +107,8 @@ module Compiler
                 default :
                     throw Error("Type is not defined or unknwon");
             }
-            trad +=",\"cout\")";
-
+            trad +=",\"cout\");}";
+            //trad += "console.log(action);";
             return trad;
         }
 
@@ -110,17 +121,18 @@ module Compiler
      * de la compilacion
      */
     addEventListener("message",
-        function(e)
+        function(message)
         {
-            importScripts("../gramatica/CGrammar.js","ParseData.js");
+            importScripts("../../gramatica/CGrammar.js","ParseData.js");
             var wCompiler = CCompiler.getInstance();
+            var info : ParseData;
 
-            console.log(e.data);
-            wCompiler.setBufferType(e.data.type);
-            var info : ParseData = wCompiler.compile(e.data.code);
+            wCompiler.setBufferType(message.data.type);
+
+            info = wCompiler.compile(message.data.code);
 
             info.setCode(info.getCode() + " main();");
-            var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : e.data.id};
+            var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : message.data.id};
             self.postMessage(msg,null);
 
         },false);

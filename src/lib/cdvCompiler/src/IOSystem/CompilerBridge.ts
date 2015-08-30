@@ -1,7 +1,7 @@
 /**
  * Created by javi on 15/04/15.
  */
-
+///<reference path="MotionBuffer.ts"/>
 ///<reference path ="../Compiler/ParseData.ts"/>
 ///<reference path="../../../../game/cdvs/CdvLogic.ts"/>
 
@@ -50,7 +50,7 @@ module IOSystem
 
             //TODO En un futuro cambiar para que pueda cargar otros compiladores distintos
 
-            this.compilerWorker = new Worker("src/CCompiler.js");
+            this.compilerWorker = new Worker("src/Compiler/CCompiler.js");
             this.compileMaxTime = 2000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessErr, false);
@@ -78,6 +78,7 @@ module IOSystem
          */
         public runit(cdv : Roboycod.CdvLogic) : void
         {
+
             this.execute = true;
             if(cdv.id !== -1)
             {
@@ -87,10 +88,10 @@ module IOSystem
             {
                 var position = Math.abs(Math.random() * Date.now() | 0);
                 this.listOfCdv[position] = cdv;
-
+                this.compilerWorker['CDV'] = cdv;
 
                 //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
-                this.compilerWorker.postMessage({code : cdv.code, type : "motion", id : position});
+                this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : position});
                 this.timeOutExec.unshift(setTimeout(this.breakWorker, this.compileMaxTime,this));
             }
 
@@ -137,13 +138,61 @@ module IOSystem
          */
         private executeProgram (code : string, cdv : Roboycod.CdvLogic) : void
         {
-            var wProgram = new Worker("src/WorkProgram.js");
+            var wProgram = new Worker("src/IOSystem/WorkProgram.js");
             wProgram['CDV'] = cdv;
+
             wProgram.addEventListener("message", this.sendInfoToCdv,false);
             wProgram.addEventListener("error",this.runError,false);
+            var cdvStates = this.getStates(cdv.type);
 
-            wProgram.postMessage(code);
+            wProgram.postMessage({code : code, playerState : cdvStates});
 
+        }
+
+        /**
+         * Obtiene los estados actual que hay en los distintos buffers
+         * @param cdvType typo de buffer del que queremos extraer los estados
+         * @returns {any} Devuelve la hash con los estados
+         */
+        private getStates (cdvType : string) : any
+        {
+            switch (cdvType)
+            {
+                case Roboycod.CdvLogic.TYPES[0] : //weapon
+                    break;
+                case Roboycod.CdvLogic.TYPES[1] : // core
+                    break;
+                case Roboycod.CdvLogic.TYPES[2] : // motion
+                    return MotionBuffer.getInstance().getSnapShot();
+                    break;
+                case Roboycod.CdvLogic.TYPES[3] : // dron
+                    break;
+                default :
+                    console.log("Type is not suported");
+            }
+        }
+
+        /**
+         * Funcion que envia las salidas de compilacion/ejecucion al buffer para que las muestre
+         * @param cdvType type de buffer al que queremos enviar la informacion
+         * @param msg mensaje a enviar
+         */
+        private sendBufferInfo(cdvType : string, msg : string) : void
+        {
+            switch (cdvType)
+            {
+                case Roboycod.CdvLogic.TYPES[0] : //weapon
+                    break;
+                case Roboycod.CdvLogic.TYPES[1] : // core
+                    break;
+                case Roboycod.CdvLogic.TYPES[2] : // motion
+                    MotionBuffer.getInstance().writeMessage(msg);
+                    break;
+                case Roboycod.CdvLogic.TYPES[3] : // dron
+                    break;
+                default :
+                    console.log("Type is not suported");
+            }
         }
 
         /**
@@ -184,8 +233,8 @@ module IOSystem
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
             //TODO gestionar Error
-
-            console.log("Error"); // TODO FUnciona cuando lanza un error!!!
+            var errMsg : string = info.message.split("Uncaught Error: ")[1];
+            cB.sendBufferInfo(info.target.CDV.type, errMsg);
             clearTimeout(cB.timeOutExec.pop());
         }
 
@@ -195,9 +244,12 @@ module IOSystem
          */
         private sendInfoToCdv(info)
         {
+            var cB : CompilerBridge = CompilerBridge.getInstace();
 
-            //info.taget.CDV.execAction(info.data.output);
             console.log(info.data.output);
+
+            //info.taget.CDV.execAction(info.data.output)
+
         }
 
         /**

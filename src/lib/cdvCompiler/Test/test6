@@ -1,0 +1,12 @@
+ int main(){
+ 	bool a; 
+ 	cout << "enAire?"<< endl; 
+ 	cin>> a; 
+ 	if(a == true) 
+	{ 
+		cout << "DobleSalto"; 
+	}else 
+	{
+		cout << "saltar"<< endl;
+	} 
+}

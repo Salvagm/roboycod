@@ -72,12 +72,12 @@
   }
 */
 var CGrammar = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[8,33,34,35,36],$V1=[1,5],$V2=[1,12],$V3=[1,13],$V4=[1,14],$V5=[1,10],$V6=[2,20],$V7=[1,19],$V8=[20,26],$V9=[2,31],$Va=[1,22],$Vb=[20,22,27,30,44,50,52,55],$Vc=[2,19],$Vd=[1,30],$Ve=[2,29],$Vf=[1,32],$Vg=[2,11],$Vh=[1,42],$Vi=[1,51],$Vj=[1,59],$Vk=[2,49],$Vl=[1,53],$Vm=[1,56],$Vn=[1,57],$Vo=[1,58],$Vp=[2,15],$Vq=[1,65],$Vr=[1,84],$Vs=[1,80],$Vt=[1,78],$Vu=[1,79],$Vv=[1,81],$Vw=[1,82],$Vx=[1,83],$Vy=[1,88],$Vz=[1,89],$VA=[2,75],$VB=[13,20,53,61,81],$VC=[1,97],$VD=[13,20,53,61,63,81],$VE=[1,98],$VF=[13,20,53,61,63,65,81],$VG=[1,99],$VH=[13,20,41,53,61,63,65,67,81],$VI=[1,100],$VJ=[13,20,41,53,61,63,65,67,69,81],$VK=[2,79],$VL=[1,124],$VM=[1,129],$VN=[1,128],$VO=[13,20,41,47,53,61,63,65,67,69,81];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[8,33,34,35,36],$V1=[1,5],$V2=[1,12],$V3=[1,13],$V4=[1,14],$V5=[1,10],$V6=[2,20],$V7=[1,19],$V8=[20,26],$V9=[2,31],$Va=[1,22],$Vb=[20,22,27,30,44,50,52,55],$Vc=[2,19],$Vd=[1,30],$Ve=[2,29],$Vf=[1,32],$Vg=[2,11],$Vh=[1,42],$Vi=[1,51],$Vj=[1,59],$Vk=[2,48],$Vl=[1,53],$Vm=[1,56],$Vn=[1,57],$Vo=[1,58],$Vp=[2,15],$Vq=[1,65],$Vr=[1,84],$Vs=[1,80],$Vt=[1,78],$Vu=[1,79],$Vv=[1,81],$Vw=[1,82],$Vx=[1,83],$Vy=[1,88],$Vz=[1,89],$VA=[2,74],$VB=[13,20,53,60,80],$VC=[1,97],$VD=[13,20,53,60,62,80],$VE=[1,98],$VF=[13,20,53,60,62,64,80],$VG=[1,99],$VH=[13,20,41,53,60,62,64,66,80],$VI=[1,100],$VJ=[13,20,41,53,60,62,64,66,68,80],$VK=[2,78],$VL=[1,124],$VM=[1,129],$VN=[1,128],$VO=[13,20,41,47,53,60,62,64,66,68,80];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"S":3,"GLOBAL":4,"FVM":5,"tEOF":6,"FVMp":7,"tInt":8,"tMain":9,"MAINSCOPE":10,"tLparen":11,"Arg":12,"tRparen":13,"Bloque":14,"GLOBALVARIABLES":15,"FUNCGLOBAL":16,"IDGLOBAL":17,"VarArr":18,"LIdentp":19,"tSemicolon":20,"TipoFunc":21,"tId":22,"CArg":23,"Tipo":24,"CArgp":25,"tComa":26,"tLbrace":27,"BDecl":28,"SeqInstr":29,"tRbrace":30,"BDeclp":31,"DecVar":32,"tChar":33,"tFloat":34,"tBool":35,"tVoid":36,"LIdent":37,"Variable":38,"tLclasp":39,"tInteger":40,"tRclasp":41,"Instr":42,"INSTRSCOPE":43,"tReturn":44,"Expr":45,"Ref":46,"tAssign":47,"FINDID":48,"FunPar":49,"tCin":50,"tRdesp":51,"tCout":52,"tLdesp":53,"Instrout":54,"tIf":55,"EXPRBOOL":56,"tElse":57,"Instroutp":58,"tEndl":59,"ExprOr":60,"tOr":61,"ExprAnd":62,"tAnd":63,"ExprComp":64,"tRelop":65,"ExprSimp":66,"tAddop":67,"Term":68,"tMulop":69,"Factor":70,"Fp":71,"Factorsr":72,"tFalse":73,"tTrue":74,"tReal":75,"tCharacter":76,"tString":77,"Refp":78,"Par":79,"CPar":80,"tcoma":81,"$accept":0,"$end":1},
-terminals_: {2:"error",6:"tEOF",8:"tInt",9:"tMain",11:"tLparen",13:"tRparen",20:"tSemicolon",22:"tId",26:"tComa",27:"tLbrace",30:"tRbrace",33:"tChar",34:"tFloat",35:"tBool",36:"tVoid",39:"tLclasp",40:"tInteger",41:"tRclasp",44:"tReturn",47:"tAssign",50:"tCin",51:"tRdesp",52:"tCout",53:"tLdesp",55:"tIf",57:"tElse",59:"tEndl",61:"tOr",63:"tAnd",65:"tRelop",67:"tAddop",69:"tMulop",73:"tFalse",74:"tTrue",75:"tReal",76:"tCharacter",77:"tString",81:"tcoma"},
-productions_: [0,[3,3],[4,0],[5,1],[5,7],[10,0],[7,2],[7,3],[15,4],[17,2],[16,4],[12,0],[12,1],[23,3],[25,4],[25,0],[14,4],[28,1],[31,2],[31,0],[24,1],[24,1],[24,1],[24,1],[21,1],[21,1],[32,3],[37,2],[19,3],[19,0],[38,2],[18,0],[18,4],[29,2],[29,0],[42,1],[42,2],[42,3],[42,4],[42,3],[42,4],[42,4],[42,6],[42,8],[54,2],[54,3],[54,1],[58,2],[56,1],[43,0],[45,1],[60,3],[60,1],[62,3],[62,1],[64,3],[64,1],[66,3],[66,1],[68,3],[68,1],[70,2],[70,1],[48,1],[72,1],[72,1],[72,1],[72,1],[72,1],[72,1],[72,3],[71,1],[71,1],[46,2],[78,4],[78,0],[49,3],[79,0],[79,2],[80,0],[80,3]],
+symbols_: {"error":2,"S":3,"GLOBAL":4,"FVM":5,"tEOF":6,"FVMp":7,"tInt":8,"tMain":9,"MAINSCOPE":10,"tLparen":11,"Arg":12,"tRparen":13,"Bloque":14,"GLOBALVARIABLES":15,"FUNCGLOBAL":16,"IDGLOBAL":17,"VarArr":18,"LIdentp":19,"tSemicolon":20,"TipoFunc":21,"tId":22,"CArg":23,"Tipo":24,"CArgp":25,"tComa":26,"tLbrace":27,"BDecl":28,"SeqInstr":29,"tRbrace":30,"BDeclp":31,"DecVar":32,"tChar":33,"tFloat":34,"tBool":35,"tVoid":36,"LIdent":37,"Variable":38,"tLclasp":39,"tInteger":40,"tRclasp":41,"Instr":42,"INSTRSCOPE":43,"tReturn":44,"Expr":45,"Ref":46,"tAssign":47,"FINDID":48,"FunPar":49,"tCin":50,"tRdesp":51,"tCout":52,"tLdesp":53,"Instrout":54,"tIf":55,"EXPRBOOL":56,"tElse":57,"tEndl":58,"ExprOr":59,"tOr":60,"ExprAnd":61,"tAnd":62,"ExprComp":63,"tRelop":64,"ExprSimp":65,"tAddop":66,"Term":67,"tMulop":68,"Factor":69,"Fp":70,"Factorsr":71,"tFalse":72,"tTrue":73,"tReal":74,"tCharacter":75,"tString":76,"Refp":77,"Par":78,"CPar":79,"tcoma":80,"$accept":0,"$end":1},
+terminals_: {2:"error",6:"tEOF",8:"tInt",9:"tMain",11:"tLparen",13:"tRparen",20:"tSemicolon",22:"tId",26:"tComa",27:"tLbrace",30:"tRbrace",33:"tChar",34:"tFloat",35:"tBool",36:"tVoid",39:"tLclasp",40:"tInteger",41:"tRclasp",44:"tReturn",47:"tAssign",50:"tCin",51:"tRdesp",52:"tCout",53:"tLdesp",55:"tIf",57:"tElse",58:"tEndl",60:"tOr",62:"tAnd",64:"tRelop",66:"tAddop",68:"tMulop",72:"tFalse",73:"tTrue",74:"tReal",75:"tCharacter",76:"tString",80:"tcoma"},
+productions_: [0,[3,3],[4,0],[5,1],[5,7],[10,0],[7,2],[7,3],[15,4],[17,2],[16,4],[12,0],[12,1],[23,3],[25,4],[25,0],[14,4],[28,1],[31,2],[31,0],[24,1],[24,1],[24,1],[24,1],[21,1],[21,1],[32,3],[37,2],[19,3],[19,0],[38,2],[18,0],[18,4],[29,2],[29,0],[42,1],[42,2],[42,3],[42,4],[42,3],[42,4],[42,4],[42,6],[42,8],[54,3],[54,3],[54,1],[56,1],[43,0],[45,1],[59,3],[59,1],[61,3],[61,1],[63,3],[63,1],[65,3],[65,1],[67,3],[67,1],[69,2],[69,1],[48,1],[71,1],[71,1],[71,1],[71,1],[71,1],[71,1],[71,3],[70,1],[70,1],[46,2],[77,4],[77,0],[49,3],[78,0],[78,2],[79,0],[79,3]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -94,7 +94,8 @@ case 1:
   //         return $$[$0-2]; }
   
   		// eval($$[$0-1].trad);
-  		//eval("main()");
+  		// eval("main()");
+  		
   		return $$[$0-1].trad;
   
 	
@@ -180,12 +181,12 @@ case 10:
 		this.$ = new Mark("",trad);
 	
 break;
-case 11: case 15: case 19: case 31: case 34: case 77: case 79:
+case 11: case 15: case 19: case 31: case 34: case 76: case 78:
 
 		this.$ = new Mark();
 	
 break;
-case 12: case 17: case 52: case 54: case 56: case 58: case 60: case 62: case 72:
+case 12: case 17: case 36: case 51: case 53: case 55: case 57: case 59: case 61: case 71:
 
 		this.$ = $$[$0];
 	
@@ -217,7 +218,7 @@ case 16:
 		this.$ = new Mark("",trad);
 	
 break;
-case 18: case 33: case 47:
+case 18: case 33:
 
 		var trad = $$[$0-1].trad + $$[$0].trad;
 		this.$ = new Mark("",trad);
@@ -318,12 +319,6 @@ case 35:
 		this.$ = new Mark("",";");
 	
 break;
-case 36:
-
-		stackScope.deleteScope();
-		this.$ = $$[$0-1];
-	
-break;
 case 37:
 
 		var trad = "return " + $$[$0-2].trad + ";";
@@ -351,18 +346,22 @@ break;
 case 39:
 	
 		
-
+		this.$ = new Mark();
 	
 break;
 case 40:
-
-		// TODO : (0) Modificar para recoger valr del buffer
+	
+		var trad = msgCin($$[$0-1]);
+		$$[$0-1].currentSymbol.hasValue = true;
+		this.$ = new Mark("",trad);
 	
 break;
 case 41:
 
-		// TODO: (0) Modificar por accesos al buffer
-		var trad = msgCout( $$[$0-1].trad + $$[$0].trad);
+		
+		var trad = $$[$0-1].trad + $$[$0].trad;
+		
+		trad = msgCout( trad);
 		this.$ = new Mark("",trad);
 	
 break;
@@ -374,6 +373,7 @@ case 42:
 break;
 case 43:
 
+		
 		var trad = "if(" + $$[$0-5].trad + ")" +  $$[$0-2].trad + "else " + $$[$0].trad;
 
 		this.$ = new Mark("",trad);
@@ -381,13 +381,13 @@ case 43:
 break;
 case 44:
 
-		var trad = $$[$0].trad;
+		var trad = "+" + $$[$0-1].trad + $$[$0].trad;
 		this.$ = new Mark("",trad);
 	
 break;
 case 45:
 
-		this.$ = new Mark("","\n");
+		this.$ = new Mark("","+\"\\n\"");
 	
 break;
 case 46:
@@ -395,30 +395,30 @@ case 46:
 		this.$ = new Mark("","");
 	
 break;
-case 48:
+case 47:
 
 		if($$[$0].baseType !== EnumTypes.BOOL)
-			throw new compilationError(ErrorTypes.BOOLTYPE, yy.lexer.yylloc["first_line"]);
+			 compilationError(ErrorTypes.BOOLTYPE, yy.lexer.yylloc["first_line"]);
 
 		this.$ = $$[$0];
 	
 break;
-case 49:
+case 48:
 
 		stackScope.addNewScope("InstrScope");
 	
 break;
-case 50:
+case 49:
 
 		// console.log($$[$0]);
 		this.$ = $$[$0];
 	
 break;
-case 51:
+case 50:
 
 		var trad = "Boolean(";
 		if($$[$0-2].baseType === EnumTypes.STRING || $$[$0].baseType === EnumTypes.STRING)
-			throw new compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
+			 compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
 
 		convertToNumValue($$[$0-2],$$[$0]);
 		trad = trad + $$[$0-2].trad + "||" + $$[$0].trad;
@@ -427,23 +427,23 @@ case 51:
 
 	
 break;
-case 53:
+case 52:
 
 		var trad = "Boolean(";
 		if($$[$0-2].baseType === EnumTypes.STRING || $$[$0].baseType === EnumTypes.STRING)
-			throw new compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
+			 compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
 		convertToNumValue($$[$0-2],$$[$0]);
 		trad = trad + $$[$0-2].trad + "&&" + $$[$0].trad;
 		this.$ = new Mark("",trad,EnumTypes.BOOL);
 
 	
 break;
-case 55:
+case 54:
 
 		var trad = "";
 		
 		if($$[$0-2].baseType === EnumTypes.STRING || $$[$0].baseType === EnumTypes.STRING)
-			throw new compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
+			 compilationError(ErrorTypes.STRINGLOGOP, $$[$0-2].line);
 		
 		convertToNumValue($$[$0-2],$$[$0]);
 		if($$[$0-1] === "==") 
@@ -455,27 +455,27 @@ case 55:
 
 	
 break;
-case 57:
+case 56:
 	
 		this.$ = aritmeticOp($$[$0-2],$$[$0],$$[$0-1]) 
 	
 break;
-case 59:
+case 58:
 
 		this.$ = aritmeticOp($$[$0-2],$$[$0],$$[$0-1]);
 	
 break;
-case 61:
+case 60:
 
 		var trad = "";
 		var mark = '';
 		// TODO: (1) COMPROBACION PARA ARRAYS POR SI FALTAN O SOBRAN CORCHETES, Y SI LOS INDICES SON DISTINTOS
 		if(!$$[$0-1].currentSymbol.hasValue)
-			throw new compilationError(ErrorTypes.INITVALUE, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
+			 compilationError(ErrorTypes.INITVALUE, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
 		if($$[$0-1].currentSymbol.sType !== EnumTypes.FUNCTION && $$[$0].type === EnumTypes.FUNCTION)
-			throw new compilationError(ErrorTypes.NOTFUNCTYPEERROR, $$[$0-1].line , $$[$0-1].lex);
+			 compilationError(ErrorTypes.NOTFUNCTYPEERROR, $$[$0-1].line , $$[$0-1].lex);
 		if($$[$0-1].currentSymbol.sType === EnumTypes.FUNCTION && $$[$0].type !== EnumTypes.FUNCTION)
-			throw new compilationError(ErrorTypes.FUNCTYPEERROR, $$[$0-1].line , $$[$0-1].lex);
+			 compilationError(ErrorTypes.FUNCTYPEERROR, $$[$0-1].line , $$[$0-1].lex);
 
 		trad = $$[$0-1].lex + $$[$0].trad;
 		mark = new Mark("",trad,$$[$0-1].currentSymbol.sBaseType);
@@ -484,12 +484,12 @@ case 61:
 		this.$ = mark;
 	
 break;
-case 63:
+case 62:
 
 		var sym = stackScope.findAttribute($$[$0]);
 		var mark = '';
 		if(sym === null)
-			throw new compilationError(ErrorTypes.NOTFOUND, yy.lexer.yylloc["first_line"],$$[$0]);
+			 compilationError(ErrorTypes.NOTFOUND, yy.lexer.yylloc["first_line"],$$[$0]);
 		mark = new Mark($$[$0],$$[$0],sym.sBaseType);
 		mark.currentSymbol = sym;
 		mark.line = yy.lexer.yylloc["first_line"];
@@ -497,49 +497,49 @@ case 63:
 
 	
 break;
+case 63:
+
+		var mark = new Mark($$[$0],false,EnumTypes.BOOL);
+		mark.line = yy.lexer.yylloc["first_line"];
+		this.$ = mark;
+	
+break;
 case 64:
 
-		var mark = new Mark($$[$0],0,EnumTypes.BOOL);
+		var mark = new Mark($$[$0],true,EnumTypes.BOOL);
 		mark.line = yy.lexer.yylloc["first_line"];
 		this.$ = mark;
 	
 break;
 case 65:
 
-		var mark = new Mark($$[$0],1,EnumTypes.BOOL);
+		var mark = new Mark($$[$0],parseInt($$[$0]),EnumTypes.INTEGER);
 		mark.line = yy.lexer.yylloc["first_line"];
 		this.$ = mark;
 	
 break;
 case 66:
 
-		var mark = new Mark($$[$0],parseInt($$[$0]),EnumTypes.INTEGER);
+		var mark = new Mark($$[$0],parseFloat($$[$0]),EnumTypes.FLOAT);
 		mark.line = yy.lexer.yylloc["first_line"];
 		this.$ = mark;
 	
 break;
 case 67:
 
-		var mark = new Mark($$[$0],parseFloat($$[$0]),EnumTypes.FLOAT);
-		mark.line = yy.lexer.yylloc["first_line"];
-		this.$ = mark;
-	
-break;
-case 68:
-
 		var mark = new Mark($$[$0],$$[$0],EnumTypes.CHAR);
 		mark.line = yy.lexer.yylloc["first_line"]; 
 		this.$ = mark;
 	
 break;
-case 69:
+case 68:
 	
 		var mark = new Mark($$[$0],$$[$0],EnumTypes.STRING);
 		mark.line = yy.lexer.yylloc["first_line"];
 		this.$ = mark;
 	
 break;
-case 70:
+case 69:
 
 		var trad = "(" + Expr.trad + ")";
 		var mark = new Mark("",trad,Expr.type);
@@ -547,21 +547,21 @@ case 70:
 		this.$ = mark;
 	
 break;
-case 71:
+case 70:
 	
 		this.$ = $$[$0];
 	
 break;
-case 73:
+case 72:
 
 
 		var trad = "";
 		var mark = '';
 		
 		if($$[$0-1].currentSymbol.sBaseType === EnumTypes.FUNCTION)
-			throw new compilationError(ErrorTypes.FUNCTYPEERROR, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
+			 compilationError(ErrorTypes.FUNCTYPEERROR, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
 		if($$[$0-1].currentSymbol.sArray.length != $$[$0].mArray.length)
-			throw new compilationError(ErrorTypes.ARRAYTYPE, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
+			 compilationError(ErrorTypes.ARRAYTYPE, yy.lexer.yylloc["first_line"] , $$[$0-1].lex);
 
 		trad = $$[$0-1].trad + $$[$0].trad;
 		mark = copyMark($$[$0-1]);
@@ -570,7 +570,7 @@ case 73:
 		this.$ = mark;
 	
 break;
-case 74:
+case 73:
 
 		var mark = $$[$0];
 		mark.trad = "[" + $$[$0-2].trad + "]" + $$[$0].trad;
@@ -579,13 +579,13 @@ case 74:
 		this.$ = mark;
 	
 break;
-case 75:
+case 74:
 
 		var mark = new Mark();
 		this.$ = mark;
 	
 break;
-case 76:
+case 75:
 
 		var trad = "(" + $$[$0-1].trad + ")";
 		var mark = copyMark($$[$0-1]);
@@ -594,7 +594,7 @@ case 76:
 		this.$ = mark;
 	
 break;
-case 78:
+case 77:
 
 		var trad = $$[$0-1].trad + $$[$0].trad;
 		var mark = copyMark($$[$0]);
@@ -602,7 +602,7 @@ case 78:
 		mark.trad = trad;
 	
 break;
-case 80:
+case 79:
 	
 		var trad = "," + $$[$0-1].trad + $$[$0].trad;
 		var mark = copyMark($$[$0]);
@@ -614,8 +614,8 @@ case 80:
 break;
 }
 },
-table: [o($V0,[2,2],{3:1,4:2}),{1:[3]},{5:3,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},{6:[1,15]},{6:[2,3]},{9:[1,16],22:$V6},{5:17,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},{14:18,27:$V7},o($V8,$V9,{18:20,11:[1,21],39:$Va}),{22:[1,23]},{22:[2,24]},{22:[2,25]},{22:[2,21]},{22:[2,22]},{22:[2,23]},{1:[2,1]},{10:24,11:[2,5]},{6:[2,6]},{5:25,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},o($Vb,$Vc,{28:26,31:27,32:28,24:29,8:$Vd,33:$V2,34:$V3,35:$V4}),{19:31,20:$Ve,26:$Vf},{8:$Vd,12:33,13:$Vg,23:34,24:35,33:$V2,34:$V3,35:$V4},{40:[1,36]},o([11,20,26,39],[2,9]),{11:[1,37]},{6:[2,7]},o($Vb,[2,34],{29:38}),o($Vb,[2,17]),o($Vb,$Vc,{32:28,24:29,31:39,8:$Vd,33:$V2,34:$V3,35:$V4}),{22:$Vh,37:40,38:41},{22:$V6},{20:[1,43]},{22:$Vh,38:44},{13:[1,45]},{13:[2,12]},{22:[1,46]},{41:[1,47]},{8:$Vd,12:48,13:$Vg,23:34,24:35,33:$V2,34:$V3,35:$V4},{20:$Vi,22:$Vj,27:$Vk,30:[1,49],42:50,43:52,44:$Vl,46:54,48:55,50:$Vm,52:$Vn,55:$Vo},o($Vb,[2,18]),{20:[1,60]},{19:61,20:$Ve,26:$Vf},o($V8,$V9,{18:62,39:$Va}),o($V0,[2,8]),{19:63,20:$Ve,26:$Vf},{27:[2,10]},{13:$Vp,25:64,26:$Vq},o($V8,$V9,{18:66,39:$Va}),{13:[1,67]},o([6,8,20,22,27,30,33,34,35,36,44,50,52,55,57],[2,16]),o($Vb,[2,33]),o($Vb,[2,35]),{14:68,27:$V7},{11:$Vr,22:$Vj,40:$Vs,45:69,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{47:[1,85]},{11:$Vy,39:$Vz,47:$VA,49:86,78:87},{51:[1,90]},{53:[1,91]},{11:[1,92]},o([11,13,20,39,41,47,53,61,63,65,67,69,81],[2,63]),o([8,20,22,27,30,33,34,35,44,50,52,55],[2,26]),{20:[2,27]},o($V8,[2,30]),{20:[2,28]},{13:[2,13]},{8:$Vd,24:93,33:$V2,34:$V3,35:$V4},o($V8,[2,32]),{14:94,27:$V7},o($Vb,[2,36]),{20:[1,95]},o([13,20,53,81],[2,50],{61:[1,96]}),o($VB,[2,52],{63:$VC}),o($VD,[2,54],{65:$VE}),o($VF,[2,56],{67:$VG}),o($VH,[2,58],{69:$VI}),o($VJ,[2,60]),o($VJ,$VA,{71:101,78:102,49:103,11:$Vy,39:$Vz}),o($VJ,[2,62]),o($VJ,[2,64]),o($VJ,[2,65]),o($VJ,[2,66]),o($VJ,[2,67]),o($VJ,[2,68]),o($VJ,[2,69]),{11:$Vr,22:$Vj,40:$Vs,45:104,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,45:105,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{20:[1,106]},{47:[2,73]},{11:$Vr,13:[2,77],22:$Vj,40:$Vs,45:108,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx,79:107},{11:$Vr,22:$Vj,40:$Vs,48:76,66:109,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{22:[1,110]},{11:$Vr,22:$Vj,40:$Vs,45:111,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,45:113,48:76,56:112,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{22:[1,114]},{6:[2,4]},o($Vb,[2,37]),{11:$Vr,22:$Vj,40:$Vs,48:76,62:115,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,64:116,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,66:117,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,68:118,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,70:119,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},o($VJ,[2,61]),o($VJ,[2,71]),o($VJ,[2,72]),{13:[1,120]},{20:[1,121]},o($Vb,[2,39]),{13:[1,122]},{13:$VK,80:123,81:$VL},{41:[1,125],67:$VG},{20:[1,126]},{20:$VM,53:$VN,54:127},{13:[1,130]},{13:[2,48]},{13:$Vp,25:131,26:$Vq},o($VB,[2,51],{63:$VC}),o($VD,[2,53],{65:$VE}),o($VF,[2,55],{67:$VG}),o($VH,[2,57],{69:$VI}),o($VJ,[2,59]),o($VJ,[2,70]),o($Vb,[2,38]),o($VJ,[2,76]),{13:[2,78]},{11:$Vr,22:$Vj,40:$Vs,45:132,48:76,60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},o($VO,$VA,{78:133,39:$Vz}),o($Vb,[2,40]),o($Vb,[2,41]),{11:$Vr,22:$Vj,40:$Vs,45:136,48:76,58:134,59:[1,135],60:70,62:71,64:72,66:73,68:74,70:75,72:77,73:$Vt,74:$Vu,75:$Vv,76:$Vw,77:$Vx},o($Vb,[2,46]),{27:$Vk,43:137},{13:[2,14]},{13:$VK,80:138,81:$VL},o($VO,[2,74]),o($Vb,[2,44]),{20:[1,139]},{20:$VM,53:$VN,54:140},{14:141,27:$V7},{13:[2,80]},o($Vb,[2,45]),o($Vb,[2,47]),o($Vb,[2,42],{57:[1,142]}),{20:$Vi,22:$Vj,27:$Vk,42:143,43:52,44:$Vl,46:54,48:55,50:$Vm,52:$Vn,55:$Vo},o($Vb,[2,43])],
-defaultActions: {4:[2,3],10:[2,24],11:[2,25],12:[2,21],13:[2,22],14:[2,23],15:[2,1],17:[2,6],25:[2,7],30:[2,20],34:[2,12],45:[2,10],61:[2,27],63:[2,28],64:[2,13],87:[2,73],94:[2,4],113:[2,48],123:[2,78],131:[2,14],138:[2,80]},
+table: [o($V0,[2,2],{3:1,4:2}),{1:[3]},{5:3,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},{6:[1,15]},{6:[2,3]},{9:[1,16],22:$V6},{5:17,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},{14:18,27:$V7},o($V8,$V9,{18:20,11:[1,21],39:$Va}),{22:[1,23]},{22:[2,24]},{22:[2,25]},{22:[2,21]},{22:[2,22]},{22:[2,23]},{1:[2,1]},{10:24,11:[2,5]},{6:[2,6]},{5:25,7:4,8:$V1,15:6,16:7,17:8,21:9,24:11,33:$V2,34:$V3,35:$V4,36:$V5},o($Vb,$Vc,{28:26,31:27,32:28,24:29,8:$Vd,33:$V2,34:$V3,35:$V4}),{19:31,20:$Ve,26:$Vf},{8:$Vd,12:33,13:$Vg,23:34,24:35,33:$V2,34:$V3,35:$V4},{40:[1,36]},o([11,20,26,39],[2,9]),{11:[1,37]},{6:[2,7]},o($Vb,[2,34],{29:38}),o($Vb,[2,17]),o($Vb,$Vc,{32:28,24:29,31:39,8:$Vd,33:$V2,34:$V3,35:$V4}),{22:$Vh,37:40,38:41},{22:$V6},{20:[1,43]},{22:$Vh,38:44},{13:[1,45]},{13:[2,12]},{22:[1,46]},{41:[1,47]},{8:$Vd,12:48,13:$Vg,23:34,24:35,33:$V2,34:$V3,35:$V4},{20:$Vi,22:$Vj,27:$Vk,30:[1,49],42:50,43:52,44:$Vl,46:54,48:55,50:$Vm,52:$Vn,55:$Vo},o($Vb,[2,18]),{20:[1,60]},{19:61,20:$Ve,26:$Vf},o($V8,$V9,{18:62,39:$Va}),o($V0,[2,8]),{19:63,20:$Ve,26:$Vf},{27:[2,10]},{13:$Vp,25:64,26:$Vq},o($V8,$V9,{18:66,39:$Va}),{13:[1,67]},o([6,8,20,22,27,30,33,34,35,36,44,50,52,55,57],[2,16]),o($Vb,[2,33]),o($Vb,[2,35]),{14:68,27:$V7},{11:$Vr,22:$Vj,40:$Vs,45:69,48:76,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{47:[1,85]},{11:$Vy,39:$Vz,47:$VA,49:86,77:87},{51:[1,90]},{53:[1,91]},{11:[1,92]},o([11,13,20,39,41,47,53,60,62,64,66,68,80],[2,62]),o([8,20,22,27,30,33,34,35,44,50,52,55],[2,26]),{20:[2,27]},o($V8,[2,30]),{20:[2,28]},{13:[2,13]},{8:$Vd,24:93,33:$V2,34:$V3,35:$V4},o($V8,[2,32]),{14:94,27:$V7},o($Vb,[2,36]),{20:[1,95]},o([13,20,53,80],[2,49],{60:[1,96]}),o($VB,[2,51],{62:$VC}),o($VD,[2,53],{64:$VE}),o($VF,[2,55],{66:$VG}),o($VH,[2,57],{68:$VI}),o($VJ,[2,59]),o($VJ,$VA,{70:101,77:102,49:103,11:$Vy,39:$Vz}),o($VJ,[2,61]),o($VJ,[2,63]),o($VJ,[2,64]),o($VJ,[2,65]),o($VJ,[2,66]),o($VJ,[2,67]),o($VJ,[2,68]),{11:$Vr,22:$Vj,40:$Vs,45:104,48:76,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{11:$Vr,22:$Vj,40:$Vs,45:105,48:76,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{20:[1,106]},{47:[2,72]},{11:$Vr,13:[2,76],22:$Vj,40:$Vs,45:108,48:76,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx,78:107},{11:$Vr,22:$Vj,40:$Vs,48:76,65:109,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{22:$Vj,48:110},{11:$Vr,22:$Vj,40:$Vs,45:111,48:76,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{11:$Vr,22:$Vj,40:$Vs,45:113,48:76,56:112,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{22:[1,114]},{6:[2,4]},o($Vb,[2,37]),{11:$Vr,22:$Vj,40:$Vs,48:76,61:115,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,63:116,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,65:117,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,67:118,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},{11:$Vr,22:$Vj,40:$Vs,48:76,69:119,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},o($VJ,[2,60]),o($VJ,[2,70]),o($VJ,[2,71]),{13:[1,120]},{20:[1,121]},o($Vb,[2,39]),{13:[1,122]},{13:$VK,79:123,80:$VL},{41:[1,125],66:$VG},{20:[1,126]},{20:$VM,53:$VN,54:127},{13:[1,130]},{13:[2,47]},{13:$Vp,25:131,26:$Vq},o($VB,[2,50],{62:$VC}),o($VD,[2,52],{64:$VE}),o($VF,[2,54],{66:$VG}),o($VH,[2,56],{68:$VI}),o($VJ,[2,58]),o($VJ,[2,69]),o($Vb,[2,38]),o($VJ,[2,75]),{13:[2,77]},{11:$Vr,22:$Vj,40:$Vs,45:132,48:76,59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},o($VO,$VA,{77:133,39:$Vz}),o($Vb,[2,40]),o($Vb,[2,41]),{11:$Vr,22:$Vj,40:$Vs,45:134,48:76,58:[1,135],59:70,61:71,63:72,65:73,67:74,69:75,71:77,72:$Vt,73:$Vu,74:$Vv,75:$Vw,76:$Vx},o($Vb,[2,46]),{27:$Vk,43:136},{13:[2,14]},{13:$VK,79:137,80:$VL},o($VO,[2,73]),{20:$VM,53:$VN,54:138},{20:[1,139]},{14:140,27:$V7},{13:[2,79]},o($Vb,[2,44]),o($Vb,[2,45]),o($Vb,[2,42],{57:[1,141]}),{20:$Vi,22:$Vj,27:$Vk,42:142,43:52,44:$Vl,46:54,48:55,50:$Vm,52:$Vn,55:$Vo},o($Vb,[2,43])],
+defaultActions: {4:[2,3],10:[2,24],11:[2,25],12:[2,21],13:[2,22],14:[2,23],15:[2,1],17:[2,6],25:[2,7],30:[2,20],34:[2,12],45:[2,10],61:[2,27],63:[2,28],64:[2,13],87:[2,72],94:[2,4],113:[2,47],123:[2,77],131:[2,14],137:[2,79]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -972,58 +972,102 @@ EnumTypes = {
 ErrorTypes =
 {
 	TYPEMISMATCH : 1,
-	MISOPERATION : 2,
-	STRINGOP : 3,
-	CHARNUMBER : 4,
-	STRINGNUMBER : 6,
-	NOTFOUND : 7,
-	FUNCTYPEERROR : 8,
-	NOTFUNCTYPEERROR : 9,
-	ARRAYTYPE : 10,
-	INITVALUE : 11
+	BOOLTYPE : 2,
+	STRINGLOGOP : 3,
+	STRINGNUMBER : 4,
+	NOTFOUND : 5,
+	FUNCTYPEERROR : 6,
+	NOTFUNCTYPEERROR : 7,
+	ARRAYTYPE : 8,
+	INITVALUE : 9
 }
 
 var stackScope = new StackScope();
+var action = "";
 	
 
 
 
 function compilationError(type, nline , lex)
 {
-	console.log("Error de compilacion en la linea (" + nline + "):");
-	console.log("---------------------------------------");
+	var err = "Error de compilacion en la linea (" + nline + "):\n---------------------------------------\n"; 
+	
 	switch (type)
 	{
 		case ErrorTypes.STRINGOP:
-			console.log("Operacion con String (cadena de caracteres) no permitida");
+			err = err + "Operacion con String (cadena de caracteres) no permitida";
+			
 		break;
-		
 		case ErrorTypes.STRINGNUMBER:
-			console.log("Tipos incorrectos");
+			err = err + "Tipos incorrectos";
+			
 		break;
-		
+		case ErrorTypes.BOOLTYPE:
+			err = err + "----- Operacion debe ser booleana -----";
+			
+		break;
+		case ErrorTypes.STRINGLOGOP :
+			err = err + "----- Operaciones logicas con cadenas no validas ----";
+			
+		break;
+		case ErrorTypes.NOTFUNCTYPEERROR:
+			err = err + "---- Variable " + lex + " no es una funcion ----";
+			
+		break;
+		case ErrorTypes.FUNCTYPEERROR : 
+			err = err + "---- Variable " + lex + " se ha declarado como funcion -----";
+			
+		break;
 		case ErrorTypes.NOTFOUND:
-			console.log("---- Variable " + lex + " no encontrada ----");
+			err = err + "---- Variable " + lex + " no encontrada ----";
+			
 		break;
 		case ErrorTypes.INITVALUE:
-			console.log("---- Variable " + lex + " no esta inicializada ----");
+			err = err + "---- Variable " + lex + " no esta inicializada ----";
+			
+		break;
+		case ErrorTypes.ARRAYTYPE : 
+			err = err + "---- Variable " + lex + " no es de tipo Array";
+			
+		break;
+		case ErrorTypes.TYPEMISMATCH:
+			err = err + "---- Variable " + lex + " no es del mismo tipo ";
+			
 		break;
 		default:
-			console.log("Error no controlado");
+			err = err + "Error no controlado";
+			
 	}
-	console.log("---------------------------------------");
+	err = err + "\n---------------------------------------";
+	
+	throw Error(err);
 }
 
 
 // TODO: (1) escribir funcion que comunica con buffer para enviarle la info
 function msgCout(msg)
 {
+	// console.log(msg);
+	// return "console.log(" + msg +");";
 	return Compiler.CCompiler.getInstance().bufferTrad(msg);
+	
 }
 
 // TODO: (1) escribir funcion para leer del buffer y devolver al usuario 
-function msgCin (msg) 
+function msgCin (mark) 
 {
+	var trad = mark.trad + "=action;";  
+	// if(typeof(action) === "boolean" && mark.baseType === EnumTypes.BOOL)
+	// 	trad = trad + "=" + action + ";";
+	// else if(typeof(action) === "number" && mark.baseType === EnumTypes.INTEGER)
+	// 	trad = trad + "=" + action + " | 0;";
+	// else if(typeof(action) === "number" && mark.baseType === EnumTypes.FLOAT)
+	// 	trad = trad + "=" + action + ";";
+	// else if(typeof(action) === "string" && mark.baseType === EnumTypes.CHAR && action.length === 1)
+	// 	trad = trad + "=" + action + ";";
+	// else
+	// 	 compilationError(ErrorTypes.TYPEMISMATCH,mark.line,mark.trad);
+	return trad;
 
 }
 /**
@@ -1036,11 +1080,11 @@ function msgCin (msg)
 function checkArrayType(symL, symR,line)
 {
 	if(symL.sArray.length != symR.sArray.length)
-		throw new compilationError(ErrorTypes.ARRYLENGTH, line , symL.lex); // no coindicen dimensiones
+		 compilationError(ErrorTypes.ARRYLENGTH, line , symL.lex); // no coindicen dimensiones
 	for(var i = 0; i < symL.sArray.length; ++i)
 	{
 		if(symL.sArray[i] !== symR.sArray[i])
-			throw new compilationError(ErrorTypes.ARRAYNOTMATCHUP, line , symL.lex); // no coindicen longitudes
+			 compilationError(ErrorTypes.ARRAYNOTMATCHUP, line , symL.lex); // no coindicen longitudes
 	}
 }
 /**
@@ -1062,13 +1106,13 @@ function aritmeticOp (markL,markR,op) {
 	var myType = EnumTypes.INTEGER;
 	var trad = "";
 	if(markL.baseType === EnumTypes.STRING || markR.baseType === EnumTypes.STRING)
-		throw new compilationError(ErrorTypes.STRINGOP, markL.line);
+		 compilationError(ErrorTypes.STRINGOP, markL.line);
 
 	convertToNumValue(markL,markR);
 
 	if(markR.trad === 0 && (op === "/" || op === "%"))
 	{	
-		throw new compilationError(ErrorTypes.DIVISIONBYZERO, markR.line , markR.lex);
+		 compilationError(ErrorTypes.DIVISIONBYZERO, markR.line , markR.lex);
 	}
 
 	if(markL.baseType === EnumTypes.FLOAT || markR.baseType === EnumTypes.FLOAT)
@@ -1127,7 +1171,7 @@ function numAssignation (sym,expr) {
 	else if(expr.baseType === EnumTypes.CHAR)
 		return toNum(expr.trad);
 	else 
-		throw new compilationError(ErrorTypes.STRINGTONUMBER, sym.line , sym.name); // Asignacion de cadena a numero no valida
+		 compilationError(ErrorTypes.STRINGTONUMBER, sym.line , sym.name); // Asignacion de cadena a numero no valida
 }
 
 /**
@@ -1143,7 +1187,7 @@ function charAssignation (sym,expr) {
  	else if(expr.baseType === EnumTypes.INTEGER || expr.baseType === EnumTypes.FLOAT || expr.baseType === EnumTypes.BOOL)
  		return toChar(expr.trad);
  	else 
- 		throw new compilationError(ErrorTypes.STRINGTOCHAR, sym.lin , sym.name); // Asingancion de cadena a caracter no valida
+ 		 compilationError(ErrorTypes.STRINGTOCHAR, sym.lin , sym.name); // Asingancion de cadena a caracter no valida
 }
 
 
@@ -1157,7 +1201,7 @@ function boolAssignation (sym,expr) {
  	
  	var value = "Boolean(";
  	if(expr.baseType === EnumTypes.STRING)
- 		throw new compilationError(ErrorTypes.STRINGTOBOOL, sym.lin , sym.name); // Asignacion de cadena a booleano no valida
+ 		 compilationError(ErrorTypes.STRINGTOBOOL, sym.lin , sym.name); // Asignacion de cadena a booleano no valida
  	
  	value = value + expr.trad + ")";
 	
@@ -1493,10 +1537,12 @@ performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 function LexicalError()
 {
 	var col = yy_.yylloc['first_column'] + 1;
-	console.log("---------------------------------------------------------");
-	console.log("Error Lexico en linea ("+ yy_.yylloc['first_line'] +","+ col +"): "
-		+ "La cadena \"" + yy_.yytext + "\" no se reconoce" );
-	console.log("---------------------------------------------------------");
+	var err = "---------------------------------------------------------\n";
+	err = err + "Error Lexico en linea ("+ yy_.yylloc['first_line'] +","+ col +"): "
+		+ "La cadena \"" + yy_.yytext + "\" no se reconoce" ;
+	err = err + "\n---------------------------------------------------------";
+	throw Error(err);
+	
 }
 
 
@@ -1508,7 +1554,7 @@ case 1:/* skip tabs */
 break;
 case 2:/* skip newline */
 break;
-case 3:return 75; 
+case 3:return 74; 
 break;
 case 4:return 40;
 break;
@@ -1530,7 +1576,7 @@ case 12:return 50;
 break;
 case 13:return 52;
 break;
-case 14:return 59;
+case 14:return 58;
 break;
 case 15:return 44;
 break;
@@ -1548,31 +1594,31 @@ case 21:return 51;
 break;
 case 22:return 53;
 break;
-case 23:return 65;
+case 23:return 64;
 break;
-case 24:return 65;
+case 24:return 64;
 break;
-case 25:return 65;
+case 25:return 64;
 break;
-case 26:return 65;
+case 26:return 64;
 break;
-case 27:return 65;
+case 27:return 64;
 break;
 case 28:return 47;
 break;
-case 29:return 61;
+case 29:return 60;
 break;
-case 30:return 63;
+case 30:return 62;
 break;
-case 31:return 67;
+case 31:return 66;
 break;
-case 32:return 67;
+case 32:return 66;
 break;
-case 33:return 69;
+case 33:return 68;
 break;
-case 34:return 69;
+case 34:return 68;
 break;
-case 35:return 69;
+case 35:return 68;
 break;
 case 36:return 'tNot';
 break;
@@ -1596,11 +1642,11 @@ case 45:return 22;
 break;
 case 46:return 6;
 break;
-case 47:throw new LexicalError(lexer);
+case 47:LexicalError(lexer);
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:\t)/,/^(?:\n)/,/^(?:([0-9])+\.([0-9])+)/,/^(?:([0-9])+)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:bool\b)/,/^(?:float\b)/,/^(?:void\b)/,/^(?:cin\b)/,/^(?:cout\b)/,/^(?:endl\b)/,/^(?:return\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:main\b)/,/^(?:".+")/,/^(?:'[a-zA-Z0-9]')/,/^(?:>>)/,/^(?:<<)/,/^(?:>)/,/^(?:<)/,/^(?:==)/,/^(?:<=)/,/^(?:>=)/,/^(?:=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:;)/,/^(?:,)/,/^(?:([a-zA-Z])(([0-9a-zA-Z]))*)/,/^(?:$)/,/^(?:.)/],
+rules: [/^(?:\s+)/,/^(?:\t)/,/^(?:\n)/,/^(?:([0-9])+\.([0-9])+)/,/^(?:([0-9])+)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:bool\b)/,/^(?:float\b)/,/^(?:void\b)/,/^(?:cin\b)/,/^(?:cout\b)/,/^(?:endl\b)/,/^(?:return\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:main\b)/,/^(?:"[^"]+")/,/^(?:'[a-zA-Z0-9]')/,/^(?:>>)/,/^(?:<<)/,/^(?:>)/,/^(?:<)/,/^(?:==)/,/^(?:<=)/,/^(?:>=)/,/^(?:=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:!)/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:;)/,/^(?:,)/,/^(?:([a-zA-Z])(([0-9a-zA-Z]))*)/,/^(?:$)/,/^(?:.)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47],"inclusive":true}}
 });
 return lexer;

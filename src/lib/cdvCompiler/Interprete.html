@@ -5,12 +5,13 @@
     <title>Interprete</title>
 
     <script src="gramatica/CGrammar.js" type="application/javascript"></script>
-    <script src="src/CompilerBridge.js" type="application/javascript"></script>
-    <script src="src/CCompiler.js" type="application/javascript"></script>
-    <script src="src/ParseData.js" type="application/javascript"></script>
-    <script src="src/MotionBuffer.js" type="application/javascript"></script>
-    <script src="src/WorkProgram.js" type="application/javascript"></script>
-
+    <script src="src/IOSystem/MotionBuffer.js" type="application/javascript"></script>
+    <script src="src/IOSystem/WorkProgram.js" type="application/javascript"></script>
+    <script src="src/Compiler/CCompiler.js" type="application/javascript"></script>
+    <script src="src/Compiler/ParseData.js" type="application/javascript"></script>
+    <script src="src/IOSystem/CompilerBridge.js" type="application/javascript"></script>
+    <script src="../../game/cdvs/CdvCommon.js" type="application/javascript"></script>
+    <script src="../../game/cdvs/CdvLogic.js" type="application/javascript"></script>
 
 </head>
 <body>
@@ -20,9 +21,10 @@
 <script type="application/javascript">
 
     var comp = IOSystem.CompilerBridge.getInstace();
-    var cdv ={id : -1 , code : "int cacaMaca; int main(){cout << \"EnAire?\" << endl;}"};
-
-    comp.runit("int cacaMaca; int main(){cout << \"SALTAR\" << endl;}",null);
+    var cdv ={id : -1 , code : "int cacaMaca; int main(){cout << \"saltar\" << endl;}",type : "motion" };
+    var cdv2 ={id : -1, code : "int main(){bool a;\n cout << \"enAire?\"<< endl;\n cin>> a;\n if(a == true) {\ncout << \"DobleSalto\";\n}else {cout << \"saltar\"<< endl;} }" , type : "motion"};
+    comp.runit(cdv);
+    comp.runit(cdv2);
     //    comp.runit(0);
 
 

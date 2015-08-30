@@ -1,0 +1,10 @@
+int main()
+{
+	bool a;
+	cout << "enAire?" << endl;
+	cin >> a;
+
+	if(a == true){
+		cout << "saltar"<< endl;
+	}
+}

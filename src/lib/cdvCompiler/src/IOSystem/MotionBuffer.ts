@@ -11,11 +11,11 @@ module IOSystem
         private static _instance        : MotionBuffer = null;
         private static _canInstantiate  : boolean = false;
         private states                  : {[name : string] : any};
-        private cdvQuerys               : Roboycod.CdvCommon ;
-
 
         public inAir                    : boolean;
+        public inGround                 : boolean;
    //   public inWall : boolean;
+
         public static getInstance() : MotionBuffer
         {
             if(MotionBuffer._instance === null)
@@ -33,15 +33,22 @@ module IOSystem
             if(!MotionBuffer._canInstantiate)
                 throw Error("Fail to instantiate, use MotionBuffer.getInstance() instead");
             this.states = {};
-            this.cdvQuerys = Roboycod.CdvCommon.getInstance();
+            this.inAir = true;
+            this.inGround = true;
         }
 
-        public getSnapshot() : any
+        public getSnapShot() : any
         {
-            this.states['enAire?'] = this.inAir;
+            this.states[Roboycod.CdvCommon.motionQuerys[0]] = this.inGround;
+            this.states[Roboycod.CdvCommon.motionQuerys[1]] = this.inAir;
             //this.states['enPared?'] = this.inWall;
 
             return this.states;
+        }
+
+        public writeMessage(msg : string) : void
+        {
+            console.log(msg);
         }
 
     }

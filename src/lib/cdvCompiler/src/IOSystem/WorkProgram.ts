@@ -5,12 +5,19 @@
 module IOSystem
 {
 
+    export class WorkProgram
+    {
+        public static playerStates : any;
+    }
+
    addEventListener("message",
     function (message) {
-        console.log(message);
-        var f = new Function(message.data);
+
+        WorkProgram.playerStates = message.data.playerState;
+        var f = new Function(message.data.code);
+
         f();
-        self.postMessage({cmd : "end", output: 0},null);
+        //self.postMessage({cmd : "end", output: 0},null);
         self.close();
     }, false);
 

@@ -1,0 +1,14 @@
+
+int main()
+{
+	bool a;
+	a = true;
+
+	cout << "diparar" <<  "diparar" << "diparar" << endl;
+
+	cout << "enAire?" << endl;
+	
+}
+
+
+
