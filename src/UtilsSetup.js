@@ -48,7 +48,7 @@ $( window ).load(function(){
     editor.$blockScrolling = Infinity;
 
     editor.setTheme("ace/theme/monokai");
-    session.setMode("ace/mode/python");
+    session.setMode("ace/mode/c_cpp");
     document.getElementById('editor').style.fontSize='18px';
 
     ace.require("ace/ext/language_tools");
