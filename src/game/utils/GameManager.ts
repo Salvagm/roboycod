@@ -12,7 +12,6 @@ module Roboycod{
         private static _canInstantiate = false;
 
         private key  : string = 'roboycodData';
-
         private data : any;
 
         constructor() {

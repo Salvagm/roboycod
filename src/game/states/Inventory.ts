@@ -4,7 +4,8 @@
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../cdvs/CdvLogic.ts"/>
 ///<reference path="../cdvs/CdvMatrix.ts"/>
-    ///<reference path="../states/Game.ts"/>
+///<reference path="../states/Game.ts"/>
+/// <reference path="../../lib/jquery/jquery.d.ts"/>
 
 module Roboycod {
 
@@ -22,22 +23,30 @@ module Roboycod {
          */
         private static _instance: Inventory;
 
+        //Graficos
         private background      : Phaser.Image;
-        private nav             : MatrixContent[][];
-        private cm              : CdvMatrix;
+        private avatar          : Phaser.Image[];
         private initScale       : Phaser.Point;
-        private x               : number;
-        private y               : number;
         private widthRatio      : number;
         private heightRatio     : number;
+        //Navegacion
+        private nav             : MatrixContent[][];
+        private cm              : CdvMatrix;
+        private x               : number;
+        private y               : number;
         private lastStage       : string;
         private numStage        : string;
         private isEmpty         : boolean;
+        //Datos
         private jsonTiled       : any;
         private gameData        : any;
+        //Informacion textual
+        private titleText       : Phaser.BitmapText;
+        private actionsText     : Phaser.BitmapText;
+        private queryText       : Phaser.BitmapText;
 
         //	Constants
-        private CDV_L           : number[] = [4,5,6,7];
+        private CDV_L           : number[] = [3,4,5,6,7];
         private ROWS            : number = 4;
         private COLS            : number = 5;
         private TWEEN_SCALE     : number = 0.2;
@@ -70,6 +79,8 @@ module Roboycod {
             this.background.width = this.game.width;
             this.background.height = this.game.height;
 
+            this.loadText();
+
             //Cargamos la matriz de navegacion
 
             this.buildNavigationMatrix();
@@ -77,7 +88,10 @@ module Roboycod {
             if(!this.isEmpty){
                 this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
                 this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+
             }
+            this.loadAvatar();
+            this.switchAvatar();
 
 
             // Definimos y mapeamos las teclas correspondientes
@@ -86,9 +100,9 @@ module Roboycod {
 
             Inventory._instance = this;
 
-            //Mostramos el editor
-            var editor = document.getElementById('editor');
-            editor.style.display = 'block';
+            //Cambiamos la vista lateral
+            $('#buffers').hide();
+            $('#inventoryUtils').show();
         }
         public navToLastState(){
 
@@ -99,9 +113,9 @@ module Roboycod {
             //TODO mirar cuando guardar
             GameManager.getInstance().save();
 
-            //Ocultamos el editor
-            var editor = document.getElementById('editor');
-            editor.style.display = 'none';
+            //Cambiamos la lista lateral
+            $('#buffers').show();
+            $('#inventoryUtils').hide();
 
             this.game.state.start(this.lastStage, true, false, this.numStage);
 
@@ -123,8 +137,6 @@ module Roboycod {
 
                     //Si existe un cdvLogico pintamos su sprite
                     if(this.cm.data[i][j] !== undefined){
-                        //TODO quitar codigo
-                        this.cm.data[i][j].isCompiled = true;
                         this.drawCdv(i,j, jsonItem.x, jsonItem.y);
                     }
                 }
@@ -132,7 +144,7 @@ module Roboycod {
         }
         private drawCdv(i : number, j : number, x: number, y : number) : void{
             var item    : any = this.nav[i][j];
-            var compiledFrame : number = 5;
+            var compiledFrame : number;
 
             compiledFrame = this.cm.data[i][j].isCompiled? 6 : 5;
             item.compiled = this.game.add.sprite(
@@ -170,7 +182,7 @@ module Roboycod {
 
         /**
          * Funcion para resaltar el icono seleccionado
-         * @param icono el logo seleccionado
+         * @param item el logo seleccionado
          */
         private enlargeTween(item : MatrixContent) : void {
             var s = this.game.add.tween(item.icon.scale);
@@ -185,7 +197,7 @@ module Roboycod {
 
         /**
          * Funcion para reducir el icono desseleccionado
-         * @param icono el logo desseleccionado
+         * @param item el logo desseleccionado
          */
         private reduceTween(item : MatrixContent) : void {
             var s = this.game.add.tween(item.icon.scale);
@@ -225,6 +237,9 @@ module Roboycod {
                 this.enlargeTween(this.nav[this.x][this.y]);
                 this.cm.data[this.x][this.y].showCode();
             }
+            if(this.x != oldX){
+                this.switchAvatar(oldX);
+            }
 
         }
 
@@ -246,7 +261,6 @@ module Roboycod {
                 }
                 //Eliminamos la seleccion anterior
                 if(yFound != -1){
-                    console.log(this.nav[this.x][yFound]);
                     this.cm.data[this.x][yFound].isSelected = false;
                     this.nav[this.x][yFound].selected.kill();
                 }
@@ -288,12 +302,6 @@ module Roboycod {
             this.input.keyboard.start();
         }
 
-        /**
-         * Esta funcion da acceso a la instancia desde fuera
-         */
-        public static getInstance() : Inventory{
-            return Inventory._instance;
-        }
         private drawSelection(graphicItem : MatrixContent) : void{
             graphicItem.selected = this.game.add.sprite(
                 graphicItem.icon.x,
@@ -304,6 +312,52 @@ module Roboycod {
             graphicItem.selected.width = graphicItem.compiled.width;
             graphicItem.selected.height = graphicItem.compiled.height;
             graphicItem.selected.anchor.set(0.5,0.5);
+        }
+        private loadAvatar() : void{
+
+            var item : any = this.jsonTiled.layers[this.CDV_L[4]].objects[3];
+            var x  = item.x / this.widthRatio;
+            var y  = item.y / this.heightRatio;
+
+            this.avatar = [];
+
+            this.avatar[0] = this.game.add.image(x, y,'iAvatarW');
+            this.avatar[1] = this.game.add.image(x, y,'iAvatarC');
+            this.avatar[2] = this.game.add.image(x, y,'iAvatarM');
+            this.avatar[3] = this.game.add.image(x, y,'iAvatarD');
+
+            for(var i = 0 ; i< 4; ++i){
+                this.avatar[i].width  /= this.widthRatio;
+                this.avatar[i].height /= this.heightRatio;
+                this.avatar[i].kill();
+            }
+        }
+        private switchAvatar(oldX? : number) : void {
+            if(oldX !== undefined){
+                this.avatar[oldX].kill();
+            }
+            this.avatar[this.x].revive();
+        }
+        private loadText(){
+            var title       : any = this.jsonTiled.layers[this.CDV_L[4]].objects[0];
+            var actions     : any = this.jsonTiled.layers[this.CDV_L[4]].objects[1];
+            var querys      : any = this.jsonTiled.layers[this.CDV_L[4]].objects[2];
+            var titleX      = title.x / this.widthRatio;
+            var titleY      = title.y / this.heightRatio;
+            var actionsX    = actions.x / this.widthRatio;
+            var actionsY    = actions.y / this.heightRatio;
+            var querysX     = querys.x / this.widthRatio;
+            var querysY     = querys.y / this.heightRatio;
+
+            this.titleText  = this.game.add.bitmapText(titleX, titleY, 'gemFont', "NO CDV", 32);
+            this.actionsText= this.game.add.bitmapText(actionsX, actionsY, 'gemFont', "ACCIONES:", 20);
+            this.queryText  = this.game.add.bitmapText(querysX, querysY, 'gemFont', "PREGUNTAS:", 20)
+        }
+        /**
+         * Esta funcion da acceso a la instancia desde fuera
+         */
+        public static getInstance() : Inventory{
+            return Inventory._instance;
         }
     }
 }

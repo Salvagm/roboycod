@@ -7,10 +7,11 @@
 //{
     //miliseconds
     Sk.execLimit = 3;
+    // Lugar de output por defecto
+    var outputNode = document.getElementById("weaponOutput");
 
     function outf(text) {
-        var mypre = document.getElementById("output");
-        mypre.innerHTML = mypre.innerHTML + text;
+        outputNode.innerHTML = outputNode.innerHTML + text;
     }
     function builtinRead(x) {
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) throw "File not found: '" + x + "'";
@@ -19,6 +20,24 @@
 
     function runit(cdv){
 
+        switch (cdv.type) {
+            case Roboycod.CdvLogic.TYPES[0] :
+                outputNode = document.getElementById("weaponOutput");
+                break;
+            case  Roboycod.CdvLogic.TYPES[1] :
+
+                outputNode = document.getElementById("coreOutput");
+                break;
+            case  Roboycod.CdvLogic.TYPES[2] :
+                outputNode = document.getElementById("motionOutput");
+
+                break;
+            case  Roboycod.CdvLogic.TYPES[3] :
+                outputNode = document.getElementById("dronOutput");
+                break;
+            default :
+                console.log("No existe el tipo de cdv al ejecutarlo");
+        }
         Sk.configure({output:outf, read:builtinRead});
         try
         {
@@ -29,15 +48,14 @@
             console.log(e.toString());
         }
 
-        var terminal  = document.getElementById("output").innerHTML;
-        var list = terminal.split("\n");
+        outputNode.scrollTop = outputNode.scrollHeight;
+        var list = outputNode.innerHTML.split("\n");
         var output = list[list.length-2];
         cdv.execAction(output);
-        //return list[list.length-2];
     }
     $("#runCode").click(function()
     {
-        document.getElementById("output").innerHTML = "";
+        document.getElementById("weaponOutput").innerHTML = "";
         var editor = ace.edit("editor");
         code = editor.getSession().getValue();
 

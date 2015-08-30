@@ -3,6 +3,7 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 
+
 module Roboycod
 {
     export class Boot extends Phaser.State
@@ -18,7 +19,6 @@ module Roboycod
 
             //  This tells the game to resize the renderer to match the game dimensions (i.e. 100% browser width / height)
             this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-
         }
 
         preload()
@@ -41,7 +41,6 @@ module Roboycod
             //this.scale.setScreenSize(true);
 
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
 
             this.game.state.start('Preloader',true,false);
 

@@ -14,26 +14,18 @@ module Roboycod {
 
     export class CdvLogic {
 
-        //TODO mirar si sacar estaticos una clase Common
         //Estaran en el orden en que los representa el inventario
-        public static TYPES         :string[] = ['weapon', 'core', 'motion', 'dron'];
-
-        //TODO Crear Run(id cdv.id) y readBuffer(id), si la salida coincide
-        //TODO con la salida de ese tipo, se ejecuta la funcion del diccionario
-
+        public static TYPES     :string[] = ['weapon', 'core', 'motion', 'dron'];
 
         //En el constructor asignaremos el diccionario concreto segun su tipo
-        private actions  :{[action  : string] : any;} = {};
-        private answers  :{[query   : string] : any;} = {};
+        private actions         :{[action  : string] : any;} = {};
+
         //El id servira para ser distinguido por el compilador
         public id               : number;
         public type             : string;
         public code             : string;
         public isCompiled       : boolean;
         public isSelected       : boolean;
-        /**
-         * key del teclado asociada al CDV
-         */
         public keyCode          : number;
 
         constructor(other : Object){
@@ -83,7 +75,6 @@ module Roboycod {
                     console.log("No existe el tipo de cdv al asignar tabla de acciones");
             }
         }
-
         /**
          * Ejecutara el codigo asociado, se realizaran las acciones que tengan
          * como clave la salida de la ejecucion del codigo
@@ -92,19 +83,17 @@ module Roboycod {
             //TODO runit de Bridge
             runit(this);
         }
+        //TODO controlar si no esta la accion que lo indique al usuario
         public execAction(output : string){
-            this.actions[output]();
-        }
-        /**
-         * Devuelve el estado actual del juego (respuesta a las preguntas)
-         * en una hash query-->valor respuesta
-         */
-        public answerQuerys() : any{
+            if(this.actions[output] !== undefined){
+                this.actions[output]();
+            }
+            else{
+                console.log("Accion " + output + " no registrada");
+            }
 
-            // enTierra? --> function(){ return Player.body.onfloor;}
         }
         public showCode() : void{
-
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
         }

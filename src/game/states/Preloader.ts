@@ -2,6 +2,9 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+/// <reference path="../../lib/jquery/jquery.d.ts"/>
+/// <reference path="../utils/GameManager.ts"/>
+/// <reference path="../../UtilsSetup.d.ts"/>
 
 module Roboycod{
 
@@ -37,6 +40,18 @@ module Roboycod{
             this.game.load.image(
                 'inventoryBackground', 'assets/inventory/inventoryBackground.png'
             );
+            this.game.load.image(
+                'iAvatarW', 'assets/inventory/iAvatarW.png'
+            );
+            this.game.load.image(
+                'iAvatarC', 'assets/inventory/iAvatarC.png'
+            );
+            this.game.load.image(
+                'iAvatarM', 'assets/inventory/iAvatarM.png'
+            );
+            this.game.load.image(
+                'iAvatarD', 'assets/inventory/iAvatarD.png'
+            );
             this.game.load.json('jsonInventory','assets/inventory/inventory.json');
             this.load.atlasJSONHash(
                 'inventoryTiles',
@@ -44,6 +59,7 @@ module Roboycod{
                 'assets/inventory/inventoryTiles.json'
             );
 
+            this.game.load.bitmapFont('gemFont', 'assets/fonts/bitmapFonts/gem.png', 'assets/fonts/bitmapFonts/gem.xml');
 
             /**
              * Entidades, Objetos dinamicos, etc
@@ -74,6 +90,11 @@ module Roboycod{
              * Cargamos JSON para guardar los estados de los STATES
              */
             this.game.load.json('gameData','assets/gameData.json');
+
+            //Ajustamos la vista lateral
+            $('#buffers').show();
+            $('#inventoryUtils').hide();
+            fixRightSide();
         }
 
         create() {
