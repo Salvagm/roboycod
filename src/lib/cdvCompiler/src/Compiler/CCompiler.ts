@@ -127,9 +127,16 @@ module Compiler
     addEventListener("message",
         function(message)
         {
-            console.log(message.data.code);
-            importScripts("../../gramatica/CGrammar.js","ParseData.js");
             var wCompiler = CCompiler.getInstance();
+            if(message.data.cmd === "load")
+            {
+                var dependencies = CCompiler.getDependencies();
+                dependencies.forEach(function(item)
+                {
+                    console.log("Cargo " +  item);
+                    importScripts(item);
+                });
+            }
             var info : ParseData;
 
             wCompiler.setBufferType(message.data.type);
