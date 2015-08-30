@@ -58,7 +58,7 @@ module Roboycod {
         }
         create() {
             // Cargamos los datos de juego
-            this.gameData = GameManager.getInstance().getData(this.game);
+            this.gameData = GameManager.getInstance().getData();
 
             this.isEmpty = this.gameData.inventory.isEmpty;
             this.x = this.gameData.inventory.x;
@@ -105,7 +105,7 @@ module Roboycod {
             $('#buffers').hide();
             $('#inventoryUtils').show();
 
-            GameManager.getInstance().fadeOut(this.game);
+            GameManager.getInstance().fadeOut();
         }
         public navToLastState(){
 

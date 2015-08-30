@@ -40,7 +40,7 @@ module Roboycod{
 
         create(){
 
-            this.gameData = GameManager.getInstance().getData(this.game);
+            this.gameData = GameManager.getInstance().getData();
             this.cm = new CdvMatrix(this.gameData.cdvMatrix.data);
 
             this.loadStage();
@@ -57,9 +57,8 @@ module Roboycod{
             //Asiganmos teclas a los CDVs equipados
             KeyboardHandler.getInstance().setupCdvs(this, this.cm.getEquiped());
 
-            GameManager.getInstance().fadeOut(this.game);
+            GameManager.getInstance().fadeOut();
         }
-
 
         public navToInventory() {
             //TODO guardar datos de entidades

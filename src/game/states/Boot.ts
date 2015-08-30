@@ -2,6 +2,7 @@
  * Created by javi on 2/02/15.
  */
 ///<reference path="../../../build/phaser.d.ts"/>
+///<reference path="../utils/GameManager.ts"/>
 
 
 module Roboycod
@@ -23,6 +24,7 @@ module Roboycod
 
         preload()
         {
+            GameManager.getInstance().game = this.game;
             this.load.image('preloadBar','assets/loader.png');
         }
 

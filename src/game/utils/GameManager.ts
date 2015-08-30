@@ -11,6 +11,8 @@ module Roboycod{
         private static _instance:GameManager = null;
         private static _canInstantiate = false;
 
+
+        public game  : Phaser.Game;
         private key  : string = 'roboycodData';
         private data : any;
 
@@ -40,34 +42,34 @@ module Roboycod{
          * Trata de cargar los datos de la memoria y si no carga los iniciales
          * @param game
          */
-        public load(game : Game){
+        public load(){
             if(localStorage.getItem(this.key)){
                 this.data = JSON.parse(localStorage.getItem(this.key));
             }
             else{
-                this.data = game.cache.getJSON('gameData');
+                this.data = this.game.cache.getJSON('gameData');
             }
         }
-        public getData(game : Game) : any{
+        public getData() : any{
             if(this.data === undefined){
-                this.load(game);
+                this.load();
             }
             return this.data;
         }
         public clearData(){
             if(localStorage.getItem(this.key)){
                 delete window.localStorage[this.key];
-                this.data = game.cache.getJSON('gameData');
+                this.data = this.game.cache.getJSON('gameData');
             }
         }
-        public fadeOut (game : Phaser.Game) {
-            var spr_bg = game.add.graphics(0, 0);
+        public fadeOut () {
+            var spr_bg = this.game.add.graphics(0, 0);
             spr_bg.beginFill(0, 1);
-            spr_bg.drawRect(0, 0, game.world.width, game.world.height*2);
+            spr_bg.drawRect(0, 0, this.game.world.width, this.game.world.height*2);
             spr_bg.alpha = 1;
             spr_bg.endFill();
 
-            var s = game.add.tween(spr_bg)
+            var s = this.game.add.tween(spr_bg)
             s.to({ alpha: 0 }, 500, null)
             s.start();
         }

@@ -35,7 +35,7 @@ module Roboycod {
             /**
              * Cargamos los datos de juego
              */
-            this.gameData = GameManager.getInstance().getData(this.game);
+            this.gameData = GameManager.getInstance().getData();
 
             this.x = parseInt(this.gameData.worldMap.x);
             this.y = parseInt(this.gameData.worldMap.y);
@@ -73,7 +73,7 @@ module Roboycod {
              * Definimos y mapeamos las teclas correspondientes
              */
             KeyboardHandler.getInstance().setupWorldMap(this);
-            GameManager.getInstance().fadeOut(this.game);
+            GameManager.getInstance().fadeOut();
         }
 
 
