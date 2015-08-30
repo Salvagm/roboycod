@@ -87,6 +87,7 @@ module Roboycod {
             if(!this.isEmpty){
                 this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
                 this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+                this.cm.data[this.x][this.y].showCode();
                 this.switchText();
             }
 
@@ -278,15 +279,17 @@ module Roboycod {
          * Va al editor para escribir en el CDV, al volver guarda
          */
         public writeCdv() : void{
-            this.switchMask();
-            this.input.keyboard.stop();
+            if(!this.isEmpty){
+                this.enableMask();
+                this.input.keyboard.stop();
 
-            //Nos movemos al editor, al final del codigo
-            var editor = ace.edit("editor");
-            var row = editor.session.getLength() - 1;
-            var column = editor.session.getLine(row).length;
-            editor.gotoLine(row + 1, column);
-            editor.focus();
+                //Nos movemos al editor, al final del codigo
+                var editor = ace.edit("editor");
+                var row = editor.session.getLength() - 1;
+                var column = editor.session.getLine(row).length;
+                editor.gotoLine(row + 1, column);
+                editor.focus();
+            }
         }
 
         /**
@@ -295,30 +298,50 @@ module Roboycod {
         public saveCdv() : void{
             var editor = ace.edit("editor");
             editor.blur();
+            if(!this.isEmpty) {
 
-            var cdv = this.cm.data[this.x][this.y];
-            cdv.code = editor.getValue();
+                var cdv = this.cm.data[this.x][this.y];
+                cdv.code = editor.getValue();
+                cdv.compile();
+            }
 
-            //TODO llamar a compilar con draw = true
-            //Miramos si compila o no y pintamos
-            cdv.compile(this.x,this.y);
-
+            this.disableMask();
+            this.input.keyboard.start();
         }
 
         /**
-         * Este metodo sirve para actualizar la parte grafica desde el Birdge
-         * tras compilar, ya se que la compilacion se realiza de forma concurrente
+         * Actualiza graficamente un cdv en concreto
          * @param x la posicion x del cdv complado
          * @param y la posicion y del cdv complado
          */
         public refreshCdv(x : number, y : number){
             var sprite = this.nav[x][y].compiled;
-            this.drawCdv(x,y,sprite.x, sprite.y);
+            if(sprite !==undefined){
+                this.drawCdv(x,y,sprite.x, sprite.y);
+            }
+        }
+
+        /**
+         * Este metodo sirve para actualizar la parte grafica desde el Birdge
+         * tras compilar, ya se que la compilacion se realiza de forma concurrente
+         * @param id el id del cdv a actualizar
+         */
+        public refreshCdvById(id : number) : void{
+            var found : boolean = false;
+            var cdv   : CdvLogic;
+            for(var i = 0; i < this.ROWS ; ++i){
+                for(var j = 0; j < this.COLS; ++j){
+                    cdv = this.cm.data[i][j];
+                    if(cdv !== undefined && cdv.id == id){
+                        this.refreshCdv(i,j);
+                    }
+                }
+            }
+            if(!found){
+                console.log("No se ha encontrado el CDV buscando por ID");
+            }
 
             GameManager.getInstance().save();
-
-            this.switchMask();
-            this.input.keyboard.start();
         }
 
         private drawSelection(graphicItem : MatrixContent) : void{
@@ -418,15 +441,12 @@ module Roboycod {
             this.blackMask.alpha = 0;
             this.blackMask.endFill();
         }
-        private switchMask(){
-            if(this.blackMask.alpha == 0){
-                //Rehacemos la mascara para que los Cdvs no se pinten sobre ella
-                this.initMask();
-                this.blackMask.alpha = 0.5;
-            }
-            else{
-                this.blackMask.alpha = 0;
-            }
+        private enableMask(){
+            this.initMask();
+            this.blackMask.alpha = 0.5;
+        }
+        private disableMask(){
+            this.blackMask.alpha = 0;
         }
         /**
          * Esta funcion da acceso a la instancia desde fuera
