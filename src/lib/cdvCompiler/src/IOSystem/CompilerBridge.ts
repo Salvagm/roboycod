@@ -147,13 +147,16 @@ module IOSystem
             switch (cdvType)
             {
                 case Roboycod.CdvLogic.TYPES[0] : //weapon
+                    return WeaponBuffer.getInstance().getSnapShot();
                     break;
                 case Roboycod.CdvLogic.TYPES[1] : // core
+                    return CoreBuffer.getInstance().getSnapShot();
                     break;
                 case Roboycod.CdvLogic.TYPES[2] : // motion
                     return MotionBuffer.getInstance().getSnapShot();
                     break;
                 case Roboycod.CdvLogic.TYPES[3] : // dron
+                    return DronBuffer.getInstance().getSnapShot();
                     break;
                 default :
                     console.log("Type is not suported");
@@ -170,13 +173,16 @@ module IOSystem
             switch (cdvType)
             {
                 case Roboycod.CdvLogic.TYPES[0] : //weapon
+                    WeaponBuffer.getInstance().updateOutput(msg);
                     break;
                 case Roboycod.CdvLogic.TYPES[1] : // core
+                    CoreBuffer.getInstance().updateOutput(msg);
                     break;
                 case Roboycod.CdvLogic.TYPES[2] : // motion
                     MotionBuffer.getInstance().updateOutput(msg);
                     break;
                 case Roboycod.CdvLogic.TYPES[3] : // dron
+                    DronBuffer.getInstance().updateOutput(msg);
                     break;
                 default :
                     console.log("Type is not suported");

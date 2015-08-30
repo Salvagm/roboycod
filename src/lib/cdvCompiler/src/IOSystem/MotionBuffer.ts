@@ -12,6 +12,7 @@ module IOSystem
 
         private static _instance        : MotionBuffer = null;
         private static _canInstantiate  : boolean = false;
+        private static querys           : {[id : string] : string} = {"qAir" : "enAire =", qGround : "enTierra ="};
         private states                  : {[name : string] : any};
         private doc                     : Document;
         public inAir                    : boolean;
@@ -48,15 +49,26 @@ module IOSystem
             if(!MotionBuffer._canInstantiate)
                 throw Error("Fail to instantiate, use MotionBuffer.getInstance() instead");
             this.states = {};
-            this.inAir = true;
-            this.inGround = true;
             this.doc = document;
+
             MotionBuffer.inputStates.push(this.doc.getElementById('stInAir'));
             MotionBuffer.inputStates.push(this.doc.getElementById('stInGround'));
             MotionBuffer.outputActions = this.doc.getElementById('motionOutput');
-            //;
 
+        }
 
+        public resetInputs()
+        {
+            this.inAir = false;
+            this.inGround = false;
+            var keyList = Object.keys(MotionBuffer.querys);
+
+            for(var key in keyList)
+            {
+                this.doc.getElementById(keyList[key]).innerHTML = MotionBuffer.querys[keyList[key]];
+            }
+
+            this.updateInput();
         }
 
         /**
@@ -79,6 +91,7 @@ module IOSystem
         public updateOutput(action : string) : void
         {
             MotionBuffer.outputActions.innerHTML += action;
+            MotionBuffer.outputActions.scrollTop = MotionBuffer.outputActions.scrollHeight;
         }
 
         /**
