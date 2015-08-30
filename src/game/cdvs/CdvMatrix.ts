@@ -40,9 +40,9 @@ module Roboycod{
          * @param cdv el elemento a anyadir
          * @returns {boolean} si pudo anyadirlo o no
          */
-        public add(cdv : CdvLogic) : boolean{
+        public add(type : string) : boolean{
             var row : number;
-            switch (cdv.type){
+            switch (type){
                 case CdvLogic.TYPES[0] :
                     row = 0; break;
                 case CdvLogic.TYPES[1] :
@@ -55,7 +55,7 @@ module Roboycod{
                     console.log("No existe el tipo de cdv a anyadir");
             }
             if(this.data[row].length < this.COLS){
-                this.data[row].push(cdv);
+                this.data[row].push(new CdvLogic(type));
                 return true;
             }
             return false;

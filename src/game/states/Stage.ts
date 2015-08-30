@@ -138,7 +138,7 @@ module Roboycod{
         }
         private collideCdv(player : Player, cdv : SpriteCdv) : void{
 
-            if(this.cm.add(new CdvLogic(cdv.logicType))){
+            if(this.cm.add(cdv.logicType)){
                 cdv.kill();
             }
             else{
