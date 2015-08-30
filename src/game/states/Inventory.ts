@@ -278,42 +278,63 @@ module Roboycod {
          * Va al editor para escribir en el CDV, al volver guarda
          */
         public writeCdv() : void{
-            this.switchMask();
-            this.input.keyboard.stop();
+            if(!this.isEmpty){
+                this.switchMask();
+                this.input.keyboard.stop();
 
-            //Nos movemos al editor, al final del codigo
-            var editor = ace.edit("editor");
-            var row = editor.session.getLength() - 1;
-            var column = editor.session.getLine(row).length;
-            editor.gotoLine(row + 1, column);
-            editor.focus();
+                //Nos movemos al editor, al final del codigo
+                var editor = ace.edit("editor");
+                var row = editor.session.getLength() - 1;
+                var column = editor.session.getLine(row).length;
+                editor.gotoLine(row + 1, column);
+                editor.focus();
+            }
         }
 
         /**
          * Esta funcion guarda la edicion actual del editor en el cdv
          */
         public saveCdv() : void{
-            var editor = ace.edit("editor");
-            editor.blur();
+            if(!this.isEmpty) {
+                var editor = ace.edit("editor");
+                editor.blur();
 
-            var cdv = this.cm.data[this.x][this.y];
-            cdv.code = editor.getValue();
+                var cdv = this.cm.data[this.x][this.y];
+                cdv.code = editor.getValue();
 
-            //TODO llamar a compilar con draw = true
-            //Miramos si compila o no y pintamos
-            cdv.compile(this.x,this.y);
-
+                //TODO llamar a compilar con draw = true
+                //Miramos si compila o no y pintamos
+                cdv.compile(this.x, this.y);
+            }
         }
 
         /**
-         * Este metodo sirve para actualizar la parte grafica desde el Birdge
-         * tras compilar, ya se que la compilacion se realiza de forma concurrente
+         * Actualiza graficamente un cdv en concreto
          * @param x la posicion x del cdv complado
          * @param y la posicion y del cdv complado
          */
         public refreshCdv(x : number, y : number){
             var sprite = this.nav[x][y].compiled;
             this.drawCdv(x,y,sprite.x, sprite.y);
+        }
+
+        /**
+         * Este metodo sirve para actualizar la parte grafica desde el Birdge
+         * tras compilar, ya se que la compilacion se realiza de forma concurrente
+         * @param id el id del cdv a actualizar
+         */
+        public refreshCdvById(id : number) : void{
+            var found : boolean = false;
+            for(var i = 0; i < this.ROWS ; ++i){
+                for(var j = 0; j < this.COLS; ++j){
+                    if(this.cm.data[j][j].id == id){
+                        this.refreshCdv(i,j);
+                    }
+                }
+            }
+            if(!found){
+                console.log("No se ha encontrado el CDV buscando por ID");
+            }
 
             GameManager.getInstance().save();
 
