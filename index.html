@@ -40,6 +40,9 @@
 
     <!-- Clases de Entrada/Salida -->
     <script src="src/lib/cdvCompiler/src/IOSystem/MotionBuffer.js"></script>
+    <script src="src/lib/cdvCompiler/src/IOSystem/WeaponBuffer.js"></script>
+    <script src="src/lib/cdvCompiler/src/IOSystem/DronBuffer.js"></script>
+    <script src="src/lib/cdvCompiler/src/IOSystem/CoreBuffer.js"></script>
     <script src="src/lib/cdvCompiler/src/IOSystem/CompilerBridge.js"></script>
     <script src="src/lib/cdvCompiler/src/IOSystem/WorkProgram.js"></script>
 
@@ -110,10 +113,9 @@
                                 <div class="input" id="weaponInput">
                                     <div class="list-group-item">
                                         <dl class="dl-horizontal">
-                                            <dt>enAire =</dt>
-                                            <dd id="">true</dd>
-                                            <dt>enTierra =</dt>
-                                            <dd id="">false</dd>
+                                            <dt id="qCharge"></dt>
+                                            <dd id="stCharge"></dd>
+
                                         </dl>
                                     </div>
                                 </div>
@@ -133,10 +135,10 @@
                                 <div class="input" id="coreInput">
                                     <div class="list-group-item">
                                         <dl class="dl-horizontal">
-                                            <dt>enAire =</dt>
-                                            <dd id="">true</dd>
-                                            <dt>enTierra =</dt>
-                                            <dd id="">false</dd>
+                                            <dt id="qPickUp"></dt>
+                                            <dd id="stPickUp"></dd>
+                                            <dt id="qLife"></dt>
+                                            <dd id="stLife"></dd>
                                         </dl>
                                     </div>
                                 </div>
@@ -155,10 +157,10 @@
                                 <div class="input" id="motionInput">
                                     <div class="list-group-item">
                                         <dl class="dl-horizontal">
-                                            <dt>enAire =</dt>
-                                            <dd id="stInAir">true</dd>
-                                            <dt>enTierra =</dt>
-                                            <dd id="stInGround">false</dd>
+                                            <dt id="qAir"></dt>
+                                            <dd id="stInAir"></dd>
+                                            <dt id="qGround"></dt>
+                                            <dd id="stInGround"></dd>
                                         </dl>
                                     </div>
                                 </div>
@@ -177,10 +179,9 @@
                                 <div class="input" id="dronInput">
                                     <div class="list-group-item">
                                         <dl class="dl-horizontal">
-                                            <dt>enAire =</dt>
-                                            <dd id="">true</dd>
-                                            <dt>enTierra =</dt>
-                                            <dd id="">false</dd>
+                                            <dt id="qEnemy"></dt>
+                                            <dd id="stEnemy"></dd>
+
                                         </dl>
                                     </div>
                                 </div>

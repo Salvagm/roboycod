@@ -3,6 +3,11 @@
  */
 ///<reference path="../../../build/phaser.d.ts"/>
 ///<reference path="../utils/GameManager.ts"/>
+///<reference path="../../lib/cdvCompiler/src/IOSystem/WeaponBuffer.ts"/>
+///<reference path="../../lib/cdvCompiler/src/IOSystem/CoreBuffer.ts"/>
+///<reference path="../../lib/cdvCompiler/src/IOSystem/DronBuffer.ts"/>
+
+
 
 module Roboycod {
 
@@ -74,6 +79,10 @@ module Roboycod {
              */
             KeyboardHandler.getInstance().setupWorldMap(this);
             GameManager.getInstance().fadeOut();
+            IOSystem.MotionBuffer.getInstance().resetInputs();
+            IOSystem.WeaponBuffer.getInstance().resetInputs();
+            IOSystem.CoreBuffer.getInstance().resetInputs();
+            IOSystem.DronBuffer.getInstance().resetInputs();
         }
 
 
