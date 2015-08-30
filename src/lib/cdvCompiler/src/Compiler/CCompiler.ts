@@ -127,24 +127,39 @@ module Compiler
     addEventListener("message",
         function(message)
         {
+            importScripts("../../gramatica/CGrammar.js","ParseData.js");
             var wCompiler = CCompiler.getInstance();
-            if(message.data.cmd === "load")
-            {
-                var dependencies = CCompiler.getDependencies();
-                dependencies.forEach(function(item)
-                {
-                    console.log("Cargo " +  item);
-                    importScripts(item);
-                });
-            }
+
+            //if(message.data.cmd === "load")
+            //{
+            //    var dependencies = CCompiler.getDependencies();
+            //    dependencies.forEach(function(item)
+            //    {
+            //        console.log("Cargo " +  item);
+            //        importScripts(item);
+            //    });
+            //}
             var info : ParseData;
 
             wCompiler.setBufferType(message.data.type);
 
-            info = wCompiler.compile(message.data.code);
+            try{
+
+                info = wCompiler.compile(message.data.code);
+            }
+            catch(error){
+                var errorAux = new ErrorEvent();
+                errorAux.message = error.message;
+                errorAux.error = {
+                    type        : message.data.type,
+                    isCompiled  : false,
+                    id          : message.data.id
+                };
+                throw errorAux;
+            }
 
             info.setCode(info.getCode() + " main();");
-            var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : message.data.id};
+            var msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : message.data.id, type : message.data.type};
             self.postMessage(msg,null);
 
         },false);

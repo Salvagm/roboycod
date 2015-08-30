@@ -35,7 +35,7 @@ module Roboycod {
                 if(typeof other == "string"){
                     var type = <string> other;
                     this.setType(type);
-                    this.id = -1;
+                    this.id = Date.now();
                     this.isSelected = false;
 
                     this.compile();

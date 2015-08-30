@@ -55,7 +55,7 @@ module IOSystem
             this.compileMaxTime = 2000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessCompileMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessCompileErr, false);
-            this.compilerWorker.postMessage({cmd : "load"});
+            //this.compilerWorker.postMessage({cmd : "load"});
             this.compiledObjetcs = {};
             this.execute = false;
             this.timeOutCompile = [];
@@ -112,12 +112,11 @@ module IOSystem
         public compile(cdv : Roboycod.CdvLogic, x? : number, y? : number) : void
         {
             this.execute = false;
-            var index = Math.abs(Math.random() * Date.now() | 0);
-            this.lisOfCdv[index] = cdv;
+            this.lisOfCdv[cdv.id] = cdv;
             this.compilerWorker["targetX"] = x;
             this.compilerWorker["targetY"] = y;
 
-            this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : index});
+            this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : cdv.id});
             this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
         }
 
@@ -135,17 +134,9 @@ module IOSystem
          * @param code codigo resultante de la compilacion
          * @returns {number} identificador unico que se asigna
          */
-        private addNewProgram(code : string, id : number) : number
+        private addNewProgram(code : string, id : number) : void
         {
-            if(id != -1)
-            {
-                this.compiledObjetcs[id] = code;
-                return id;
-            }
-
-            var position = Math.abs(Math.random() * Date.now() | 0);
-            this.compiledObjetcs[position] = code;
-            return position;
+            this.compiledObjetcs[id] = code;
         }
 
         /**
@@ -242,10 +233,9 @@ module IOSystem
             clearTimeout(cB.timeOutCompile.pop());
             var cdv : Roboycod.CdvLogic = cB.lisOfCdv[info.data.id];
             cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
-            var index = cB.addNewProgram(cB.info.getCode(),cdv.id);
+            cB.addNewProgram(cB.info.getCode(),cdv.id);
 
             cdv.isCompiled = cB.info.isCompiled();
-            cdv.id = index;
 
             if(info.target.targetX !== undefined && info.target.targetY !== undefined )
                 cdv.graphicUpdate(info.target.targetX,info.target.targetY);
@@ -261,8 +251,10 @@ module IOSystem
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
             //TODO gestionar Error
+            console.log(info);
             var errMsg : string = info.message.split("Uncaught Error: ")[1];
-            cB.sendBufferInfo(info.target.CDV.type, errMsg);
+            //TODO enviar al buffer
+            //cB.sendBufferInfo(info.target.CDV.type, errMsg);
             clearTimeout(cB.timeOutCompile.pop());
         }
 
