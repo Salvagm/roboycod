@@ -37,7 +37,7 @@ module Roboycod {
                     this.setType(type);
                     this.id = Date.now();
                     this.isSelected = false;
-
+                    this.isCompiled = true;
                     this.compile();
                 }
                 else{
@@ -106,18 +106,18 @@ module Roboycod {
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
         }
-        public compile(x? : number , y?: number) : void{
+        public compile() : void{
             var cB : IOSystem.CompilerBridge = IOSystem.CompilerBridge.getInstace();
             // Mensaje asincrono que asigna el valor de si ha compilado o no
-            if(x === undefined || y === undefined)
-                cB.compile(this);
-            else
-                cB.compile(this,x,y);
+            cB.compile(this);
 
         }
-        public graphicUpdate(x : number, y : number)
+        public graphicUpdate()
         {
-            Roboycod.Inventory.getInstance().refreshCdv(x,y);
+            var current = GameManager.getInstance().game.state.current;
+            if(current === 'Inventory'){
+                Roboycod.Inventory.getInstance().refreshCdvById(this.id);
+            }
         }
     }
 }

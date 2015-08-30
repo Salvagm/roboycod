@@ -109,12 +109,10 @@ module IOSystem
          * @param code codigo escrito en el lenguaje soprotado
          * @returns {boolean} devuelve true si ha conseguido compilar, false en otro caso
          */
-        public compile(cdv : Roboycod.CdvLogic, x? : number, y? : number) : void
+        public compile(cdv : Roboycod.CdvLogic) : void
         {
             this.execute = false;
             this.lisOfCdv[cdv.id] = cdv;
-            this.compilerWorker["targetX"] = x;
-            this.compilerWorker["targetY"] = y;
 
             this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : cdv.id});
             this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
@@ -244,8 +242,8 @@ module IOSystem
 
                 cdv.isCompiled = cB.info.isCompiled();
             }
-            if(info.target.targetX !== undefined && info.target.targetY !== undefined )
-                cdv.graphicUpdate(info.target.targetX,info.target.targetY);
+
+            cdv.graphicUpdate();
 
         }
         private compilationError(data : any )

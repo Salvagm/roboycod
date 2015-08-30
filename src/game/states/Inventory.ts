@@ -87,6 +87,7 @@ module Roboycod {
             if(!this.isEmpty){
                 this.nav[this.x][this.y].icon.scale.x += this.TWEEN_SCALE;
                 this.nav[this.x][this.y].icon.scale.y += this.TWEEN_SCALE;
+                this.cm.data[this.x][this.y].showCode();
                 this.switchText();
             }
 
@@ -279,7 +280,7 @@ module Roboycod {
          */
         public writeCdv() : void{
             if(!this.isEmpty){
-                this.switchMask();
+                this.enableMask();
                 this.input.keyboard.stop();
 
                 //Nos movemos al editor, al final del codigo
@@ -295,17 +296,17 @@ module Roboycod {
          * Esta funcion guarda la edicion actual del editor en el cdv
          */
         public saveCdv() : void{
+            var editor = ace.edit("editor");
+            editor.blur();
             if(!this.isEmpty) {
-                var editor = ace.edit("editor");
-                editor.blur();
 
                 var cdv = this.cm.data[this.x][this.y];
                 cdv.code = editor.getValue();
-
-                //TODO llamar a compilar con draw = true
-                //Miramos si compila o no y pintamos
-                cdv.compile(this.x, this.y);
+                cdv.compile();
             }
+
+            this.disableMask();
+            this.input.keyboard.start();
         }
 
         /**
@@ -315,7 +316,9 @@ module Roboycod {
          */
         public refreshCdv(x : number, y : number){
             var sprite = this.nav[x][y].compiled;
-            this.drawCdv(x,y,sprite.x, sprite.y);
+            if(sprite !==undefined){
+                this.drawCdv(x,y,sprite.x, sprite.y);
+            }
         }
 
         /**
@@ -325,9 +328,11 @@ module Roboycod {
          */
         public refreshCdvById(id : number) : void{
             var found : boolean = false;
+            var cdv   : CdvLogic;
             for(var i = 0; i < this.ROWS ; ++i){
                 for(var j = 0; j < this.COLS; ++j){
-                    if(this.cm.data[j][j].id == id){
+                    cdv = this.cm.data[i][j];
+                    if(cdv !== undefined && cdv.id == id){
                         this.refreshCdv(i,j);
                     }
                 }
@@ -337,9 +342,6 @@ module Roboycod {
             }
 
             GameManager.getInstance().save();
-
-            this.switchMask();
-            this.input.keyboard.start();
         }
 
         private drawSelection(graphicItem : MatrixContent) : void{
@@ -439,15 +441,12 @@ module Roboycod {
             this.blackMask.alpha = 0;
             this.blackMask.endFill();
         }
-        private switchMask(){
-            if(this.blackMask.alpha == 0){
-                //Rehacemos la mascara para que los Cdvs no se pinten sobre ella
-                this.initMask();
-                this.blackMask.alpha = 0.5;
-            }
-            else{
-                this.blackMask.alpha = 0;
-            }
+        private enableMask(){
+            this.initMask();
+            this.blackMask.alpha = 0.5;
+        }
+        private disableMask(){
+            this.blackMask.alpha = 0;
         }
         /**
          * Esta funcion da acceso a la instancia desde fuera

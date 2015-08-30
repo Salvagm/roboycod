@@ -141,11 +141,8 @@ module Roboycod{
                 cdv.kill();
             }
             else{
-                cdv.body.velocity.y = 600;
+                cdv.body.velocity.y = -300;
             }
-        }
-        private addCdv(type : string) : void{
-            this.cdvLogicDemo = new CdvLogic(type);
         }
 
         private finishStage(){
@@ -179,7 +176,9 @@ module Roboycod{
             var cdv : SpriteCdv = new SpriteCdv(
                 this.game,
                 this.player.x, this.player.y - this.player.height,
-                CdvLogic.TYPES[type]);
+                CdvLogic.TYPES[type]
+            );
+
             this.codevices.add(cdv);
             cdv.body.velocity.y = -200;
         }
