@@ -24,7 +24,7 @@ module Roboycod {
             'defender', 'curar'
         ];
         public static mActs : string[] = [
-            'saltar', 'saltarEnAire', 'embestir'
+            'saltar', 'aeroSaltar', 'embestir'
         ];
         public static dActs : string[] = [
             'disparar', 'avanzar', 'bombardear', 'proteger'
