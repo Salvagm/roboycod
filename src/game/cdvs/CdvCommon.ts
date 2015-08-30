@@ -18,16 +18,16 @@ module Roboycod {
 
         //Acciones que pueden realizarse
         public static wActs : string[] = [
-            'disparar', 'cargar'
+            'disparar', 'recargar'
         ];
         public static cActs : string[] = [
-            'defender'
+            'defender', 'curar'
         ];
         public static mActs : string[] = [
-            'saltar'
+            'saltar', 'saltarEnAire', 'embestir'
         ];
         public static dActs : string[] = [
-            'atacar'
+            'disparar', 'avanzar', 'bombardear', 'proteger'
         ];
 
         //Preguntas sobre el estado del juego
@@ -35,7 +35,7 @@ module Roboycod {
             'carga?'
         ];
         public static coreQuerys    : string[] = [
-            'pickup?'
+            'pickup?', 'vida?'
         ];
         public static motionQuerys  : string[] = [
             'enTierra?', 'enAire?'
