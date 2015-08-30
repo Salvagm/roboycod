@@ -17,7 +17,8 @@ module IOSystem
     {
         private static _instance        : CompilerBridge = null;
         private static _canInstantiate  : boolean = false;
-
+        private static WAITTIME         : number = 100;
+        private timer                   : number ;
         private compiledObjetcs         : {[idFunc : number] : string};
         private lisOfCdv                : {[idCdv : number] : Roboycod.CdvLogic};
         private info                    : Compiler.ParseData;
@@ -61,6 +62,7 @@ module IOSystem
             this.timeOutCompile = [];
             this.timeOutExe = [];
             this.lisOfCdv = {};
+            this.timer = Date.now();
             CompilerBridge._instance = this;
         }
 
@@ -80,28 +82,11 @@ module IOSystem
          */
         public runit(cdv : Roboycod.CdvLogic) : void
         {
-
-            this.execute = true;
-            if(cdv.id !== -1)
+            if(Date.now() > this.timer + CompilerBridge.WAITTIME)
             {
-                if(!cdv.isCompiled)
-                {
-
-                }
-                console.log("Ejecuto id " + this.compiledObjetcs[cdv.id]);
-                this.executeProgram(this.compiledObjetcs[cdv.id], cdv);
+                this.executeProgram(this.compiledObjetcs[cdv.id],cdv);
+                this.timer = Date.now();
             }
-            else
-            {
-
-                this.compilerWorker['CDV'] = cdv;
-
-                //TODO mirar el tiempo q tarda en compilar, ya que tendremos que enviar el id del timeOut para luego cortarlo bien
-                this.compilerWorker.postMessage({code : cdv.code, type : cdv.type});
-                this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
-            }
-
-
         }
 
         /**
@@ -113,7 +98,6 @@ module IOSystem
         {
             this.execute = false;
             this.lisOfCdv[cdv.id] = cdv;
-
             this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : cdv.id});
             this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
         }
@@ -145,14 +129,12 @@ module IOSystem
         private executeProgram (code : string, cdv : Roboycod.CdvLogic) : void
         {
             var wProgram = new Worker("src/lib/cdvCompiler/src/IOSystem/WorkProgram.js");
-            wProgram['CDV'] = cdv;
-
             wProgram.addEventListener("message", this.sendInfoToCdv,false);
             wProgram.addEventListener("error",this.runError,false);
             var cdvStates = this.getStates(cdv.type);
 
-            wProgram.postMessage({code : code, playerState : cdvStates});
-            this.timeOutExe.unshift(setTimeout(this.breakExecWorker,this.executionTime, wProgram));
+            wProgram.postMessage({code : code, playerState : cdvStates, id : cdv.id});
+            this.timeOutExe.unshift(setTimeout(this.breakExecWorker,this.compileMaxTime, wProgram));
         }
 
         /**
@@ -238,7 +220,7 @@ module IOSystem
             {
                 cdv = cB.lisOfCdv[info.data.id];
                 cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
-                cB.addNewProgram(cB.info.getCode(),cdv.id);
+                cB.addNewProgram(cB.info.getCode(),info.data.id);
 
                 cdv.isCompiled = cB.info.isCompiled();
             }
@@ -250,7 +232,7 @@ module IOSystem
         {
             this.sendBufferInfo(data.type,data.msg);
             var cdv : Roboycod.CdvLogic = this.lisOfCdv[data.id];
-            console.log(data.code);
+
             cdv.isCompiled = data.isCompiled;
 
             return cdv;
@@ -281,11 +263,12 @@ module IOSystem
         {
             var cB : CompilerBridge = CompilerBridge.getInstace();
             clearTimeout(cB.timeOutExe.pop());
-            if(info.data.output === "saltar") console.log("salto");
-            console.log(info.data.output);
+            var cdv : Roboycod.CdvLogic = cB.lisOfCdv[info.data.id];
 
-            info.taget.CDV.execAction(info.data.action);
-            cB.sendBufferInfo(info.target.CDV.type,info.data.output);
+            cdv.execAction(info.data.action);
+
+            cB.sendBufferInfo(cdv.type,info.data.output);
+            info.target.terminate();
         }
 
         /**
@@ -294,6 +277,7 @@ module IOSystem
          */
         private runError(info)
         {
+            console.log(info);
             info.target.terminate();
             //clearTimeout(cB.timeOutExe.pop());
         }

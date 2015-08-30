@@ -47,7 +47,8 @@ module Roboycod {
                     this.isSelected = copy.isSelected;
                     this.keyCode = copy.keyCode;
                     this.code = copy.code;
-                    this.isCompiled = copy.isCompiled;
+
+                    this.compile();
 
                 }
 
