@@ -67,8 +67,6 @@ module Roboycod{
         }
 
         public navToInventory() {
-            //TODO guardar datos de entidades
-            GameManager.getInstance().save();
             this.game.state.start('Inventory', true, false, this.key, this.numStage);
         }
 
@@ -171,8 +169,6 @@ module Roboycod{
 
         }
         public navToWorldMap() : void{
-
-            GameManager.getInstance().save();
             this.game.state.start('WorldMap', true, false);
 
         }

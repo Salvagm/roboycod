@@ -114,9 +114,6 @@ module Roboycod {
             this.gameData.inventory.y = this.y;
             this.gameData.inventory.isEmpty = this.isEmpty;
 
-            //TODO mirar cuando guardar
-            GameManager.getInstance().save();
-
             //Cambiamos la lista lateral
             $('#buffers').show();
             $('#inventoryUtils').hide();
@@ -350,7 +347,6 @@ module Roboycod {
             if(!found){
                 console.log("No se ha encontrado el CDV buscando por ID");
             }
-
             GameManager.getInstance().save();
         }
 

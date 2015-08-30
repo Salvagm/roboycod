@@ -36,6 +36,7 @@ module Roboycod{
                 localStorage.removeItem(this.key);
             }
             localStorage.setItem(this.key, JSON.stringify(this.data));
+            this.fadeIn();
         }
 
         /**
@@ -65,6 +66,17 @@ module Roboycod{
         public fadeOut () {
             var spr_bg = this.game.add.graphics(0, 0);
             spr_bg.beginFill(0, 1);
+            spr_bg.drawRect(0, 0, this.game.world.width, this.game.world.height*2);
+            spr_bg.alpha = 1;
+            spr_bg.endFill();
+
+            var s = this.game.add.tween(spr_bg)
+            s.to({ alpha: 0 }, 500, null)
+            s.start();
+        }
+        public fadeIn () {
+            var spr_bg = this.game.add.graphics(0, 0);
+            spr_bg.beginFill(255255255255 , 1);
             spr_bg.drawRect(0, 0, this.game.world.width, this.game.world.height*2);
             spr_bg.alpha = 1;
             spr_bg.endFill();
