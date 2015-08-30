@@ -48,6 +48,7 @@ module Roboycod {
                     this.keyCode = copy.keyCode;
                     this.code = copy.code;
                     this.isCompiled = copy.isCompiled;
+
                 }
 
             }
@@ -61,6 +62,7 @@ module Roboycod {
                     this.keyCode = Phaser.Keyboard.W;
                     break;
                 case CdvLogic.TYPES[1] :
+                    this.code = "int main()\n{\n}";
                     this.actions = CdvCommon.coreHash;
                     break;
                 case CdvLogic.TYPES[2] :
@@ -69,6 +71,7 @@ module Roboycod {
                     this.keyCode = Phaser.Keyboard.SPACEBAR;
                     break;
                 case CdvLogic.TYPES[3] :
+                    this.code = "int main()\n{\n}";
                     this.actions = CdvCommon.dronHash;
                     break;
                 default :

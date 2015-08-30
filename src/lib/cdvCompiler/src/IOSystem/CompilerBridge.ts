@@ -19,6 +19,7 @@ module IOSystem
         private static _canInstantiate  : boolean = false;
 
         private compiledObjetcs         : {[idFunc : number] : string};
+        private lisOfCdv                : {[idCdv : number] : Roboycod.CdvLogic};
         private info                    : Compiler.ParseData;
         private compilerWorker          : Worker;
         private compileMaxTime          : number;
@@ -58,6 +59,7 @@ module IOSystem
             this.execute = false;
             this.timeOutCompile = [];
             this.timeOutExe = [];
+            this.lisOfCdv = {};
             CompilerBridge._instance = this;
         }
 
@@ -109,10 +111,12 @@ module IOSystem
         public compile(cdv : Roboycod.CdvLogic, x? : number, y? : number) : void
         {
             this.execute = false;
-            this.compilerWorker['CDV'] = cdv;
+            var index = Math.abs(Math.random() * Date.now() | 0);
+            this.lisOfCdv[index] = cdv;
             this.compilerWorker["targetX"] = x;
             this.compilerWorker["targetY"] = y;
-            this.compilerWorker.postMessage({code : cdv.code, type : cdv.type});
+
+            this.compilerWorker.postMessage({code : cdv.code, type : cdv.type, id : index});
             this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
         }
 
@@ -234,19 +238,16 @@ module IOSystem
         {
 
             var cB : CompilerBridge = CompilerBridge.getInstace();
-
             clearTimeout(cB.timeOutCompile.pop());
-
+            var cdv : Roboycod.CdvLogic = cB.lisOfCdv[info.data.id];
             cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
-            
-            var index = cB.addNewProgram(cB.info.getCode(),info.target.CDV.id);
-            info.target.CDV.isCompiled = cB.info.isCompiled();
-            info.target.CDV.id = index;
-            if(info.target.targetX !== undefined && info.target.targetY !== undefined )
-                info.target.CDV.graphicUpdate(info.target.targetX,info.target.targetY);
+            var index = cB.addNewProgram(cB.info.getCode(),cdv.id);
 
-            if(cB.execute)
-                cB.executeProgram(cB.compiledObjetcs[index],info.target.CDV);
+            cdv.isCompiled = cB.info.isCompiled();
+            cdv.id = index;
+
+            if(info.target.targetX !== undefined && info.target.targetY !== undefined )
+                cdv.graphicUpdate(info.target.targetX,info.target.targetY);
 
 
         }
