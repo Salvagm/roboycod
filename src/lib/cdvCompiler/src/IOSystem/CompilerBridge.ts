@@ -55,6 +55,7 @@ module IOSystem
             this.compileMaxTime = 2000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessCompileMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessCompileErr, false);
+            this.compilerWorker.postMessage({cmd : "load"});
             this.compiledObjetcs = {};
             this.execute = false;
             this.timeOutCompile = [];

@@ -12,8 +12,8 @@ module IOSystem
          */
         public static compilers     : {[compiler : string] :  string } =
         {
-            ["CCompiler"] : "src/lib/cdvCompiler/src/Compiler/CCompiler.js",
-            ["PythonCompiler"] : "src/lib"
+            "CCompiler" : "src/lib/cdvCompiler/src/Compiler/CCompiler.js",
+            "PythonCompiler" : "src/lib/skulpt/processCode.js" // TODO mirar archivo js y anyadir para worker en un futuro
         }
     }
 }
