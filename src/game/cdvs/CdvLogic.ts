@@ -56,7 +56,7 @@ module Roboycod {
             this.type = type;
             switch (this.type){
                 case CdvLogic.TYPES[0] :
-                    this.code = "int main(){cout << \"disparar\" << endl;}";
+                    this.code = "int main()\n{\n\tcout << \"disparar\" << endl;\n}";
                     this.actions = CdvCommon.weaponHash;
                     this.keyCode = Phaser.Keyboard.W;
                     break;
@@ -65,7 +65,7 @@ module Roboycod {
                     break;
                 case CdvLogic.TYPES[2] :
                     this.actions = CdvCommon.motionHash;
-                    this.code = "int main(){cout << \"saltar\" << endl;}";
+                    this.code = "int main()\n{\n\tcout << \"saltar\" << endl;\n}";
                     this.keyCode = Phaser.Keyboard.SPACEBAR;
                     break;
                 case CdvLogic.TYPES[3] :
@@ -114,7 +114,7 @@ module Roboycod {
         }
         public graphicUpdate(x : number, y : number)
         {
-            //Roboycod.Inventory.getInstance().refreshCdv(x,y);
+            Roboycod.Inventory.getInstance().refreshCdv(x,y);
         }
     }
 }

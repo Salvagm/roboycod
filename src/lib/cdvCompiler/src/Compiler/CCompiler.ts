@@ -127,7 +127,7 @@ module Compiler
     addEventListener("message",
         function(message)
         {
-
+            console.log(message.data.code);
             importScripts("../../gramatica/CGrammar.js","ParseData.js");
             var wCompiler = CCompiler.getInstance();
             var info : ParseData;

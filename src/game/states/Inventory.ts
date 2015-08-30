@@ -301,7 +301,7 @@ module Roboycod {
 
             //TODO llamar a compilar con draw = true
             //Miramos si compila o no y pintamos
-            //cdv.compile(this.x,this.y);
+            cdv.compile(this.x,this.y);
 
         }
 

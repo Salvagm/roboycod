@@ -50,7 +50,7 @@ module IOSystem
 
             //TODO En un futuro cambiar para que pueda cargar otros compiladores distintos
 
-            this.compilerWorker = new Worker("src/Compiler/CCompiler.js");
+            this.compilerWorker = new Worker("src/lib/cdvCompiler/src/Compiler/CCompiler.js");
             this.compileMaxTime = 2000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessCompileMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessCompileErr, false);
@@ -85,6 +85,7 @@ module IOSystem
                 {
 
                 }
+                console.log("Ejecuto id " + this.compiledObjetcs[cdv.id]);
                 this.executeProgram(this.compiledObjetcs[cdv.id], cdv);
             }
             else
@@ -111,7 +112,7 @@ module IOSystem
             this.compilerWorker['CDV'] = cdv;
             this.compilerWorker["targetX"] = x;
             this.compilerWorker["targetY"] = y;
-            this.compilerWorker.postMessage(cdv.code);
+            this.compilerWorker.postMessage({code : cdv.code, type : cdv.type});
             this.timeOutCompile.unshift(setTimeout(this.breakCompilerWorker, this.compileMaxTime,this));
         }
 
@@ -129,10 +130,16 @@ module IOSystem
          * @param code codigo resultante de la compilacion
          * @returns {number} identificador unico que se asigna
          */
-        private addNewProgram(code : string) : number
+        private addNewProgram(code : string, id : number) : number
         {
+            if(id != -1)
+            {
+                this.compiledObjetcs[id] = code;
+                return id;
+            }
+
             var position = Math.abs(Math.random() * Date.now() | 0);
-                this.compiledObjetcs[position] = code;
+            this.compiledObjetcs[position] = code;
             return position;
         }
 
@@ -143,7 +150,7 @@ module IOSystem
          */
         private executeProgram (code : string, cdv : Roboycod.CdvLogic) : void
         {
-            var wProgram = new Worker("src/IOSystem/WorkProgram.js");
+            var wProgram = new Worker("src/lib/cdvCompiler/src/IOSystem/WorkProgram.js");
             wProgram['CDV'] = cdv;
 
             wProgram.addEventListener("message", this.sendInfoToCdv,false);
@@ -207,7 +214,7 @@ module IOSystem
         private breakCompilerWorker(cB : CompilerBridge)
         {
             cB.compilerWorker.terminate();
-            cB.compilerWorker = new Worker("src/Compiler/CCompiler.js");
+            cB.compilerWorker = new Worker("src/lib/cdvCompiler/src/Compiler/CCompiler.js");
         }
 
         /**
@@ -231,14 +238,15 @@ module IOSystem
             clearTimeout(cB.timeOutCompile.pop());
 
             cB.info = new Compiler.ParseData(info.data.isCompiled,info.data.code);
-
-            var index = cB.addNewProgram(cB.info.getCode());
+            
+            var index = cB.addNewProgram(cB.info.getCode(),info.target.CDV.id);
             info.target.CDV.isCompiled = cB.info.isCompiled();
             info.target.CDV.id = index;
             if(info.target.targetX !== undefined && info.target.targetY !== undefined )
                 info.target.CDV.graphicUpdate(info.target.targetX,info.target.targetY);
 
-            cB.executeProgram(cB.compiledObjetcs[index],info.target.CDV);
+            if(cB.execute)
+                cB.executeProgram(cB.compiledObjetcs[index],info.target.CDV);
 
 
         }
