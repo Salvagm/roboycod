@@ -34,8 +34,10 @@ module Roboycod {
 
             this.disableBrowserEvents(stage);
 
-            var tab   = stage.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
             var enter = stage.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+            var tab   = stage.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            stage.game.input.keyboard.addKeyCapture(tab.keyCode);
+            tab.enabled=true;
 
             tab.onDown.add(stage.navToInventory,stage);
             enter.onDown.add(stage.navToWorldMap,stage);
@@ -43,12 +45,9 @@ module Roboycod {
         }
         public setupPlayer(player : Roboycod.Player) : void{
 
-            var space = player.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
             var arrowLeft = player.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
             var arrowRight = player.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-            var W = player.game.input.keyboard.addKey(Phaser.Keyboard.W);
 
             arrowLeft.onHoldCallback = player.moveLeft;
             arrowLeft.onHoldContext = player;
@@ -65,6 +64,8 @@ module Roboycod {
 
             var enter = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             var tab   = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            worldMap.game.input.keyboard.addKeyCapture(tab.keyCode);
+            tab.enabled=true;
 
             var arrowUp = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             var arrowLeft = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -76,6 +77,7 @@ module Roboycod {
             arrowLeft.onDown.add(worldMap.moveSelection,worldMap,null,0,-1);
             arrowRight.onDown.add(worldMap.moveSelection,worldMap,null,0,1);
 
+
             tab.onDown.add(worldMap.navToInventory,worldMap);
             enter.onDown.add(worldMap.startStage,worldMap);
         }
@@ -84,6 +86,8 @@ module Roboycod {
             this.disableBrowserEvents(inventory);
 
             var tab   = inventory.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
+            inventory.game.input.keyboard.addKeyCapture(tab.keyCode);
+            tab.enabled=true;
 
             var arrowUp = inventory.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             var arrowLeft = inventory.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
