@@ -304,22 +304,29 @@ module Roboycod {
                 cdv.code = editor.getValue();
                 cdv.compile();
             }
-
             this.disableMask();
             this.input.keyboard.start();
         }
 
         /**
          * Actualiza graficamente un cdv en concreto
+         * Si estuviese equipado y ya no compila se desequipa
          * @param x la posicion x del cdv complado
          * @param y la posicion y del cdv complado
          */
         public refreshCdv(x : number, y : number){
-            var sprite = this.nav[x][y].compiled;
+            var sprite = this.nav[x][y];
+            var logic = this.cm.data[x][y];
             if(sprite !==undefined){
-                this.drawCdv(x,y,sprite.x, sprite.y);
-                this.nav[x][y].icon.scale.x += this.TWEEN_SCALE;
-                this.nav[x][y].icon.scale.y += this.TWEEN_SCALE;
+                this.drawCdv(x,y,sprite.compiled.x, sprite.compiled.y);
+                if(this.x === x, this.y ==y){
+                    this.enlargeTween(this.nav[x][y]);
+                }
+                //Si estaba equipado y ya no compila lo deseleccionamos
+                if(!logic.isCompiled && logic.isSelected){
+                    logic.isSelected = false;
+                    sprite.selected.kill();
+                }
             }
         }
 
@@ -383,6 +390,10 @@ module Roboycod {
             }
             this.avatar[this.x].revive();
         }
+
+        /**
+         * Carga el mensaje inicial de textos
+         */
         private loadText(){
             var title       : any = this.jsonTiled.layers[this.CDV_L[4]].objects[0];
             var actions     : any = this.jsonTiled.layers[this.CDV_L[4]].objects[1];
@@ -457,6 +468,5 @@ module Roboycod {
         public static getInstance() : Inventory{
             return Inventory._instance;
         }
-
     }
 }

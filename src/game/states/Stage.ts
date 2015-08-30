@@ -54,9 +54,15 @@ module Roboycod{
 
             //Definimos y mapeamos las teclas correspondientes
             KeyboardHandler.getInstance().setupStage(this, this.player);
-            //Asiganmos teclas a los CDVs equipados
-            KeyboardHandler.getInstance().setupCdvs(this, this.cm.getEquiped());
 
+            var cdvs : CdvLogic[] = this.cm.getEquiped();
+            //Asiganmos teclas a los CDVs equipados
+            KeyboardHandler.getInstance().setupCdvs(this, cdvs);
+            //Compilamos los equipados
+
+            for(var i = 0; i < cdvs.length; ++i){
+                cdvs[i].compile();
+            }
             GameManager.getInstance().fadeOut();
         }
 

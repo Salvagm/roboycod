@@ -236,7 +236,8 @@ module IOSystem
         }
         private compilationError(data : any )
         {
-            this.sendBufferInfo(data.type,data.msg);
+            //TODO sacar por consola de TEST
+            //this.sendBufferInfo(data.type,data.msg);
             var cdv : Roboycod.CdvLogic = this.lisOfCdv[data.id];
 
             cdv.isCompiled = data.isCompiled;
