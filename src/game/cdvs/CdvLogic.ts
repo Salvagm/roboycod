@@ -8,7 +8,7 @@
 ///<reference path="../player/Player.ts"/>
 ///<reference path="../utils/KeyboardHandler.ts"/>
 ///<reference path="CdvCommon.ts"/>
-
+///<reference path="../../lib/cdvCompiler/src/IOSystem/CompilerBridge.ts"/>
 
 module Roboycod {
 
@@ -38,7 +38,7 @@ module Roboycod {
                     this.id = -1;
                     this.isSelected = false;
 
-                    this.isCompiled = this.compile();
+                    this.compile();
                 }
                 else{
                     var copy : CdvLogic = <CdvLogic> other;
@@ -47,16 +47,16 @@ module Roboycod {
                     this.isSelected = copy.isSelected;
                     this.keyCode = copy.keyCode;
                     this.code = copy.code;
-
-                    this.isCompiled = this.compile();
+                    this.isCompiled = copy.isCompiled;
                 }
+
             }
         }
         private setType(type : string){
             this.type = type;
             switch (this.type){
                 case CdvLogic.TYPES[0] :
-                    this.code = "print(\"disparar\")";
+                    this.code = "int main(){cout << \"disparar\" << endl;}";
                     this.actions = CdvCommon.weaponHash;
                     this.keyCode = Phaser.Keyboard.W;
                     break;
@@ -65,7 +65,7 @@ module Roboycod {
                     break;
                 case CdvLogic.TYPES[2] :
                     this.actions = CdvCommon.motionHash;
-                    this.code = "print(\"saltar\")";
+                    this.code = "int main(){cout << \"saltar\" << endl;}";
                     this.keyCode = Phaser.Keyboard.SPACEBAR;
                     break;
                 case CdvLogic.TYPES[3] :
@@ -81,7 +81,13 @@ module Roboycod {
          */
         public runCode() : void{
             //TODO runit de Bridge
-            runit(this);
+            var cB : IOSystem.CompilerBridge = IOSystem.CompilerBridge.getInstace();
+
+            if(this.isCompiled)
+            {
+                cB.runit(this);
+            }
+            //runit(this);
         }
         //TODO controlar si no esta la accion que lo indique al usuario
         public execAction(output : string){
@@ -97,9 +103,18 @@ module Roboycod {
             var editor = ace.edit("editor");
             editor.setValue(this.code, -1);
         }
-        public compile() : boolean{
-            //TODO return Bridge.compile(this)
-            return true;
+        public compile(x? : number , y?: number) : void{
+            var cB : IOSystem.CompilerBridge = IOSystem.CompilerBridge.getInstace();
+            // Mensaje asincrono que asigna el valor de si ha compilado o no
+            if(x === undefined || y === undefined)
+                cB.compile(this);
+            else
+                cB.compile(this,x,y);
+
+        }
+        public graphicUpdate(x : number, y : number)
+        {
+            //Roboycod.Inventory.getInstance().refreshCdv(x,y);
         }
     }
 }

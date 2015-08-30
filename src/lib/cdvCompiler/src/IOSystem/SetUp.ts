@@ -10,6 +10,10 @@ module IOSystem
         /**
          * Funcion para hacer setUp de los compiladores que queramos añadir a la aplicación
          */
-        public static compilers     : {[compiler : string] :  string[] }
+        public static compilers     : {[compiler : string] :  string } =
+        {
+            ["CCompiler"] : "src/lib/cdvCompiler/src/Compiler/CCompiler.js",
+            ["PythonCompiler"] : "src/lib"
+        }
     }
 }
