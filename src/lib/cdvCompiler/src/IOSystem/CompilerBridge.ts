@@ -192,7 +192,7 @@ module IOSystem
                 case Roboycod.CdvLogic.TYPES[1] : // core
                     break;
                 case Roboycod.CdvLogic.TYPES[2] : // motion
-                    MotionBuffer.getInstance().writeMessage(msg);
+                    MotionBuffer.getInstance().updateOutput(msg);
                     break;
                 case Roboycod.CdvLogic.TYPES[3] : // dron
                     break;

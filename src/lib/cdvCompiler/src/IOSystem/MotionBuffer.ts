@@ -76,15 +76,15 @@ module IOSystem
          * Escribe el mensaje en el buffer de salida
          * @param msg mensaje recibido desde los hilos
          */
-        public writeMessage(msg : string) : void
+        public updateOutput(action : string) : void
         {
-            MotionBuffer.outputActions.innerHTML += msg;
+            MotionBuffer.outputActions.innerHTML += action;
         }
 
         /**
          * Refresca todos los estados en la parte de estados del buffer
          */
-        public visualUpdate()
+        public updateInput()
         {
             MotionBuffer.inputStates[0].innerHTML = this.inAir.toString();
             MotionBuffer.inputStates[1].innerHTML = this.inGround.toString();
