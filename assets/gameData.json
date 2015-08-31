@@ -6,12 +6,12 @@
 	},
 	"stage":
 	{		
-		"player": [
+		"player": 
 		{ 
-		 	"x": 0, 
-		 	"y": 0,
+		 	"x": 584, 
+		 	"y": 434,
 		 	"life": ""
-		}]
+		}
 	},
 	"inventory":
 	{		

@@ -13,6 +13,10 @@
 body{
     background: #CFCFCF;
 }
+
+
+/***************** BOOTSTRAP *************/
+
 .list-group-item
 {
     height: 100%;
@@ -41,13 +45,29 @@ dd{
     color: #EE274D;
     color: #7863b9;
 }
-/*** BOOTSTRAP **/
 
 .row{
     margin-right: 0px;
     margin-left: 0px;
     height: 100%;
 }
+/***************** TITULOS *************/
+
+.titles {
+
+    /*background: #CFCFCF;*/
+    text-align: center;
+    border-top: groove;
+    border-bottom: groove;
+    background-color: #73CFD9;
+}
+#mainTitle{
+    opacity: 1;
+
+    font-size: 2.5em;
+    font-family: 'KarmaticArcade', sans-serif;
+}
+
 .side{
     /*min-height: 400px;*/
     height: 100%;
@@ -59,8 +79,8 @@ dd{
     height: 100%;
 }
 
-/** AREA DE JUEGO **/
 
+/****************** AREA DE JUEGO ***************/
 
 
 #testConsole {
@@ -172,24 +192,13 @@ dd{
 .bufferArea{
 }
 
-/** AREA DE CONTROLES**/
-
-
-
-.titles {
-
-    /*background: #CFCFCF;*/
-    text-align: center;
-    border-top: groove;
-    border-bottom: groove;
-    background-color: #73CFD9;
+canvas{
+    border-radius: 2px;
+    margin-bottom: 2%;
 }
-#mainTitle{
-    opacity: 1;
 
-    font-size: 2.5em;
-    font-family: 'KarmaticArcade', sans-serif;
-}
+/************* AREA DE CONTROLES ************/
+
 #controls{
     font-family: 'ArcadepixPlus', sans-serif;
 
@@ -209,38 +218,28 @@ dd{
     background: #CFCFCF;
     text-align: center;
     padding: 0;
-    margin: 0;
+    /*margin: 0;*/
+    margin-top: 5px;
 }
 
-.nav div {
-    text-decoration: none;
-    transition: .3s background-color;
-}
-
-.nav div.active {
-    background-color: #fff;
-    color: #444;
-    cursor: default;
-}
 
 .nav li {
     display: inline-block;
-    margin-right: -4px;
     font-size: 1.4em;
-    margin-right: 1%;
+
 }
 .keyUse{
     font-family: 'ArcadepixPlus', sans-serif;
     font-size: 1.2em;
-
     font-style: italic;
-
+    margin-right: 1%;
+    margin-left: 1%;
 }
 .key {
     display: inline;
     display: inline-block;
     max-width: 5em;
-    min-width: 3em;
+    min-width: 2em;
     padding: .2em .3em;
     font: normal .85em/1 "Lucida Grande", Lucida, Arial, sans-serif;
     text-align: center;
@@ -253,7 +252,7 @@ dd{
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    font-size: larger;
+    font-size: 1.5em !important;
 }
 .light{
     background: rgb(250, 250, 250);

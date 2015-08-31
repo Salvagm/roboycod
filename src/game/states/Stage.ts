@@ -22,8 +22,11 @@ module Roboycod{
         private player      : Player;
         private numStage    : string;
 
+        //Datos
         private cm          : CdvMatrix;
         private gameData    : any;
+        //Json generado por el Tiled
+        private tiled       : any;
 
         public cdvLogicDemo : CdvLogic;
 
@@ -76,7 +79,7 @@ module Roboycod{
          */
         public loadStage(){
 
-            var tempJSON = this.game.cache.getJSON('jsonStage' + this.numStage);
+            this.tiled = this.game.cache.getJSON('jsonStage' + this.numStage);
 
             this.map = this.add.tilemap('tmStage' + this.numStage);
             this.map.addTilesetImage('tsStages');
@@ -93,23 +96,23 @@ module Roboycod{
             //Se define la zona donde acabamos el nivel
             this.finishZone = new Phaser.Sprite(
                 this.game,
-                tempJSON.layers[this.TRIGGER_L].objects[1].x,
-                tempJSON.layers[this.TRIGGER_L].objects[1].y
+                this.tiled.layers[this.TRIGGER_L].objects[1].x,
+                this.tiled.layers[this.TRIGGER_L].objects[1].y
             );
             this.game.physics.enable(this.finishZone);
-            this.finishZone.body.width = tempJSON.layers[4].objects[1].width;
-            this.finishZone.body.height = tempJSON.layers[4].objects[1].height;
+            this.finishZone.body.width = this.tiled.layers[4].objects[1].width;
+            this.finishZone.body.height = this.tiled.layers[4].objects[1].height;
             this.finishZone.tint = 0xff00ff;
 
             //Cargamos player
             this.player = new Player(
                 this.game,
-                tempJSON.layers[this.TRIGGER_L].objects[0].x,
-                tempJSON.layers[this.TRIGGER_L].objects[0].y
+                this.gameData.stage.player.x,
+                this.gameData.stage.player.y
             );
 
             //Cargamos enemigos
-            this.loadEnemies(tempJSON.layers[this.ENEMY_L]);
+            this.loadEnemies(this.tiled.layers[this.ENEMY_L]);
 
         }
 
@@ -151,9 +154,13 @@ module Roboycod{
         }
 
         private finishStage(){
-            this.game.state.start('Stage', true, false, '0');
+            this.gameData.stage.player.x = this.tiled.layers[this.TRIGGER_L].objects[0].x;
+            this.gameData.stage.player.y = this.tiled.layers[this.TRIGGER_L].objects[0].y;
+            this.game.state.start('WorldMap', true, false);
         }
         update(){
+            this.gameData.stage.player.x = this.player.x;
+            this.gameData.stage.player.y = this.player.y;
             this.game.debug.body(this.finishZone);
 
             this.game.physics.arcade.collide(this.groundLayer, this.player);

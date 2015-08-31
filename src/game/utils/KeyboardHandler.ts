@@ -53,8 +53,8 @@ module Roboycod {
             var zero = stage.game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
             var gm = Roboycod.GameManager.getInstance();
             zero.onDown.add(gm.clearData, gm);
-            var p = stage.game.input.keyboard.addKey(Phaser.Keyboard.P);
-            p.onDown.add(gm.save, gm);
+            var g = stage.game.input.keyboard.addKey(Phaser.Keyboard.G);
+            g.onDown.add(gm.save, gm);
 
             one.onDown.add(stage.GENERATECDV, stage, null, 0);
             two.onDown.add(stage.GENERATECDV, stage, null, 1);
@@ -106,8 +106,8 @@ module Roboycod {
             var zero = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
             var gm = Roboycod.GameManager.getInstance();
             zero.onDown.add(gm.clearData, gm);
-            var p = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.P);
-            p.onDown.add(gm.save, gm);
+            var g = worldMap.game.input.keyboard.addKey(Phaser.Keyboard.G);
+            g.onDown.add(gm.save, gm);
 
             //TODO FIN GODMODE
         }
@@ -138,8 +138,8 @@ module Roboycod {
 
             //TODO GOD MODE
             var gm = Roboycod.GameManager.getInstance();
-            var p = inventory.game.input.keyboard.addKey(Phaser.Keyboard.P);
-            p.onDown.add(gm.save, gm);
+            var g = inventory.game.input.keyboard.addKey(Phaser.Keyboard.G);
+            g.onDown.add(gm.save, gm);
         }
 
         /**
