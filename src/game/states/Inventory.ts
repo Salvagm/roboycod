@@ -9,7 +9,7 @@
 
 module Roboycod {
 
-    class MatrixContent{
+    class MatrixContentI{
         public icon         : Phaser.Sprite;
         public compiled     : Phaser.Sprite;
         public selected     : Phaser.Sprite;
@@ -31,7 +31,7 @@ module Roboycod {
         private widthRatio      : number;
         private heightRatio     : number;
         //Navegacion
-        private nav             : MatrixContent[][];
+        private nav             : MatrixContentI[][];
         private cm              : CdvMatrix;
         private x               : number;
         private y               : number;
@@ -130,7 +130,7 @@ module Roboycod {
             for(var i = 0; i < this.ROWS;++i){
                 this.nav[i] = [];
                 for(var j = 0; j < this.COLS;++j){
-                    this.nav[i][j] = new MatrixContent();
+                    this.nav[i][j] = new MatrixContentI();
                     //En la layer CDV_L se encontraran los objetos del Tiled
                     jsonItem = this.jsonTiled.layers[this.CDV_L[i]].objects[j];
                     jsonItem.x /= this.widthRatio;
@@ -185,7 +185,7 @@ module Roboycod {
          * Funcion para resaltar el icono seleccionado
          * @param item el logo seleccionado
          */
-        private enlargeTween(item : MatrixContent) : void {
+        private enlargeTween(item : MatrixContentI) : void {
             var s = this.game.add.tween(item.icon.scale);
             s.to(
                 {   x : this.initScale.x+this.TWEEN_SCALE,
@@ -200,7 +200,7 @@ module Roboycod {
          * Funcion para reducir el icono desseleccionado
          * @param item el logo desseleccionado
          */
-        private reduceTween(item : MatrixContent) : void {
+        private reduceTween(item : MatrixContentI) : void {
             var s = this.game.add.tween(item.icon.scale);
             s.to(
                 {   x : this.initScale.x,
@@ -350,7 +350,7 @@ module Roboycod {
             GameManager.getInstance().save();
         }
 
-        private drawSelection(graphicItem : MatrixContent) : void{
+        private drawSelection(graphicItem : MatrixContentI) : void{
             graphicItem.selected = this.game.add.sprite(
                 graphicItem.icon.x,
                 graphicItem.icon.y,

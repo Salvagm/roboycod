@@ -11,7 +11,7 @@
 
 module Roboycod {
 
-    class MatrixContent{
+    class MatrixContentW{
         public sprite       : Phaser.Sprite;
         public jsonItem     : any;
 
@@ -21,7 +21,7 @@ module Roboycod {
     export class WorldMap extends Phaser.State {
 
         private background      : Phaser.Image;
-        private nav             : MatrixContent[][];
+        private nav             : MatrixContentW[][];
         private initScale       : Phaser.Point;
         private x               : number;
         private y               : number;
@@ -100,7 +100,7 @@ module Roboycod {
             for(var i = 0; i < this.ROWS;++i){
                 this.nav[i] = [];
                 for(var j = 0; j < this.COLS;++j){
-                    this.nav[i][j] = new MatrixContent();
+                    this.nav[i][j] = new MatrixContentW();
                     item = this.nav[i][j];
                     //En la layer LOGO_L se encontraran los objetos del Tiled
                     item.jsonItem = this.jsonTiled.layers[this.LOGO_L].objects[numItem];
@@ -128,7 +128,7 @@ module Roboycod {
          * Funcion para resaltar el logo seleccionado
          * @param logo el logo seleccionado
          */
-        private enlargeTween(item : MatrixContent) : void {
+        private enlargeTween(item : MatrixContentW) : void {
             var s = this.game.add.tween(item.sprite.scale);
             s.to(
                 {   x : this.initScale.x+this.TWEEN_SCALE,
@@ -143,7 +143,7 @@ module Roboycod {
          * Funcion para reducir el logo desseleccionado
          * @param logo el logo desseleccionado
          */
-        private reduceTween(item : MatrixContent) : void {
+        private reduceTween(item : MatrixContentW) : void {
             var s = this.game.add.tween(item.sprite.scale);
             s.to(
                 {   x : this.initScale.x,
