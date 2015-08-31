@@ -10,6 +10,12 @@
     local("KarmaticArcade"),
     url(assets/fonts/KarmaticArcade.ttf);
 }
+@font-face {
+    font-family: B_30;
+    src: local("B_30"),
+    local("B_30"),
+    url(assets/fonts/B_30.TTF);
+}
 body{
     background: #CFCFCF;
 }
@@ -59,13 +65,21 @@ dd{
     text-align: center;
     border-top: groove;
     border-bottom: groove;
-    background-color: #73CFD9;
+
 }
 #mainTitle{
-    opacity: 1;
+    display: inline-block;
+    width: 192px;
+    height: 24px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    background: url(assets/title01.png) 0 0;
 
-    font-size: 2.5em;
-    font-family: 'KarmaticArcade', sans-serif;
+    /*background: no-repeat;*/
+    /*opacity: 1;*/
+
+    /*font-size: 2.5em;*/
+    /*font-family: 'B_30', sans-serif;*/
 }
 
 .side{
@@ -207,6 +221,7 @@ canvas{
     font-size: 2em;
     letter-spacing: normal;
     font-weight: normal;
+    background-color: #73CFD9;
 }
 .nav{
     padding-top: 2px;

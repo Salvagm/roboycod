@@ -23,7 +23,13 @@ module Roboycod{
             this.game.load.image('hudfake', 'assets/hudfake.png');
 
 
-            /**
+            /*
+             * Elentos MainMenu
+             */
+
+            this.game.load.image('menuBackground', 'assets/menu/menuConcept01.png');
+
+            /*
              * Elentos WorldMap
              */
             this.game.load.image('worldMap', 'assets/world/worldMap.png');
@@ -34,7 +40,7 @@ module Roboycod{
                 'assets/world/worldTiles.json'
             );
 
-            /**
+            /*
              * Elementos Inventario
              */
             this.game.load.image(
@@ -61,7 +67,7 @@ module Roboycod{
 
             this.game.load.bitmapFont('gemFont', 'assets/fonts/bitmapFonts/gem.png', 'assets/fonts/bitmapFonts/gem.xml');
 
-            /**
+            /*
              * Entidades, Objetos dinamicos, etc
              */
             this.load.atlasJSONHash(
@@ -73,7 +79,7 @@ module Roboycod{
             //TODO cambiar por otra bala
             this.game.load.image('bullet', 'assets/entities/bullet.png');
 
-            /**
+            /*
              * FASES / STAGES
              */
             this.game.load.image('tsStages','assets/stages/mapTiles.png');
@@ -86,7 +92,7 @@ module Roboycod{
                 Phaser.Tilemap.TILED_JSON
             );
 
-            /**
+            /*
              * Cargamos JSON para guardar los estados de los STATES
              */
             this.game.load.json('gameData','assets/gameData.json');
