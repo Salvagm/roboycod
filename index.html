@@ -65,11 +65,12 @@
 <body>
     <div class="container-fluid">
         <div class="row wrapper" >
+            <div id="mainTitle" class="titles" >ROBOYCOD</div>
             <div class="row" >
                 <div class="col-xs-6 side">
                     <div id="game"></div>
                 </div>
-                <div class="col-xs-6 side">
+                <div class="col-xs-6 side gamePanel">
 
                 <div id = "inventoryUtils">
                     <div class="row">
@@ -88,9 +89,9 @@
                                             <div class="list-group-item">
                                                 <dl class="dl-horizontal">
                                                     <dt>enAire =</dt>
-                                                    <dd id="">true</dd>
+                                                    <dd >true</dd>
                                                     <dt>enTierra =</dt>
-                                                    <dd id="">false</dd>
+                                                    <dd >false</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -105,7 +106,7 @@
                     </div>
                 </div>
                 <div id = "buffers">
-                    <div class="row">
+
                         <div id="weaponBuffer" class = "bufferArea">
                             <div class="buffer-bar">ARMA</div>
                             <div class="shell-wrap  buffer">
@@ -126,8 +127,8 @@
                             </div>
 
                         </div>
-                    </div>
-                    <div class="row">
+
+
                         <div id="coreBuffer" class = "bufferArea">
                             <div class="buffer-bar">CORE</div>
                             <div class="shell-wrap  buffer">
@@ -148,8 +149,8 @@
                                 <div class="output" id="coreOutput"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+
+
                         <div id="motionBuffer" class = "bufferArea">
                             <div class="buffer-bar">MOVILIDAD</div>
                             <div class="shell-wrap  buffer">
@@ -170,8 +171,7 @@
                                 <div class="output" id="motionOutput"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+
                         <div id="dronBuffer" class = "bufferArea">
                             <div class="buffer-bar">DRON</div>
                             <div class="shell-wrap  buffer">
@@ -191,13 +191,26 @@
                                 <div class="output" id="dronOutput"></div>
                             </div>
                         </div>
-                    </div>
+
                 </div>
 
                 </div>
             </div>
             <div class="row">
-                <div style="background: grey">CONTROLES</div>
+                <div id="controls" class="titles">CONTROLES</div>
+                <div class="nav">
+                    <ul>
+                        <li class="key black"><div>←</div></li>
+                        <li class="key black"><div>↓</div></li>
+                        <li class="key black"><div>↑</div></li>
+                        <li class="key black"><div>→</div></li>
+                        <li><div class=keyUse>Movimiento</div></li>
+                        <li class="key black"><div>↲</div></li>
+                        <li ><div class=keyUse>Iniciar fase</div></li>
+                        <li class="key black"><div>⇆</div></li>
+                        <li ><div class=keyUse>Inventario</div></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

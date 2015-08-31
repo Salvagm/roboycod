@@ -1,3 +1,18 @@
+@font-face {
+    font-family: ArcadepixPlus;
+    src: local("ArcadepixPlus"),
+    local("ArcadepixPlus"),
+    url(assets/fonts/ArcadepixPlus.ttf);
+}
+@font-face {
+    font-family: KarmaticArcade;
+    src: local("KarmaticArcade"),
+    local("KarmaticArcade"),
+    url(assets/fonts/KarmaticArcade.ttf);
+}
+body{
+    background: #CFCFCF;
+}
 .list-group-item
 {
     height: 100%;
@@ -24,11 +39,14 @@ dl .dl-horizontal
 dd{
     font-weight: bold;
     color: #EE274D;
+    color: #7863b9;
 }
+/*** BOOTSTRAP **/
 
 .row{
     margin-right: 0px;
     margin-left: 0px;
+    height: 100%;
 }
 .side{
     /*min-height: 400px;*/
@@ -39,9 +57,12 @@ dd{
 }
 .wrapper{
     height: 100%;
-    background: #9B9A9A;
-
 }
+
+/** AREA DE JUEGO **/
+
+
+
 #testConsole {
     margin-top: 1%;
 }
@@ -56,15 +77,12 @@ dd{
     position: relative;
 
     overflow: hidden;
-
-    /*opacity: 1;*/
-    /*-webkit-transition: opacity 1s; *//* For Safari 3.1 to 6.0 */
-    /*transition: opacity 1s;*/
 }
 .shell-wrap {
     height: 100%;
 }
 .shell-top-bar{
+    font-family: monospace;
     text-align: center;
     color: #525252;
     text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
@@ -99,7 +117,7 @@ dd{
     list-style: none;
     background: #141414;
     color: #45D40C;
-    font: 0.8em 'Andale Mono', Consolas, 'Courier New';
+    font: 1em 'Andale Mono', Consolas, 'Courier New';
     line-height: 1.6em;
 
     -webkit-border-bottom-right-radius: 3px;
@@ -126,7 +144,7 @@ dd{
     background: linear-gradient(to bottom,  #f7f7f7 0%,#B8B8B8 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#B8B8B8',GradientType=0 ); /* IE6-9 */
 
-    font: 0.8em 'Andale Mono', Consolas, 'Courier New';
+    font: 1em 'Andale Mono', Consolas, 'Courier New';
     line-height: 1.6em;
 
     -webkit-border-bottom-right-radius: 3px;
@@ -142,15 +160,123 @@ dd{
     height: 85%;
 }
 .buffer-bar{
+
+    font-family: 'ArcadepixPlus', sans-serif;
+    line-height: 80%;
+    letter-spacing: 10px;
     text-align: center;
     color: #525252;
-    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
-    font-size: 0.85em;
-    border: 1px solid #CCCCCC;
-    border-bottom: none;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+    /*border: 1px solid #CCCCCC;*/
+    /*border-bottom: none;*/
 
-    background: #f7f7f7;
+    /*background: #f7f7f7;*/
 
 }
 .bufferArea{
+}
+
+/** AREA DE CONTROLES**/
+
+
+
+.titles {
+
+    /*background: #CFCFCF;*/
+    text-align: center;
+    border-top: groove;
+    border-bottom: groove;
+    background-color: #73CFD9;
+}
+#mainTitle{
+    opacity: 1;
+
+    font-size: 2.5em;
+    font-family: 'KarmaticArcade', sans-serif;
+}
+#controls{
+    font-family: 'ArcadepixPlus', sans-serif;
+
+    font-weight: bold;
+    line-height: 95%;
+    font-size: 2em;
+    letter-spacing: normal;
+    font-weight: normal;
+}
+.nav{
+    padding-top: 2px;
+    background: #CFCFCF;
+    padding-bottom: 2px;
+}
+.nav ul {
+    list-style: none;
+    background: #CFCFCF;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.nav div {
+    text-decoration: none;
+    transition: .3s background-color;
+}
+
+.nav div.active {
+    background-color: #fff;
+    color: #444;
+    cursor: default;
+}
+
+.nav li {
+    display: inline-block;
+    margin-right: -4px;
+    font-size: 1.4em;
+    margin-right: 1%;
+}
+.keyUse{
+    font-family: 'ArcadepixPlus', sans-serif;
+    font-size: 1.2em;
+
+    font-style: italic;
+
+}
+.key {
+    display: inline;
+    display: inline-block;
+    max-width: 5em;
+    min-width: 3em;
+    padding: .2em .3em;
+    font: normal .85em/1 "Lucida Grande", Lucida, Arial, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    -moz-border-radius: .3em;
+    -webkit-border-radius: .3em;
+    border-radius: .3em;
+    border: none;
+    cursor: default;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    font-size: larger;
+}
+.light{
+    background: rgb(250, 250, 250);
+    background: -moz-linear-gradient(top, rgb(210, 210, 210), rgb(255, 255, 255));
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(210, 210, 210)), to(rgb(255, 255, 255)));
+    color:  rgb(50, 50, 50);
+    text-shadow: 0 0 2px rgb(255, 255, 255);
+    -moz-box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+    -webkit-box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+    box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+}
+.black{
+    background: rgb(80, 80, 80);
+    background: -moz-linear-gradient(top, rgb(60, 60, 60), rgb(80, 80, 80));
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(60, 60, 60)), to(rgb(80, 80, 80)));
+    color: rgb(250, 250, 250);
+    text-shadow: -1px -1px 0 rgb(70, 70, 70);
+    -webkit-box-shadow: inset 0 0 1px rgb(150, 150, 150), inset 0 -.05em .4em rgb(80, 80, 80), 0 .1em 0 rgb(30, 30, 30), 0 .1em .1em rgba(0, 0, 0, .3);
+    -moz-box-shadow: inset 0 0 1px rgb(150, 150, 150), inset 0 -.05em .4em rgb(80, 80, 80), 0 .1em 0 rgb(30, 30, 30), 0 .1em .1em rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 1px rgb(150, 150, 150), inset 0 -.05em .4em rgb(80, 80, 80), 0 .1em 0 rgb(30, 30, 30), 0 .1em .1em rgba(0, 0, 0, .3);
 }
