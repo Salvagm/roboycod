@@ -31,6 +31,7 @@ module Roboycod {
             return KeyboardHandler._instance;
         }
         public setupMenu(menu : Roboycod.MainMenu) : void{
+            this.disableBrowserEvents(menu);
             var enter = menu.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             enter.onDown.add(menu.startGame,menu);
         }
