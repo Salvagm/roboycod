@@ -69,7 +69,6 @@ dd{
 #editor {
 
     float: left;
-
     /*requiere minimo 300px de height para visualizarse*/
     min-height: 300px;
     max-height: 50%;
@@ -168,10 +167,6 @@ dd{
     color: #525252;
     font-size: 1.8em;
     letter-spacing: 1px;
-    /*border: 1px solid #CCCCCC;*/
-    /*border-bottom: none;*/
-
-    /*background: #f7f7f7;*/
 
 }
 .bufferArea{

@@ -32,6 +32,22 @@ function fixRightSide(){
     }, delay);
 }
 
+/*
+ * FUNCIONES PARA EL EDITOR
+ */
+function enableEditor(){
+    var editor = ace.edit("editor");
+    editor.focus();
+    editor.setReadOnly(false);
+    editor.container.style.opacity=1;
+}
+function disableEditor(){
+    var editor = ace.edit("editor");
+    editor.setReadOnly(true);
+    editor.container.style.opacity=0.8;
+    editor.blur();
+}
+
 // Cada vez que se reajuste la pantalla se debe modificar la altura
 window.addEventListener("resize", fixRightSide);
 
@@ -70,4 +86,6 @@ $( window ).load(function(){
             Roboycod.Inventory.getInstance().saveCdv();
         }
     });
+
+    disableEditor();
 });

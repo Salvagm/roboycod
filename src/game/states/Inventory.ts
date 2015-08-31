@@ -285,7 +285,7 @@ module Roboycod {
                 var row = editor.session.getLength() - 1;
                 var column = editor.session.getLine(row).length;
                 editor.gotoLine(row + 1, column);
-                editor.focus();
+                enableEditor();
             }
         }
 
@@ -294,7 +294,7 @@ module Roboycod {
          */
         public saveCdv() : void{
             var editor = ace.edit("editor");
-            editor.blur();
+            disableEditor();
             if(!this.isEmpty) {
 
                 var cdv = this.cm.data[this.x][this.y];
