@@ -43,7 +43,7 @@ module Roboycod{
          * Trata de cargar los datos de la memoria y si no carga los iniciales
          * @param game
          */
-        public load(){
+        private load(){
             if(localStorage.getItem(this.key)){
                 this.data = JSON.parse(localStorage.getItem(this.key));
             }

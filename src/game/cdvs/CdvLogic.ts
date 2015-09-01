@@ -82,14 +82,12 @@ module Roboycod {
          * como clave la salida de la ejecucion del codigo
          */
         public runCode() : void{
-            //TODO runit de Bridge
-            var cB : IOSystem.CompilerBridge = IOSystem.CompilerBridge.getInstace();
 
+            var cB : IOSystem.CompilerBridge = IOSystem.CompilerBridge.getInstace();
             if(this.isCompiled)
             {
                 cB.runit(this);
             }
-            //runit(this);
         }
         //TODO controlar si no esta la accion que lo indique al usuario
         public execAction(output : string){

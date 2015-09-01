@@ -8,7 +8,7 @@ module Roboycod {
     export class CdvCommon {
 
         private static _instance:CdvCommon = null;
-        private static _canInstantiate = false;
+        private static _canInstantiate : boolean = false;
 
         //Diccionarios de acciones - funcion
         public static weaponHash :{[action : string] : Function;} = {};

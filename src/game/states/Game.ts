@@ -19,6 +19,7 @@ module Roboycod
             super(width,height,Phaser.AUTO,'game');
 
             this.state.add('Boot',Boot,false);
+            this.state.start()
             this.state.add('Preloader',Preloader,false);
             this.state.add('MainMenu',MainMenu,false);
             this.state.add('Inventory',Inventory,false);

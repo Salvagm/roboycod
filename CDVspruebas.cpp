@@ -33,15 +33,17 @@
 
 // RoboBotas avanzadas
 
-	void main(){
-		bool enAire;
-		cout << "enAire?" << endl;
-		cin >> enAire;
-
-		if(enAire == true)
-			cout << "saltarEnAire" << endl;
-		else 
-			cout << "saltar" << endl;
+	int main()
+	{   
+	    bool enTierra;
+	    cout << "enTierra?"<<endl;
+	    cin >> enTierra;
+	    if(enTierra == true){
+		    cout << "saltar" << endl;
+	    }
+	    else{
+	        cout << "aeroSaltar"<<endl;
+	    }
 	}
 
 // DRON Ataque derecha 
@@ -70,6 +72,9 @@
 	"disparar"
 
 	//CORE
+
+	"defender"
+	"empujar"
 
 	"vida+"
 	"arma+"

@@ -28,8 +28,6 @@ module Roboycod{
         //Json generado por el Tiled
         private tiled       : any;
 
-        public cdvLogicDemo : CdvLogic;
-
         //	Constants
         private ENEMY_L     : number = 3;
         private TRIGGER_L   : number = 4;
