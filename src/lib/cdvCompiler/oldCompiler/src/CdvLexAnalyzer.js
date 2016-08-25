@@ -370,7 +370,7 @@ var compiler;
         // Array asociativo que pasa del caracter leido a un estado del grafo
         CdvLexAnalyzer.char2State = {};
         return CdvLexAnalyzer;
-    })();
+    }());
     compiler.CdvLexAnalyzer = CdvLexAnalyzer;
 })(compiler || (compiler = {}));
 //# sourceMappingURL=CdvLexAnalyzer.js.map

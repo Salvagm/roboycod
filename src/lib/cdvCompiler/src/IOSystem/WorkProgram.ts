@@ -36,6 +36,6 @@ module IOSystem
             bType : buffeType,
             cmd : "cout",
             id : WorkProgram.cvdId
-        },null);
+        });
     }
 }

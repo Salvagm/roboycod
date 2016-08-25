@@ -654,13 +654,13 @@ var exports = {
         // Add a fold over two lines. Note, that the wrapData[1] stays the
         // same. This is an implementation detail and expected behavior.
         session.addFold("woot", new AceAjax.Range(0, 8, 1, 15));
-        assertWrap([8], [8], [8]);
+        assertWrap([8], [8 /* See comments */], [8]);
         removeFoldAssertWrap(0, 8, [8], [8], [8]);
         session.addFold("woot", new AceAjax.Range(0, 9, 1, 11));
-        assertWrap([8, 14], [8], [8]);
+        assertWrap([8, 14], [8 /* See comments */], [8]);
         removeFoldAssertWrap(0, 9, [8], [8], [8]);
         session.addFold("woot", new AceAjax.Range(0, 9, 1, 15));
-        assertWrap([8], [8], [8]);
+        assertWrap([8], [8 /* See comments */], [8]);
         removeFoldAssertWrap(0, 9, [8], [8], [8]);
         return session;
     },

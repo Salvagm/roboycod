@@ -217,7 +217,7 @@ var compiler;
             console.info("OK");
         };
         return TestLex;
-    })();
+    }());
     compiler.TestLex = TestLex;
 })(compiler || (compiler = {}));
 //# sourceMappingURL=TestLex.js.map

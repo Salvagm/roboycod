@@ -53,7 +53,7 @@ module IOSystem
             //TODO En un futuro cambiar para que pueda cargar otros compiladores distintos
 
             this.compilerWorker = new Worker("src/lib/cdvCompiler/src/Compiler/CCompiler.js");
-            this.compileMaxTime = 2000; // 2 segundos maximo
+            this.compileMaxTime = 200000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessCompileMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessCompileErr, false);
             //this.compilerWorker.postMessage({cmd : "load"});
@@ -148,16 +148,16 @@ module IOSystem
             {
                 case Roboycod.CdvLogic.TYPES[0] : //weapon
                     return WeaponBuffer.getInstance().getSnapShot();
-                    break;
+
                 case Roboycod.CdvLogic.TYPES[1] : // core
                     return CoreBuffer.getInstance().getSnapShot();
-                    break;
+
                 case Roboycod.CdvLogic.TYPES[2] : // motion
                     return MotionBuffer.getInstance().getSnapShot();
-                    break;
+
                 case Roboycod.CdvLogic.TYPES[3] : // dron
                     return DronBuffer.getInstance().getSnapShot();
-                    break;
+
                 default :
                     console.log("Type is not suported");
             }

@@ -147,8 +147,14 @@ module Compiler
 
                 info = wCompiler.compile(message.data.code);
                 info.setCode(info.getCode() + " main();");
-                msg = {code : info.getCode(), isCompiled : info.isCompiled(), id : message.data.id, type : message.data.type};
-                self.postMessage(msg,null);
+                msg =
+                {
+                    code : info.getCode(),
+                    isCompiled : info.isCompiled(),
+                    id : message.data.id,
+                    type : message.data.type
+                };
+                self.postMessage(msg);
             }
             catch(error){
                 msg = {
@@ -158,7 +164,7 @@ module Compiler
                     id          : message.data.id,
                     type        : message.data.type
                 };
-                self.postMessage(msg, null);
+                self.postMessage(msg);
             }
 
         },false);

@@ -8,7 +8,7 @@ var compiler;
         function CdvSinAnalyzer() {
         }
         return CdvSinAnalyzer;
-    })();
+    }());
     compiler.CdvSinAnalyzer = CdvSinAnalyzer;
 })(compiler || (compiler = {}));
 //# sourceMappingURL=CdvSintAnalyzer.js.map

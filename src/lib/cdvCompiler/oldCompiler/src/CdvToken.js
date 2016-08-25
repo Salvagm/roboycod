@@ -105,9 +105,37 @@ var compiler;
         // Token final fichero (26)
         CdvToken.EOF = 28;
         // Array que pasa del tipo numérico del token a la cadena asociada
-        CdvToken.tok2Str = ["(", ")", "[", "]", "{", "}", "< | > | <= | >= | == | !=", ";", ",", "=", "&&", "||", "nreal", "nentero", "int", "float", "char", "bool", "void", "cout", "<<", "endl", "true", "false", "if", "identificador", "+ | -", "/ | * | %", "fin de fichero"];
+        CdvToken.tok2Str = ["(",
+            ")",
+            "[",
+            "]",
+            "{",
+            "}",
+            "< | > | <= | >= | == | !=",
+            ";",
+            ",",
+            "=",
+            "&&",
+            "||",
+            "nreal",
+            "nentero",
+            "int",
+            "float",
+            "char",
+            "bool",
+            "void",
+            "cout",
+            "<<",
+            "endl",
+            "true",
+            "false",
+            "if",
+            "identificador",
+            "+ | -",
+            "/ | * | %",
+            "fin de fichero"];
         return CdvToken;
-    })();
+    }());
     compiler.CdvToken = CdvToken;
 })(compiler || (compiler = {}));
 //# sourceMappingURL=CdvToken.js.map

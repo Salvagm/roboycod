@@ -54,7 +54,7 @@ var compiler;
             this.test_Token_SaticToString();
         };
         return TestToken;
-    })();
+    }());
     compiler.TestToken = TestToken;
 })(compiler || (compiler = {}));
 //# sourceMappingURL=TestToken.js.map

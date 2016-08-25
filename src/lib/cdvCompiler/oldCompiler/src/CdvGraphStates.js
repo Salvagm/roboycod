@@ -104,7 +104,7 @@ var compiler;
         // Estado MULOP aceptado (20)
         CdvGraphStates.STATEMULOP = 20;
         return CdvGraphStates;
-    })();
+    }());
     compiler.CdvGraphStates = CdvGraphStates;
 })(compiler || (compiler = {}));
 //# sourceMappingURL=CdvGraphStates.js.map
