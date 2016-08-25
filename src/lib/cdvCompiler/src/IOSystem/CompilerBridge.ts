@@ -53,7 +53,7 @@ module IOSystem
             //TODO En un futuro cambiar para que pueda cargar otros compiladores distintos
 
             this.compilerWorker = new Worker("src/lib/cdvCompiler/src/Compiler/CCompiler.js");
-            this.compileMaxTime = 200000; // 2 segundos maximo
+            this.compileMaxTime = 2000; // 2 segundos maximo
             this.compilerWorker.addEventListener("message",this.proccessCompileMsg,false);
             this.compilerWorker.addEventListener("error",this.proccessCompileErr, false);
             //this.compilerWorker.postMessage({cmd : "load"});
